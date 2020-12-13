@@ -1,10 +1,27 @@
 # Ignore all files
 /*
+
+# Include contents from .config folder
 !/.config
 /.config/*
+## Add contents from .config folder
 !/.config/xmobar
+!/.config/alacritty
+!/.config/fish
+!/.config/mpd
+!/.config/ncmpcpp
+!/.config/nvim
+!/.config/rofi
+!/.config/vifm
+
+
+
+!/.config/retroarch
+/.config/retroarch/*
+!/.config/retroarch/retroarch.cfg
+
+
 
 # But not these files...
 !.gitignore
-
 
