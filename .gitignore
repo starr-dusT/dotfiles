@@ -1,10 +1,22 @@
-# Ignore all files
+# ignore all files initially
 /*
 
-# Include contents from .config folder
+### track the files below ###
+
+# ~/
+!.gitignore
+!.bashrc
+!.imwheelrc
+!.xinitrc
+
+## ~/.xmonad
+!/.xmonad
+/.xmonad/*
+!/.xmonad/xmonad.hs
+
+## ~/.config 
 !/.config
 /.config/*
-## Add contents from .config folder
 !/.config/xmobar
 !/.config/alacritty
 !/.config/fish
@@ -12,16 +24,11 @@
 !/.config/ncmpcpp
 !/.config/nvim
 !/.config/rofi
-!/.config/vifm
 
-
-
+### ~/.config/retroarch
 !/.config/retroarch
 /.config/retroarch/*
 !/.config/retroarch/retroarch.cfg
 
 
-
-# But not these files...
-!.gitignore
 
