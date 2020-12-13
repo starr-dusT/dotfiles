@@ -1,0 +1,10 @@
+# Ignore all files
+/*
+!/.config
+/.config/*
+!/.config/xmobar
+
+# But not these files...
+!.gitignore
+
+
