@@ -1,5 +1,5 @@
 # Speed up scrolling for the document viewer
-"^brave-browser$"
+"^firefox$"
     None, Up, Button4, 4
     None, Down, Button5, 4
 

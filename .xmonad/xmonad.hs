@@ -24,6 +24,8 @@ import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 import XMonad.Util.EZConfig
 import XMonad.Util.NamedScratchpad
+import XMonad.Actions.CopyWindow
+
 -- Actions
 import XMonad.Actions.DynamicProjects
 import XMonad.Actions.DynamicWorkspaces
@@ -87,11 +89,22 @@ myStartupHook = do
 ------------------------------------------------------------------------
 -- KEYBINDS 
 ------------------------------------------------------------------------
+
+-- Toggle global window
+toggleGlobal :: X ()
+toggleGlobal = do
+    ws <- wsContainingCopies
+    if null ws
+    then windows copyToAll
+    else killAllOtherCopies
+  
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- launch a terminal
     [ ((modm,  xK_Return), spawn $ XMonad.terminal conf)
     -- Launch emacs
     , ((modm,  xK_e), spawn "emacsclient -c")
+    -- Make focused window always visible
+    , ((modm, xK_a ), toggleGlobal) 
     -- Launch emacs
     , ((modm .|. shiftMask,  xK_e), spawn "emacsclient -e '(save-buffers-kill-emacs)'")
     -- Launch emacs
@@ -119,9 +132,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- move window to project prompt
     , ((modm .|. shiftMask, xK_BackSpace), removeWorkspace)
     -- terminal scratchpad
-    , ((modm, xK_n), namedScratchpadAction myScratchPads "newsboat")
+    , ((modm, xK_n), namedScratchpadAction myScratchPads "scr-mpv")
     -- discord scrathpad 
-    , ((modm, xK_d), namedScratchpadAction myScratchPads "discord-canary")
+    , ((modm, xK_d), namedScratchpadAction myScratchPads "discord")
     -- terminal scrathpad 
     , ((modm .|. shiftMask, xK_d), namedScratchpadAction myScratchPads "terminal")
     -- start gamemode 
@@ -129,7 +142,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- start gamemode 
     , ((modm .|. shiftMask, xK_g), spawn "killall gamemoded")
     -- launch firefox
-    , ((modm, xK_F1), spawn "brave")
+    , ((modm, xK_F1), spawn "firefox")
     -- launch discord 
     , ((modm, xK_F2), spawn "discord")
     -- launch lutris
@@ -218,8 +231,8 @@ myLayout = spacing 2 $ smartBorders (tiled ||| Mirror tiled ||| Full ||| ThreeCo
 ------------------------------------------------------------------------
 myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
-                , NS "newsboat" spawnNews findNews manageNews 
-                , NS "discord-canary"  spawnDiscord findDiscord manageDiscord ]
+                , NS "scr-mpv" findMpv
+                , NS "discord"  spawnDiscord findDiscord manageDiscord ]
     where
         spawnTerm  = myTerminal ++ " -t terminal" 
         findTerm   = title =? "terminal"
@@ -230,16 +243,9 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 t = 0.95 -h 
                 l = 0.95 -w
     
-        spawnNews  = myTerminal ++ " -t ncmpcpp -e ncmpcpp" 
-        findNews   = title =? "ncmpcpp" 
-        manageNews = customFloating $ W.RationalRect l t w h
-            where
-                h = 0.5
-                w = 0.5
-                t = 0.25 
-                l = 0.25 
+        findMpv   = title =? "scr-mpv" 
 
-        spawnDiscord  = "discord-canary"
+        spawnDiscord  = "discord"
         findDiscord   = appName =? "discord" 
         manageDiscord = customFloating $ W.RationalRect l t w h
             where
