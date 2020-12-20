@@ -8,6 +8,8 @@
 !.bashrc
 !.imwheelrc
 !.xinitrc
+!/.icons
+~/.themes
 
 ## ~/.xmonad
 !/.xmonad
