@@ -13,6 +13,7 @@
 !/.xmonad
 /.xmonad/*
 !/.xmonad/xmonad.hs
+!/.xmonad/xmonad.org
 
 ## ~/.config 
 !/.config
