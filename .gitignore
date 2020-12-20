@@ -9,7 +9,7 @@
 !.imwheelrc
 !.xinitrc
 !/.icons
-~/.themes
+!/.themes
 
 ## ~/.xmonad
 !/.xmonad
