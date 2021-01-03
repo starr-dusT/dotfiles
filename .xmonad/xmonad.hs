@@ -139,6 +139,7 @@ myManageHook = composeAll
      className =? "Anki" --> doFullFloat, 
      className =? "mpv" --> doRectFloat (W.RationalRect 0.55 0.05 0.4 0.4), 
      className =? "Steam" --> doFullFloat, 
+     className =? "microsoft teams - preview" --> doFullFloat, 
      namedScratchpadManageHook myScratchPads]
 
 myEventHook = mempty
@@ -230,7 +231,7 @@ main = do
     home <- getHomeDirectory
     xmproc0 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
     --
-    xmonad $ docks $ ewmh $ def
+    xmonad $ docks $ ewmh $ ewmhFullscreen def
         {
         -- Simple items 
         terminal = myTerminal,
