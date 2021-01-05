@@ -1,8 +1,9 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
-
+; Define This-System
+(setq this-system "kestrel")
+(setq system-category-1 '("kestrel" "basilisk" "adjudicator"))
+(setq system-category-2 '("kestrel"))
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.

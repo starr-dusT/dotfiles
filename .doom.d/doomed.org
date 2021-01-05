@@ -1,0 +1,460 @@
+#+TITLE: Doomed Config
+#+PROPERTY: header-args:emacs-lisp
+
+* Table of Contents
+:PROPERTIES:
+:TOC:      :include all :depth 3
+:END:
+
+* [config.el]
+** Lexical Binding
+
+Add lexical binding tag to top of config file.
+
+#+begin_src emacs-lisp :tangle "config.el"
+
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+
+#+end_src
+
+** This-System
+
+This section aims to allow users to select which portions of the configuration are used on different systems by defining this-system and the possible categories for systems. This system is simply a name identifying the current system the config is being used on. Then the categories (system-category-1, system-category-2, ...) define the possible different combinations of different systems that use that portion of the config. An example of a tangle tag follows:
+
+#+begin_src emacs-lisp
+
+:tangle (if (member this-system system-category-1) "file.extension" "no")
+
+#+end_src
+
+The above statement indicates that for following portion of the config, if the current system is a member of category-1 then it will be tangled and thus effectively added to the final config. As such, we can define different categories for the different permutations of systems that may need different portions of the config. Hopefully that all makes sense :)
+
+#+begin_src emacs-lisp :tangle "config.el"
+
+; Define This-System
+(setq this-system "kestrel")
+(setq system-category-1 '("kestrel" "basilisk" "adjudicator"))
+(setq system-category-2 '("kestrel"))
+
+#+end_src
+
+** Identity
+
+Stolen from default [[https://github.com/hlissner/doom-emacs][doom]] config.
+
+#+begin_src emacs-lisp :tangle "config.el"
+
+;; Some functionality uses this to identify you, e.g. GPG configuration, email
+;; clients, file templates and snippets.
+(setq user-full-name "Tyler Starr"
+      user-mail-address "starrtyler88@gmail.com")
+
+#+end_src
+
+** Modules
+
+Load modules with external configs.
+
+#+begin_src emacs-lisp :tangle "config.el"
+
+;; Here are some additional functions/macros that could help you configure Doom:
+;;
+;; - `load!' for loading external *.el files relative to this one
+;; - `use-package!' for configuring packages
+;; - `after!' for running code after a package has loaded
+;; - `add-load-path!' for adding directories to the `load-path', relative to
+;;   this file. Emacs searches the `load-path' when you load packages with
+;;   `require' or `use-package'.
+;; - `map!' for binding new keys
+;;
+;; To get information about any of these functions/macros, move the cursor over
+;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
+;; This will open documentation for it, including demos of how they are used.
+;;
+;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
+;; they are implemented.
+
+;; Modules
+(load! "+ui")
+(load! "+org")
+(load! "+gtd")
+
+#+end_src
+* [init.el]
+
+#+begin_src emacs-lisp :tangle "init.el"
+
+;;; init.el -*- lexical-binding: t; -*-
+
+;; This file controls what Doom modules are enabled and what order they load
+;; in. Remember to run 'doom sync' after modifying it!
+
+;; NOTE Press 'SPC h d h' (or 'C-h d h' for non-vim users) to access Doom's
+;;      documentation. There you'll find a "Module Index" link where you'll find
+;;      a comprehensive list of Doom's modules and what flags they support.
+
+;; NOTE Move your cursor over a module's name (or its flags) and press 'K' (or
+;;      'C-c c k' for non-vim users) to view its documentation. This works on
+;;      flags as well (those symbols that start with a plus).
+;;
+;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
+;;      directory (for easy access to its source code).
+
+(doom! :input
+       ;;chinese
+       ;;japanese
+       ;;layout            ; auie,ctsrnm is the superior home row
+
+       :completion
+       company           ; the ultimate code completion backend
+       ;;helm              ; the *other* search engine for love and life
+       ;;ido               ; the other *other* search engine...
+       ivy               ; a search engine for love and life
+
+       :ui
+       ;;deft              ; notational velocity for Emacs
+       doom              ; what makes DOOM look the way it does
+       doom-dashboard    ; a nifty splash screen for Emacs
+       doom-quit         ; DOOM quit-message prompts when you quit Emacs
+       ;;(emoji +unicode)  ; 🙂
+       ;;fill-column       ; a `fill-column' indicator
+       hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
+       ;;hydra
+       ;;indent-guides     ; highlighted indent columns
+       ;;ligatures         ; ligatures and symbols to make your code pretty again
+       ;;minimap           ; show a map of the code on the side
+       modeline          ; snazzy, Atom-inspired modeline, plus API
+       ;;nav-flash         ; blink cursor line after big motions
+       ;;neotree           ; a project drawer, like NERDTree for vim
+       ophints           ; highlight the region an operation acts on
+       (popup +defaults)   ; tame sudden yet inevitable temporary windows
+       ;;tabs              ; a tab bar for Emacs
+       ;;treemacs          ; a project drawer, like neotree but cooler
+       ;;unicode           ; extended unicode support for various languages
+       vc-gutter         ; vcs diff in the fringe
+       vi-tilde-fringe   ; fringe tildes to mark beyond EOB
+       ;;window-select     ; visually switch windows
+       workspaces        ; tab emulation, persistence & separate workspaces
+       ;;zen               ; distraction-free coding or writing
+
+       :editor
+       (evil +everywhere); come to the dark side, we have cookies
+       file-templates    ; auto-snippets for empty files
+       fold              ; (nigh) universal code folding
+       ;;(format +onsave)  ; automated prettiness
+       ;;god               ; run Emacs commands without modifier keys
+       ;;lispy             ; vim for lisp, for people who don't like vim
+       ;;multiple-cursors  ; editing in many places at once
+       ;;objed             ; text object editing for the innocent
+       ;;parinfer          ; turn lisp into python, sort of
+       ;;rotate-text       ; cycle region at point between text candidates
+       snippets          ; my elves. They type so I don't have to
+       ;;word-wrap         ; soft wrapping with language-aware indent
+
+       :emacs
+       dired             ; making dired pretty [functional]
+       electric          ; smarter, keyword-based electric-indent
+       ;;ibuffer         ; interactive buffer management
+       undo              ; persistent, smarter undo for your inevitable mistakes
+       vc                ; version-control and Emacs, sitting in a tree
+
+       :term
+       ;;eshell            ; the elisp shell that works everywhere
+       ;;shell             ; simple shell REPL for Emacs
+       ;;term              ; basic terminal emulator for Emacs
+       ;;vterm             ; the best terminal emulation in Emacs
+
+       :checkers
+       syntax              ; tasing you for every semicolon you forget
+       ;;spell             ; tasing you for misspelling mispelling
+       ;;grammar           ; tasing grammar mistake every you make
+
+       :tools
+       ;;ansible
+       ;;debugger          ; FIXME stepping through code, to help you add bugs
+       ;;direnv
+       ;;docker
+       ;;editorconfig      ; let someone else argue about tabs vs spaces
+       ;;ein               ; tame Jupyter notebooks with emacs
+       (eval +overlay)     ; run code, run (also, repls)
+       ;;gist              ; interacting with github gists
+       lookup              ; navigate your code and its documentation
+       ;;lsp
+       magit             ; a git porcelain for Emacs
+       ;;make              ; run make tasks from Emacs
+       ;;pass              ; password manager for nerds
+       ;;pdf               ; pdf enhancements
+       ;;prodigy           ; FIXME managing external services & code builders
+       ;;rgb               ; creating color strings
+       ;;taskrunner        ; taskrunner for all your projects
+       ;;terraform         ; infrastructure as code
+       ;;tmux              ; an API for interacting with tmux
+       ;;upload            ; map local to remote projects via ssh/ftp
+
+       :os
+       (:if IS-MAC macos)  ; improve compatibility with macOS
+       ;;tty               ; improve the terminal Emacs experience
+
+       :lang
+       ;;agda              ; types of types of types of types...
+       ;;cc                ; C/C++/Obj-C madness
+       ;;clojure           ; java with a lisp
+       ;;common-lisp       ; if you've seen one lisp, you've seen them all
+       ;;coq               ; proofs-as-programs
+       ;;crystal           ; ruby at the speed of c
+       ;;csharp            ; unity, .NET, and mono shenanigans
+       ;;data              ; config/data formats
+       ;;(dart +flutter)   ; paint ui and not much else
+       ;;elixir            ; erlang done right
+       ;;elm               ; care for a cup of TEA?
+       emacs-lisp        ; drown in parentheses
+       ;;erlang            ; an elegant language for a more civilized age
+       ;;ess               ; emacs speaks statistics
+       ;;faust             ; dsp, but you get to keep your soul
+       ;;fsharp            ; ML stands for Microsoft's Language
+       ;;fstar             ; (dependent) types and (monadic) effects and Z3
+       ;;gdscript          ; the language you waited for
+       ;;(go +lsp)         ; the hipster dialect
+       ;;(haskell +dante)  ; a language that's lazier than I am
+       ;;hy                ; readability of scheme w/ speed of python
+       ;;idris             ; a language you can depend on
+       ;;json              ; At least it ain't XML
+       ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
+       ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
+       ;;julia             ; a better, faster MATLAB
+       ;;kotlin            ; a better, slicker Java(Script)
+       ;;latex             ; writing papers in Emacs has never been so fun
+       ;;lean
+       ;;factor
+       ;;ledger            ; an accounting system in Emacs
+       ;;lua               ; one-based indices? one-based indices
+       markdown          ; writing docs for people to ignore
+       ;;nim               ; python + lisp at the speed of c
+       ;;nix               ; I hereby declare "nix geht mehr!"
+       ;;ocaml             ; an objective camel
+       org               ; organize your plain life in plain text
+       ;;php               ; perl's insecure younger brother
+       ;;plantuml          ; diagrams for confusing people more
+       ;;purescript        ; javascript, but functional
+       ;;python            ; beautiful is better than ugly
+       ;;qt                ; the 'cutest' gui framework ever
+       ;;racket            ; a DSL for DSLs
+       ;;raku              ; the artist formerly known as perl6
+       ;;rest              ; Emacs as a REST client
+       ;;rst               ; ReST in peace
+       ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+       ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       ;;scala             ; java, but good
+       ;;scheme            ; a fully conniving family of lisps
+       sh                ; she sells {ba,z,fi}sh shells on the C xor
+       ;;sml
+       ;;solidity          ; do you need a blockchain? No.
+       ;;swift             ; who asked for emoji variables?
+       ;;terra             ; Earth and Moon in alignment for performance.
+       ;;web               ; the tubes
+       ;;yaml              ; JSON, but readable
+
+       :email
+       ;;(mu4e +gmail)
+       ;;notmuch
+       ;;(wanderlust +gmail)
+
+       :app
+       ;;calendar
+       ;;irc               ; how neckbeards socialize
+       ;;(rss +org)        ; emacs as an RSS reader
+       ;;twitter           ; twitter client https://twitter.com/vnought
+
+       :config
+       ;;literate
+       (default +bindings +smartparens))
+
+#+end_src
+
+* [+gtd.el]
+** Lexical Binding
+
+Add lexical binding tag to top of the file.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "+gtd.el" "no")
+
+;;; +gtd.el -*- lexical-binding: t; -*-
+
+#+end_src
+
+** Org File Paths
+
+Define the folder structure for my gtd-esque setup. I don't declaritvely define every file within this folder stucture, but search for .org files within four primary folders: capture, agenda, todo, and note.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "+gtd.el" "no")
+
+(after! org
+  (setq org-capture (directory-files-recursively
+                     (concat org-directory "gtd/capture/") "\.org$"))
+  (setq org-agenda (directory-files-recursively
+                    (concat org-directory "gtd/agenda/") "\.org$"))
+  (setq org-todo (directory-files-recursively
+                  (concat org-directory "gtd/todo/") "\.org$"))
+  (setq org-note (directory-files-recursively
+                  (concat org-directory "gtd/note/") "\.org$"))
+  (setq org-agenda-files (append org-capture org-agenda org-todo))
+  (setq org-default-notes-file org-note)
+
+#+end_src
+
+** Tasks
+
+Define the org todo keywords we'll use.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "+gtd.el" "no")
+
+  (setq org-todo-keywords
+        (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+                (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|"
+                          "CANCELLED(c@/!)"))))
+
+#+end_src
+** Tags
+
+Define the A tier tags.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "+gtd.el" "no")
+
+(setq org-tag-alist
+  '((:startgroup)
+    ; Put mutually exclusive tags here
+    (:endgroup)
+    ("@home" . ?H)
+    ("@work" . ?W)
+    ("note" . ?n)
+    ("question" . ?q)
+    ("habit" . ?h)
+    ("recurring" . ?r)))
+
+#+end_src
+
+** Capture
+*** Capture File Paths
+
+Define the different files that are used for capture. Currently, I use inbox.org for TODO esque items and note.org for notes.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "+gtd.el" "no")
+
+  (setq org-capture-todo (concat org-directory "gtd/capture/inbox.org"))
+  (setq org-capture-note (concat org-directory "gtd/capture/note.org"))
+
+#+end_src
+
+*** Capture Templates
+
+Setup org-capture templates for nice capturing.
+
+Allowable tags: @work, @home, note, question, habit
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "+gtd.el" "no")
+
+  (setq org-capture-templates
+        (doct '(("personal" :keys "p"
+                 :children (("todo" :keys "t"
+                             :file org-capture-todo
+                             :template ("* TODO %? :@home:" "%U"))
+                            ("question" :keys "q"
+                             :file org-capture-todo
+                             :template ("* TODO Find out %? :question:@home:"
+                                        "%U"))
+                            ("habit" :keys "h"
+                             :file org-capture-todo
+                             :template ("* NEXT %? :habit:@home:" "%U"
+                                        "SCHEDULED: %(format-time-string
+                                         \"%<<%Y-%m-%d %a .+1d/3d>>\")"
+                                        ":PROPERTIES:" ":STYLE: habit"
+                                        ":REPEAT_TO_STATE: NEXT" ":END:"))
+                            ("meeting" :keys "m"
+                             :children (("reoccuring" :keys "r"
+                                         :file org-capture-todo
+                                         :template ("* NEXT %? :meeting:@home:"
+                                                    "%U" "SCHEDULED:
+                                                     %(format-time-string
+                                                     \"%<<%Y-%m-%d %a +7d>>\")"
+                                                    ":PROPERTIES:"
+                                                    ":REPEAT_TO_STATE: NEXT"
+                                                    ":END:"))))
+                            ("note" :keys "n"
+                             :file org-capture-note
+                             :template ("* %? :note:@home:" "%U"))))
+                ("work" :keys "w"
+                 :children (("todo" :keys "t"
+                             :file org-capture-todo
+                             :template ("* TODO %? :@work:" "%U"))
+                            ("question" :keys "q"
+                             :file org-capture-todo
+                             :template ("* TODO Find out %? :question:@work:"
+                                        "%U"))
+                            ("habit" :keys "h"
+                             :file org-capture-todo
+                             :template ("* NEXT %? :habit:@work:" "%U"
+                                        "SCHEDULED: %(format-time-string
+                                         \"%<<%Y-%m-%d %a .+1d/3d>>\")"
+                                        ":PROPERTIES:" ":STYLE: habit"
+                                        ":REPEAT_TO_STATE: NEXT" ":END:"))
+                            ("meeting" :keys "m"
+                             :children (("reoccuring" :keys "r"
+                                         :file org-capture-todo
+                                         :template ("* NEXT %? :meeting:@work:"
+                                                    "%U" "SCHEDULED:
+                                                     %(format-time-string
+                                                     \"%<<%Y-%m-%d %a +7d>>\")"
+                                                    ":PROPERTIES:"
+                                                    ":REPEAT_TO_STATE: NEXT"
+                                                    ":END:"))))
+                            ("note" :keys "n"
+                             :file org-capture-note
+                             :template ("* %? :note:@work:" "%U")))))))
+
+#+end_src
+
+** Refile
+
+Set various refile settings. Mostly stolen from the great http://doc.norang.ca/org-mode.html.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "+gtd.el" "no")
+
+(setq org-refile-targets (quote ((nil :maxlevel . 3)
+                                 (org-agenda-files :maxlevel . 3))))
+
+(advice-add 'org-refile :after 'org-save-all-org-buffers)
+
+#+end_src
+** Super-Org-Agenda
+
+I use the awesome [[https://github.com/alphapapa/org-super-agenda][super-org-agenda]] to setup my custom agenda views.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "+gtd.el" "no")
+
+(setq org-super-agenda-header-map (make-sparse-keymap))
+
+(setq org-agenda-custom-commands
+      '(("d" "Daily Agenda"
+         ((agenda "" ((org-agenda-span 'day)
+                      (org-super-agenda-groups
+                       '((:name "LATE"
+                                :face (:underline t)
+                                :deadline past)
+                         (:name "TODAY"
+                                :time-grid t
+                                :scheduled today
+                                :deadline today)
+                         (:name "SOON"
+                                :time-grid t
+                                :scheduled "+7"
+                                :deadline "+7")))))
+          (todo "" ((org-agenda-overriding-header "")
+                       (org-super-agenda-groups
+                       '((:name "OPEN PROJECTS"
+                                :children t)))))))))
+
+(after! org-agenda
+  (org-super-agenda-mode))) ; Close the after! org expression from
+                            ; Org File Paths
+
+#+End_src
