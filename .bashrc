@@ -2,7 +2,7 @@
 # ~/.bashrc
 #
 
-export PATH=$PATH:~/.local/bin
+#export PATH=$PATH:~/.local/bin
 alias lol="sudo sh -c 'sysctl -w abi.vsyscall32=0'"
 alias dired="emacsclient -c -nw -a '' --eval '(dired nil)'"
 alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"

@@ -200,7 +200,7 @@ myKeys home =
     , ("M-v", namedScratchpadAction myScratchPads "scr-mpv")
 
     -- Spawn firefox 
-    , ("M-o f"  , spawn "firefox")
+    , ("M-o b"  , spawn "brave")
     -- Spawn lutris 
     , ("M-o l"  , spawn "lutris")
     -- Spawn steam 

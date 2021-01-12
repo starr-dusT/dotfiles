@@ -50,4 +50,15 @@
 ;(unpin! t)
 
 (package! doct)
+(package! org-ql)
 (package! org-super-agenda)
+
+(package! org-super-agenda :recipe
+  (:host github
+   :repo "starr-dusT/org-super-agenda"
+   :branch "master"))
+
+(package! org-ql :recipe
+  (:host github
+   :repo "starr-dusT/org-ql"
+   :branch "master"))
