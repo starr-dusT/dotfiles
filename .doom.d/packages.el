@@ -62,3 +62,8 @@
   (:host github
    :repo "starr-dusT/org-ql"
    :branch "master"))
+
+(package! burly.el :recipe
+  (:host github
+   :repo "starr-dusT/burly.el"
+   :branch "master"))
