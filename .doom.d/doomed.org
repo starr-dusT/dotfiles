@@ -372,6 +372,8 @@ Load modules with external configs.
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
+(which-key-mode)
+
 #+end_src
 * [+org.el]
 
@@ -425,6 +427,14 @@ Define the org todo keywords we'll use.
                 (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|"
                           "CANCELLED(c@/!)"))))
 
+(setq org-todo-keyword-faces
+      (quote (("TODO" :foreground "red" :weight bold)
+              ("NEXT" :foreground "blue" :weight bold)
+              ("DONE" :foreground "forest green" :weight bold)
+              ("WAITING" :foreground "orange" :weight bold)
+              ("HOLD" :foreground "magenta" :weight bold)
+              ("CANCELLED" :foreground "forest green" :weight bold))))
+
 #+end_src
 ** Tags
 
@@ -454,6 +464,7 @@ Define the different files that are used for capture. Currently, I use inbox.org
 
   (setq org-capture-todo (concat org-directory "gtd/capture/inbox.org"))
   (setq org-capture-note (concat org-directory "gtd/capture/note.org"))
+
 
 #+end_src
 
@@ -544,7 +555,7 @@ Currenlty I prefer to used vanilla Org-Agenda to view currently scheduled agenda
 #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "+gtd.el" "no")
 
 ; Open a view with need buffers for planning!
-(defun ts/open-user-agenda ()
+(defun ts/replace-with-agenda-collection ()
        (interactive)
        (org-agenda nil "t")
        (delete-other-windows)
@@ -568,7 +579,25 @@ Setup those afformentioned fancy sorting setups!
 (setq org-super-agenda-header-map (make-sparse-keymap))
 
 (setq org-ql-views
-      (list (cons "Week Overview"
+      (list (cons "Weekly Agenda"
+                  (lambda ()
+                   "Open agenda for week."
+                   (interactive)
+                   (org-agenda nil "t")))
+            (cons "Tasks to Refile"
+                  (lambda ()
+                  "Find tasks to refile."
+                  (interactive)
+                  (org-ql-search (list org-capture-todo org-capture-note)
+                    '(or (not (done))
+                         (done))
+                    :title "Tasks to Refile"
+                    :sort '(date priority todo)
+                    :super-groups '((:name "Todos"
+                                    :not (:tag "note"))
+                                    (:name "Notes"
+                                     :tag "note")))))
+            (cons "Weeks Progress"
                   (lambda ()
                   "launch an agenda-like view at the specified date."
                   (interactive)
@@ -592,7 +621,15 @@ Setup those afformentioned fancy sorting setups!
                                        :deadline today)
                                       (:name "Coming Up"
                                        :scheduled future
-                                       :deadline future))))))))
+                                       :deadline future))))))
+
+
+
+
+
+
+                ))
+
 
 (after! org-agenda
   (org-super-agenda-mode))) ; Close the after! org expression from

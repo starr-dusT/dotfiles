@@ -17,6 +17,14 @@
                 (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|"
                           "CANCELLED(c@/!)"))))
 
+(setq org-todo-keyword-faces
+      (quote (("TODO" :foreground "red" :weight bold)
+              ("NEXT" :foreground "blue" :weight bold)
+              ("DONE" :foreground "forest green" :weight bold)
+              ("WAITING" :foreground "orange" :weight bold)
+              ("HOLD" :foreground "magenta" :weight bold)
+              ("CANCELLED" :foreground "forest green" :weight bold))))
+
 (setq org-tag-alist
   '((:startgroup)
     ; Put mutually exclusive tags here
@@ -94,6 +102,15 @@
 
 (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
+; Open a view with need buffers for planning!
+(defun ts/replace-with-agenda-collection ()
+       (interactive)
+       (org-agenda nil "t")
+       (delete-other-windows)
+       (get-buffer "*Org Agenda*")
+       (org-ql-view "Week Overview")
+       (org-ql-view-sidebar))
+
 (setq org-agenda-start-day "0d")
 
 (setq org-agenda-custom-commands
@@ -104,7 +121,25 @@
 (setq org-super-agenda-header-map (make-sparse-keymap))
 
 (setq org-ql-views
-      (list (cons "Week Overview"
+      (list (cons "Weekly Agenda"
+                  (lambda ()
+                   "Open agenda for week."
+                   (interactive)
+                   (org-agenda nil "t")))
+            (cons "Tasks to Refile"
+                  (lambda ()
+                  "Find tasks to refile."
+                  (interactive)
+                  (org-ql-search (list org-capture-todo org-capture-note)
+                    '(or (not (done))
+                         (done))
+                    :title "Tasks to Refile"
+                    :sort '(date priority todo)
+                    :super-groups '((:name "Todos"
+                                    :not (:tag "note"))
+                                    (:name "Notes"
+                                     :tag "note")))))
+            (cons "Weeks Progress"
                   (lambda ()
                   "launch an agenda-like view at the specified date."
                   (interactive)
@@ -128,7 +163,15 @@
                                        :deadline today)
                                       (:name "Coming Up"
                                        :scheduled future
-                                       :deadline future))))))))
+                                       :deadline future))))))
+
+
+
+
+
+
+                ))
+
 
 (after! org-agenda
   (org-super-agenda-mode))) ; Close the after! org expression from
