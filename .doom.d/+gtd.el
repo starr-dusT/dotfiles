@@ -17,13 +17,16 @@
                 (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|"
                           "CANCELLED(c@/!)"))))
 
-(setq org-todo-keyword-faces
+  ; TODO add (1)...(10) numbers for task ordering (replacing "next")
+  (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "red" :weight bold)
-              ("NEXT" :foreground "blue" :weight bold)
-              ("DONE" :foreground "forest green" :weight bold)
-              ("WAITING" :foreground "orange" :weight bold)
-              ("HOLD" :foreground "magenta" :weight bold)
-              ("CANCELLED" :foreground "forest green" :weight bold))))
+              ("CHASE" :foreground "red" :weight bold)
+              ("WIP" :foreground "blue" :weight bold)
+              ("GAVE" :foreground "orange" :weight bold)
+              ("KILL" :foreground "forest green" :weight bold)
+              ("DONE" :foreground "forest green" :weight bold))))
+
+(setq org-use-tag-inheritance t)
 
 (setq org-tag-alist
   '((:startgroup)
@@ -118,61 +121,61 @@
          ((org-agenda-overriding-header "Today's agenda")
           (org-agenda-span 'day)))))
 
+(setq org-ql-weekly-agenda
+    (cons "Weekly Agenda"
+            (lambda ()
+            "Open agenda for week."
+            (interactive)
+            (org-agenda nil "t"))))
+
+(setq org-ql-refile-tasks
+    (cons "Tasks to Refile"
+            (lambda ()
+            "Find tasks to refile."
+            (interactive)
+            (org-ql-search (list org-capture-todo org-capture-note)
+            '(or (not (done))
+                    (done))
+            :title "Tasks to Refile"
+            :sort '(date priority todo)
+            :super-groups '((:name "Todos"
+                            :not (:tag "note"))
+                            (:name "Notes"
+                                :tag "note"))))))
+
+(setq org-ql-weeks-progress
+    (cons "This Weeks Progress"
+        (lambda ()
+        "launch an agenda-like view at the specified date."
+        (interactive)
+        (let* ((ts (ts-now))
+                (beg-of-week (->> ts
+                                (ts-adjust 'day (- (ts-dow (ts-now))))
+                                (ts-apply :hour 0 :minute 0 :second 0)))
+                (end-of-week (->> ts
+                                (ts-adjust 'day (- 6 (ts-dow (ts-now))))
+                                (ts-apply :hour 23 :minute 59 :second 59))))
+        (org-ql-search (org-agenda-files)
+            '(ts-active :from beg-of-week :to end-of-week)
+            :title "Week Overview"
+            :sort '(date priority todo)
+            :super-groups '((:name "Late"
+                            :scheduled past
+                            :deadline past)
+                            (:name "Today"
+                            :time-grid t
+                            :scheduled today
+                            :deadline today)
+                            (:name "Coming Up"
+                            :scheduled future
+                            :deadline future)))))))
+
 (setq org-super-agenda-header-map (make-sparse-keymap))
 
 (setq org-ql-views
-      (list (cons "Weekly Agenda"
-                  (lambda ()
-                   "Open agenda for week."
-                   (interactive)
-                   (org-agenda nil "t")))
-            (cons "Tasks to Refile"
-                  (lambda ()
-                  "Find tasks to refile."
-                  (interactive)
-                  (org-ql-search (list org-capture-todo org-capture-note)
-                    '(or (not (done))
-                         (done))
-                    :title "Tasks to Refile"
-                    :sort '(date priority todo)
-                    :super-groups '((:name "Todos"
-                                    :not (:tag "note"))
-                                    (:name "Notes"
-                                     :tag "note")))))
-            (cons "Weeks Progress"
-                  (lambda ()
-                  "launch an agenda-like view at the specified date."
-                  (interactive)
-                  (let* ((ts (ts-now))
-                         (beg-of-week (->> ts
-                                           (ts-adjust 'day (- (ts-dow (ts-now))))
-                                           (ts-apply :hour 0 :minute 0 :second 0)))
-                         (end-of-week (->> ts
-                                           (ts-adjust 'day (- 6 (ts-dow (ts-now))))
-                                           (ts-apply :hour 23 :minute 59 :second 59))))
-                    (org-ql-search (org-agenda-files)
-                      '(ts-active :from beg-of-week :to end-of-week)
-                      :title "Week Overview"
-                      :sort '(date priority todo)
-                      :super-groups '((:name "Late"
-                                       :scheduled past
-                                       :deadline past)
-                                      (:name "Today"
-                                       :time-grid t
-                                       :scheduled today
-                                       :deadline today)
-                                      (:name "Coming Up"
-                                       :scheduled future
-                                       :deadline future))))))
-
-
-
-
-
-
-                ))
-
-
+      (list org-ql-weekly-agenda
+            org-ql-refile-tasks
+            org-ql-weeks-progress))
 (after! org-agenda
-  (org-super-agenda-mode))) ; Close the after! org expression from
+(org-super-agenda-mode)))   ; Close the after! org expression from
                             ; Org File Paths

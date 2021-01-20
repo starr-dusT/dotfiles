@@ -197,14 +197,14 @@ Load modules with external configs.
        ;;hydra
        ;;indent-guides     ; highlighted indent columns
        ;;ligatures         ; ligatures and symbols to make your code pretty again
-       ;;minimap           ; show a map of the code on the side
+       minimap           ; show a map of the code on the side
        modeline          ; snazzy, Atom-inspired modeline, plus API
        ;;nav-flash         ; blink cursor line after big motions
        ;;neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
        (popup +defaults)   ; tame sudden yet inevitable temporary windows
        ;;tabs              ; a tab bar for Emacs
-       ;;treemacs          ; a project drawer, like neotree but cooler
+       treemacs          ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
@@ -216,7 +216,7 @@ Load modules with external configs.
        (evil +everywhere); come to the dark side, we have cookies
        file-templates    ; auto-snippets for empty files
        fold              ; (nigh) universal code folding
-       ;;(format +onsave)  ; automated prettiness
+       (format +onsave)  ; automated prettiness
        ;;god               ; run Emacs commands without modifier keys
        ;;lispy             ; vim for lisp, for people who don't like vim
        ;;multiple-cursors  ; editing in many places at once
@@ -427,13 +427,14 @@ Define the org todo keywords we'll use.
                 (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|"
                           "CANCELLED(c@/!)"))))
 
-(setq org-todo-keyword-faces
+  ; TODO add (1)...(10) numbers for task ordering (replacing "next")
+  (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "red" :weight bold)
-              ("NEXT" :foreground "blue" :weight bold)
-              ("DONE" :foreground "forest green" :weight bold)
-              ("WAITING" :foreground "orange" :weight bold)
-              ("HOLD" :foreground "magenta" :weight bold)
-              ("CANCELLED" :foreground "forest green" :weight bold))))
+              ("CHASE" :foreground "red" :weight bold)
+              ("WIP" :foreground "blue" :weight bold)
+              ("GAVE" :foreground "orange" :weight bold)
+              ("KILL" :foreground "forest green" :weight bold)
+              ("DONE" :foreground "forest green" :weight bold))))
 
 #+end_src
 ** Tags
@@ -441,6 +442,8 @@ Define the org todo keywords we'll use.
 Define the A tier tags.
 
 #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "+gtd.el" "no")
+
+(setq org-use-tag-inheritance t)
 
 (setq org-tag-alist
   '((:startgroup)
@@ -548,9 +551,10 @@ Set various refile settings. Mostly stolen from the great http://doc.norang.ca/o
 (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
 #+end_src
-** Agenda Views
+** Views
+*** Agenda
 
-Currenlty I prefer to used vanilla Org-Agenda to view currently scheduled agenda items without any fancy sorting or anything like that. Following config items will utilizes the awesome [[https://github.com/alphapapa/org-ql#function-org-ql-block][org-ql]] and [[https://github.com/alphapapa/org-super-agenda][super-org-agenda]] to setup custom views with fancy sorting and insights. More details to follow!
+Currenlty I prefer to used vanilla Org-Agenda to view currently scheduled agenda items without any fancy sorting or anything like that.
 
 #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "+gtd.el" "no")
 
@@ -570,69 +574,91 @@ Currenlty I prefer to used vanilla Org-Agenda to view currently scheduled agenda
          ((org-agenda-overriding-header "Today's agenda")
           (org-agenda-span 'day)))))
 
-#+End_src
+#+end_src
 
-Setup those afformentioned fancy sorting setups!
+*** Org-ql
+
+Following config items will utilizes the awesome [[https://github.com/alphapapa/org-ql#function-org-ql-block][org-ql]] and [[https://github.com/alphapapa/org-super-agenda][super-org-agenda]] to setup custom views with fancy sorting and insights. More details to follow!
+
+**** Weekly Agenda
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "+gtd.el" "no")
+
+(setq org-ql-weekly-agenda
+    (cons "Weekly Agenda"
+            (lambda ()
+            "Open agenda for week."
+            (interactive)
+            (org-agenda nil "t"))))
+
+#+end_src
+
+**** Tasks to Refile
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "+gtd.el" "no")
+
+(setq org-ql-refile-tasks
+    (cons "Tasks to Refile"
+            (lambda ()
+            "Find tasks to refile."
+            (interactive)
+            (org-ql-search (list org-capture-todo org-capture-note)
+            '(or (not (done))
+                    (done))
+            :title "Tasks to Refile"
+            :sort '(date priority todo)
+            :super-groups '((:name "Todos"
+                            :not (:tag "note"))
+                            (:name "Notes"
+                                :tag "note"))))))
+
+#+end_src
+
+**** This Weeks Progress
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "+gtd.el" "no")
+
+(setq org-ql-weeks-progress
+    (cons "This Weeks Progress"
+        (lambda ()
+        "launch an agenda-like view at the specified date."
+        (interactive)
+        (let* ((ts (ts-now))
+                (beg-of-week (->> ts
+                                (ts-adjust 'day (- (ts-dow (ts-now))))
+                                (ts-apply :hour 0 :minute 0 :second 0)))
+                (end-of-week (->> ts
+                                (ts-adjust 'day (- 6 (ts-dow (ts-now))))
+                                (ts-apply :hour 23 :minute 59 :second 59))))
+        (org-ql-search (org-agenda-files)
+            '(ts-active :from beg-of-week :to end-of-week)
+            :title "Week Overview"
+            :sort '(date priority todo)
+            :super-groups '((:name "Late"
+                            :scheduled past
+                            :deadline past)
+                            (:name "Today"
+                            :time-grid t
+                            :scheduled today
+                            :deadline today)
+                            (:name "Coming Up"
+                            :scheduled future
+                            :deadline future)))))))
+
+#+end_src
+
+**** Final
 
 #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "+gtd.el" "no")
 
 (setq org-super-agenda-header-map (make-sparse-keymap))
 
 (setq org-ql-views
-      (list (cons "Weekly Agenda"
-                  (lambda ()
-                   "Open agenda for week."
-                   (interactive)
-                   (org-agenda nil "t")))
-            (cons "Tasks to Refile"
-                  (lambda ()
-                  "Find tasks to refile."
-                  (interactive)
-                  (org-ql-search (list org-capture-todo org-capture-note)
-                    '(or (not (done))
-                         (done))
-                    :title "Tasks to Refile"
-                    :sort '(date priority todo)
-                    :super-groups '((:name "Todos"
-                                    :not (:tag "note"))
-                                    (:name "Notes"
-                                     :tag "note")))))
-            (cons "Weeks Progress"
-                  (lambda ()
-                  "launch an agenda-like view at the specified date."
-                  (interactive)
-                  (let* ((ts (ts-now))
-                         (beg-of-week (->> ts
-                                           (ts-adjust 'day (- (ts-dow (ts-now))))
-                                           (ts-apply :hour 0 :minute 0 :second 0)))
-                         (end-of-week (->> ts
-                                           (ts-adjust 'day (- 6 (ts-dow (ts-now))))
-                                           (ts-apply :hour 23 :minute 59 :second 59))))
-                    (org-ql-search (org-agenda-files)
-                      '(ts-active :from beg-of-week :to end-of-week)
-                      :title "Week Overview"
-                      :sort '(date priority todo)
-                      :super-groups '((:name "Late"
-                                       :scheduled past
-                                       :deadline past)
-                                      (:name "Today"
-                                       :time-grid t
-                                       :scheduled today
-                                       :deadline today)
-                                      (:name "Coming Up"
-                                       :scheduled future
-                                       :deadline future))))))
-
-
-
-
-
-
-                ))
-
-
+      (list org-ql-weekly-agenda
+            org-ql-refile-tasks
+            org-ql-weeks-progress))
 (after! org-agenda
-  (org-super-agenda-mode))) ; Close the after! org expression from
+(org-super-agenda-mode)))   ; Close the after! org expression from
                             ; Org File Paths
 
-#+End_src
+#+end_src
