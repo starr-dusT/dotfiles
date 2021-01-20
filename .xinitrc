@@ -1,1 +1,1 @@
-exec xmonad
+exec qtile 

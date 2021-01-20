@@ -36,5 +36,10 @@
 /.config/retroarch/*
 !/.config/retroarch/retroarch.cfg
 
-
+### ~/.config/retroarch
+!/.config/qtile
+/.config/qtile/*
+!/.config/qtile/autostart.sh
+!/.config/qtile/config.org
+!/.config/qtile/config.py
 

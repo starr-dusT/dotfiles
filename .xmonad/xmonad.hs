@@ -27,11 +27,15 @@ import XMonad.Util.NamedScratchpad
 import XMonad.Util.EZConfig (additionalKeysP, removeKeys)
 
 -- Actions
+import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), nextScreen, prevScreen)
 import XMonad.Actions.DynamicProjects
 import XMonad.Actions.DynamicWorkspaces
 
 -- Prompt
 import XMonad.Prompt
+
+-- Data
+import Data.Maybe (isJust)
 
 -- Terminal to use
 myTerminal      = "alacritty"
@@ -173,10 +177,10 @@ myKeys home =
     , ("M-l", sendMessage Expand)
     -- Push window back into tiling
     , ("M-t", withFocused $ windows . W.sink)
-    -- Increment the number of windows in the master area
-    , ("M-,", sendMessage (IncMasterN 1))
-    -- Deincrement the number of windows in the master area
-    , ("M-.", sendMessage (IncMasterN (-1)))
+    , ("M-.", nextScreen)  -- Switch focus to next monitor
+    , ("M-,", prevScreen)  -- Switch focus to prev monitor
+    , ("M-S-<KP_Add>", shiftTo Next nonNSP >> moveTo Next nonNSP)       -- Shifts focused window to next ws
+    , ("M-S-<KP_Subtract>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
 
     -- Spawn terminal 
     , ("M-<Return>"  , spawn "alacritty")
@@ -219,6 +223,8 @@ myKeys home =
     -- Stop gamemode 
     , ("M-x S-g", spawn "killall gamemoded")
   ]
+     where nonNSP          = WSIs (return (\ws -> W.tag ws /= "nsp"))
+           nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "nsp"))
 
 rmKeys :: String -> [(KeyMask, KeySym)]
 rmKeys keys = 
