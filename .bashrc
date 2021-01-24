@@ -21,7 +21,6 @@ alias mpv='mpv --title="mpv"'
 alias dot='/usr/bin/git --git-dir=$HOME/.dots --work-tree=$HOME'
 dot config --local status.showUntrackedFiles no
 
-
 #export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
 #export GEM_HOME=$(ruby -e 'print Gem.user_dir')
 

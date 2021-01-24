@@ -38,8 +38,5 @@
 
 ### ~/.config/retroarch
 !/.config/qtile
-/.config/qtile/*
-!/.config/qtile/autostart.sh
-!/.config/qtile/config.org
-!/.config/qtile/config.py
-
+/.config/qtile/__pycache__
+/.config/qtile/settings/__pycache__

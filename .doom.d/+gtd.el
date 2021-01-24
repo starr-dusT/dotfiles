@@ -46,10 +46,11 @@
         (doct '(("personal" :keys "p"
                  :children (("todo" :keys "t"
                              :file org-capture-todo
-                             :template ("* TODO %? :@home:" "%U"))
+                             :template ("* TODO %? :@home:" "%a" "%U"))
                             ("question" :keys "q"
                              :file org-capture-todo
                              :template ("* TODO Find out %? :question:@home:"
+                                        "%a"
                                         "%U"))
                             ("habit" :keys "h"
                              :file org-capture-todo
