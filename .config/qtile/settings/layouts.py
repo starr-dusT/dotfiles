@@ -25,6 +25,7 @@ floating_layout = layout.Floating(
     float_rules=[
         {'wmclass': 'Steam'},
         {'wmclass': 'Wine'},
+        {'wmclass': 'discord'},
     ],
     border_focus=wal['colors']['color2'],
     border_width=1,

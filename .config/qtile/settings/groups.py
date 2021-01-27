@@ -1,10 +1,10 @@
-from libqtile.config import Key, Group
+from libqtile.config import Key, Group, ScratchPad, DropDown, Match, hook
 from libqtile.command import lazy
 from settings.keys import mod, keys
 
 # Define groups I have
 groups = [Group(i) for i in [
-    "1", "2", "3", "4", "5", "6", "7", "8", "9",
+    "1", "2", "3", "4", "5"
 ]]
 
 # Define keybinds for groups
@@ -16,3 +16,12 @@ for i, group in enumerate(groups):
         # Send window to workspace N
         Key([mod, "shift"], actual_key, lazy.window.togroup(group.name))
     ])
+
+groups.append(
+    Group("Comm", spawn="discord", persist=True)
+)
+
+keys.extend([
+    Key([mod], "d", lazy.group["Comm"].toscreen())
+])
+

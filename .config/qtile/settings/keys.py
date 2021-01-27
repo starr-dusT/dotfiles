@@ -1,8 +1,27 @@
 from libqtile.config import EzKey
 from libqtile.command import lazy
+from libqtile import qtile
 
 # Set mod key to the "windows" key
 mod = "mod4"
+
+def window_to_previous_screen(qtile):
+    i = qtile.screens.index(qtile.current_screen)
+    if i != 0:
+        group = qtile.screens[i - 1].group.name
+        qtile.current_window.togroup(group)
+
+
+def window_to_next_screen(qtile):
+    i = qtile.screens.index(qtile.current_screen)
+    if i + 1 != len(qtile.screens):
+        group = qtile.screens[i + 1].group.name
+        qtile.current_window.togroup(group)
+
+def switch_screens(qtile):
+    i = qtile.screens.index(qtile.current_screen)
+    group = qtile.screens[i - 1].group
+    qtile.current_screen.set_group(group)
 
 # Define keybinds
 keys = [EzKey(k[0], *k[1:]) for k in [
@@ -13,9 +32,13 @@ keys = [EzKey(k[0], *k[1:]) for k in [
     ("M-j", lazy.layout.down()),
     ("M-k", lazy.layout.up()),
     ("M-l", lazy.layout.right()),
+    # Switch windows
+    ("M-S-<space>", lazy.function(switch_screens)),
     # Switch focus between two screens
-    ("M-<comma>", lazy.to_screen(0)),
-    ("M-<period>", lazy.to_screen(1)),
+    ("M-<period>", lazy.next_screen()),
+    ("M-<comma>", lazy.prev_screen()),
+    ("M-S-<period>", lazy.function(window_to_next_screen)),
+    ("M-S-<comma>", lazy.function(window_to_previous_screen)),
     # Move windows around
     ("M-S-h", lazy.layout.shuffle_left(),
               lazy.layout.swap_left()),
@@ -52,7 +75,6 @@ keys = [EzKey(k[0], *k[1:]) for k in [
     ("M-d", lazy.spawn("discord")),
     ("M-e", lazy.spawn("emacs")),
     ("M-g", lazy.spawn("lutris")),
-    # Scratchpad toggles
 
     # ------ System + Utils ------- #
     # Resart qtile
