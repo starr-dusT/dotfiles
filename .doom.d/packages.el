@@ -54,7 +54,6 @@
 ;;(unpin! t)
 
 (package! doct)
-
 (package! org-super-agenda :recipe
   (:host github
    :repo "starr-dusT/org-super-agenda"

@@ -309,7 +309,8 @@ We start by simply defining the standard headers used by the three files. These 
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       org               ; organize your plain life in plain text
+       (org               ; organize your plain life in plain text
+        +roam)
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
@@ -348,7 +349,6 @@ We start by simply defining the standard headers used by the three files. These 
 #+end_src
 #+begin_src emacs-lisp :tangle packages.el
 (package! doct)
-
 (package! org-super-agenda :recipe
   (:host github
    :repo "starr-dusT/org-super-agenda"
@@ -406,15 +406,22 @@ We start by simply defining the standard headers used by the three files. These 
 Define the folder structure for my gtd-esque setup. I don't declaritvely define every file within this folder stucture, but search for .org files within four primary folders: capture, agenda, todo, and note.
 
 #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "config.el" "no")
-(after! org
-  (setq org-directory "~/documents/org/")
-  (setq org-capture (directory-files-recursively
-                     (concat org-directory "gtd/capture/") "\.org$"))
-  (setq org-agenda (directory-files-recursively
-                    (concat org-directory "gtd/agenda/") "\.org$"))
-  (setq org-todo (directory-files-recursively
-                  (concat org-directory "gtd/todo/") "\.org$"))
-  (setq org-agenda-files (append org-capture org-agenda org-todo))
+(setq org-directory "~/documents/org/")
+(setq org-capture (directory-files-recursively
+                   (concat org-directory "gtd/capture/") "\.org$"))
+(setq org-agenda (directory-files-recursively
+                  (concat org-directory "gtd/agenda/") "\.org$"))
+(setq org-todo (directory-files-recursively
+                (concat org-directory "gtd/todo/") "\.org$"))
+(setq org-agenda-files (append org-capture org-agenda org-todo))
+#+end_src
+** Org-Roam
+
+I'm attempting to use [[https://github.com/org-roam/org-roam][Org-Roam]] to implement something of the Zettelkasten method. I know... I know it is the flavor of the month, but I've tried to develop my own notetaking methods and workflow and found myself paralyzed by choice. So I'll give this a try!
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "config.el" "no")
+(setq org-roam-directory (concat org-directory "roam"))
+(setq org-roam-db-location (concat org-directory "roam/org-roam.db"))
 #+end_src
 ** Get Things Done (GTD)
 *** Tasks
@@ -422,6 +429,7 @@ Define the folder structure for my gtd-esque setup. I don't declaritvely define 
 Define the org todo keywords we'll use.
 
 #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "config.el" "no")
+(after! org
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
                 (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|"

@@ -85,16 +85,19 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
 
-(after! org
-  (setq org-directory "~/documents/org/")
-  (setq org-capture (directory-files-recursively
-                     (concat org-directory "gtd/capture/") "\.org$"))
-  (setq org-agenda (directory-files-recursively
-                    (concat org-directory "gtd/agenda/") "\.org$"))
-  (setq org-todo (directory-files-recursively
-                  (concat org-directory "gtd/todo/") "\.org$"))
-  (setq org-agenda-files (append org-capture org-agenda org-todo))
+(setq org-directory "~/documents/org/")
+(setq org-capture (directory-files-recursively
+                   (concat org-directory "gtd/capture/") "\.org$"))
+(setq org-agenda (directory-files-recursively
+                  (concat org-directory "gtd/agenda/") "\.org$"))
+(setq org-todo (directory-files-recursively
+                (concat org-directory "gtd/todo/") "\.org$"))
+(setq org-agenda-files (append org-capture org-agenda org-todo))
 
+(setq org-roam-directory (concat org-directory "roam"))
+(setq org-roam-db-location (concat org-directory "roam/org-roam.db"))
+
+(after! org
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
                 (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|"

@@ -28,7 +28,6 @@
 !/.config/fish
 !/.config/mpd
 !/.config/ncmpcpp
-!/.config/nvim
 !/.config/rofi
 
 ### ~/.config/retroarch
@@ -40,3 +39,12 @@
 !/.config/qtile
 /.config/qtile/__pycache__
 /.config/qtile/settings/__pycache__
+
+### ~/media/pictures/wallpapers/tracked_wallpapers
+!/media/
+/media/*
+!/media/pictures
+/media/pictures/*
+!/media/pictures/wallpapers
+/media/pictures/wallpapers/*
+!/media/pictures/wallpapers/tracked_wallpapers
