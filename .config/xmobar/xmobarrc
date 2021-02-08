@@ -4,17 +4,16 @@ Config { font = "xft:Mononoki Nerd Font:pixelsize=12:antialias=true:hinting=true
        , position = Static {xpos = 0, ypos = 0, width = 2560, height = 20} 
        , iconRoot = "X"
        , allDesktops = False
-       , overrideRedirect = False
        , commands = [ Run Cpu ["-t", " <fc=#fb4934><total></fc>%","-H", "2"] 10
                     , Run Memory ["-t", "<fc=#fb4934><usedratio></fc>%"] 10
                     , Run Network "enp4s0" [ "-t", "<fc=#fb4934><tx></fc>kb/<fc=#fb4934><rx></fc>kb" ] 10
                     , Run Com "/home/tstarr/.config/xmobar/volume" [] "volume" 10
                     , Run Com "/home/tstarr/.config/xmobar/gamemode" [] "gamemode" 10
+                    , Run Com "/home/tstarr/.config/xmobar/mouse_battery" [] "mouse_battery" 30 
                     , Run Date "  %a %d/%m/%y  %H:%M:%S" "date" 10
-                    , Run MPD ["-M","15","-t", "<artist> (<fc=#fb4934><lapsed></fc>/<length>)"] 10
-                    , Run StdinReader
+                    , Run StdinReader 
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " <fc=#fb4934>%StdinReader%</fc>}%date%{%enp4s0% | %mpd% | %volume% | 閭%cpu% |  %memory% |%gamemode% "
+       , template = " <fc=#fb4934>%StdinReader%</fc>}%date%{%enp4s0% |  %mouse_battery% | %volume% | 閭%cpu% |  %memory% |%gamemode% "
        }

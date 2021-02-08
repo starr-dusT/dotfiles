@@ -1,7 +1,7 @@
 #
 # ~/.bashrc
-#
 
+export PATH=$PATH:~/.cabal/bin
 #export PATH=$PATH:~/.local/bin
 alias lol="sudo sh -c 'sysctl -w abi.vsyscall32=0'"
 alias dired="emacsclient -c -nw -a '' --eval '(dired nil)'"
@@ -24,3 +24,4 @@ dot config --local status.showUntrackedFiles no
 #export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
 #export GEM_HOME=$(ruby -e 'print Gem.user_dir')
 
+[ -f "/home/tstarr/.ghcup/env" ] && source "/home/tstarr/.ghcup/env" # ghcup-env

@@ -1,6 +1,6 @@
 from os.path import expanduser
-from json import load
+from yaml import load
 
 # Get color config from pywal
-wal_loc = expanduser('~/.cache/wal/colors.json')
+wal_loc = expanduser("~/.config/qtile/themes/dracula.yml")
 wal = load(open(wal_loc))

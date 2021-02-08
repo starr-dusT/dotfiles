@@ -68,3 +68,5 @@
   (:host github
    :repo "starr-dusT/burly.el"
    :branch "master"))
+
+(package! hindent)

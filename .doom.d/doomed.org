@@ -363,6 +363,9 @@ We start by simply defining the standard headers used by the three files. These 
   (:host github
    :repo "starr-dusT/burly.el"
    :branch "master"))
+
+(package! hindent)
+                
 #+end_src
 * General Configuration
 ** This System
@@ -400,6 +403,23 @@ We start by simply defining the standard headers used by the three files. These 
 (setq display-line-numbers-type 'relative)
 #+end_src
 ** Keybindings
+
+Add all my additional keybinds to Doom's standard SPC lead keymapping system.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "config.el" "no")
+(map! :leader
+      ; Add to the "open" menu in Doom
+      (:prefix-map ("o" . "open")
+       (:prefix-map ("o" . "org-ql")
+       :desc "views" "v" #'org-ql-view
+       :desc "Weekly Agenda" "w" (cmd! (org-ql-view "Weekly Agenda"))
+       :desc "Tasks to Refile" "r" (cmd! (org-ql-view "Tasks to Refile"))
+       :desc "This Weeks Progress" "p" (cmd! (org-ql-view "This Weeks Progress")))))
+#+end_src
+
+#+RESULTS:
+| lambda | (&rest _) | (interactive) | (org-ql-view This Weeks Progress) |
+
 * Org mode
 ** Org directories
 
@@ -449,16 +469,23 @@ Define the A tier tags.
 
 #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "config.el" "no")
   (setq org-use-tag-inheritance t)
+  (setq org-tags-exclude-from-inheritance '("prj" "prg" "subprj"))
   (setq org-tag-alist
     '((:startgroup)
       ; Put mutually exclusive tags here
       (:endgroup)
-      ("@home" . ?H)
-      ("@work" . ?W)
-      ("note" . ?n)
+      ("@home" . ?h)
+      ("@work" . ?w)
       ("question" . ?q)
+      ("prj" . ?p)
+      ("subprj" . ?s)
+      ("prg" . ?P)
       ("habit" . ?h)
-      ("recurring" . ?r)))
+      ("me" . ?m)
+      ("Aaron" . ?a)
+      ("Landon" . ?l)
+      ("Valerie" . ?v)
+      ("David" . ?d)))
 #+end_src
 
 *** Capture
@@ -478,57 +505,24 @@ Allowable tags: @work, @home, note, question, habit
 
 #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "config.el" "no")
   (setq org-capture-templates
-        (doct '(("personal" :keys "p"
-                 :children (("todo" :keys "t"
-                             :file org-capture-todo
-                             :template ("* TODO %? :@home:" "%a" "%U"))
-                            ("question" :keys "q"
-                             :file org-capture-todo
-                             :template ("* TODO Find out %? :question:@home:"
-                                        "%a"
-                                        "%U"))
-                            ("habit" :keys "h"
-                             :file org-capture-todo
-                             :template ("* NEXT %? :habit:@home:" "%U"
-                                        "SCHEDULED: %(format-time-string
+        (doct '(("todo" :keys "t"
+                 :file org-capture-todo
+                 :template ("* TODO %?" "%U"))
+                ("question" :keys "q"
+                 :file org-capture-todo
+                 :template ("* TODO Find out %? :question:@home:"
+                            "%U"))
+                ("habit" :keys "h"
+                 :file org-capture-todo
+                 :template ("* NEXT %? :habit" "%U"
+                            "SCHEDULED: %(format-time-string
                                          \"%<<%Y-%m-%d %a .+1d/3d>>\")"
-                                        ":PROPERTIES:" ":STYLE: habit"
-                                        ":REPEAT_TO_STATE: NEXT" ":END:"))
-                            ("meeting" :keys "m"
-                             :children (("reoccuring" :keys "r"
-                                         :file org-capture-todo
-                                         :template ("* NEXT %? :meeting:@home:"
-                                                    "%U" "SCHEDULED:
-                                                     %(format-time-string
-                                                       \"%<<%Y-%m-%d %a +7d>>\")"
-                                                    ":PROPERTIES:"
-                                                    ":REPEAT_TO_STATE: NEXT"
-                                                    ":END:"))))))
-                ("work" :keys "w"
-                 :children (("todo" :keys "t"
-                             :file org-capture-todo
-                             :template ("* TODO %? :@work:" "%U"))
-                            ("question" :keys "q"
-                             :file org-capture-todo
-                             :template ("* TODO Find out %? :question:@work:"
-                                        "%U"))
-                            ("habit" :keys "h"
-                             :file org-capture-todo
-                             :template ("* NEXT %? :habit:@work:" "%U"
-                                        "SCHEDULED: %(format-time-string
-                                                      \"%<<%Y-%m-%d %a .+1d/3d>>\")"
-                                        ":PROPERTIES:" ":STYLE: habit"
-                                        ":REPEAT_TO_STATE: NEXT" ":END:"))
-                            ("meeting" :keys "m"
-                             :children (("reoccuring" :keys "r"
-                                         :file org-capture-todo
-                                         :template ("* NEXT %? :meeting:@work:"
-                                                    "%U" "SCHEDULED:
-                                                     %(format-time-string
-                                                     \"%<<%Y-%m-%d %a +7d>>\")"
-                                                    ":PROPERTIES:"
-                                                    ":REPEAT_TO_STATE: NEXT"
-                                                    ":END:")))))))))
+                            ":PROPERTIES:" ":STYLE: habit"
+                            ":REPEAT_TO_STATE: NEXT" ":END:"))
+                ("meeting" :keys "m"
+                 :file org-capture-todo
+                 :template ("* NEXT %? :meeting:"
+                            "%U")))))
 #+end_src
 *** Refile
 
@@ -609,13 +603,32 @@ Following config items will utilizes the awesome [[https://github.com/alphapapa/
                               :scheduled future
                               :deadline future)))))))
 #+end_src
+***** Project View
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "config.el" "no")
+  (defun open-org-ql-project (program)
+    (org-ql-search (list program)
+      '(and (todo)
+            (not (children)))
+     :super-groups '((:auto-outline-path t))))
+ 
+  (setq org-ql-project-view
+      (cons "Project View"
+          (lambda ()
+          "launch a project view for a given program."
+          (interactive)
+          (ivy-read "Project: "
+                    (org-agenda-files)
+                    :require-match t
+                    :action #'open-org-ql-project))))
+#+end_src
 ***** Final
 #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "config.el" "no")
   (setq org-super-agenda-header-map (make-sparse-keymap))
   (setq org-ql-views
         (list org-ql-weekly-agenda
               org-ql-refile-tasks
-              org-ql-weeks-progress))
+              org-ql-weeks-progress
+              org-ql-project-view))
   (after! org-agenda
       (org-super-agenda-mode))
 #+end_src
@@ -624,4 +637,12 @@ Following config items will utilizes the awesome [[https://github.com/alphapapa/
   (setq org-startup-folded t)
   (setq org-src-preserve-indentation t))  ; Close the after! org expression from
                                           ; Org File Paths
+#+end_src
+* Devel
+** Haskell
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "config.el" "no")
+
+(add-hook 'haskell-mode-hook #'hindent-mode)
+
 #+end_src

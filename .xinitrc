@@ -1,1 +1,1 @@
-exec dbus-launch qtile
+exec dbus-launch xmonad 

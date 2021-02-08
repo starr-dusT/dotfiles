@@ -85,6 +85,15 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
 
+(map! :leader
+      ; Add to the "open" menu in Doom
+      (:prefix-map ("o" . "open")
+       (:prefix-map ("o" . "org-ql")
+       :desc "views" "v" #'org-ql-view
+       :desc "Weekly Agenda" "w" (cmd! (org-ql-view "Weekly Agenda"))
+       :desc "Tasks to Refile" "r" (cmd! (org-ql-view "Tasks to Refile"))
+       :desc "This Weeks Progress" "p" (cmd! (org-ql-view "This Weeks Progress")))))
+
 (setq org-directory "~/documents/org/")
 (setq org-capture (directory-files-recursively
                    (concat org-directory "gtd/capture/") "\.org$"))
@@ -112,71 +121,45 @@
               ("DONE" :foreground "forest green" :weight bold))))
 
   (setq org-use-tag-inheritance t)
+  (setq org-tags-exclude-from-inheritance '("prj" "prg" "subprj"))
   (setq org-tag-alist
     '((:startgroup)
       ; Put mutually exclusive tags here
       (:endgroup)
-      ("@home" . ?H)
-      ("@work" . ?W)
-      ("note" . ?n)
+      ("@home" . ?h)
+      ("@work" . ?w)
       ("question" . ?q)
+      ("prj" . ?p)
+      ("subprj" . ?s)
+      ("prg" . ?P)
       ("habit" . ?h)
-      ("recurring" . ?r)))
+      ("me" . ?m)
+      ("Aaron" . ?a)
+      ("Landon" . ?l)
+      ("Valerie" . ?v)
+      ("David" . ?d)))
 
   (setq org-capture-todo (concat org-directory "gtd/capture/inbox.org"))
 
   (setq org-capture-templates
-        (doct '(("personal" :keys "p"
-                 :children (("todo" :keys "t"
-                             :file org-capture-todo
-                             :template ("* TODO %? :@home:" "%a" "%U"))
-                            ("question" :keys "q"
-                             :file org-capture-todo
-                             :template ("* TODO Find out %? :question:@home:"
-                                        "%a"
-                                        "%U"))
-                            ("habit" :keys "h"
-                             :file org-capture-todo
-                             :template ("* NEXT %? :habit:@home:" "%U"
-                                        "SCHEDULED: %(format-time-string
+        (doct '(("todo" :keys "t"
+                 :file org-capture-todo
+                 :template ("* TODO %?" "%U"))
+                ("question" :keys "q"
+                 :file org-capture-todo
+                 :template ("* TODO Find out %? :question:@home:"
+                            "%U"))
+                ("habit" :keys "h"
+                 :file org-capture-todo
+                 :template ("* NEXT %? :habit" "%U"
+                            "SCHEDULED: %(format-time-string
                                          \"%<<%Y-%m-%d %a .+1d/3d>>\")"
-                                        ":PROPERTIES:" ":STYLE: habit"
-                                        ":REPEAT_TO_STATE: NEXT" ":END:"))
-                            ("meeting" :keys "m"
-                             :children (("reoccuring" :keys "r"
-                                         :file org-capture-todo
-                                         :template ("* NEXT %? :meeting:@home:"
-                                                    "%U" "SCHEDULED:
-                                                     %(format-time-string
-                                                       \"%<<%Y-%m-%d %a +7d>>\")"
-                                                    ":PROPERTIES:"
-                                                    ":REPEAT_TO_STATE: NEXT"
-                                                    ":END:"))))))
-                ("work" :keys "w"
-                 :children (("todo" :keys "t"
-                             :file org-capture-todo
-                             :template ("* TODO %? :@work:" "%U"))
-                            ("question" :keys "q"
-                             :file org-capture-todo
-                             :template ("* TODO Find out %? :question:@work:"
-                                        "%U"))
-                            ("habit" :keys "h"
-                             :file org-capture-todo
-                             :template ("* NEXT %? :habit:@work:" "%U"
-                                        "SCHEDULED: %(format-time-string
-                                                      \"%<<%Y-%m-%d %a .+1d/3d>>\")"
-                                        ":PROPERTIES:" ":STYLE: habit"
-                                        ":REPEAT_TO_STATE: NEXT" ":END:"))
-                            ("meeting" :keys "m"
-                             :children (("reoccuring" :keys "r"
-                                         :file org-capture-todo
-                                         :template ("* NEXT %? :meeting:@work:"
-                                                    "%U" "SCHEDULED:
-                                                     %(format-time-string
-                                                     \"%<<%Y-%m-%d %a +7d>>\")"
-                                                    ":PROPERTIES:"
-                                                    ":REPEAT_TO_STATE: NEXT"
-                                                    ":END:")))))))))
+                            ":PROPERTIES:" ":STYLE: habit"
+                            ":REPEAT_TO_STATE: NEXT" ":END:"))
+                ("meeting" :keys "m"
+                 :file org-capture-todo
+                 :template ("* NEXT %? :meeting:"
+                            "%U")))))
 
   (setq org-refile-targets (quote ((nil :maxlevel . 3)
                                    (org-agenda-files :maxlevel . 3))))
@@ -235,14 +218,33 @@
                               :scheduled future
                               :deadline future)))))))
 
+  (defun open-org-ql-project (program)
+    (org-ql-search (list program)
+      '(and (todo)
+            (ancestors (todo))))
+     :super-groups '((:auto-outline-path t)))
+ 
+  (setq org-ql-project-view
+      (cons "Project View"
+          (lambda ()
+          "launch a project view for a given program."
+          (interactive)
+          (ivy-read "Project: "
+                    (org-agenda-files)
+                    :require-match t
+                    :action #'open-org-ql-project))))
+
   (setq org-super-agenda-header-map (make-sparse-keymap))
   (setq org-ql-views
         (list org-ql-weekly-agenda
               org-ql-refile-tasks
-              org-ql-weeks-progress))
+              org-ql-weeks-progress
+              org-ql-project-view))
   (after! org-agenda
       (org-super-agenda-mode))
 
   (setq org-startup-folded t)
   (setq org-src-preserve-indentation t))  ; Close the after! org expression from
                                           ; Org File Paths
+
+(add-hook 'haskell-mode-hook #'hindent-mode)

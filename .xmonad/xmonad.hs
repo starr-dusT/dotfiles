@@ -2,7 +2,7 @@
 import XMonad
 import Data.Monoid
 import System.Exit
-import System.IO (hPutStrLn)
+import System.IO 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 import System.Directory (getHomeDirectory)
@@ -19,17 +19,28 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.Gaps
 import XMonad.Layout.Spacing
 import XMonad.Layout.ThreeColumns
+import XMonad.Layout.Tabbed
+import XMonad.Layout.Renamed
+import XMonad.Layout.LayoutModifier
+import XMonad.Layout.Combo
+import XMonad.Layout.TwoPane
+import XMonad.Layout.WindowNavigation
 
 -- Utilities
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.EZConfig (additionalKeysP, removeKeys)
+import XMonad.Util.NamedActions
+import XMonad.Util.NamedScratchpad
+import XMonad.Util.NamedWindows (getName)
 
 -- Actions
 import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), nextScreen, prevScreen)
 import XMonad.Actions.DynamicProjects
 import XMonad.Actions.DynamicWorkspaces
+import XMonad.Actions.CopyWindow
+import XMonad.Actions.Commands
 
 -- Prompt
 import XMonad.Prompt
@@ -85,14 +96,21 @@ myPromptTheme = def
     , height                = prompt
     , position              = Top 
     }
-
+    
 myStartupHook = do
     spawnOnce "nitrogen --restore &"
     spawnOnce "lxsession &"
     spawnOnce "xsetroot -cursor_name left_ptr"
-    spawnOnce "imwheel -b 45"
+    spawnOnce "imwheel -b 45 &"
+    spawnOnce "play-with-mpv &"
+    
+------------------------------------------------------------------------}}}
+-- Layouts                                                              {{{
+--
+-- Alot stolen from https://github.com/altercation/dotfiles-tilingwm 
+---------------------------------------------------------------------------
 
-myLayout = spacing 2 $ smartBorders (tiled ||| Mirror tiled ||| Full ||| ThreeCol 1 (3/100) (1/2))
+myLayout = windowNavigation $ spacing 2 $ smartBorders (tiled ||| Mirror tiled ||| Full ||| ThreeColMid 1 (3/100) (1/2) ||| tabTwoPane)
     where
         -- default tiling algorithm partitions the screen into two panes
         tiled = Tall nmaster delta ratio
@@ -102,6 +120,19 @@ myLayout = spacing 2 $ smartBorders (tiled ||| Mirror tiled ||| Full ||| ThreeCo
         ratio = 1/2
         -- Percent of screen to increment by when resizing panes
         delta = 2/100
+        
+        tabTwoPane = renamed [Replace "TwoPane Tabs"] $ combineTwo (TwoPane 0.03 0.5) (tabs) (tabs)
+        
+        tabs = tabbed shrinkText myTabTheme
+               
+myTabTheme = def { fontName            = myFont
+                 , activeColor         = "#46d9ff"
+                 , inactiveColor       = "#313846"
+                 , activeBorderColor   = "#46d9ff"
+                 , inactiveBorderColor = "#282c34"
+                 , activeTextColor     = "#282c34"
+                 , inactiveTextColor   = "#d0d0d0"
+                 }
 
 myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
@@ -153,49 +184,51 @@ myLogHook = return ()
 myKeys :: String -> [([Char], X ())]
 myKeys home = 
   [
-    -- close focused window
-      ("M-q", kill)
+    -------------------------------------------------- 
+    -- Window/Focus Manipulation 
+    -------------------------------------------------- 
     -- Rotate through the available layout algorithms
-    , ("M-<Space>", sendMessage NextLayout)
-    -- Resize viewed windows to the correct size
-    , ("M-z", refresh)
+      ("M-<Tab>", sendMessage NextLayout)
     -- Move focus to the next window
     , ("M-j", windows W.focusDown)
     -- Move focus to the previous window
     , ("M-k", windows W.focusUp)
+    -- Switch focus to next monitor
+    , ("M-.", nextScreen)
+    -- Switch focus to prev monitor
+    , ("M-,", prevScreen)  
+    -- Swap the focused window with the next window/tabs
+    , ("M-S-j", sequence_ [windows W.swapDown, sendMessage $ Move R])
+    -- Swap the focused window with the previous window/tabs
+    , ("M-S-k", sequence_ [windows W.swapUp, sendMessage $ Move L])
     -- Move focus to the master window
     , ("M-m", windows W.focusMaster)
     -- Swap the focused window and the master window
     , ("M-c", windows W.swapMaster)
-    -- Swap the focused window with the next window
-    , ("M-S-j", windows W.swapDown)
-    -- Swap the focused window with the previous window
-    , ("M-S-k", windows W.swapUp)
     -- Shrink the master area
     , ("M-h", sendMessage Shrink)
     -- Expand the master area
     , ("M-l", sendMessage Expand)
+    -- Copy window to all workspaces 
+    , ("M-x c", toggleCopyToAll)
     -- Push window back into tiling
     , ("M-t", withFocused $ windows . W.sink)
-    , ("M-.", nextScreen)  -- Switch focus to next monitor
-    , ("M-,", prevScreen)  -- Switch focus to prev monitor
-    , ("M-S-<KP_Add>", shiftTo Next nonNSP >> moveTo Next nonNSP)       -- Shifts focused window to next ws
-    , ("M-S-<KP_Subtract>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
+    -- close focused window
+    , ("M-q", kill)
 
+    -------------------------------------------------- 
+    -- Basic Utils 
+    -------------------------------------------------- 
     -- Spawn terminal 
     , ("M-<Return>"  , spawn "alacritty")
     -- Spawn rofi drun 
     , ("M-w"  , spawn "rofi -show drun")
     -- Spawn rofi window 
     , ("M-S-w", spawn "rofi -show window")
-
-    -- mute overall volume
-    , ("<XF86AudioMute>", spawn muteVolumeCmd)
-    -- raise overall volume
-    , ("<XF86AudioRaiseVolume>", spawn raiseVolumeCmd)
-    -- lower overall volume
-    , ("<XF86AudioLowerVolume>", spawn lowerVolumeCmd)
-
+     
+    -------------------------------------------------- 
+    -- Scratchpads 
+    -------------------------------------------------- 
     -- Spawn rofi window 
     , ("M-S-<Return>", namedScratchpadAction myScratchPads "terminal")
     -- Spawn rofi window 
@@ -203,6 +236,9 @@ myKeys home =
     -- Spawn rofi window 
     , ("M-v", namedScratchpadAction myScratchPads "scr-mpv")
 
+    -------------------------------------------------- 
+    -- Open Applications 
+    -------------------------------------------------- 
     -- Spawn firefox 
     , ("M-o b"  , spawn "brave")
     -- Spawn lutris 
@@ -214,6 +250,9 @@ myKeys home =
     -- Spawn emacs 
     , ("M-o e"  , spawn "emacs")
 
+    -------------------------------------------------- 
+    -- System Utils
+    -------------------------------------------------- 
     -- Recompile and restart xmonad
     , ("M-x r", spawn "xmonad --recompile; xmonad --restart")
     -- Quit xmonad
@@ -222,9 +261,17 @@ myKeys home =
     , ("M-x g", spawn "gamemoded -r")
     -- Stop gamemode 
     , ("M-x S-g", spawn "killall gamemoded")
+    -- mute overall volume
+    , ("<XF86AudioMute>", spawn muteVolumeCmd)
+    -- raise overall volume
+    , ("<XF86AudioRaiseVolume>", spawn raiseVolumeCmd)
+    -- lower overall volume
+    , ("<XF86AudioLowerVolume>", spawn lowerVolumeCmd)
   ]
-     where nonNSP          = WSIs (return (\ws -> W.tag ws /= "nsp"))
-           nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "nsp"))
+  where
+    toggleCopyToAll = wsContainingCopies >>= \ws -> case ws of
+      [] -> windows copyToAll
+      _ -> killAllOtherCopies
 
 rmKeys :: String -> [(KeyMask, KeySym)]
 rmKeys keys = 
@@ -236,7 +283,7 @@ rmKeys keys =
 main = do 
     home <- getHomeDirectory
     xmproc0 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
-    --
+    --  
     xmonad $ docks $ ewmh $ ewmhFullscreen def
         {
         -- Simple items 

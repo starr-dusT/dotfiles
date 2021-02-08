@@ -1,0 +1,10 @@
+
+status=$(cat /sys/class/power_supply/hidpp_battery_*/uevent | grep POWER_SUPPLY_VOLTAGE)
+voltage=$(echo $status | cut -c26-29)
+if [ "$voltage" -ge 3200 ]; then
+    color="#b8bb26"
+else
+    color="#fb4934"
+fi
+
+echo "<fc=$color>${voltage}mV</fc>"
