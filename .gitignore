@@ -17,9 +17,6 @@
 !/.xmonad/xmonad.hs
 !/.xmonad/xmonad.org
 
-## ~/.doom.d
-!/.doom.d
-
 ## ~/.config 
 !/.config
 /.config/*
