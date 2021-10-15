@@ -1,6 +1,5 @@
 from libqtile import widget
 from settings.wal import wal
-
 spacer_len = 3
 wal_color = wal["colors"]
 

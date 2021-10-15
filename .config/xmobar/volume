@@ -8,6 +8,4 @@ else
     color="#b8bb26"
 fi
 
-mpcvolume=$(mpc volume)
-
-echo "<fc=$color>${mpcvolume:7:10}</fc> <fc=#ebdbb2>-</fc> <fc=$color>$volume</fc>"
+echo "<fc=$color> $volume</fc>"

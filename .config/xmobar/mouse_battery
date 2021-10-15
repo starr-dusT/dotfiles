@@ -1,10 +1,18 @@
 
 status=$(cat /sys/class/power_supply/hidpp_battery_*/uevent | grep POWER_SUPPLY_VOLTAGE)
 voltage=$(echo $status | cut -c26-29)
-if [ "$voltage" -ge 3200 ]; then
+if [ "$voltage" -ge 3700 ]; then
     color="#b8bb26"
 else
     color="#fb4934"
 fi
 
-echo "<fc=$color>${voltage}mV</fc>"
+status1=$(cat /sys/class/power_supply/hidpp_battery_*/uevent | grep POWER_SUPPLY_STATUS | tail -n1)
+charge=$(echo $status1 | cut -c21-)
+if [ "$charge" = "Discharging" ]; then
+    color1="#fb4934"
+else
+    color1="#b8bb26"
+fi
+
+echo "<fc=$color1> </fc><fc=$color>${voltage}mV</fc>"

@@ -1,5 +1,6 @@
 from libqtile import layout
 from settings.wal import wal
+from libqtile.config import Match
 
 # Layout configs
 layout_conf = {
@@ -23,9 +24,9 @@ layouts = [
 # Define floating rules
 floating_layout = layout.Floating(
     float_rules=[
-        {'wmclass': 'Steam'},
-        {'wmclass': 'Wine'},
-        {'wmclass': 'discord'},
+        Match('wmclass', 'Steam'),
+        Match('wmclass', 'Wine'),
+        Match('wmclass', 'discord'),
     ],
     border_focus=wal['colors']['color2'],
     border_width=1,

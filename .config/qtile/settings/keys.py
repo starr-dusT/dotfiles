@@ -1,6 +1,7 @@
 from libqtile.config import EzKey
 from libqtile.command import lazy
 from libqtile import qtile
+import settings.traverse as traverse
 
 # Set mod key to the "windows" key
 mod = "mod4"
@@ -28,10 +29,10 @@ keys = [EzKey(k[0], *k[1:]) for k in [
 
     # ------ Movement ------ #
     # Navigate between windows
-    ("M-h", lazy.layout.left()),
-    ("M-j", lazy.layout.down()),
-    ("M-k", lazy.layout.up()),
-    ("M-l", lazy.layout.right()),
+    ("M-h", lazy.function(traverse.left)),
+    ("M-j", lazy.function(traverse.down)),
+    ("M-k", lazy.function(traverse.up)),
+    ("M-l", lazy.function(traverse.right)),
     # Switch windows
     ("M-S-<space>", lazy.function(switch_screens)),
     # Switch focus between two screens

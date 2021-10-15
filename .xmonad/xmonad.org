@@ -1,3 +1,12 @@
+#+title: Xmomad - Personal Xmonad Config
+#+author: Tyler Starr
+#+email: tyler@tstarr.us
+#+keywords: config xmonad haskell wm
+* References
+* Configuration
+** Imports
+
+#+begin_src haskell :tangle "xmonad.hs"
 -- Base
 import XMonad hiding (Tall(..))
 import System.Exit
@@ -30,7 +39,11 @@ import XMonad.Actions.UpdatePointer
 import XMonad.Actions.Navigation2D
 -- Prompt
 import XMonad.Prompt
+#+end_src
 
+** Variables
+
+#+begin_src haskell :tangle "xmonad.hs"
 -- Terminal to use
 myTerminal :: String
 myTerminal = "alacritty"
@@ -62,7 +75,11 @@ myNav2DConf = def
     , layoutNavigation          = [("Spacing Full", centerNavigation)]
     , unmappedWindowRect        = [("Spacing Full", singleWindowRect)]
     }
+#+end_src
 
+** Startup
+
+#+begin_src haskell :tangle "xmonad.hs"
 myStartupHook = do
     spawnOnce "nitrogen --restore &"
     spawnOnce "lxsession &"
@@ -72,7 +89,11 @@ myStartupHook = do
     spawnOnce "play-with-mpv &"
     spawnOnce "udiskie &"
     spawnOnce "dunst -conf ~/.config/dunst/dunstrc"
+#+end_src
 
+** Projects
+
+#+begin_src haskell :tangle "xmonad.hs"
 projects :: [Project]
 projects =
   [ Project { projectName      = "dev"
@@ -85,7 +106,11 @@ projects =
             , projectStartHook = Nothing
             }
   ]
+#+end_src
 
+** Layout
+
+#+begin_src haskell :tangle "xmonad.hs"
 myLayout = windowNavigation $ spacing 2 $ smartBorders (tiled Tall ||| tiled Wide ||| Full ||| simpleFloat)
     where
         -- default tiling algorithm partitions the screen into two panes
@@ -97,7 +122,11 @@ myLayout = windowNavigation $ spacing 2 $ smartBorders (tiled Tall ||| tiled Wid
         --ratio = 1/2
         -- Percent of screen to increment by when resizing panes
         --delta = 2/100
+#+end_src
 
+** Scratchpads
+
+#+begin_src haskell :tangle "xmonad.hs"
 myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 , NS "discord"  spawnDiscord findDiscord manageDiscord
@@ -149,7 +178,11 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 w = 0.9
                 t = 0.95 -h
                 l = 0.95 -w
+#+end_src
 
+** Hooks
+
+#+begin_src haskell :tangle "xmonad.hs"
 -- Set default display modes for applications
 myManageHook = composeAll
     -- Float fullscreen apps (mostly games)
@@ -165,7 +198,11 @@ myEventHook = dynamicPropertyChange "WM_NAME" (title =? "scratch-emacs" --> floa
                   where floating = customFloating $ W.RationalRect (1/6) 0.05 (2/3) 0.9
 -- Log hook
 myLogHook = updatePointer (0.5, 0.5) (0, 0)
+#+end_src
 
+** Keybinds
+
+#+begin_src haskell :tangle "xmonad.hs"
 myKeys :: String -> [([Char], X ())]
 myKeys home =
   [
@@ -210,6 +247,8 @@ myKeys home =
     --------------------------------------------------
     -- Dynamic Projects
     --------------------------------------------------
+    --, ("M-p s", switchProjectPrompt projectsTheme)
+    --, ("M-p S", shiftToProjectPrompt projectsTheme)
     , ("M-p d", switchProject (projects !! 0))
     , ("M-p S-d", shiftToProject (projects !! 0))
     , ("M-p g", switchProject (projects !! 1))
@@ -253,7 +292,11 @@ rmKeys keys =
   [
     (myModMask .|. shiftMask, xK_q)
   ]
+#+end_src
 
+** Main
+
+#+begin_src haskell :tangle "xmonad.hs"
 main = do
     home <- getHomeDirectory
     xmproc0 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
@@ -301,3 +344,4 @@ main = do
         startupHook = myStartupHook
         } `removeKeys` rmKeys home
           `additionalKeysP` myKeys home
+#+end_src
