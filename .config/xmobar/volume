@@ -1,6 +1,6 @@
 #! /bin/bash
 
-volume=$(pactl list sinks | grep -A 7 'Name: alsa_output.usb-AudioQuest_inc._AudioQuest_DragonFly-00.analog-stereo' | tail -n 1 -c5 | sed 's/ //g')
+volume=$(pactl list sinks | grep -A 7 'Name: alsa_output.usb-AudioQuest_inc._AudioQuest_DragonFly-00.analog-stereo' | tail -n 1 | sed 's/%.*//' | tail -c3)
 mute=$(pactl list sinks | grep -A 6 'Name: alsa_output.usb-AudioQuest_inc._AudioQuest_DragonFly-00.analog-stereo' | tail -n 1 -c4 | sed 's/ //g')
 if [ "$mute" == "yes" ]; then
     color="#fb4934"
@@ -8,4 +8,4 @@ else
     color="#b8bb26"
 fi
 
-echo "<fc=$color> $volume</fc>"
+echo "<fc=$color> $volume%</fc>"

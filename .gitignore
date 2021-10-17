@@ -26,6 +26,7 @@
 !/.config/mpd
 !/.config/ncmpcpp
 !/.config/rofi
+!/.config/herbstluftwm
 
 ### ~/.config/retroarch
 !/.config/retroarch

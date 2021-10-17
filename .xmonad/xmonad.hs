@@ -41,9 +41,9 @@ myFocusFollowsMouse = True
 myModMask :: KeyMask
 myModMask = mod4Mask
 -- Define volume keys and commands
-lowerVolumeCmd = "pulseaudio-ctl down 2"
-raiseVolumeCmd = "pulseaudio-ctl up 2"
-muteVolumeCmd  = "pulseaudio-ctl mute"
+lowerVolumeCmd = "pactl set-sink-volume @DEFAULT_SINK@ -2%" 
+raiseVolumeCmd = "pactl set-sink-volume @DEFAULT_SINK@ +2%" 
+muteVolumeCmd  = "pactl set-sink-mute @DEFAULT_SINK@ toggle" 
 -- Count windows
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
