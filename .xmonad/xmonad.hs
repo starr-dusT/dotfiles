@@ -24,6 +24,7 @@ import XMonad.Util.Run (spawnPipe)
 import XMonad.Util.SpawnOnce
 import XMonad.Util.EZConfig (additionalKeysP, removeKeys)
 import XMonad.Util.NamedScratchpad
+import XMonad.Util.ClickableWorkspaces (clickablePP)
 -- Actions
 import XMonad.Actions.DynamicProjects (Project (..), dynamicProjects, switchProjectPrompt, shiftToProjectPrompt, switchProject, shiftToProject)
 import XMonad.Actions.UpdatePointer
@@ -41,9 +42,9 @@ myFocusFollowsMouse = True
 myModMask :: KeyMask
 myModMask = mod4Mask
 -- Define volume keys and commands
-lowerVolumeCmd = "pactl set-sink-volume @DEFAULT_SINK@ -2%" 
-raiseVolumeCmd = "pactl set-sink-volume @DEFAULT_SINK@ +2%" 
-muteVolumeCmd  = "pactl set-sink-mute @DEFAULT_SINK@ toggle" 
+lowerVolumeCmd = "pulseaudio-ctl down 2"
+raiseVolumeCmd = "pulseaudio-ctl up 2"
+muteVolumeCmd  = "pulseaudio-ctl mute"
 -- Count windows
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
@@ -158,6 +159,7 @@ myManageHook = composeAll
      className =? "Gimp" --> doFullFloat,
      className =? "mpv" --> doRectFloat (W.RationalRect 0.55 0.05 0.4 0.4),
      className =? "Steam" --> doFullFloat,
+     className =? "Superslicer" --> doFullFloat,
      namedScratchpadManageHook myScratchPads]
 -- Set dynamic display modes
 myEventHook :: Event -> X All
@@ -190,7 +192,8 @@ myKeys home =
 
     , ("M-<Return>"  , spawn "alacritty")
     -- Spawn rofi drun
-    , ("M-w"  , spawn "rofi -show run -theme gruvbox-dark-soft")
+    , ("M-w"  , spawn "rofi -show drun -theme gruvbox-dark-soft -show-icons")
+    , ("M-S-w"  , spawn "rofi -show run -theme gruvbox-dark-soft")
 
     --------------------------------------------------
     -- Scratchpads
@@ -210,6 +213,8 @@ myKeys home =
     --------------------------------------------------
     -- Dynamic Projects
     --------------------------------------------------
+    --, ("M-p s", switchProjectPrompt projectsTheme)
+    --, ("M-p S", shiftToProjectPrompt projectsTheme)
     , ("M-p d", switchProject (projects !! 0))
     , ("M-p S-d", shiftToProject (projects !! 0))
     , ("M-p g", switchProject (projects !! 1))
@@ -240,6 +245,10 @@ myKeys home =
     , ("M-x g", spawn "gamemoded -r")
     -- Stop gamemode
     , ("M-x S-g", spawn "killall gamemoded")
+    -- Start wireguard
+    , ("M-x w", spawn "pkexec sh -c 'wg-quick up wg0 && mount -a'")
+    -- Stop wireguard
+    , ("M-x S-w", spawn "pkexec sh -c 'umount /run/media/engi && wg-quick down wg0'")
     -- mute overall volume
     , ("<XF86AudioMute>", spawn muteVolumeCmd)
     -- raise overall volume
@@ -268,7 +277,7 @@ main = do
                          [("M-", windowGo),
                           ("M-S-", windowSwap)]
                          False
-      $ additionalNav2DKeysP ("", ",", "", ".")
+      $ additionalNav2DKeysP ("", "u", "", "i")
                             [("M-", screenGo),
                              ("M-S-", screenSwap)]
                             False
@@ -288,6 +297,8 @@ main = do
         manageHook = myManageHook,
         handleEventHook = myEventHook,
         logHook = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP
+
+
             { ppOutput = \x -> hPutStrLn xmproc0 x
             , ppCurrent = xmobarColor "#b8bb26" "" . wrap "[" "]"            -- Current workspace in xmobar
             , ppVisible = xmobarColor "#83a598" ""                           -- Visible but not current workspace
