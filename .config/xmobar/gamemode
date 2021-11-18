@@ -1,1 +1,10 @@
-../../.dotfiles/.config/xmobar/gamemode
+#! /bin/bash
+
+status=$(gamemoded -s)
+if [ "$status" == "gamemode is inactive" ]; then
+    color="#b8bb26"
+else
+    color="#fb4934"
+fi
+
+echo "<fc=$color>  </fc>"
