@@ -19,11 +19,3 @@ alias tl='trash-list'
 alias tre='trash-restore'
 alias tpm='trash-rm'
 alias mpv='mpv --title="mpv"'
-alias dot='/usr/bin/git --git-dir=$HOME/.dots --work-tree=$HOME'
-dot config --local status.showUntrackedFiles no
-
-
-
-
-# added by Anaconda3 2.5.0 installer
-#export PATH="/home/tstarr/anaconda3/bin:$PATH"

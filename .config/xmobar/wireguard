@@ -1,0 +1,10 @@
+#! /bin/bash
+
+if ip address | grep -q "wg0"
+then
+    color="#fb4934"
+else
+    color="#b8bb26"
+fi
+
+echo "<fc=$color>  </fc>"
