@@ -16,5 +16,5 @@ Config { font = "xft:Mononoki Nerd Font:pixelsize=12:antialias=true:hinting=true
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " <fc=#fb4934>%StdinReader%</fc>}%date%{%enp3s0% | %mouse_battery% | %volume% | 閭%cpu% |  %memory% | %gamemode% %wireguard%"
+       , template = " <fc=#fb4934>%StdinReader%</fc>}%date%{%enp3s0% | %mouse_battery% | %volume% | 閭%cpu% |  %memory% |%gamemode% %wireguard%"
        }
