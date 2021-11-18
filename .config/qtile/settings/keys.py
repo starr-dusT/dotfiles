@@ -2,9 +2,15 @@ from libqtile.config import EzKey
 from libqtile.command import lazy
 from libqtile import qtile
 import settings.traverse as traverse
+import os
 
 # Set mod key to the "windows" key
-mod = "mod4"
+xeph = os.environ.get('xeph_qtile')
+
+if xeph == None or xeph == 0:
+    mod = "mod4"
+else:
+    mod="mod1"
 
 def window_to_previous_screen(qtile):
     i = qtile.screens.index(qtile.current_screen)
