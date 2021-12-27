@@ -1,7 +1,7 @@
 Config { font = "xft:Mononoki Nerd Font:pixelsize=12:antialias=true:hinting=true"
        , bgColor = "#282828"
        , fgColor = "#ebdbb2"
-       , position = Static {xpos = 0, ypos = 0, width = 2560, height = 20} 
+       , position = Static {xpos = 2560, ypos = 0, width = 2560, height = 20} 
        , iconRoot = "X"
        , allDesktops = True
        , commands = [ Run Cpu ["-t", " <fc=#fb4934><total></fc>%","-H", "2"] 10

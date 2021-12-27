@@ -1,5 +1,6 @@
 from libqtile import widget
-from settings.wal import wal
+from custom.windowname import WindowName
+from custom.wal import wal 
 spacer_len = 3
 wal_color = wal["colors"]
 
@@ -51,7 +52,8 @@ primary_widgets = [
     ),
     # Window Name
     widget.Spacer(length=spacer_len),
-    widget.WindowName(foreground=wal_color["color2"]),
+    WindowName(foreground=wal_color["color2"]),
+    #widget.WindowName(foreground=wal_color["color2"]),
     # System Tray
     widget.Systray(background=wal_color["color0"], padding=0),
     widget.Spacer(length=spacer_len, background=wal_color["color0"]),
@@ -79,7 +81,7 @@ primary_widgets = [
         background=wal_color["color2"],
     ),
     widget.Net(
-        interface="enp4s0",
+        interface="enp3s0",
         format="{down}  ↓↑ {up}",
         foreground=wal_color["color0"],
         background=wal_color["color1"],

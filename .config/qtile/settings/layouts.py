@@ -1,5 +1,5 @@
 from libqtile import layout
-from settings.wal import wal
+from custom.wal import wal
 from libqtile.config import Match
 
 # Layout configs

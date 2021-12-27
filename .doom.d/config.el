@@ -307,3 +307,95 @@
 (beancount-mode)
 (define-key beancount-mode-map (kbd "C-c F") #'ts/next-fixme)
 (define-key beancount-mode-map (kbd "C-c f") #'ts/next-fixme-replace)
+
+(setq ts/exwm-enabled t)
+
+(defun ts/update-screen-layout ()
+  (interactive)
+  (let ((layout-script "~/.doom.d/scripts/update-screens"))
+     (message "Running screen layout script: %s" layout-script)
+     (start-process-shell-command "xrandr" nil layout-script)))
+
+(defun ts/set-wallpaper ()
+  (interactive)
+  (start-process-shell-command
+      "feh" nil  "feh --bg-scale /home/tstarr/media/pictures/wallpapers/random_wallpapers/halfdome-2560x1440.jpg"))
+
+(defun ts/configure-desktop ()
+  (interactive)
+    ;;(dw/run-xmodmap)
+    (ts/update-screen-layout)
+    (ts/set-wallpaper))
+    ;;(run-at-time "2 sec" nil (lambda () (dw/update-wallpapers))))
+
+
+(when ts/exwm-enabled
+  (set-frame-parameter (selected-frame) 'alpha '(95 . 95))
+  (add-to-list 'default-frame-alist '(alpha . (95 . 95))))
+
+(defun ts/on-exwm-init ()
+  (ts/configure-desktop))
+
+(when ts/exwm-enabled
+  ;; Configure the desktop for first load
+  (add-hook 'exwm-init-hook #'ts/on-exwm-init))
+
+;; Enable exwm-randr before exwm-init gets called
+(require 'exwm-randr)
+(exwm-randr-enable)
+
+;; Set the default number of workspaces
+(setq exwm-workspace-number 5)
+
+(defun efs/exwm-update-class ()
+  (exwm-workspace-rename-buffer exwm-class-name))
+;; When window "class" updates, use it to set the buffer name
+(add-hook 'exwm-update-class-hook #'efs/exwm-update-class)
+
+;; These keys should always pass through to Emacs
+(setq exwm-input-prefix-keys
+  '(?\C-x
+    ?\C-u
+    ?\C-h
+    ?\M-x
+    ?\M-`
+    ?\M-&
+    ?\M-:
+    ?\C-w
+    ?\C-\M-j  ;; Buffer list
+    ?\C-\ ))  ;; Ctrl+Space
+
+;; Ctrl+Q will enable the next key to be sent directly
+(define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
+
+;; Set up global key bindings.  These always work, no matter the input state!
+;; Keep in mind that changing this list after EXWM initializes has no effect.
+(setq exwm-input-global-keys
+      `(
+        ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
+        ([?\s-r] . exwm-reset)
+
+        ;; Move between windows
+        ([s-left] . windmove-left)
+        ([s-right] . windmove-right)
+        ([s-up] . windmove-up)
+        ([s-down] . windmove-down)
+
+        ;; Launch applications via shell command
+        ([?\s-o] . (lambda (command)
+                      (interactive (list (read-shell-command "$ ")))
+                      (start-process-shell-command command nil command)))
+
+         ;; Switch workspace
+        ([?\s-w] . exwm-workspace-switch)
+
+        ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
+        ,@(mapcar (lambda (i)
+                    `(,(kbd (format "s-%d" i)) .
+                      (lambda ()
+                        (interactive)
+                        (exwm-workspace-switch-create ,i))))
+                  (number-sequence 0 9))))
+
+(setq exwm-randr-workspace-monitor-plist '(2 "HDMI-0" 4 "HDMI-0"))
+(exwm-enable)

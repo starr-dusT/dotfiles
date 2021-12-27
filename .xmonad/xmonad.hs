@@ -12,6 +12,7 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.WorkspaceHistory
 import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
 import XMonad.Hooks.DynamicProperty
+
 -- Layouts
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
@@ -19,6 +20,8 @@ import XMonad.Layout.Tabbed
 import XMonad.Layout.WindowNavigation
 import XMonad.Layout.SimpleFloat
 import XMonad.Layout.HintedTile
+import XMonad.Layout.Grid
+
 --Utilities
 import XMonad.Util.Run (spawnPipe)
 import XMonad.Util.SpawnOnce
@@ -42,9 +45,9 @@ myFocusFollowsMouse = True
 myModMask :: KeyMask
 myModMask = mod4Mask
 -- Define volume keys and commands
-lowerVolumeCmd = "pulseaudio-ctl down 2"
-raiseVolumeCmd = "pulseaudio-ctl up 2"
-muteVolumeCmd  = "pulseaudio-ctl mute"
+lowerVolumeCmd = "pactl set-sink-volume @DEFAULT_SINK@ -2%"
+raiseVolumeCmd = "pactl set-sink-volume @DEFAULT_SINK@ +2%"
+muteVolumeCmd  = "pactl set-sink-mute @DEFAULT_SINK@ toggle"
 -- Count windows
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
@@ -87,7 +90,7 @@ projects =
             }
   ]
 
-myLayout = windowNavigation $ spacing 2 $ smartBorders (tiled Tall ||| tiled Wide ||| Full ||| simpleFloat)
+myLayout = windowNavigation $ spacing 2 $ smartBorders (tiled Tall ||| tiled Wide ||| Full ||| simpleFloat ||| Grid)
     where
         -- default tiling algorithm partitions the screen into two panes
         --tiled = Tall nmaster delta ratio
@@ -160,6 +163,7 @@ myManageHook = composeAll
      className =? "mpv" --> doRectFloat (W.RationalRect 0.55 0.05 0.4 0.4),
      className =? "Steam" --> doFullFloat,
      className =? "Superslicer" --> doFullFloat,
+     isInProperty "WM_WINDOW_ROLE" "pop-up" --> doRectFloat (W.RationalRect 0.55 0.05 0.4 0.4),
      namedScratchpadManageHook myScratchPads]
 -- Set dynamic display modes
 myEventHook :: Event -> X All

@@ -77,3 +77,7 @@
    :branch "main"))
 
 (package! org-chef)
+
+(package! simple-httpd)
+
+(package! exwm)

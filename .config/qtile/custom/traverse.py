@@ -1,6 +1,6 @@
 """
 This plugin exports four functions - up, down, left and right - that when called will
-move window focus to the first window in that general direction. Focussing is based
+    move window focus to the first window in that general direction. Focussing is based
 entirely on position and geometry, so is independent of screens, layouts and whether
 windows are floating or tiled. It can also move focus to and from empty screens.
 Example usage:

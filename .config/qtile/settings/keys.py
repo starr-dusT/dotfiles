@@ -1,7 +1,7 @@
 from libqtile.config import EzKey
 from libqtile.command import lazy
 from libqtile import qtile
-import settings.traverse as traverse
+from custom.traverse import *
 import os
 
 # Set mod key to the "windows" key
@@ -35,10 +35,10 @@ keys = [EzKey(k[0], *k[1:]) for k in [
 
     # ------ Movement ------ #
     # Navigate between windows
-    ("M-h", lazy.function(traverse.left)),
-    ("M-j", lazy.function(traverse.down)),
-    ("M-k", lazy.function(traverse.up)),
-    ("M-l", lazy.function(traverse.right)),
+    ("M-h", lazy.function(left)),
+    ("M-j", lazy.function(down)),
+    ("M-k", lazy.function(up)),
+    ("M-l", lazy.function(right)),
     # Switch windows
     ("M-S-<space>", lazy.function(switch_screens)),
     # Switch focus between two screens
@@ -95,7 +95,7 @@ keys = [EzKey(k[0], *k[1:]) for k in [
     ("M-s", lazy.spawn("flameshot gui")),
     # Gamemode
     ("M-S-g", lazy.spawn('toggle_gamemode')),
-    # Manage computer audio
+    #Manage computer audio
     ("<XF86AudioLowerVolume>",
      lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -2%")),
     ("<XF86AudioRaiseVolume>",
