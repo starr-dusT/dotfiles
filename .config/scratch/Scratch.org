@@ -7,10 +7,13 @@
 :END:
 :CONTENTS:
 - [[#table-of-contents][Table of Contents]]
+- [[#custom-bits][Custom Bits]]
 - [[#system-configuration][System Configuration]]
   - [[#lexical-binding][Lexical Binding]]
   - [[#this-system][This-System]]
   - [[#package-management][Package Management]]
+  - [[#straightel][Straight.el]]
+  - [[#automatic-package-update][Automatic Package Update]]
   - [[#startup][Startup]]
   - [[#runtime-performance][Runtime Performance]]
   - [[#clean-emacsd][Clean emacs.d]]
@@ -72,22 +75,15 @@
 - [[#devel][Devel]]
   - [[#git][Git]]
     - [[#magit][Magit]]
-    - [[#forge][Forge]]
-    - [[#magit-todos][magit-todos]]
-    - [[#git-link][git-link]]
   - [[#projectile][Projectile]]
   - [[#languages][Languages]]
-    - [[#typescript-and-javascript][TypeScript and JavaScript]]
-    - [[#cc][C/C++]]
     - [[#haskell][Haskell]]
-    - [[#rust][Rust]]
     - [[#emacs-lisp][Emacs Lisp]]
     - [[#html][HTML]]
     - [[#yaml][YAML]]
     - [[#beancount][beancount]]
     - [[#http][HTTP]]
     - [[#python][Python]]
-    - [[#clojure][Clojure]]
   - [[#productivity][Productivity]]
     - [[#syntax-checking-with-flycheck][Syntax checking with Flycheck]]
     - [[#snippets][Snippets]]
@@ -95,15 +91,7 @@
     - [[#rainbow-delimiters][Rainbow Delimiters]]
     - [[#rainbow-mode][Rainbow Mode]]
 - [[#project-specific][Project Specific]]
-  - [[#website-management][Website Management]]
-    - [[#tstarrus][tstarr.us]]
 - [[#applications][Applications]]
-  - [[#elfeed][Elfeed]]
-    - [[#general][General]]
-    - [[#keybinds][Keybinds]]
-    - [[#download-youtube-videoaudio][Download youtube video/audio]]
-    - [[#format-elfeed-entries-for-youtube][Format elfeed entries for Youtube]]
-  - [[#mu4e][Mu4e]]
 - [[#keybinds][Keybinds]]
   - [[#general][General]]
   - [[#main][Main]]
@@ -115,14 +103,260 @@
   - [[#help][Help]]
   - [[#buffer][Buffer]]
   - [[#dired][Dired]]
+  - [[#exwm][EXWM]]
+- [[#desktop][Desktop]]
 :END:
+
+* Custom Bits
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/framemove.el" "no")
+
+;;; framemove.el --- directional frame selection routines
+;;
+;; Copyright (C) 2010
+;;
+;; Author: Trey Jackson (bigfaceworm@gmail.com)
+;; Created: February 14, 2010
+;; Keywords: frame, movement, convenience
+;;
+;; This file is not (yet) a part of GNU Emacs.
+;;
+;; Very much like the windmove package, only for frames.
+;; Provide a simple set of keystrokes to move the input/focus
+;; between windows.
+;;
+;; Version 0.10
+;;
+;; This software is licensed under the GPL version 3.
+;;
+;; To install:
+;;   (require 'framemove)
+;;   (framemove-default-keybindings)
+;;
+;; If you want to integrate framemove and windmove
+;; You can omit the call to 'framemove-default-keybindings
+;; And instead do:
+;;    (require 'framemove)
+;;    (windmove-default-keybindings)
+;;    (setq framemove-hook-into-windmove t)
+;; 
+;; Compatibility: GNU Emacs 22.x, 23.x
+;; v0.10: change remove-if-not to cl-remove-if-not
+;;        req cl-seq in an eval-when-compile
+;;        quote lambdas with #'
+
+;;; Code:
+(eval-when-compile (require 'cl-seq))
+
+(defvar framemove-hook-into-windmove nil
+  "When non-nil, try moving frames if moving windows fails.")
+
+(defun fm-frame-bbox (frame)
+  ;; eval b/c when things are beyond borders, you get
+  ;; (+ -11) weirdness
+  (let ((yl (eval (frame-parameter frame 'top)))
+        (xl (eval (frame-parameter frame 'left))))
+    (list xl
+          yl
+          (+ xl (frame-pixel-width frame))
+          (+ yl (frame-pixel-height frame)))))
+
+(defun fm-opposite (dir)
+  (cdr (assq dir '((left . right) (right . left) (up . down) (down . up)))))
+
+(defun fm-frame-coord (frame-or-box dir)
+  (nth (cdr (assq dir '((left . 0) (up . 1) (right . 2) (down . 3))))
+       (if (framep frame-or-box)
+           (fm-frame-bbox frame-or-box)
+         frame-or-box)))
+
+(defun fm-frame-is-completly-to-dir-of (refframe dir otherframe)
+  (cond
+   ((eq refframe otherframe)
+    nil)
+   ((memq dir '(left up))
+    (< (fm-frame-coord refframe (fm-opposite dir)) (fm-frame-coord otherframe dir)))
+   ((memq dir '(right down))
+    (> (fm-frame-coord refframe (fm-opposite dir)) (fm-frame-coord otherframe dir)))
+   (t (error "Invalid direction of movement: %s" dir))))
+
+(defun fm-frame-is-to-dir-of (refframe dir otherframe)
+  (cond
+   ((not (eq (frame-parameter refframe 'display) (frame-parameter otherframe 'display)))
+      nil)
+   ((eq refframe otherframe)
+    nil)
+   ((memq dir '(left up))
+    (< (fm-frame-coord refframe dir) (fm-frame-coord otherframe dir)))
+   ((memq dir '(right down))
+    (> (fm-frame-coord refframe dir) (fm-frame-coord otherframe dir)))
+   (t (error "Invalid direction of movement: %s" dir))))
+
+(defun fm-absolute-coords-of-position (position)
+  (let ((rel-x-y (fm-frame-relative-coordinates position))
+        (frame-bbox (fm-frame-bbox (window-frame (posn-window position)))))
+    (cons (+ (car frame-bbox) (car rel-x-y))
+          (+ (cadr frame-bbox) (cdr rel-x-y)))))
+
+(defun fm-frame-relative-coordinates (position)
+  "Return frame-relative coordinates from POSITION."
+  (let* ((x-y (posn-x-y position))
+         (window (posn-window position))
+         (edges (window-inside-pixel-edges window)))
+    (cons (+ (car x-y) (car edges))
+          (+ (cdr x-y) (cadr edges)))))
+
+(defun fm-project (coord frame dir)
+  "project COORD in direction DIR to edge of FRAME"
+  (if (memq dir '(up down))
+      (cons (car coord)
+            (fm-frame-coord frame dir))
+    (cons (fm-frame-coord frame dir)
+          (cdr coord))))
+
+
+(defun fm-next-frame (dir)
+  "move focus to next frame in direction (from currently focused frame)"
+  (interactive (list
+                (intern (completing-read "Which direction: " '("up" "down" "left" "right") nil t))))
+  (let* ((thisframe (selected-frame))
+         (current-coords (fm-absolute-coords-of-position (posn-at-point)))
+         (coords-projected-in-dir (fm-project current-coords thisframe dir))
+         (possible-frames
+          (sort
+           (cl-remove-if-not
+            '(lambda (f) (fm-frame-is-to-dir-of f dir thisframe))
+            (visible-frame-list))
+           #'(lambda (f1 f2) (fm-frame-is-to-dir-of f1 (fm-opposite dir) f2)))))
+    (if possible-frames
+        (let ((frames-in-line-of-cursor
+               ;; try to find frame in line with cursor
+               (cl-remove-if-not
+                '(lambda (f) (fm-coord-in-range current-coords dir f))
+                possible-frames))
+              (frames-in-line-of-frame
+               ;; find frame that overlaps current frame
+               ;; need to sort by distance from cursor
+               (sort
+                (cl-remove-if-not
+                 '(lambda (f) (fm-range-overlap thisframe f dir))
+                 possible-frames)
+                #'(lambda (f1 f2)
+                   (< (fm-dist-from-coords coords-projected-in-dir f1)
+                      (fm-dist-from-coords coords-projected-in-dir f2))))))
+          (select-frame-set-input-focus
+           (or (car frames-in-line-of-cursor)
+               (car frames-in-line-of-frame)
+               (car possible-frames))))
+      (error "No frame in that direction"))))
+
+(defun fm-dist-from-coords (coord frame)
+  "distance from coord to the bbox of the frame"
+  (let* ((x (car coord))
+         (y (cdr coord))
+         (x-in-range (fm-v-in-range x (fm-bbox-range 'left frame)))
+         (y-in-range (fm-v-in-range y (fm-bbox-range 'up frame)))
+         (x-dist (min (abs (- x (fm-frame-coord frame 'left)))
+                      (abs (- x (fm-frame-coord frame 'right)))))
+         (y-dist (min (abs (- y (fm-frame-coord frame 'up)))
+                      (abs (- y (fm-frame-coord frame 'down))))))
+    (cond ((and x-in-range y-in-range)
+           0)
+          (x-in-range
+           y-dist)
+          (y-in-range
+           x-dist)
+          ((sqrt (+ (expt x-dist 2)
+                    (expt y-dist 2)))))))
+              
+(defun fm-v-in-range (v range)
+  (and (> v (car range))
+       (< v (cdr range))))
+
+(defun fm-bbox-range (dir box)
+  (if (memq dir '(up down))
+      (cons (fm-frame-coord box 'up)
+            (fm-frame-coord box 'down))
+    (cons (fm-frame-coord box 'left)
+          (fm-frame-coord box 'right))))
+
+(defun fm-range-overlap (f1 f2 dir)
+  "return true if the bbox'es of the two frames overlap using coords perpendicular to dir"
+  (let ((perp (if (memq dir '(up down)) 'left 'up))
+        (f1box (fm-frame-bbox f1))
+        (f2box (fm-frame-bbox f2)))
+    (or (fm-v-in-range (fm-frame-coord f1 perp) (fm-bbox-range perp f2))
+        (fm-v-in-range (fm-frame-coord f1 (fm-opposite perp)) (fm-bbox-range perp f2))
+        (fm-v-in-range (fm-frame-coord f2 perp) (fm-bbox-range perp f1))
+        (fm-v-in-range (fm-frame-coord f2 (fm-opposite perp)) (fm-bbox-range perp f1)))))
+
+(defun fm-coord-in-range (coord dir frame)
+  "return true if the coord can be projected in orientation of dir
+onto the bbox of the frame, or more simply, is the part of the coord
+perpendicular to DIR between the edges of frame perpendicular to DIR"
+  (let ((n (if (memq dir '(up down)) (car coord) (cdr coord)))
+        (perp (if (memq dir '(up down)) 'left 'up)))
+    (and (< (fm-frame-coord frame perp) n)
+         (> (fm-frame-coord frame (fm-opposite perp)) n))))
+
+(defun fm-sort-frames-by-edge (framelist dir)
+  (sort
+   framelist
+   (lambda (f1 f2)
+     (apply (symbol-function
+             (if (memq dir '(left up)) '> '<))
+            (list (fm-frame-coord f1 dir) (fm-frame-coord f2 dir))))))
+
+;;;###autoload
+(defun fm-down-frame ()
+  (interactive)
+  (fm-next-frame 'down))
+;;;###autoload
+(defun fm-up-frame ()
+  (interactive)
+  (fm-next-frame 'up))
+;;;###autoload
+(defun fm-left-frame ()
+  (interactive)
+  (fm-next-frame 'left))
+;;;###autoload
+(defun fm-right-frame ()
+  (interactive)
+  (fm-next-frame 'right))
+
+;;;###autoload
+(defun framemove-default-keybindings (&optional modifier)
+  "Set up keybindings for `framemove'.
+Keybindings are of the form MODIFIER-{left,right,up,down}.
+Default MODIFIER is 'meta."
+  (interactive)
+  (unless modifier (setq modifier 'meta))
+
+  (global-set-key (vector (list modifier 'down))  'fm-down-frame)
+  (global-set-key (vector (list modifier 'up))    'fm-up-frame)
+  (global-set-key (vector (list modifier 'left))  'fm-left-frame)
+  (global-set-key (vector (list modifier 'right)) 'fm-right-frame))
+
+(defadvice windmove-do-window-select (around framemove-do-window-select-wrapper activate)
+  "Let windmove do its own thing, if there is an error, try framemove in that direction."
+  (condition-case err
+      ad-do-it
+    (error
+     (if framemove-hook-into-windmove
+         (fm-next-frame (ad-get-arg 0))
+       (error (error-message-string err))))))
+
+(provide 'framemove)
+;;; framemove.el ends here
+
+#+end_src
 
 * System Configuration
 ** Lexical Binding
 
 Add lexical binding tag to top of config file.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no") 
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no") 
 
 ;; -*- lexical-binding: t -*-
 
@@ -132,11 +366,11 @@ Add lexical binding tag to top of config file.
 
 This section aims to allow users to select which portions of the configuration are used on different systems by defining this-system and the possible categories for systems. This system is simply a name identifying the current system the config is being used on. Then the categories (system-category-1, system-category-2, ...) define the possible different combinations of different systems that use that portion of the config. An example of a tangle tag follows:
 
-:tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+:tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 The above statement indicates that for following portion of the config, if the current system is a member of category-1 then it will be tangled and thus effectively added to the final config. As such, we can define different categories for the different permutations of systems that may need different portions of the config. Hopefully that all makes sense :)
 
-#+begin_src emacs-lisp :tangle ".emacs.d/init.el" 
+#+begin_src emacs-lisp :tangle "~/.emacs.d/init.el" 
 
 (setq this-system "main")
 (setq system-category-1 '("main" "work" "termux"))
@@ -148,14 +382,15 @@ The above statement indicates that for following portion of the config, if the c
 
 Setup package management. Some lines can be uncommented for fresh installs.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 ; Use package and add archives to list
 (require 'package)
 
-(setq package-enable-at-startup nil)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-
+;(setq package-enable-at-startup nil)
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
 (package-initialize)
 
 ; Uncomment for fresh install
@@ -170,11 +405,60 @@ Setup package management. Some lines can be uncommented for fresh installs.
 
 #+end_src
 
+** Straight.el
+
+Trying out straight.el for package management. So far so good!
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+; Uncomment for fresh install
+; Bootstrap straight.el
+(defvar bootstrap-version)
+(let ((bootstrap-file
+      (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+        "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+        'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+;; Always use straight to install on systems other than Linux
+(setq straight-use-package-by-default (not (eq system-type 'gnu/linux)))
+
+;; Use straight.el for use-package expressions
+(straight-use-package 'use-package)
+
+;; Load the helper package for commands like `straight-x-clean-unused-repos'
+(require 'straight-x)
+
+#+end_src
+
+** Automatic Package Update
+
+Setup package auto updates.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+(use-package auto-package-update
+  :custom
+  (auto-package-update-interval 7)
+  (auto-package-update-prompt-before-update t)
+  (auto-package-update-hide-results t)
+  :config
+  (auto-package-update-maybe)
+  (auto-package-update-at-time "09:00"))
+
+#+end_src
+
 ** Startup
 
 Make startup faster by reducing the frequency of garbage collection and then use a hook to measure Emacs startup time.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 ;; The default is 800 kilobytes.  Measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
@@ -196,7 +480,7 @@ Make startup faster by reducing the frequency of garbage collection and then use
 
 Dial the GC threshold back down so that garbage collection happens more frequently but in less time.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
@@ -213,7 +497,7 @@ Dial the GC threshold back down so that garbage collection happens more frequent
 
 I don't want a bunch of transient files showing up as untracked in the Git repo so I move them all to another location.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 ;; Keep transient cruft out of ~/.emacs.d/
 (setq user-emacs-directory "~/.cache/emacs/"
@@ -233,7 +517,7 @@ I don't want a bunch of transient files showing up as untracked in the Git repo 
 
 ** Buffers 
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 (global-auto-revert-mode t) ; Allow buffers to update from disk contents
 
@@ -243,7 +527,7 @@ I don't want a bunch of transient files showing up as untracked in the Git repo 
 
  Start the Emacs server from this instance so that all =emacsclient= calls are routed here.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 (server-start)
 
@@ -253,7 +537,7 @@ I don't want a bunch of transient files showing up as untracked in the Git repo 
 
 IDO provides interactive bits and bobs for buffers and files.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 (ido-mode 1)
 (ido-everywhere 1)
@@ -269,7 +553,7 @@ IDO provides interactive bits and bobs for buffers and files.
 
 Stolen from https://github.com/MatthewZMD
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 (use-package ivy
   :diminish
@@ -305,7 +589,7 @@ Stolen from https://github.com/MatthewZMD
 ** UI
 *** UI Elements
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (setq inhibit-startup-message t)
   (scroll-bar-mode -1)             ; Disable visible scrollbar
@@ -318,7 +602,7 @@ Stolen from https://github.com/MatthewZMD
 
 *** Scrolling
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (setq mouse-wheel-scroll-amount '(5 ((shift) . 5))) ; start out scrolling 1 line at a time
   (setq mouse-wheel-progressive-speed nil)              ; accelerate scrolling
@@ -329,7 +613,7 @@ Stolen from https://github.com/MatthewZMD
 
 *** Line Numbers
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (column-number-mode)
   (global-display-line-numbers-mode t)
@@ -342,7 +626,7 @@ Stolen from https://github.com/MatthewZMD
 #+end_src
 
 *** File Warnings
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (setq large-file-warning-threshold nil) ; Don't warn for large files
   (setq vc-follow-symlinks t)             ; Don't warn for following symlinked files
@@ -352,7 +636,7 @@ Stolen from https://github.com/MatthewZMD
 
 *** Hilight Matching Braces
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (use-package paren
     :config
@@ -363,7 +647,7 @@ Stolen from https://github.com/MatthewZMD
 
 *** Fix Annoying Buffers
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (use-package popwin
     :config
@@ -373,15 +657,15 @@ Stolen from https://github.com/MatthewZMD
 
 ** Theme
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
-  (use-package doom-themes :defer t)
-  (load-theme 'doom-gruvbox t)
+(use-package doom-themes :defer t)
+(load-theme 'doom-gruvbox t)
 
 #+end_src
 
 ** Fonts
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   ;; Set the font face based on platform
   (set-face-attribute 'default nil :font "JetBrains Mono Nerd Font" :height 80)
@@ -393,7 +677,7 @@ Stolen from https://github.com/MatthewZMD
 #+end_src
 ** Mode Line
 *** Time Format
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (setq display-time-format "%l:%M %p %b %y"
         display-time-default-load-average nil)
@@ -403,14 +687,14 @@ Stolen from https://github.com/MatthewZMD
 
 The [[https://github.com/myrjola/diminish.el][diminish]] package hides pesky minor modes from the modelines.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (use-package diminish)
 
 #+end_src
 
 *** Doom Modeline
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   ;; You must run (all-the-icons-install-fonts) one time after
   ;; installing this package!
@@ -441,7 +725,7 @@ The [[https://github.com/myrjola/diminish.el][diminish]] package hides pesky min
 #+end_src
 
 *** Saving Tweaks
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   ; Auto-save changed files
   (use-package super-save
@@ -459,7 +743,7 @@ The [[https://github.com/myrjola/diminish.el][diminish]] package hides pesky min
 
 ** Keybinds
 *** Evil!
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (defun dw/evil-hook ()
     (dolist (mode '(custom-mode
@@ -516,7 +800,7 @@ The [[https://github.com/myrjola/diminish.el][diminish]] package hides pesky min
 
 #+end_src
 *** General.el for Moar Evil!
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
  (use-package general
    :ensure t
@@ -534,7 +818,7 @@ The [[https://github.com/myrjola/diminish.el][diminish]] package hides pesky min
 [[https://github.com/justbur/emacs-which-key][which-key]] is great for getting an overview of what keybindings are available
 based on the prefix keys you entered.  Learned about this one from Spacemacs.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (use-package which-key
     :init (which-key-mode)
@@ -547,7 +831,7 @@ based on the prefix keys you entered.  Learned about this one from Spacemacs.
 
 *** Keycord Binds
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (use-package use-package-chords
     :disabled
@@ -556,7 +840,7 @@ based on the prefix keys you entered.  Learned about this one from Spacemacs.
 #+end_src
 
 *** Hydra
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (use-package hydra
     :defer 1)
@@ -564,7 +848,7 @@ based on the prefix keys you entered.  Learned about this one from Spacemacs.
 #+end_src
 * Editing
 ** General
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 ; Set Default indentation to 2 characters
 (setq-default tab-width 2)
@@ -578,19 +862,19 @@ based on the prefix keys you entered.  Learned about this one from Spacemacs.
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
 ; Use Parinfer for Lispy languages
-(use-package parinfer
-  :hook ((clojure-mode . parinfer-mode)
-         (emacs-lisp-mode . parinfer-mode)
-         (common-lisp-mode . parinfer-mode)
-         (scheme-mode . parinfer-mode)
-         (lisp-mode . parinfer-mode))
-  :config
-  (setq parinfer-extensions
-      '(defaults       ; should be included.
-        pretty-parens  ; different paren styles for different modes.
-        evil           ; If you use Evil.
-        smart-tab      ; C-b & C-f jump positions and smart shift with tab & S-tab.
-        smart-yank)))  ; Yank behavior depend on mode.
+;(use-package parinfer
+;  :hook ((clojure-mode . parinfer-mode)
+;         (emacs-lisp-mode . parinfer-mode)
+;         (common-lisp-mode . parinfer-mode)
+;         (scheme-mode . parinfer-mode)
+;         (lisp-mode . parinfer-mode))
+;  :config
+;  (setq parinfer-extensions
+;      '(defaults       ; should be included.
+;        pretty-parens  ; different paren styles for different modes.
+;        evil           ; If you use Evil.
+;        smart-tab      ; C-b & C-f jump positions and smart shift with tab & S-tab.
+;        smart-yank)))  ; Yank behavior depend on mode.
 
 ;(dw/leader-key-def
 ;  "tp" 'parinfer-toggle-mode)
@@ -601,7 +885,7 @@ based on the prefix keys you entered.  Learned about this one from Spacemacs.
 
 Set up Org Mode with a baseline configuration.  The following sections will add more things to it.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 ;; TODO: Mode this to another section
 (setq-default fill-column 80)
@@ -656,7 +940,7 @@ Set up Org Mode with a baseline configuration.  The following sections will add 
 #+end_src
 
 *** Tangle on Save
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
     ;; Since we don't want to disable org-confirm-babel-evaluate all
     ;; of the time, do it around the after-save-hook
@@ -674,7 +958,7 @@ Set up Org Mode with a baseline configuration.  The following sections will add 
 
 It’s nice to have a table of contents section for long literate configuration files (like this one!) so I use org-make-toc to automatically update the ToC in any header with a property named TOC.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 (use-package org-make-toc
   :hook (org-mode . org-make-toc-mode))
@@ -685,7 +969,7 @@ It’s nice to have a table of contents section for long literate configuration 
 
 Use bullet characters instead of asterisks, plus set the header font sizes to something more palatable.  A fair amount of inspiration has been taken from [[https://zzamboni.org/post/beautifying-org-mode-in-emacs/][this blog post]].
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 (use-package org-bullets
   :after org
@@ -723,7 +1007,7 @@ Use bullet characters instead of asterisks, plus set the header font sizes to so
 #+end_src
 
 *** Org File Paths
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 ;;; Directory Options
 ;; Set default working directory for org files
@@ -738,7 +1022,7 @@ Use bullet characters instead of asterisks, plus set the header font sizes to so
 
 #+end_src
 *** Tasks 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 ;;; Set Todo Options
 ;; Set keywords for todo items
@@ -765,7 +1049,7 @@ Use bullet characters instead of asterisks, plus set the header font sizes to so
 
 #+end_src
 *** Capture 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 ;; open org-capture
 (global-set-key (kbd "C-c c") 'org-capture)
@@ -786,7 +1070,7 @@ Use bullet characters instead of asterisks, plus set the header font sizes to so
 
 #+end_src
 *** Refile
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 ;;; Set Task Refiling Options
 ;; Targets include this file and any file contributing to the agenda - up to 9 levels deep
@@ -817,7 +1101,7 @@ Use bullet characters instead of asterisks, plus set the header font sizes to so
 #+end_src
 *** Super-org-agenda
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 (use-package org-super-agenda
   :after org-agenda
@@ -853,7 +1137,7 @@ Use bullet characters instead of asterisks, plus set the header font sizes to so
 
 *** Tags
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   ;; Configure common tags
   (setq org-tag-alist
@@ -876,7 +1160,7 @@ Use bullet characters instead of asterisks, plus set the header font sizes to so
 
 *** Searching
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 (defun dw/search-org-files ()
   (interactive)
@@ -886,7 +1170,7 @@ Use bullet characters instead of asterisks, plus set the header font sizes to so
 
 *** End  
 
- #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+ #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
  ;; This ends the use-package org-mode block
 )
@@ -895,7 +1179,7 @@ Use bullet characters instead of asterisks, plus set the header font sizes to so
 
 *** Bindings
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 
 
@@ -922,7 +1206,7 @@ Use bullet characters instead of asterisks, plus set the header font sizes to so
 
 ** Beancount
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 ;(use-package Beancount
 ;  :straight (beancount
@@ -944,7 +1228,7 @@ Use bullet characters instead of asterisks, plus set the header font sizes to so
 #+end_src
 
 ** Avy
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (use-package avy
     :commands (avy-goto-char avy-goto-word-0 avy-goto-line))
@@ -963,7 +1247,7 @@ This module is absolutely necessary for working inside of Emacs Lisp files,
 especially when trying to some parent of an expression (like a =setq=).  Makes
 tweaking Org agenda views much less annoying.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (use-package expand-region
     :bind (("M-[" . er/expand-region)
@@ -979,7 +1263,7 @@ message.  No, it's using its own mode instead of ~emacs-lisp-mode~ for
 the questionable benefit of having a function inserting evaluation
 values after a newline.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 (setq initial-scratch-message "")
 (setq initial-major-mode 'emacs-lisp-mode)
 #+END_SRC
@@ -989,7 +1273,7 @@ values after a newline.
 
 The keybindings for this are =C+M+-= and =C+M+==.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (use-package default-text-scale
     :defer 1
@@ -1002,17 +1286,19 @@ The keybindings for this are =C+M+-= and =C+M+==.
 
 Use ace-window for selecting windows quickly.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
-(use-package ace-window
-  :config
-  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
+(use-package winum
+  :ensure t
+  :init
+  (winum-mode))
+
 
 #+end_src
 
 ** Window History
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 (winner-mode)
 (define-key evil-window-map "u" 'winner-undo)
@@ -1023,7 +1309,7 @@ Use ace-window for selecting windows quickly.
 
 Use burly to bookmark layouts and Emacs state.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 (use-package burly)
 
@@ -1034,7 +1320,7 @@ Use burly to bookmark layouts and Emacs state.
 
 Stolen from [[https://github.com/daviwil][the_dev_aspect]]. I have edited to fit my needs including removing the termux logic.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (setq dired-listing-switches "-agho --group-directories-first"
         dired-omit-files "^\\.[^.].*"
@@ -1092,7 +1378,7 @@ Stolen from [[https://github.com/daviwil][the_dev_aspect]]. I have edited to fit
 
 Stolen from [[https://github.com/daviwil][the_dev_aspect]]. Didn't even bother to change it ;) 
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (use-package openwith
     :config
@@ -1122,7 +1408,7 @@ Stolen from [[https://github.com/daviwil][the_dev_aspect]]. Didn't even bother t
 
 Can't remember where I stole this from. Might edit in future to integrate audio and video playing with Dired instead of using ncmpcpp for audio. I had to expand the file-name in the mpv-dir function to make it work with mpv. 
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (defun start-mpv (path &optional playlist-p)
 
@@ -1154,7 +1440,7 @@ Can't remember where I stole this from. Might edit in future to integrate audio 
 
 Stolen from [[https://github.com/daviwil][the_dev_aspect]]. I have edited to fit my needs including changing/adding keybinds.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (setq which-key-sort-order 'which-key-prefix-then-key-order)
 
@@ -1180,54 +1466,18 @@ Stolen from [[https://github.com/daviwil][the_dev_aspect]]. I have edited to fit
 
 https://magit.vc/manual/magit/
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (use-package magit
     :commands (magit-status magit-get-current-branch)
     :custom
     (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
-  (use-package evil-magit
-    :after magit)
-
-#+end_src
-
-*** Forge
-
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
-
-  (use-package forge
-    :disabled)
-
-#+end_src
-
-*** magit-todos
-
-This is an interesting extension to Magit that shows a TODOs section in your
-git status buffer containing all lines with TODO (or other similar words) in
-files contained within the repo.  More information at the [[https://github.com/alphapapa/magit-todos][GitHub repo]].
-
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
-
-  (use-package magit-todos
-    :defer t)
-
-#+end_src
-
-*** git-link
-
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
-
-(use-package git-link
-  :commands git-link
-  :config
-  (setq git-link-open-in-browser t))
-
 #+end_src
 
 ** Projectile
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (use-package projectile
     :diminish projectile-mode
@@ -1245,87 +1495,17 @@ files contained within the repo.  More information at the [[https://github.com/a
 #+end_src
 
 ** Languages
-*** TypeScript and JavaScript
-
-Set up nvm so that we can manage Node versions
-
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
-
-  (use-package nvm
-    :defer t)
-
-#+end_src
-
-Configure TypeScript and JavaScript language modes
-
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
-
-  (use-package typescript-mode
-    :mode "\\.ts\\'"
-    :config
-    (setq typescript-indent-level 2))
-
-  (defun dw/set-js-indentation ()
-    (setq js-indent-level 2)
-    (setq evil-shift-width js-indent-level)
-    (setq-default tab-width 2))
-
-  (use-package js2-mode
-    :mode "\\.jsx?\\'"
-    :config
-    ;; Use js2-mode for Node scripts
-    (add-to-list 'magic-mode-alist '("#!/usr/bin/env node" . js2-mode))
-
-    ;; Don't use built-in syntax checking
-    (setq js2-mode-show-strict-warnings nil)
-
-    ;; Set up proper indentation in JavaScript and JSON files
-    (add-hook 'js2-mode-hook #'dw/set-js-indentation)
-    (add-hook 'json-mode-hook #'dw/set-js-indentation))
-
-  (use-package prettier-js
-    :hook ((js2-mode . prettier-js-mode)
-           (typescript-mode . prettier-js-mode))
-    :config
-    (setq prettier-js-show-errors nil))
-
-#+end_src
-
-*** C/C++
-
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
-
-(use-package ccls
-  :hook ((c-mode c++-mode objc-mode cuda-mode) .
-         (lambda () (quire 'ccls) (lsp))))
-
-#+end_src
-
 *** Haskell
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 (use-package haskell-mode) 
 
 #+end_src
 
-*** Rust
-
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
-
-  (use-package rust-mode
-    :mode "\\.rs\\'"
-    :init (setq rust-format-on-save t))
-
-  (use-package cargo
-    :ensure t
-    :defer t)
-
-#+end_src
-
 *** Emacs Lisp
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (add-hook 'emacs-lisp-mode-hook #'flycheck-mode)
 
@@ -1342,10 +1522,9 @@ Configure TypeScript and JavaScript language modes
 
 #+end_src
 
-
 *** HTML
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 (use-package web-mode
   :mode "(\\.\\(html?\\|ejs\\|tsx\\|jsx\\)\\'"
@@ -1366,7 +1545,7 @@ Configure TypeScript and JavaScript language modes
 
 *** YAML
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (use-package yaml-mode
     :mode "\\.ya?ml\\'")
@@ -1377,7 +1556,7 @@ Configure TypeScript and JavaScript language modes
 **** Github stolen beancount functions
 Provide beancount major mode for personal ledger.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 (autoload 'ido-completing-read "ido")
 (require 'subr-x)
@@ -2361,7 +2540,7 @@ Essentially a much simplified version of `next-line'."
 
 **** My beancount functions
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 (defun beancount-fixme-replace ()
   "Search for next FIXME in ledger and insert account."
@@ -2377,7 +2556,7 @@ Essentially a much simplified version of `next-line'."
 
 Define Evil keybinds for editing Beancount ledger files.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 ; Custom keybinds for the entry view
 (evil-define-key 'normal beancount-mode-map
@@ -2387,7 +2566,7 @@ Define Evil keybinds for editing Beancount ledger files.
 
 *** HTTP
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (use-package know-your-http-well
     :defer t)
@@ -2396,7 +2575,7 @@ Define Evil keybinds for editing Beancount ledger files.
 
 *** Python
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 (use-package elpy
   :ensure t
@@ -2410,18 +2589,10 @@ Define Evil keybinds for editing Beancount ledger files.
 
 #+end_src
 
-*** Clojure
-
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
-
-(use-package cider)
-
-#+end_src
-
 ** Productivity
 *** Syntax checking with Flycheck
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (use-package flycheck
     :defer t
@@ -2431,7 +2602,7 @@ Define Evil keybinds for editing Beancount ledger files.
 
 *** Snippets
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (use-package yasnippet
     :hook (prog-mode . yas-minor-mode)
@@ -2442,7 +2613,7 @@ Define Evil keybinds for editing Beancount ledger files.
 
 *** Smart Parens
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (use-package smartparens
     :hook (prog-mode . smartparens-mode))
@@ -2451,7 +2622,7 @@ Define Evil keybinds for editing Beancount ledger files.
 
 *** Rainbow Delimiters
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
   (use-package rainbow-delimiters
     :hook (prog-mode . rainbow-delimiters-mode))
@@ -2462,7 +2633,7 @@ Define Evil keybinds for editing Beancount ledger files.
 
 Sets the background of HTML color strings in buffers to be the color mentioned.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 (use-package rainbow-mode
   :defer t
@@ -2473,259 +2644,13 @@ Sets the background of HTML color strings in buffers to be the color mentioned.
 #+end_src
 
 * Project Specific
-** Website Management
-*** tstarr.us 
-
-Functions and keybinds for publishing my org-based personal website
-
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
-
-;; Example from the_dev_aspect's config
-
-; (defun dw/generate-site ()
-;   (interactive)
-;   (start-process-shell-command "emacs" nil "emacs --batch -l ~/Projects/Writing/Blog/publish.el --funcall dw/publish"))
-
-;; Add keybinds here to
-
-#+end_src
-
 * Applications
-** Elfeed
-*** General
-
-Initial setup for elfeed.
-
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-2) ".emacs.d/init.el" "no")
-
-; Use elfeed
-(use-package elfeed
-  :commands elfeed)
-
-; Set default filter
-(setq-default elfeed-search-filter "@1-week-ago")
-
-; Use elfeed-org 
-(use-package elfeed-org)
-(elfeed-org)
-
-; Set default org file for feed
-(setq rmh-elfeed-org-files (list "~/devel/elisp/scratch/scratch-config/elfeed.org"))
-
-; Update and open elfeed at the same time
-(defun elfeed-open-and-update ()
-  (interactive)
-  (elfeed-update)
-  (elfeed))
-
-#+end_src
-
-*** Keybinds
-
-Define elfeed only keybinds and fixes using Evil.
-
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-2) ".emacs.d/init.el" "no")
-
-; Custom keybinds for the entry view
-(evil-define-key 'normal elfeed-show-mode-map 
-  "v" 'elfeed-download-yt-video 
-  "a" 'elfeed-download-yt-audio)
-
-; Custom keybinds for the feed view
-(evil-define-key 'normal elfeed-search-mode-map 
-  "r" 'elfeed-update)
-
-; Fix keybinds for evil modes in elfeed
-(add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
-(add-to-list 'evil-emacs-state-modes 'elfeed-show-mode)
-
-#+end_src
-
-*** Download youtube video/audio
-
-Use youtube-dl to download audio/video from elfeed entries. 
-
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-2) ".emacs.d/init.el" "no")
-
-; Set executable path for the most illegal youtube-dl ;)
-(setq youtube-dl-path "/usr/bin/youtube-dl")
-; Set video/audio storage path
-(setq youtube-dl-video-dir "~/media/video/youtube/")
-(setq youtube-dl-audio-dir "~/media/audio/youtube/")
-
-; Function to download youtube video while suppressing the pop-up
-(defun elfeed-download-yt-video ()
-  "Download a video using youtube-dl."
-  (interactive)
-  (message "Youtube video download started...")
-  (call-process-shell-command (format "%s -o \"%s%s\" -f bestvideo+bestaudio --add-metadata %s > /dev/null 2>&1"
-                               youtube-dl-path
-                               youtube-dl-video-dir
-                               "%(title)s.%(ext)s"
-                               (elfeed-entry-link elfeed-show-entry)) nil 0))
-
-; Function to download youtube audio while suppressing the pop-up
-(defun elfeed-download-yt-audio ()
-  "Download a video using youtube-dl."
-  (interactive)
-  (message "Youtube audio download started...")
-  (call-process-shell-command (format "%s -o \"%s%s\" -f bestaudio --add-metadata --extract-audio --audio-format mp3 %s > /dev/null 2>&1"
-                               youtube-dl-path
-                               youtube-dl-audio-dir
-                               "%(title)s.%(ext)s"
-                               (elfeed-entry-link elfeed-show-entry)) nil 0))
-
-; Function to download youtube video without suppressing the pop-up for debug purposes
-(defun elfeed-download-yt-video-debug ()
-  "Download a video using youtube-dl."
-  (interactive)
-  (async-shell-command (format "%s -o \"%s%s\" -f bestvideo+bestaudio --add-metadata %s"
-                               youtube-dl-path
-                               youtube-dl-video-dir
-                               "%(title)s.%(ext)s"
-                               (elfeed-entry-link elfeed-show-entry))))
-
-; Function to download youtube audio without suppressing the pop-up for debug purposes
-(defun elfeed-download-yt-audio-debug ()
-  "Download a video using youtube-dl."
-  (interactive)
-  (async-shell-command (format "%s -o \"%s%s\" -f bestaudio --add-metadata --extract-audio --audio-format mp3 %s"
-                               youtube-dl-path
-                               youtube-dl-audio-dir
-                               "%(title)s.%(ext)s"
-                               (elfeed-entry-link elfeed-show-entry))))
-
-; Commented this out for now I don't think I need this
-; Add `youtube` tag to all videos
-;(add-hook 'elfeed-new-entry-hook
-;          (elfeed-make-tagger :feed-url "youtube\\.com"
-;                              :add '(video youtube)))
-
-#+end_src
-
-*** Format elfeed entries for Youtube
-
-Adds a nice formatted youtube entry. Stolen from https://github.com/xFA25E.
-
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-2) ".emacs.d/init.el" "no")
-
-(require 'elfeed-db)
-(require 'xml-query)
-
-(defgroup elfeed-youtube-parser nil
-  "Parse video thumbnails and descriptions from youtube feeds."
-  :group 'multimedia)
-
-(defcustom elfeed-youtube-parser-tag 'youtube
-  "The tag to use when looking for youtube entry in a feed."
-  :type 'symbol
-  :group 'elfeed-youtube-parser)
-
-(defun elfeed-youtube-parser--make-html (thumbnail description)
-  "Transforms `THUMBNAIL' link and `DESCRIPTION' string into html string."
-  (format "<img src=\"%s\"><br><pre>%s</pre>"
-          thumbnail description))
-
-;;;###autoload
-(defun elfeed-youtube-parser-parse-youtube (_type xml-entry db-entry)
-  "Parse elfeed youtube entry.
-If `XML-ENTRY' contains `YOUTUBE' tag, read `DB-ENTRY' and search
-for thumbnail and video description. Then associate new
-information with future `DB-ENTRY'. `TYPE' is ignored."
-
-  (when (member elfeed-youtube-parser-tag (elfeed-entry-tags db-entry))
-    (let ((thumbnail   (xml-query* (group thumbnail :url) xml-entry))
-          (description (xml-query* (group description *) xml-entry)))
-      (setf (elfeed-entry-content-type db-entry) 'html)
-      (setf (elfeed-entry-content db-entry)
-            (elfeed-youtube-parser--make-html thumbnail description)))))
-
-(provide 'elfeed-youtube-parser)
-;;; elfeed-youtube-parser.el ends here
-
-(add-hook 'elfeed-new-entry-parse-hook 'elfeed-youtube-parser-parse-youtube)
-
-#+end_src
-
-** Mu4e 
-
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-2) ".emacs.d/init.el" "no")
-
-(use-package mu4e
-  :defer t
-  :config
-  ;; use mu4e for e-mail in emacs
-  (setq mail-user-agent 'mu4e-user-agent)
-
-  ;; default
-  (setq mu4e-root-maildir "/home/tstarr/media/email/starrtyler88")
-
-  (setq mu4e-drafts-folder "/[Gmail].Drafts")
-  (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
-  (setq mu4e-trash-folder  "/[Gmail].Trash")
-
-  ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-  (setq mu4e-sent-messages-behavior 'delete)
-
-  ;; (See the documentation for `mu4e-sent-messages-behavior' if you have
-  ;; additional non-Gmail addresses and want assign them different
-  ;; behavior.)
-
-  ;; setup some handy shortcuts
-  ;; you can quickly switch to your Inbox -- press ``ji''
-  ;; then, when you want archive some messages, move them to
-  ;; the 'All Mail' folder by pressing ``ma''.
-
-  (setq mu4e-maildir-shortcuts
-      '( (:maildir "/INBOX"              :key ?i)
-        (:maildir "/[Gmail].Sent Mail"  :key ?s)
-        (:maildir "/[Gmail].Trash"      :key ?t)
-        (:maildir "/[Gmail].All Mail"   :key ?a)))
-
-  ;; allow for updating mail using 'U' in the main view:
-  (setq mu4e-get-mail-command "offlineimap")
-
-  ;; something about ourselves
-  (setq
-    user-mail-address "starrtyler88@gmail.com"
-    user-full-name  "Tyler Starr"
-    mu4e-compose-signature
-      (concat
-        "Tyler Starr\n"
-        "http://tstarr.us\n"))
-
-  ;; sending mail -- replace USERNAME with your gmail username
-  ;; also, make sure the gnutls command line utils are installed
-  ;; package 'gnutls-bin' in Debian/Ubuntu
-
-  (use-package smtpmail)
-  (setq message-send-mail-function 'smtpmail-send-it
-    starttls-use-gnutls t
-    smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-    smtpmail-auth-credentials
-      '(("smtp.gmail.com" 587 "starrtyler88@gmail.com" nil))
-    smtpmail-default-smtp-server "smtp.gmail.com"
-    smtpmail-smtp-server "smtp.gmail.com"
-    smtpmail-smtp-service 587)
-
-  ;; alternatively, for emacs-24 you can use:
-  ;;(setq message-send-mail-function 'smtpmail-send-it
-  ;;     smtpmail-stream-type 'starttls
-  ;;     smtpmail-default-smtp-server "smtp.gmail.com"
-  ;;     smtpmail-smtp-server "smtp.gmail.com"
-  ;;     smtpmail-smtp-service 587)
-
-  ;; don't keep message buffers around
-  (setq message-kill-buffer-on-exit t))
-
-#+end_src
-
 * Keybinds
 ** General
 
 Define base bindings that aren't SPC lead.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 ; Make ESC cancel all mini-buffer menus
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -2736,34 +2661,34 @@ Define base bindings that aren't SPC lead.
 
 Define SPC lead bindings that don't have submenus.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 ; Make ESC cancel all mini-buffer menus
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 ; Commands without sub-menus
 (dw/leader-key-def
-  "RET"  '(bookmark-jump         :which-key "Jump to Bookmark")
-  "SPC"  '(project-find-file     :which-key "Find file in project")
-  "'"    '(ivy-resume            :which-key "Resume last search")
-  "."    '(find-file             :which-key "Find file")
-  ":"    '(counsel-M-x           :which-key "M-x")
-  ";"    '(eval-expression       :which-key "Eval expression")
-  "<"    '(switch-to-buffer      :which-key "Switch buffer")
-  "`"    '(switch-to-prev-buffer :which-key "Switch to last buffer")
-  "C"    '(org-capture           :which-key "Org Capture")
-  "a"    '(ace-window            :which-key "Select window"))
-  ;"TAB"  '(:ignore t             :which-key "workspace")
-  ;"b"    '(:ignore t             :which-key "buffer")
-  ;"c"    '(:ignore t             :which-key "code")
-  ;"f"    '(:ignore t             :which-key "file")
-  ;"h"    '(:ignore t             :which-key "help")
-  ;"i"    '(:ignore t             :which-key "insert")
-  ;"n"    '(:ignore t             :which-key "notes")
-  ;"o"    '(:ignore t             :which-key "open")
-  ;"q"    '(:ignore t             :which-key "quit/session")
-  ;"s"    '(:ignore t             :which-key "search")
-  ;"t"    '(:ignore t             :which-key "toggle"))
+  "RET"  '(bookmark-jump                 :which-key "Jump to Bookmark")
+  "SPC"  '(project-find-file             :which-key "Find file in project")
+  "'"    '(ivy-resume                    :which-key "Resume last search")
+  "."    '(find-file                     :which-key "Find file")
+  ":"    '(counsel-M-x                   :which-key "M-x")
+  ";"    '(eval-expression               :which-key "Eval expression")
+  "<"    '(switch-to-buffer              :which-key "Switch buffer")
+  "`"    '(switch-to-prev-buffer         :which-key "Switch to last buffer")
+  "C"    '(org-capture                   :which-key "Org Capture")
+  "a"    '(winum-select-window-by-number :which-key "Select window"))
+  ;"TAB"  '(:ignore t                    :which-key "workspace")
+  ;"b"    '(:ignore t                    :which-key "buffer")
+  ;"c"    '(:ignore t                    :which-key "code")
+  ;"f"    '(:ignore t                    :which-key "file")
+  ;"h"    '(:ignore t                    :which-key "help")
+  ;"i"    '(:ignore t                    :which-key "insert")
+  ;"n"    '(:ignore t                    :which-key "notes")
+  ;"o"    '(:ignore t                    :which-key "open")
+  ;"q"    '(:ignore t                    :which-key "quit/session")
+  ;"s"    '(:ignore t                    :which-key "search")
+  ;"t"    '(:ignore t                    :which-key "toggle"))
 
 #+end_src
 
@@ -2771,7 +2696,7 @@ Define SPC lead bindings that don't have submenus.
 
 Define SPC lead bindings that open Emacs programs.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 ; Menu for opening applications
 (dw/leader-key-def
@@ -2786,7 +2711,7 @@ Define SPC lead bindings that open Emacs programs.
 
 Define SPC lead bindings that manipulate Emacs windows.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 ; Open evil-window keybind menus
 (dw/leader-key-def
   "w"  '(evil-window-map :which-key "window"))
@@ -2797,7 +2722,7 @@ Define SPC lead bindings that manipulate Emacs windows.
 
 Define SPC lead bindings for projectile.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 ; Commands for projectile projects
 (dw/leader-key-def
@@ -2828,7 +2753,7 @@ Define SPC lead bindings for projectile.
 
 Define SPC lead bindings for magit.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 ; Commands for magit
 (dw/leader-key-def
@@ -2852,7 +2777,7 @@ Define SPC lead bindings for magit.
 
 Define SPC lead bindings for various Emacs and general system utilites.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 ; Keybinds
 (dw/leader-key-def
@@ -2864,7 +2789,7 @@ Define SPC lead bindings for various Emacs and general system utilites.
 
 Define SPC lead bindings for finding documentation.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 ; Help 
 (dw/leader-key-def
@@ -2878,7 +2803,7 @@ Define SPC lead bindings for finding documentation.
 
 Define SPC lead bindings that manipulate Emacs buffers and bookmarks.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 ; Buffer
 (dw/leader-key-def
@@ -2888,9 +2813,9 @@ Define SPC lead bindings that manipulate Emacs buffers and bookmarks.
   "bb"   '(persp-switch-to-buffer             :which-key "Switch workspace buffer")
   "bB"   '(switch-to-buffer                   :which-key "Switch buffer")
   "bb"   '(switch-to-buffer                   :which-key "Switch buffer")
-  "bd"   '(kill-current-buffer                :which-key "Kill buffer")
+  "bd"   '(delete-window                      :which-key "Delete buffer")
   "bi"   '(ibuffer                            :which-key "ibuffer")
-  "bk"   '(kill-current-buffer                :which-key "Kill buffer")
+  "bk"   '(kill-buffer-and-window             :which-key "Kill buffer")
   "bl"   '(evil-switch-to-windows-last-buffer :which-key "Switch to last buffer")
   "bm"   '(bookmark-set                       :which-key "Set bookmark")
   "bM"   '(bookmark-delete                    :which-key "Delete bookmark")
@@ -2909,7 +2834,7 @@ Define SPC lead bindings that manipulate Emacs buffers and bookmarks.
 
 Define SPC lead bindings for dired.
 
-#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) ".emacs.d/init.el" "no")
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 (dw/leader-key-def
   "d"   '(:ignore t :which-key "dired")
@@ -2929,3 +2854,209 @@ Define SPC lead bindings for dired.
   "dpp"   '(mpv-playlist :which-key "playlist"))
 
 #+end_src
+
+** EXWM
+
+Define SPC lead bindings for EXWM.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+(dw/leader-key-def
+  "e"  '(:ignore t :which-key "exwm")
+  "es" '(exwm-workspace-switch :which-key "switch workspaces"))
+
+#+end_src
+
+* Desktop
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+(use-package exwm)
+
+(setq ts/exwm-enabled t)
+
+(defun ts/update-screen-layout ()
+  (interactive)
+  (let ((layout-script "~/.doom.d/scripts/update-screens"))
+     (message "Running screen layout script: %s" layout-script)
+     (start-process-shell-command "xrandr" nil layout-script)))
+
+(defun ts/set-wallpaper ()
+  (interactive)
+  (start-process-shell-command
+      "feh" nil  "nitrogen --restore"))
+
+(defun ts/set-xmodmap ()
+  (interactive)
+  (start-process-shell-command
+      "xmodmap" nil  "xmodmap ~/.Xmodmap"))
+
+(defun ts/set-imwheel ()
+  (interactive)
+  (start-process-shell-command
+      "imwheel" nil  "imwheel -b 45"))
+
+(defun ts/configure-desktop ()
+  (interactive)
+    ;;(dw/run-xmodmap)
+    (ts/update-screen-layout)
+    (ts/set-imwheel)
+    (ts/set-wallpaper))
+    ;(ts/set-xmodmap))
+    ;;(run-at-time "2 sec" nil (lambda () (dw/update-wallpapers))))
+
+
+(when ts/exwm-enabled
+  (set-frame-parameter (selected-frame) 'alpha '(95 . 95))
+  (add-to-list 'default-frame-alist '(alpha . (95 . 95))))
+
+(defun ts/on-exwm-init ()
+  (ts/configure-desktop))
+
+(when ts/exwm-enabled
+  ;; Configure the desktop for first load
+  (add-hook 'exwm-init-hook #'ts/on-exwm-init))
+
+;; Enable exwm-randr before exwm-init gets called
+(require 'exwm-randr)
+(exwm-randr-enable)
+
+;; Set the default number of workspaces
+(setq exwm-workspace-number 2)
+(setq exwm-workspace-index-map
+      (lambda (index) (number-to-string (1+ index))))
+(setq exwm-layout-show-all-buffers t)
+(setq exwm-workspace-show-all-buffers t)
+
+(defun efs/exwm-update-class ()
+  (exwm-workspace-rename-buffer exwm-class-name))
+
+(defun efs/exwm-update-title ()
+  (pcase exwm-class-name
+    ("Brave-browser" (exwm-workspace-rename-buffer (format "B-%s" (s-truncate 12 exwm-title))))
+    ("Firefox" (exwm-workspace-rename-buffer (format "F-%s" (s-truncate 12 exwm-title))))))
+
+;; When window "class" updates, use it to set the buffer name
+(add-hook 'exwm-update-class-hook #'efs/exwm-update-class)
+
+;; When window title updates, use it to set the buffer name
+(add-hook 'exwm-update-title-hook #'efs/exwm-update-title)
+
+;(defun ts/disable-tab-bar-on-class ()
+;  (pcase exwm-class-name
+;    ("steam" (lambda (frame) (toggle-frame-tab-bar frame)))))
+;
+
+;; These keys should always pass through to Emacs
+(setq exwm-input-prefix-keys
+  '(?\C-x
+    ?\C-u
+    ?\C-h
+    ?\M-x
+    ?\M-`
+    ?\M-&
+    ?\M-:
+    ?\C-w
+    ?\C-\M-j  ;; Buffer list
+    ?\C-\ ))  ;; Ctrl+Space
+
+;; Ctrl+Q will enable the next key to be sent directly
+(define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
+
+;; Set up global key bindings.  These always work, no matter the input state!
+;; Keep in mind that changing this list after EXWM initializes has no effect.
+(setq exwm-input-global-keys
+      `(
+        ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
+        ([?\s-r] . exwm-reset)
+
+        ;; Move between windows
+        ([?\s-h] . windmove-left)
+        ([?\s-l] . windmove-right)
+        ([?\s-k] . windmove-up)
+        ([?\s-j] . windmove-down)
+
+        ;; Launch applications via shell command
+        ([?\s-w] . counsel-linux-app)
+
+        ;; Launch applications via shell command
+        ([?\s-c] . (lambda (command)
+                     (interactive (list (read-shell-command "$ ")))
+                     (start-process-shell-command command nil command)))
+
+        ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
+        ,@(mapcar (lambda (i)
+                    `(,(kbd (format "s-%d" i)) .
+                      (lambda ()
+                        (interactive)
+                        (exwm-workspace-switch-create , (1- i)))))
+                  (number-sequence 0 9))))
+
+(setq exwm-randr-workspace-monitor-plist '(1 "HDMI-0"))
+
+(use-package exwm-modeline
+  :straight (:host github :repo "SqrtMinusOne/exwm-modeline")
+  :after (exwm))
+
+(add-hook 'exwm-init-hook #'exwm-modeline-mode)
+
+(defun ts/gamemode-status (char)
+  (interactive)
+  (let ((status (shell-command-to-string "gamemoded -s")))
+    (if (string-match "inactive" status)
+        (propertize char 'face '(:foreground "green"))
+      (propertize char 'face '(:foreground "red")))))
+
+(defun ts/cpu-percent (thresh)
+  (interactive)
+  (let* ((perc-cmd (shell-command-to-string "top -bn 2 -d 0.01 | grep '^%Cpu' | tail -n 1 | gawk '{print $2+$4+$6}'"))
+         (perc-num (string-to-number (substring perc-cmd 0 -1)))
+         (perc-str (format "%05.1f%%%%" (string-to-number (substring perc-cmd 0 -1)))))
+    (if (< perc-num thresh)
+        (propertize perc-str 'face '(:foreground "green"))
+      (propertize perc-str 'face '(:foreground "red")))))
+
+(defun ts/mem-percent (thresh)
+  (interactive)
+  (let* ((total (string-to-number (nth 1 (delete "" (split-string (shell-command-to-string "cat /proc/meminfo | grep MemTotal"))))))
+         (used (- total (string-to-number (nth 1 (delete "" (split-string (shell-command-to-string "cat /proc/meminfo | grep MemAvailable")))))))
+         (perc-use (* 100 (/ (float used) total)))
+         (perc-str (format "%05.1f%%%%" perc-use)))
+    (if (< perc-use thresh)
+        (propertize perc-str 'face '(:foreground "green"))
+      (propertize perc-str 'face '(:foreground "red")))))
+
+(defun ts/white (str)
+  (interactive)
+  (propertize str 'face '(:foreground "white")))
+
+(use-package minibuffer-line
+  :straight (:host github :repo "starr-dusT/minibuffer-line")
+  :config
+  (setq minibuffer-line-refresh-interval 5)
+  (setq minibuffer-line-format
+        '((:eval (ts/white "閭 ")) (:eval (ts/cpu-percent 60)) (:eval (ts/white " | "))
+          (:eval (ts/white "  ")) (:eval (ts/mem-percent 60)) (:eval (ts/white " | "))
+          (:eval (ts/gamemode-status "G")) (:eval (ts/white " | ")) 
+          (:eval (propertize (format-time-string "  %a %d/%m/%y  %H:%M:%S") 'face '(:foreground "white")))))
+  (minibuffer-line-mode))
+
+
+(use-package exwm-mff
+  :straight (:host github :repo "starr-dusT/exwm-mff")
+  :config
+  (exwm-mff-mode +1))
+
+;;; Set location for external packages.
+(add-to-list 'load-path "~/.emacs.d")
+(require 'framemove)
+(setq framemove-hook-into-windmove t)
+
+(exwm-enable)
+
+(tab-bar-mode)
+(add-hook 'after-make-frame-functions (lambda (frame) (set-frame-parameter frame 'tab-bar-lines 0)))
+
+#+end_src
+
+
