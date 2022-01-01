@@ -22,6 +22,7 @@
   - [[#ido][IDO]]
 - [[#general-configuration][General Configuration]]
   - [[#completions][Completions]]
+  - [[#undo][Undo]]
   - [[#ui][UI]]
     - [[#ui-elements][UI Elements]]
     - [[#scrolling][Scrolling]]
@@ -105,6 +106,9 @@
   - [[#dired][Dired]]
   - [[#exwm][EXWM]]
 - [[#desktop][Desktop]]
+  - [[#exwm-and-system-informationals][EXWM and System Informationals]]
+    - [[#exwm-modeline][EXWM Modeline]]
+    - [[#exwm-echo-area-bar][EXWM Echo Area Bar]]
 :END:
 
 * Custom Bits
@@ -400,8 +404,8 @@ Setup package management. Some lines can be uncommented for fresh installs.
 (require 'use-package)
 (require 'use-package-ensure)
 
-; Uncomment for fresh install
-;(setq use-package-always-ensure t)
+; Ensure packages by default
+(setq use-package-always-ensure t)
 
 #+end_src
 
@@ -586,6 +590,16 @@ Stolen from https://github.com/MatthewZMD
     (ivy--cd "~/")))
 
 #+end_src
+** Undo
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+(use-package undo-tree
+  :init
+  (global-undo-tree-mode 1))
+
+#+end_src
+
 ** UI
 *** UI Elements
 
@@ -2863,7 +2877,10 @@ Define SPC lead bindings for EXWM.
 
 (dw/leader-key-def
   "e"  '(:ignore t :which-key "exwm")
-  "es" '(exwm-workspace-switch :which-key "switch workspaces"))
+  "es" '(exwm-workspace-switch :which-key "switch workspaces")
+  "eg"  '(:ignore t :which-key "gamemode")
+  "egs" '(ts/start-gamemode :which-key "start gamemode")
+  "egk" '(ts/kill-gamemode :which-key "kill gamemode"))
 
 #+end_src
 
@@ -2877,7 +2894,7 @@ Define SPC lead bindings for EXWM.
 
 (defun ts/update-screen-layout ()
   (interactive)
-  (let ((layout-script "~/.doom.d/scripts/update-screens"))
+  (let ((layout-script "~/.config/scratch/scripts/update-screens"))
      (message "Running screen layout script: %s" layout-script)
      (start-process-shell-command "xrandr" nil layout-script)))
 
@@ -2895,6 +2912,16 @@ Define SPC lead bindings for EXWM.
   (interactive)
   (start-process-shell-command
       "imwheel" nil  "imwheel -b 45"))
+
+(defun ts/start-gamemode ()
+  (interactive)
+  (start-process-shell-command
+      "gamemoded" nil "gamemoded -r"))
+
+(defun ts/kill-gamemode ()
+  (interactive)
+  (start-process-shell-command
+      "killall" nil "killall gamemoded"))
 
 (defun ts/configure-desktop ()
   (interactive)
@@ -2976,6 +3003,11 @@ Define SPC lead bindings for EXWM.
         ([?\s-k] . windmove-up)
         ([?\s-j] . windmove-down)
 
+        ([?\s-H] . shrink-window-horizontally)
+        ([?\s-L] . enlarge-window-horizontally)
+        ([?\s-K] . enlarge-window)
+        ([?\s-J] . shrink-window)
+
         ;; Launch applications via shell command
         ([?\s-w] . counsel-linux-app)
 
@@ -2994,11 +3026,42 @@ Define SPC lead bindings for EXWM.
 
 (setq exwm-randr-workspace-monitor-plist '(1 "HDMI-0"))
 
+(use-package exwm-mff
+  :straight (:host github :repo "starr-dusT/exwm-mff")
+  :config
+  (exwm-mff-mode +1))
+
+;;; Set location for external packages.
+(add-to-list 'load-path "~/.emacs.d")
+(require 'framemove)
+(setq framemove-hook-into-windmove t)
+
+;(exwm-enable)
+
+(tab-bar-mode)
+;(add-hook 'after-make-frame-functions (lambda (frame) (set-frame-parameter frame 'tab-bar-lines 0)))
+
+#+end_src
+
+** EXWM and System Informationals
+
+Implement information relating to the underlying linux system and EXWM. This is done primarily through the echo area "bar" created using minibuffer-line and some helper functions and some minor things in the modeline.
+
+*** EXWM Modeline
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
 (use-package exwm-modeline
   :straight (:host github :repo "SqrtMinusOne/exwm-modeline")
   :after (exwm))
 
 (add-hook 'exwm-init-hook #'exwm-modeline-mode)
+
+#+end_src
+
+*** EXWM Echo Area Bar
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
 (defun ts/gamemode-status (char)
   (interactive)
@@ -3026,10 +3089,35 @@ Define SPC lead bindings for EXWM.
         (propertize perc-str 'face '(:foreground "green"))
       (propertize perc-str 'face '(:foreground "red")))))
 
+(defun ts/volume-percent (thresh)
+  (interactive)
+  (let* ((vol-cmd (shell-command-to-string "pactl list sinks | grep -A 7 'Name: alsa_output.usb-AudioQuest_inc._AudioQuest_DragonFly-00.analog-stereo' | tail -n 1"))
+         (mute-cmd (shell-command-to-string "pactl list sinks | grep -A 6 'Name: alsa_output.usb-AudioQuest_inc._AudioQuest_DragonFly-00.analog-stereo' | tail -n 1"))
+         (vol-str (concat (nth 4 (split-string vol-cmd)) "%"))
+         (mute-str (nth 1 (split-string mute-cmd))))
+    (if (string= mute-str "no")
+        (propertize vol-str 'face '(:foreground "green"))
+      (propertize vol-str 'face '(:foreground "red")))))
+
+(defun ts/mouse-charging-status (char)
+  (interactive)
+  (let ((status (shell-command-to-string "cat /sys/class/power_supply/hidpp_battery_*/uevent | grep POWER_SUPPLY_STATUS | tail -n1")))
+    (if (string-match "Discharging" status)
+        (propertize char 'face '(:foreground "red"))
+      (propertize char 'face '(:foreground "green")))))
+
+(defun ts/mouse-voltage (thresh)
+  (interactive)
+  (let* ((volt-cmd (shell-command-to-string "cat /sys/class/power_supply/hidpp_battery_*/uevent | grep POWER_SUPPLY_VOLTAGE"))
+         (volt-str (format "%smV" (substring (nth 1 (split-string volt-cmd "=")) 0 4)))
+         (volt-num (string-to-number volt-str)))
+    (if (> volt-num thresh)
+        (propertize volt-str 'face '(:foreground "green"))
+      (propertize volt-str 'face '(:foreground "red")))))
+
 (defun ts/white (str)
   (interactive)
   (propertize str 'face '(:foreground "white")))
-
 (use-package minibuffer-line
   :straight (:host github :repo "starr-dusT/minibuffer-line")
   :config
@@ -3037,26 +3125,10 @@ Define SPC lead bindings for EXWM.
   (setq minibuffer-line-format
         '((:eval (ts/white "閭 ")) (:eval (ts/cpu-percent 60)) (:eval (ts/white " | "))
           (:eval (ts/white "  ")) (:eval (ts/mem-percent 60)) (:eval (ts/white " | "))
-          (:eval (ts/gamemode-status "G")) (:eval (ts/white " | ")) 
+          (:eval (ts/white " ")) (:eval (ts/volume-percent 70)) (:eval (ts/white " | ")) 
+          (:eval (ts/mouse-charging-status " ")) (:eval (ts/mouse-voltage 3700)) (:eval (ts/white " | ")) 
+          (:eval (ts/gamemode-status "")) (:eval (ts/white " | ")) 
           (:eval (propertize (format-time-string "  %a %d/%m/%y  %H:%M:%S") 'face '(:foreground "white")))))
   (minibuffer-line-mode))
 
-
-(use-package exwm-mff
-  :straight (:host github :repo "starr-dusT/exwm-mff")
-  :config
-  (exwm-mff-mode +1))
-
-;;; Set location for external packages.
-(add-to-list 'load-path "~/.emacs.d")
-(require 'framemove)
-(setq framemove-hook-into-windmove t)
-
-(exwm-enable)
-
-(tab-bar-mode)
-(add-hook 'after-make-frame-functions (lambda (frame) (set-frame-parameter frame 'tab-bar-lines 0)))
-
 #+end_src
-
-
