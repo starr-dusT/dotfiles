@@ -1,2 +1,4 @@
 \.git
 readme.md
+\.config/systemd
+install.sh

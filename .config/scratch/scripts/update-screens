@@ -1,27 +1,21 @@
 #!/bin/sh
-
-# Get current IP address
-addr=$(ip -4 addr show $1 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
-# The the relevant number (X) 192.168.X.YYY
-num=($(echo "$addr" | tr '.' '\n'))
-# Based on number set xrandr
-case ${num[2]} in
-    2)
+case $1 in
+    "home")
         # Primary monitor on left
         xrandr --output DP-4 --primary \
             --mode 2560x1440 --rate 144 \
             --pos 0x0 --rotate normal \
             --output HDMI-0 \
             --mode 2560x1440 --rate 144 \
-            --pos 2660x0 --rotate normal
+            --pos 2560x0 --rotate normal
         ;;
-    1)
+    "apt")
         # Primary monitor on right
         xrandr --output HDMI-0 \
             --mode 2560x1440 --rate 144 \
             --pos 0x0 --rotate normal \
             --output DP-4 --primary \
             --mode 2560x1440 --rate 144 \
-            --pos 2660x0 --rotate normal
+            --pos 2560x0 --rotate normal
         ;;
 esac

@@ -145,7 +145,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 t = 0.15 -h
                 l = 0.55 -w
 
-        spawnEmacs  = "emacs --eval '(set-frame-name \"scratch-emacs\")'"
+        spawnEmacs  = "emacsclient -c -n -e --eval '(set-frame-name \"scratch-emacs\")'"
         findEmacs   = title =? "scratch-emacs"
         manageEmacs = customFloating $ W.RationalRect l t w h
             where
@@ -236,7 +236,7 @@ myKeys home =
     -- Spawn flameshot
     , ("M-o c"  , spawn "flameshot gui")
     -- Spawn emacs
-    , ("M-o e"  , spawn "emacs")
+    , ("M-o e"  , spawn "emacsclient -c -n -e '(switch-to-buffer nil)'")
 
     --------------------------------------------------
     -- System Utils
