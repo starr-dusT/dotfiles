@@ -1,8 +1,5 @@
 # Boot binaries
-IgnorePath '/boot/*.img'
-IgnorePath '/boot/*/*.EFI'
-IgnorePath '/boot/*/*.efi'
-IgnorePath '/boot/vmlin*'
+IgnorePath '/boot/*'
 # Certificate databases
 IgnorePath '/etc/ca-certificates/extracted/*'
 IgnorePath '/etc/ssl/certs/*'

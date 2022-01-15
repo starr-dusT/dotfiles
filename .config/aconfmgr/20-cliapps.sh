@@ -20,7 +20,7 @@ AddPackage gamemode # A daemon/lib combo that allows games to request a set of o
 
 # Dev Tools
 AddPackage git # the fast distributed version control system
-AddPackage --foreign platformio # A cross-platform code builder and library manager
+#AddPackage --foreign platformio # A cross-platform code builder and library manager
 
 # Archives
 AddPackage arj        # Free and portable clone of the ARJ archiver
@@ -39,7 +39,7 @@ AddPackage zip        # Compressor/archiver for creating and modifying zipfiles
 
 # $EDITOR
 AddPackage neovim # Fork of Vim aiming to improve user experience, plugins, and GUIs
-AddPackage --foreign emacs-native-comp-git-enhanced # GNU Emacs. Development master branch.
+#AddPackage --foreign emacs-native-comp-git-enhanced # GNU Emacs. Development master branch.
 
 # File Management
 AddPackage rsync # A fast and versatile file copying tool for remote and local files

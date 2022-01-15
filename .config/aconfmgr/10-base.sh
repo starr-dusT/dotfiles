@@ -15,7 +15,11 @@ AddPackage pkgfile                # a pacman .files metadata explorer
 AddPackage reflector              # A Python 3 module and script to retrieve and filter the latest Pacman mirror list.
 CopyFile /etc/makepkg.conf
 CopyFile /etc/pacman.conf
-
+CopyFile /etc/group
+CopyFile /etc/group-
+CopyFile /etc/passwd
+CopyFile /etc/passwd-
+CopyFile /etc/sudoers
 
 # Default kernel
 AddPackage linux         # The Linux kernel and modules
@@ -72,7 +76,6 @@ if ! DetectVM; then
 		AddPackage lm_sensors # Collection of user space tools for general SMBus access and hardware monitoring
 		CreateLink /etc/systemd/system/multi-user.target.wants/lm_sensors.service /usr/lib/systemd/system/lm_sensors.service
 	fi
-fi
 
 # Reduce timeouts to sane values
 cat >>"$(GetPackageOriginalFile systemd /etc/systemd/system.conf)" <<-EOF
