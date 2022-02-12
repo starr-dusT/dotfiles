@@ -5,6 +5,9 @@ import System.IO
 import qualified XMonad.StackSet as W
 import System.Directory (getHomeDirectory)
 import Data.Semigroup
+import Text.Read
+import Data.List (elemIndex)
+
 -- Hooks
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
@@ -21,6 +24,8 @@ import XMonad.Layout.WindowNavigation
 import XMonad.Layout.SimpleFloat
 import XMonad.Layout.HintedTile
 import XMonad.Layout.Grid
+import XMonad.Layout.TwoPane
+import XMonad.Layout.TwoPanePersistent
 
 --Utilities
 import XMonad.Util.Run (spawnPipe)
@@ -28,12 +33,20 @@ import XMonad.Util.SpawnOnce
 import XMonad.Util.EZConfig (additionalKeysP, removeKeys)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.ClickableWorkspaces (clickablePP)
+import XMonad.Util.Loggers
+
 -- Actions
 import XMonad.Actions.DynamicProjects (Project (..), dynamicProjects, switchProjectPrompt, shiftToProjectPrompt, switchProject, shiftToProject)
 import XMonad.Actions.UpdatePointer
+import XMonad.Actions.RotSlaves
+import XMonad.Actions.RotateSome
+import XMonad.Actions.GroupNavigation
 import XMonad.Actions.Navigation2D
+
 -- Prompt
 import XMonad.Prompt
+import XMonad.Prompt.Window 
+--import XMonad.Util.CurrentIndex
 
 -- Terminal to use
 myTerminal :: String
@@ -51,6 +64,7 @@ muteVolumeCmd  = "pactl set-sink-mute @DEFAULT_SINK@ toggle"
 -- Count windows
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
+
 -- Define workspaces
 myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 -- Width of window border
@@ -58,14 +72,6 @@ myBorderWidth = 2
 -- Border colors
 myNormalBorderColor  = "#ebdbb2"
 myFocusedBorderColor = "#d3869b"
--- Configuration for myNav2D
-myNav2DConf = def
-    { defaultTiledNavigation    = centerNavigation
-    , floatNavigation           = centerNavigation
-    , screenNavigation          = lineNavigation
-    , layoutNavigation          = [("Spacing Full", centerNavigation)]
-    , unmappedWindowRect        = [("Spacing Full", singleWindowRect)]
-    }
 
 myStartupHook = do
     spawnOnce "nitrogen --restore &"
@@ -90,7 +96,7 @@ projects =
             }
   ]
 
-myLayout = windowNavigation $ spacing 2 $ smartBorders (tiled Tall ||| tiled Wide ||| Full ||| simpleFloat ||| Grid)
+myLayout = windowNavigation $ spacing 2 $ smartBorders (TwoPanePersistent Nothing (3/100) (1/2) ||| tiled Tall ||| tiled Wide ||| Full ||| simpleFloat ||| Grid)
     where
         -- default tiling algorithm partitions the screen into two panes
         --tiled = Tall nmaster delta ratio
@@ -170,7 +176,7 @@ myEventHook :: Event -> X All
 myEventHook = dynamicPropertyChange "WM_NAME" (title =? "scratch-emacs" --> floating)
                   where floating = customFloating $ W.RationalRect (1/6) 0.05 (2/3) 0.9
 -- Log hook
-myLogHook = updatePointer (0.5, 0.5) (0, 0)
+myLogHook = historyHook <+> updatePointer (0.5, 0.5) (0, 0)
 
 myKeys :: String -> [([Char], X ())]
 myKeys home =
@@ -179,7 +185,7 @@ myKeys home =
     -- Window/Focus Manipulation
     --------------------------------------------------
     -- Rotate through the available layout algorithms
-      ("M-<Tab>", sendMessage NextLayout)
+      ("M-<Space>", sendMessage NextLayout)
     -- Shrink the master area
     , ("M-C-h", sendMessage Shrink)
     -- Expand the master area
@@ -188,6 +194,32 @@ myKeys home =
     , ("M-t", withFocused $ windows . W.sink)
     -- close focused window
     , ("M-q", kill)
+    ---- Move focus to the next window.
+    --, ("M-j", windows W.focusDown)
+    ---- Move focus to the previous window.
+    --, ("M-k", windows W.focusUp)
+    ---- Swap the focused window with the next window.
+    --, ("M-S-j", windows W.swapDown)
+    ---- Swap the focused window with the previous window.
+    --, ("M-S-k", windows W.swapUp)
+
+    -- Swap the focused window with the next window.
+    , ("M-C-j", rotSlavesDown)
+    -- Swap the focused window with the previous window.
+    , ("M-C-k", rotSlavesUp)
+    
+    -- Move focus to the master window.
+    , ("M-m", windows W.focusMaster)
+    -- Swap the focused window and the master window.
+    , ("M-S-m", windows W.swapMaster)
+
+    -- Increment number of windows in master
+    , ("M-.", sendMessage (IncMasterN 1))
+    -- Decrement number of windows in master
+    , ("M-,", sendMessage (IncMasterN (-1)))
+
+    -- Swap the focused window and the master window.
+    , ("M-b", nextMatch History (return True))
 
     --------------------------------------------------
     -- Basic Utils
@@ -198,7 +230,8 @@ myKeys home =
     -- Spawn rofi drun
     , ("M-w"  , spawn "rofi -show drun -theme gruvbox-dark-soft -show-icons")
     , ("M-S-w"  , spawn "rofi -show run -theme gruvbox-dark-soft")
-
+    -- Grab and Goto Windows
+    , ("M-g", windowPrompt def {autoComplete = Just 20000} Goto allWindows)
     --------------------------------------------------
     -- Scratchpads
     --------------------------------------------------
@@ -208,7 +241,7 @@ myKeys home =
     -- Spawn discord scratchpad
     , ("M-d", namedScratchpadAction myScratchPads "discord")
     -- Spawn keepass scratchpad
-    , ("M-m", namedScratchpadAction myScratchPads "keepassxc")
+    , ("M-p", namedScratchpadAction myScratchPads "keepassxc")
     -- Spawn calendar scratchpad
     , ("M-c", namedScratchpadAction myScratchPads "gsimplecal")
     -- Spawn emacs scratchpad
@@ -217,18 +250,18 @@ myKeys home =
     --------------------------------------------------
     -- Dynamic Projects
     --------------------------------------------------
-    --, ("M-p s", switchProjectPrompt projectsTheme)
-    --, ("M-p S", shiftToProjectPrompt projectsTheme)
-    , ("M-p d", switchProject (projects !! 0))
-    , ("M-p S-d", shiftToProject (projects !! 0))
-    , ("M-p g", switchProject (projects !! 1))
-    , ("M-p S-g", shiftToProject (projects !! 1))
+    --, ("M-s s", switchProjectPrompt projectsTheme)
+    --, ("M-s S", shiftToProjectPrompt projectsTheme)
+    , ("M-s d", switchProject (projects !! 0))
+    , ("M-s S-d", shiftToProject (projects !! 0))
+    , ("M-s g", switchProject (projects !! 1))
+    , ("M-s S-g", shiftToProject (projects !! 1))
 
     --------------------------------------------------
     -- Open Applications
     --------------------------------------------------
     -- Spawn firefox
-    , ("M-o b"  , spawn "brave")
+    , ("M-o b"  , spawn "qutebrowser")
     -- Spawn lutris
     , ("M-o l"  , spawn "lutris")
     -- Spawn steam
@@ -267,6 +300,14 @@ rmKeys keys =
     (myModMask .|. shiftMask, xK_q)
   ]
 
+myNav2DConf = def
+    { defaultTiledNavigation    = sideNavigation
+    , floatNavigation           = sideNavigation
+    , screenNavigation          = sideNavigation
+    , layoutNavigation          = [("Spacing Full", centerNavigation)]
+    , unmappedWindowRect        = [("Spacing Full", singleWindowRect)]
+    }
+
 main = do
     home <- getHomeDirectory
     xmproc0 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
@@ -277,14 +318,14 @@ main = do
       $ ewmhFullscreen
       $ withNavigation2DConfig myNav2DConf
       $ navigation2DP def
-                         ("k", "h", "j", "l")
-                         [("M-", windowGo),
-                          ("M-S-", windowSwap)]
-                         False
-      $ additionalNav2DKeysP ("", "u", "", "i")
-                            [("M-", screenGo),
-                             ("M-S-", screenSwap)]
-                            False
+                      ("", "u", "", "i")
+                      [("M-", screenGo),
+                       ("M-S-", screenSwap)]
+                      False
+      $ additionalNav2DKeysP ("k", "h", "j", "l")
+                             [("M-", windowGo),
+                              ("M-S-", windowSwap)]
+                             False
       $ def
         {
         -- Simple items

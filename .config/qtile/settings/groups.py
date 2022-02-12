@@ -18,10 +18,11 @@ for i, group in enumerate(groups):
     ])
 
 groups.append(
-    Group("Comm", spawn="discord", persist=True)
+    #Group("Comm", spawn="discord", persist=True)
+    ScratchPad("Comm", [DropDown("d", "discord", match=Match(wm_class="discord"), x=0.1, y=0.1, width=0.8, height=0.8)])
 )
 
 keys.extend([
-    Key([mod], "d", lazy.group["Comm"].toscreen())
+    Key([mod], "d", lazy.group["Comm"].dropdown_toggle("d"))
 ])
 

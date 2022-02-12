@@ -19,6 +19,7 @@ layouts = [
     layout.Matrix(columns=2, **layout_conf),
     layout.Zoomy(**layout_conf),
     layout.Bsp(**layout_conf),
+    layout.Columns(**layout_conf),
 ]
 
 # Define floating rules

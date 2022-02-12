@@ -3188,6 +3188,14 @@ Define SPC lead bindings for Roam.
     (interactive)
     (exwm-floating-move 1 0))
 
+  (defun ts/shrink-window ()
+    (interactive)
+    (shrink-window-horizontally 10))
+
+  (defun ts/enlarge-window ()
+    (interactive)
+    (enlarge-window-horizontally 10))
+
     ;; Set up global key bindings.  These always work, no matter the input state!
     ;; Keep in mind that changing this list after EXWM initializes has no effect.
     (setq exwm-input-global-keys
@@ -3201,8 +3209,8 @@ Define SPC lead bindings for Roam.
             ([?\s-k] . windmove-up)
             ([?\s-j] . windmove-down)
 
-            ([?\s-H] . shrink-window-horizontally)
-            ([?\s-L] . enlarge-window-horizontally)
+            ([?\s-H] . ts/shrink-window)
+            ([?\s-L] . ts/enlarge-window)
             ([?\s-K] . enlarge-window)
             ([?\s-J] . shrink-window)
 
