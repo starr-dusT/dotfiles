@@ -1,0 +1,13 @@
+(in-package :stumpwm)
+
+(run-shell-command "export GDK_CORE_DEVICE_EVENTS=1")
+
+(defvar *app-keymap*
+  (let ((m (make-sparse-keymap)))
+    (define-key m (kbd "b") "exec firefox")
+    (define-key m (kbd "t") "exec alacritty")
+    m))
+
+(define-key *root-map* (kbd "a") '*app-keymap*)
+
+(setf *mouse-focus-policy* :click)

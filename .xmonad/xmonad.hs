@@ -39,7 +39,7 @@ import XMonad.Util.EZConfig (additionalKeysP, removeKeys)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.ClickableWorkspaces (clickablePP)
 import XMonad.Util.Loggers
-import XMonad.Util.XProp
+--import XMonad.Util.XProp
 
 -- Actions
 import XMonad.Actions.DynamicProjects (Project (..), dynamicProjects, switchProjectPrompt, shiftToProjectPrompt, switchProject, shiftToProject)
@@ -68,6 +68,7 @@ myFocusFollowsMouse = True
 
 -- Define mod keys
 myModMask :: KeyMask
+--myModMask = mod4Mask
 myModMask = mod4Mask
 
 -- Define volume keys and commands
@@ -83,7 +84,7 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 -- Width of window border
-myBorderWidth = 2
+myBorderWidth = 0
   
 -- Border colors
 myNormalBorderColor = "#282828"
@@ -141,9 +142,9 @@ projects =
 -- Config layouts
 myLayout = windowNavigation
          $ renamed [CutWordsLeft 1]
-         $ spacing 2
-         $ smartBorders
-         (masterTab ||| (tabbed shrinkText myTabTheme) ||| tiled Tall) 
+         $ spacing 0
+         -- $ smartBorders
+         (masterTab ||| (tabbed shrinkText myTabTheme) ||| tiled Tall ||| noBorders Full) 
     where
         -- tiled = Tall nmaster delta ratio
         tiled = HintedTile 1 0.03 0.5 TopLeft

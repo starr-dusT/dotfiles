@@ -12,7 +12,7 @@ alias dired="emacsclient -c -nw -a '' --eval '(dired nil)'"
 alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias update-xmonad="yay -S xmonad-git xmonad-contrib-git xmobar-git"
 alias git-python='/usr/bin/git --git-dir=$HOME/devel/python/python-bits-and-bobs --work-tree=$HOME/devel/python'
-alias rm='echo "This is not the command you are looking for."; false'
+#alias rm='echo "This is not the command you are looking for."; false'
 alias tp='trash-put'
 alias te='trash-empty'
 alias tl='trash-list'
