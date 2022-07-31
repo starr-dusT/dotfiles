@@ -30,7 +30,8 @@
     - [[#file-warnings][File Warnings]]
     - [[#hilight-matching-braces][Hilight Matching Braces]]
     - [[#fix-annoying-buffers][Fix Annoying Buffers]]
-  - [[#theme][Theme]]
+  - [[#theme][
+    Theme]]
   - [[#fonts][Fonts]]
   - [[#mode-line][Mode Line]]
     - [[#time-format][Time Format]]
@@ -706,7 +707,7 @@ Setup package management. Some lines can be uncommented for fresh installs.
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("org" . "https://orgmode.org/elpa/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
-(package-initialize)
+;(package-initialize)
 
 ; Uncomment for fresh install
 (package-refresh-contents)
@@ -728,18 +729,18 @@ Trying out straight.el for package management. So far so good!
 
 ; Uncomment for fresh install
 ; Bootstrap straight.el
-(defvar bootstrap-version)
-(let ((bootstrap-file
-      (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-        "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-        'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
+;(defvar bootstrap-version)
+;(let ((bootstrap-file
+;      (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+;      (bootstrap-version 5))
+;  (unless (file-exists-p bootstrap-file)
+;    (with-current-buffer
+;        (url-retrieve-synchronously
+;        "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+;        'silent 'inhibit-cookies)
+;      (goto-char (point-max))
+;      (eval-print-last-sexp)))
+;  (load bootstrap-file nil 'nomessage))
 
 ;; Always use straight to install on systems other than Linux
 (setq straight-use-package-by-default (not (eq system-type 'gnu/linux)))
@@ -844,7 +845,7 @@ I don't want a bunch of transient files showing up as untracked in the Git repo 
 
 #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
 
-(server-start)
+;(server-start)
 
 #+end_src
 
@@ -1638,6 +1639,30 @@ The [[https://github.com/myrjola/diminish.el][diminish]] package hides pesky min
   #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
   (setq initial-scratch-message "")
   (setq initial-major-mode 'emacs-lisp-mode)
+  #+END_SRC
+
+** Scratch
+
+  Since the =*scratch*= buffer is pretty hard-wired into Emacs (see
+  =buffer.c=), the least we could do is getting rid of its initial
+  message.  No, it's using its own mode instead of ~emacs-lisp-mode~ for
+  the questionable benefit of having a function inserting evaluation
+  values after a newline.
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+  (setq initial-scratch-message "")
+  (setq initial-major-mode 'emacs-lisp-mode)
+  #+END_SRC
+
+** Scratch
+
+
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+(use-package evil-multiedit)
+(evil-multiedit-default-keybinds)
+    
   #+END_SRC
 
 * Window Management
@@ -3144,7 +3169,6 @@ Sets the background of HTML color strings in buffers to be the color mentioned.
         js2-mode))
 
 #+end_src
-
 * Project Specific
 ** Recipes
 

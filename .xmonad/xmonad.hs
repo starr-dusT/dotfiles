@@ -42,17 +42,20 @@ import XMonad.Util.Loggers
 --import XMonad.Util.XProp
 
 -- Actions
-import XMonad.Actions.DynamicProjects (Project (..), dynamicProjects, switchProjectPrompt, shiftToProjectPrompt, switchProject, shiftToProject)
+import XMonad.Actions.DynamicWorkspaces
 import XMonad.Actions.UpdatePointer
 import XMonad.Actions.RotSlaves
 import XMonad.Actions.RotateSome
 import XMonad.Actions.GroupNavigation
 import XMonad.Actions.Navigation2D
-  
+import XMonad.Actions.WindowBringer
+
 -- Prompt
 import XMonad.Prompt
 import XMonad.Prompt.Window 
 import XMonad.Prompt.AppLauncher
+
+import qualified XMonad.Util.ExtensibleState as XS
 
 -- Font to use
 myFont :: String
@@ -84,12 +87,12 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 -- Width of window border
-myBorderWidth = 0
-  
+myBorderWidth = 2
+
 -- Border colors
 myNormalBorderColor = "#282828"
 myFocusedBorderColor = "#B16286"
-  
+
 -- Config for xmonad prompts
 myXPConfig = 
     def { font                = myFont
@@ -128,36 +131,28 @@ myStartupHook = do
     spawnOnce "imwheel -b 45 &"
     spawnOnce "udiskie &"
     spawnOnce "dunst -conf ~/.config/dunst/dunstrc"
-
--- Config dynamic projects
-projects :: [Project]
-projects =
-  [ Project { projectName      = "dev"
-            , projectDirectory = "~/devel"
-            , projectStartHook = Just $ do spawn "emacs"
-                                           spawn myTerminal
-            }
-  ]
+    spawnOnce "emacs --daemon"
 
 -- Config layouts
 myLayout = windowNavigation
          $ renamed [CutWordsLeft 1]
-         $ spacing 0
-         -- $ smartBorders
+         $ spacing 3
+	 $ smartBorders
          (masterTab ||| (tabbed shrinkText myTabTheme) ||| tiled Tall ||| noBorders Full) 
-    where
-        -- tiled = Tall nmaster delta ratio
-        tiled = HintedTile 1 0.03 0.5 TopLeft
-        -- master and tabbed tiling
-        masterTab = renamed [Replace "Master Tab"] $ mastered (1/100) (1/2) $ (focusTracking (tabbed shrinkText myTabTheme))
+  where
+      -- tiled = Tall nmaster delta ratio
+      tiled = HintedTile 1 0.03 0.5 TopLeft
+      -- master and tabbed tiling
+      masterTab = renamed [Replace "Master Tab"] $ mastered (1/100) (1/2) $ (focusTracking (tabbed shrinkText myTabTheme))
 
 myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 , NS "discord"  spawnDiscord findDiscord manageDiscord
                 , NS "keepassxc"  spawnKeepass findKeepass manageKeepass
-                , NS "gsimplecal"  spawnCal findCal manageCal
-                , NS "scratch-emacs"  spawnEmacs findEmacs manageEmacs ]
+                , NS "qalculate-gtk"  spawnCal findCal manageCal
+                , NS "scratch-emacs"  spawnEmacs findEmacs manageEmacs]
     where
+        -- Basic terminal
         spawnTerm  = myTerminal ++ " -t terminal"
         findTerm   = title =? "terminal"
         manageTerm = customFloating $ W.RationalRect l t w h
@@ -166,7 +161,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 w = 0.9
                 t = 0.95 -h
                 l = 0.95 -w
-
+        -- Discord 
         spawnDiscord  = "discord"
         findDiscord   = appName =? "discord"
         manageDiscord = customFloating $ W.RationalRect l t w h
@@ -175,7 +170,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 w = 0.9
                 t = 0.95 -h
                 l = 0.95 -w
-
+        -- Keepass
         spawnKeepass  = "keepassxc"
         findKeepass   = appName =? "keepassxc"
         manageKeepass = customFloating $ W.RationalRect l t w h
@@ -184,16 +179,16 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 w = 0.9
                 t = 0.95 -h
                 l = 0.95 -w
-
-        spawnCal  = "gsimplecal"
-        findCal   = appName =? "gsimplecal"
+        -- Calculator
+        spawnCal  = "qalculate-gtk"
+        findCal   = appName =? "qalculate-gtk"
         manageCal = customFloating $ W.RationalRect l t w h
             where
                 h = 0.125
                 w = 0.1
                 t = 0.15 -h
                 l = 0.55 -w
-
+        -- Basic emacs
         spawnEmacs  = "emacsclient -c -n -e --eval '(set-frame-name \"scratch-emacs\")'"
         findEmacs   = title =? "scratch-emacs"
         manageEmacs = customFloating $ W.RationalRect l t w h
@@ -209,14 +204,7 @@ myManageHook = composeAll . concat $
     [[className =? c --> doFloat | c <- myFloats],
     [isDialog --> doCenterFloat,
      isFullscreen --> doFullFloat,
-     className =? "latte-dock" --> hasBorder False,
-     className =? "lattedock" --> hasBorder False,
-     className =? "Plasma-desktop" --> hasBorder False,
-     className =? "plasmashell" --> hasBorder False,
-     className =? "krunner" --> hasBorder False,
-     className =? "Klipper" --> hasBorder False,
-     className =? "krunner" --> hasBorder False,
-     className =? "fusion360.exe" --> doFullFloat,
+     className =? "net-runelite-client-RuneLite" --> doFloat,
      className =? "mpv" --> doRectFloat (W.RationalRect 0.55 0.05 0.4 0.4),
      className =? "Steam" --> doFullFloat,
      className =? "Superslicer" --> doFullFloat,
@@ -283,6 +271,16 @@ myKeys home =
     , ("M-,", sendMessage (IncMasterN (-1)))
     -- Swap the focused window and the master window.
     , ("M-b", nextMatch History (return True))
+    -- Bring a window to focus.
+    , ("M-z", bringMenu)
+    -- Remove workspace
+    , ("M-r", removeWorkspace)
+    -- Rename workspace
+    , ("M-S-r", renameWorkspace myXPConfig)
+    -- Add or select workspace
+    , ("M-a", selectWorkspace myXPConfig)
+    -- Toggle Struts 
+    , ("M-i", sendMessage ToggleStruts)
 
     --------------------------------------------------
     -- Basic Utils
@@ -304,25 +302,15 @@ myKeys home =
     -- Spawn keepass scratchpad
     , ("M-p", namedScratchpadAction myScratchPads "keepassxc")
     -- Spawn calendar scratchpad
-    , ("M-c", namedScratchpadAction myScratchPads "gsimplecal")
+    , ("M-c", namedScratchpadAction myScratchPads "qalculate-gtk")
     -- Spawn emacs scratchpad
     , ("M-e", namedScratchpadAction myScratchPads "scratch-emacs")
-
-    --------------------------------------------------
-    -- Dynamic Projects
-    --------------------------------------------------
-    , ("M-s s", switchProjectPrompt myXPConfig)
-    , ("M-s S", shiftToProjectPrompt myXPConfig)
-    , ("M-s d", switchProject (projects !! 0))
-    , ("M-s S-d", shiftToProject (projects !! 0))
-    , ("M-s g", switchProject (projects !! 1))
-    , ("M-s S-g", shiftToProject (projects !! 1))
 
     --------------------------------------------------
     -- Open Applications
     --------------------------------------------------
     -- Spawn firefox
-    , ("M-o b"  , spawn "brave")
+    , ("M-o b"  , spawn "chromium")
     -- Spawn lutris
     , ("M-o l"  , spawn "lutris")
     -- Spawn steam
@@ -352,6 +340,15 @@ myKeys home =
     -- lower overall volume
     , ("<XF86AudioLowerVolume>", spawn lowerVolumeCmd)
   ]
+  ++
+  -- Switch to dynamically created workspace
+  zip (["M-<F1>","M-<F2>","M-<F3>","M-<F4>",
+        "M-<F5>","M-<F6>","M-<F7>","M-<F8>"]) (map (withNthWorkspace W.greedyView) [10..])
+  ++
+  -- Shift windows to dynamically created workspace
+  zip (["M-S-<F1>","M-S-<F2>","M-S-<F3>","M-S-<F4>",
+        "M-S-<F5>","M-S-<F6>","M-S-<F7>","M-S-<F8>"]) (map (withNthWorkspace W.shift) [10..])
+
 -- Remove the default binding for quit xmonad
 rmKeys :: String -> [(KeyMask, KeySym)]
 rmKeys keys =
@@ -362,9 +359,9 @@ rmKeys keys =
 main = do
     home <- getHomeDirectory
     xmproc0 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
+    xmproc1 <- spawnPipe "xmobar -x 1 ~/.config/xmobar/xmobarrc1"
     -- The monad
     xmonad  
-      $ dynamicProjects projects
       $ docks
       $ ewmh
       $ ewmhFullscreen
@@ -389,6 +386,7 @@ main = do
         handleEventHook = myEventHook,
         logHook = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP
             { ppOutput = \x -> hPutStrLn xmproc0 x
+	    		    >> hPutStrLn xmproc1 x
             , ppCurrent = xmobarColor "#B8BB26" "" . wrap "[" "]"    -- Current workspace in xmobar
             , ppVisible = xmobarColor "#83A598" ""                -- Visible but not current workspace
             , ppHidden = xmobarColor "#83A598" "" . wrap "*" ""   -- Hidden workspaces in xmobar
