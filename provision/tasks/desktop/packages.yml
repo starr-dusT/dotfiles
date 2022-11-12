@@ -22,3 +22,9 @@
     name: brave-browser
     state: present
   become: true
+
+- name: Install keepassxc
+  dnf:
+    name: keepassxc 
+    state: present
+  become: true
