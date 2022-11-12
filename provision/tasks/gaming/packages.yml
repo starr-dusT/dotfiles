@@ -1,0 +1,14 @@
+- name: Install steam
+  dnf:
+    name: steam 
+  become: true
+
+- name: Install lutris
+  dnf:
+    name: lutris
+  become: true
+
+- name: Install gamemode
+  dnf:
+    name: gamemode 
+  become: true

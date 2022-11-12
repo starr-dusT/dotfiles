@@ -1,0 +1,24 @@
+- name: Block for gnome packages
+  block:
+    - name: Install gnome tweaks 
+      dnf:
+        name: gnome-tweak-tool
+        state: present
+      become: true
+
+    - name: Install gnome extensions manager
+      flatpak:
+        name: com.mattjakeman.ExtensionManager
+        state: present
+  when: desktop == "gnome"
+
+- name: Install discord
+  flatpak:
+    name: com.discordapp.Discord
+    state: present
+
+- name: Install brave
+  dnf:
+    name: brave-browser
+    state: present
+  become: true

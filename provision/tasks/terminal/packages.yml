@@ -1,0 +1,11 @@
+- name: Install vifm
+  dnf:
+    name: vifm
+    state: present
+  become: true
+
+- name: Install stow
+  dnf:
+    name: stow 
+    state: present
+  become: true

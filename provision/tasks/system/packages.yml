@@ -1,0 +1,23 @@
+- name: Install proprietary nvidia drivers
+  dnf:
+    name: "akmod-nvidia"
+    state: present
+  become: true
+
+- name: Install syncthing 
+  dnf:
+    name: "syncthing"
+    state: present
+  become: true
+
+- name: Install flatpak 
+  dnf:
+    name: "flatpak"
+    state: present
+  become: true
+
+- name: Install flatseal app
+  flatpak:
+    name: com.github.tchx84.Flatseal
+    state: present
+  become: true

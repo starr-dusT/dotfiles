@@ -1,4 +1,4 @@
 \.git
+\provision
+.gitignore
 readme.md
-\.config/systemd
-install.sh

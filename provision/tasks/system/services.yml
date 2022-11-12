@@ -1,0 +1,5 @@
+- name: Make sure syncthing is enabled
+  ansible.builtin.shell: systemctl enable syncthing@{{ user }}
+
+- name: Make sure syncthing is started 
+  ansible.builtin.shell: systemctl start syncthing@{{ user }}

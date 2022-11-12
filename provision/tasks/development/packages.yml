@@ -1,0 +1,4 @@
+- name: Install vscode 
+  dnf:
+    name: code
+  become: true

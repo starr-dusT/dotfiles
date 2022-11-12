@@ -1,0 +1,14 @@
+- name: install the rpmfusion repo packages
+  dnf:
+    name:
+      - http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_version }}.noarch.rpm
+      - http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_version }}.noarch.rpm
+    state: present
+  become: true
+
+- name: Add the flathub flatpak repository remote
+  flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+  become: true

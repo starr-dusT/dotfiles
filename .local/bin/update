@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+# provide tags to update with comma seperation (e.g. updates,packages)
+set -e
+echo -e "Starting update for Fedora..."
+
+# Goto playbook and run it
+cd ../.dotfiles/provision
+
+# Install ansible and run playbook
+ansible-playbook setup.yml -i hosts --ask-become-pass --tags "$1"
+
+# Return to where you were
+cd -

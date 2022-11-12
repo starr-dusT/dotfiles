@@ -1,0 +1,5 @@
+- name: upgrade system packages
+  dnf:
+    name: "*"
+    state: latest # noqa 403
+  become: true
