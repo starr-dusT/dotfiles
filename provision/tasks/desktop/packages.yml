@@ -6,6 +6,12 @@
         state: present
       become: true
 
+    - name: Install dconf editor 
+      dnf:
+        name: dconf-editor
+        state: present
+      become: true
+
     - name: Install gnome extensions manager
       flatpak:
         name: com.mattjakeman.ExtensionManager

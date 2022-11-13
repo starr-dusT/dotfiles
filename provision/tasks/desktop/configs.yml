@@ -6,11 +6,22 @@
           - rhytmbox
           - cheese
           - totem
+          - gnome-maps
+          - gnome-characters
+          - gnome-connections
+          - libreoffice
+          - libreoffice-writer
+          - libreoffice-impress
+          - libreoffice-calc
+          - rhythmbox
+          - gnome-tour
+          - yelp
         state: absent
   when: desktop == "gnome"
   become: true
 
 - name: Add brave repo
+  tags: ["once"]
   yum_repository:
     name: brave
     description: Brave Browser

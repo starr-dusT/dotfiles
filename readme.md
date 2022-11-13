@@ -5,13 +5,14 @@ My personal dotfiles repo. Documentation is pretty spotty. Maybe I'll fix that s
 
 ## usage
 
-The dotfiles are managed with stow and otherwise Ansible sets everything up. The Anisible scripts are built for Fedora.
+The dotfiles are managed with stow and otherwise Ansible sets everything up. The Anisible scripts are built for Fedora Workstation.
 
 ### initial setup
 
 ```bash
 sudo dnf install -y git stow
-https://github.com/starr-dusT/dotfiles ~/.dotfiles 
+git clone https://github.com/starr-dusT/dotfiles ~/.dotfiles 
+rm ~/.bashrc
 cd ~/.dotfiles && stow .
 bash
 initial-setup
@@ -22,3 +23,13 @@ initial-setup
 ```bash
 update {tags to update seperated with commas}
 ```
+
+## random notes
+
+Random notes about things to change on a new system:
+
+- Brave browser plays better in Gnome with hardware acceleration turned off
+
+## TODO
+
+- Add sxhkd for non-gnome keybinds 

@@ -1,4 +1,5 @@
 - name: Add vscode repo 
+  tags: ["once"]
   yum_repository:
     name: vscode
     description: Visual Studio Code

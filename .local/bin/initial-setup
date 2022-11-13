@@ -6,7 +6,7 @@ echo -e "Starting initial setup for Fedora..."
 sudo dnf -y update && sudo dnf install -y ansible
 
 # Goto playbook and run it
-cd ../.dotfiles/provision
+cd ~/.dotfiles/provision
 ansible-playbook setup.yml -i hosts --ask-become-pass
 
 # Return to where you were

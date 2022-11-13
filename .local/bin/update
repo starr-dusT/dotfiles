@@ -4,10 +4,10 @@ set -e
 echo -e "Starting update for Fedora..."
 
 # Goto playbook and run it
-cd ../.dotfiles/provision
+cd ~/.dotfiles/provision
 
 # Install ansible and run playbook
-ansible-playbook setup.yml -i hosts --ask-become-pass --tags "$1"
+ansible-playbook setup.yml -i hosts --ask-become-pass --tags "$1" --skip-tags "once"
 
 # Return to where you were
 cd -
