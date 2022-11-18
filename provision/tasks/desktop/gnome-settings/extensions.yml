@@ -1,0 +1,14 @@
+- name: Install gnome extensions
+  include_role:
+    name: ansible-role-customize-gnome
+  vars:
+    gnome_extensions:
+      - id: 779
+        enable: yes
+      - id: 4362
+        enable: yes
+      - id: 1460
+        enable: yes
+      - id: 7 
+        enable: yes
+    gnome_user: "{{ user }}"

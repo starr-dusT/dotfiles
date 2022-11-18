@@ -32,4 +32,7 @@ Random notes about things to change on a new system:
 
 ## TODO
 
-- Add sxhkd for non-gnome keybinds 
+- Change syncthing to user .service file rather than ansible
+- manage gnome extensions with ansible
+- add wireguard
+- remove things that require xOrg (and replace)

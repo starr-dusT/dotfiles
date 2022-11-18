@@ -34,3 +34,15 @@
     name: keepassxc 
     state: present
   become: true
+
+- name: Install xdotool
+  dnf:
+    name: xdotool 
+    state: present
+  become: true
+
+- name: Install xmodmap 
+  dnf:
+    name: xmodmap 
+    state: present
+  become: true

@@ -2,6 +2,8 @@
   tags: ["configs"]
 - import_tasks: packages.yml
   tags: ["packages"]
+- import_tasks: gnome-settings/extensions.yml
+  tags: ["gnome-extensions"]
 - import_tasks: gnome-settings/keybinds.yml
   tags: ["configs"]
 - import_tasks: gnome-settings/window-management.yml

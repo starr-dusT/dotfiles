@@ -1,31 +1,37 @@
 - name: Install base system packages
   dnf:
     name:
-      - "git"
-      - "python-psutil"
+      - git
+      - python-psutil
     state: present
   become: true
 
 - name: Install proprietary nvidia drivers
   dnf:
-    name: "akmod-nvidia"
+    name: akmod-nvidia
     state: present
   become: true
 
 - name: Install syncthing 
   dnf:
-    name: "syncthing"
+    name: syncthing
     state: present
   become: true
 
 - name: Install flatpak 
   dnf:
-    name: "flatpak"
+    name: flatpak
     state: present
   become: true
 
 - name: Install flatseal app
   flatpak:
     name: com.github.tchx84.Flatseal
+    state: present
+  become: true
+
+- name: Install pipewire-codec-aptx for bluetooth audio
+  dnf:
+    name: pipewire-codec-aptx 
     state: present
   become: true
