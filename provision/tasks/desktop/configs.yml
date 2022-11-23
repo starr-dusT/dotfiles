@@ -1,30 +1,18 @@
-- name: Block for gnome configs
-  block:
-    - name: Remove pre-installed gnome software
-      dnf:
-        name:
-          - rhytmbox
-          - cheese
-          - totem
-          - gnome-maps
-          - gnome-characters
-          - gnome-connections
-          - libreoffice
-          - libreoffice-writer
-          - libreoffice-impress
-          - libreoffice-calc
-          - rhythmbox
-          - gnome-tour
-          - yelp
-        state: absent
-  when: desktop == "gnome"
-  become: true
-
-- name: Add brave repo
-  tags: ["once"]
-  yum_repository:
-    name: brave
-    description: Brave Browser
-    baseurl: https://brave-browser-rpm-release.s3.brave.com/x86_64/
-    gpgkey: https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+- name: Remove pre-installed gnome software
+  dnf:
+    name:
+      - rhytmbox
+      - cheese
+      - totem
+      - gnome-maps
+      - gnome-characters
+      - gnome-connections
+      - libreoffice
+      - libreoffice-writer
+      - libreoffice-impress
+      - libreoffice-calc
+      - rhythmbox
+      - gnome-tour
+      - yelp
+    state: absent
   become: true

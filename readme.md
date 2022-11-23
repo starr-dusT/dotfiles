@@ -9,6 +9,10 @@ The dotfiles are managed with stow and otherwise Ansible sets everything up. The
 
 ### initial setup
 
+- Install latest Fedora Workstation
+- If using nvidia setup with [this](https://copr.fedorainfracloud.org/coprs/t0xic0der/nvidia-auto-installer-for-fedora/)
+- Setup zen-like kernel with [this](https://copr.fedorainfracloud.org/coprs/sentry/kernel-fsync/) from [Nobara](https://nobaraproject.org/)
+- Run the following commands:
 ```bash
 sudo dnf install -y git stow
 git clone https://github.com/starr-dusT/dotfiles ~/.dotfiles 
@@ -24,15 +28,8 @@ initial-setup
 update {tags to update seperated with commas}
 ```
 
-## random notes
-
-Random notes about things to change on a new system:
-
-- Brave browser plays better in Gnome with hardware acceleration turned off
-
 ## TODO
 
 - Change syncthing to user .service file rather than ansible
-- manage gnome extensions with ansible
 - add wireguard
-- remove things that require xOrg (and replace)
+- add https://github.com/digint/btrbk

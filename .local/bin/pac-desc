@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+set -e
+# Search for package and return description
+dnf search "$1" | cut -d ':' -f 2- | sed -n 2p

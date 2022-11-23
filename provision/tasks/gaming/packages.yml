@@ -1,14 +1,8 @@
-- name: Install steam
+- name: Install gaming dnf packages
   dnf:
-    name: steam 
-  become: true
-
-- name: Install lutris
-  dnf:
-    name: lutris
-  become: true
-
-- name: Install gamemode
-  dnf:
-    name: gamemode 
+    name:
+      - steam # Launcher for the Steam software distribution service
+      - lutris # Video game preservation platform
+      - gamemode # Optimize system performance for games on demand
+    state: present
   become: true

@@ -1,48 +1,19 @@
-- name: Block for gnome packages
-  block:
-    - name: Install gnome tweaks 
-      dnf:
-        name: gnome-tweak-tool
-        state: present
-      become: true
+- name: Install desktop dnf packages
+  dnf:
+    name:
+      - gnome-tweaks # Customize advanced GNOME 3 options
+      - dconf-editor # Configuration editor for dconf
+      - keepassxc # Cross-platform password manager
+    state: present
+  become: true
 
-    - name: Install dconf editor 
-      dnf:
-        name: dconf-editor
-        state: present
-      become: true
-
-    - name: Install gnome extensions manager
-      flatpak:
-        name: com.mattjakeman.ExtensionManager
-        state: present
-  when: desktop == "gnome"
-
-- name: Install discord
+- name: Install desktop flatpaks
   flatpak:
-    name: com.discordapp.Discord
-    state: present
-
-- name: Install brave
-  dnf:
-    name: brave-browser
-    state: present
-  become: true
-
-- name: Install keepassxc
-  dnf:
-    name: keepassxc 
+    name:
+      - com.mattjakeman.ExtensionManager # Browse, install, and manage GNOME Shell Extensions
+      - com.discordapp.Discord # Voice, video and text communication service
+      - org.gimp.GIMP # Create images and edit photographs
+      - org.inkscape.Inkscape # Vector Graphics Editor
     state: present
   become: true
 
-- name: Install xdotool
-  dnf:
-    name: xdotool 
-    state: present
-  become: true
-
-- name: Install xmodmap 
-  dnf:
-    name: xmodmap 
-    state: present
-  become: true

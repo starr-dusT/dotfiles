@@ -1,5 +1,1 @@
 user: tstarr 
-bin_dir: /usr/local/bin
-desktop: gnome # valid values: gnome
-gpu: nvidia # valid values: nvidia
-#dotfiles_repo_url: https://brpaz:{{ github_token }}@github.com/brpaz/dotfiles.git

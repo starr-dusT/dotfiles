@@ -1,37 +1,18 @@
-- name: Install base system packages
+- name: Install system dnf packages
   dnf:
     name:
-      - git
-      - python-psutil
+      - git # Fast Version Control System
+      - python-psutil # Cross-platform library for retrieving information on running processes 
+      - syncthing # Continuous File Synchronization
+      - flatpak # Application deployment framework for desktop apps
+      - pipewire-codec-aptx # PipeWire Bluetooth aptX codec plugin
     state: present
   become: true
 
-- name: Install proprietary nvidia drivers
-  dnf:
-    name: akmod-nvidia
-    state: present
-  become: true
-
-- name: Install syncthing 
-  dnf:
-    name: syncthing
-    state: present
-  become: true
-
-- name: Install flatpak 
-  dnf:
-    name: flatpak
-    state: present
-  become: true
-
-- name: Install flatseal app
+- name: Install system flatpaks
   flatpak:
-    name: com.github.tchx84.Flatseal
+    name:
+      - com.github.tchx84.Flatseal # Manage Flatpak permissions
     state: present
   become: true
 
-- name: Install pipewire-codec-aptx for bluetooth audio
-  dnf:
-    name: pipewire-codec-aptx 
-    state: present
-  become: true

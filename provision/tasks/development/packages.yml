@@ -1,4 +1,6 @@
-- name: Install vscode 
+- name: Install development dnf packages
   dnf:
-    name: code
+    name:
+      - code # Visual Studio Code. Code editing. Redefined.
+    state: present
   become: true

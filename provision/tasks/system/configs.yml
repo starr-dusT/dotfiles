@@ -1,4 +1,4 @@
-- name: Install rpm fusion repo (free and non-free)
+- name: Setup rpm-fusion and flathub 
   tags: ["once"]
   block:
     - name: Importing (free) key
@@ -22,5 +22,5 @@
       flatpak_remote:
         name: flathub
         state: present
-        flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+        flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
   become: true
