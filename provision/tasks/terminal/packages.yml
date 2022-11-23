@@ -1,11 +1,8 @@
-- name: Install vifm
+- name: Install terminal dnf packages
   dnf:
-    name: vifm
-    state: present
-  become: true
-
-- name: Install stow
-  dnf:
-    name: stow 
+    name:
+      - stow # Symlink dots with a GNU 
+      - vifm # File manager with curses interface
+      - neovim # Vim-fork focused on extensibility and agility
     state: present
   become: true

@@ -1,6 +1,6 @@
 - name: Install development dnf packages
   dnf:
     name:
-      - code # Visual Studio Code. Code editing. Redefined.
+      - codium # Free/Libre Open Source Software Binaries of VS Code
     state: present
   become: true

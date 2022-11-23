@@ -6,6 +6,9 @@
       - syncthing # Continuous File Synchronization
       - flatpak # Application deployment framework for desktop apps
       - pipewire-codec-aptx # PipeWire Bluetooth aptX codec plugin
+      - ffmpeg # Digital VCR and streaming server
+      - wireguard # Fast, modern, secure vpn tunnel
+      - wireguard-tools # Tool for wireguard
     state: present
   become: true
 

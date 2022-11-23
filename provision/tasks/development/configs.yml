@@ -1,8 +1,10 @@
-- name: Add vscode repo 
+- name: Add vscodium repo 
   tags: ["once"]
   yum_repository:
-    name: vscode
-    description: Visual Studio Code
-    baseurl: https://packages.microsoft.com/yumrepos/vscode
-    gpgkey:  https://packages.microsoft.com/keys/microsoft.asc
+    name: vscodium
+    description: Free/Libre Open Source Software Binaries of VS Code
+    baseurl: https://download.vscodium.com/rpms/
+    gpgkey: https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg
   become: true
+  
+

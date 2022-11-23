@@ -1,18 +1,16 @@
-# dotfiles
+# Dotfiles
 > My dotfiles... What do you want? 
 
 My personal dotfiles repo. Documentation is pretty spotty. Maybe I'll fix that someday, but I probably won't. 
 
-## usage
+## Usage
 
-The dotfiles are managed with stow and otherwise Ansible sets everything up. The Anisible scripts are built for Fedora Workstation.
+Dotfiles are managed with stow and Ansible (built for Fedora) is used for the bulk of configuration. Setup that cannot be easily automated with Ansible is documentd in [addtional-setup](additional-setup.md).
 
-### initial setup
+## Initial Setup
 
-- Install latest Fedora Workstation
-- If using nvidia setup with [this](https://copr.fedorainfracloud.org/coprs/t0xic0der/nvidia-auto-installer-for-fedora/)
-- Setup zen-like kernel with [this](https://copr.fedorainfracloud.org/coprs/sentry/kernel-fsync/) from [Nobara](https://nobaraproject.org/)
-- Run the following commands:
+Install Fedora Workstation and run the following commands:
+
 ```bash
 sudo dnf install -y git stow
 git clone https://github.com/starr-dusT/dotfiles ~/.dotfiles 
@@ -22,14 +20,16 @@ bash
 initial-setup
 ```
 
-### update setup
+Perform additional setup found in [additional-setup](additional-setup.md)
+
+## Update Setup
+
+Run the following command with comma seperated tags:
 
 ```bash
-update {tags to update seperated with commas}
+update {tags} # valid tags: configs, updates, packages, services, once
 ```
 
 ## TODO
 
-- Change syncthing to user .service file rather than ansible
-- add wireguard
 - add https://github.com/digint/btrbk
