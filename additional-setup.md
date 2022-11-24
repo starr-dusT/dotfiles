@@ -49,7 +49,7 @@ sudo btrbk -c ~/.config/btrbk/root_btrbk.conf -v run # creates root snapshots
 
 ## Automount network drive with fstab
 
-Fstab can be mounted when the network drive is accessed. This is done the "engi" home server.
+Fstab can be mounted when the network drive is accessed. This is done for the "engi" home server.
 
 ```bash
 sudo mkdir -p /mnt/engi
