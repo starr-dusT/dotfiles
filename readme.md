@@ -32,4 +32,4 @@ update {tags} # valid tags: configs, updates, packages, services, once
 
 ## TODO
 
-- add https://github.com/digint/btrbk
+- make homesever use btrfs and fix "target" for home backups 

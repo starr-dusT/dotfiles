@@ -37,3 +37,23 @@ sudo nmcli connection import type wireguard file /etc/wireguard/your-wg-file.con
 ```
 
 The vpn can be enable/disabled through gnome.
+
+## btrbk  
+
+[btrbk](https://github.com/digint/btrbk) is used to create (currently only local) snapshots of the root and user volumes.
+
+```bash
+sudo btrbk -c ~/.config/btrbk/home_btrbk.conf -v run # creates user backups and snapshots 
+sudo btrbk -c ~/.config/btrbk/root_btrbk.conf -v run # creates root snapshots 
+```
+
+## Automount network drive with fstab
+
+Fstab can be mounted when the network drive is accessed. This is done the "engi" home server.
+
+```bash
+sudo mkdir -p /mnt/engi
+
+# Add following line to fstab
+//<server-ip>/engi     /mnt/engi 	cifs 	uid=1000,credentials=/home/tstarr/.smb,iocharset=utf8,noauto,x-systemd.automount 0 0
+```

@@ -24,3 +24,20 @@
         state: present
         flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
   become: true
+
+- name: Create btrbk snapshot directories
+  tags: ["once"]
+  block:
+    - file: 
+        path: /.snapshots
+        state: directory
+        owner: root
+        group: root
+        mode: 0775
+    - file: 
+        path: /home/.snapshots
+        state: directory
+        owner: root
+        group: root
+        mode: 0775
+  become: true
