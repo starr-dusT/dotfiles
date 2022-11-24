@@ -4,5 +4,6 @@
       - steam # Launcher for the Steam software distribution service
       - lutris # Video game preservation platform
       - gamemode # Optimize system performance for games on demand
+      - wine # A compatibility layer for windows applications
     state: present
   become: true

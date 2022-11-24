@@ -4,6 +4,8 @@
       - gnome-tweaks # Customize advanced GNOME 3 options
       - dconf-editor # Configuration editor for dconf
       - keepassxc # Cross-platform password manager
+      - btrfs-assistant # GUI to manage btrfs
+      - btrbk # Backup tool for btrfs subvolumes
     state: present
   become: true
 
