@@ -35,3 +35,4 @@ update {tags} # valid tags: configs, updates, packages, services, once
 - make homesever use btrfs and fix "target" for home backups 
 - update home directory with subvolumes to exclude from snapshots, etc.
 - hide desktop files from gnome app menu
+- Add task warrior (and maybe time warrior)
