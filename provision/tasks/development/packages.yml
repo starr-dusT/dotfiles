@@ -2,5 +2,11 @@
   dnf:
     name:
       - codium # Free/Libre Open Source Software Binaries of VS Code
+      - python3-pip # A tool for installing and managing Python3 packages
     state: present
   become: true
+
+- name: Install development python packages
+  ansible.builtin.pip:
+    name: 
+      - ansible-lint # Command-line tool for linting playbooks, roles and collections 
