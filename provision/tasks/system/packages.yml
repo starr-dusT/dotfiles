@@ -2,6 +2,7 @@
   dnf:
     name:
       - git # Fast Version Control System
+      - git-lfs # Git extension for versioning large files
       - python-psutil # Cross-platform library for retrieving information on running processes 
       - syncthing # Continuous File Synchronization
       - flatpak # Application deployment framework for desktop apps

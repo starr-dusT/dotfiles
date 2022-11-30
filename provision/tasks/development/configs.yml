@@ -7,4 +7,8 @@
     gpgkey: https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg
   become: true
   
-
+- name: Setup nvm
+  tags: ["once"]
+  shell: >
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+    creates=/home/{{ user }}/.nvm/nvm.sh

@@ -6,6 +6,7 @@
       - keepassxc # Cross-platform password manager
       - btrfs-assistant # GUI to manage btrfs
       - btrbk # Backup tool for btrfs subvolumes
+      - mpv # Movie player playing most video formats and DVDs
     state: present
   become: true
 

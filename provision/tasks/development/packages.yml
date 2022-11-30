@@ -2,7 +2,10 @@
   dnf:
     name:
       - codium # Free/Libre Open Source Software Binaries of VS Code
+      - python3.9 # Version 3.9 of the Python interpreter
       - python3-pip # A tool for installing and managing Python3 packages
+      - nodejs # JavaScript runtime
+      - npm # Node.js Package Manager
     state: present
   become: true
 
