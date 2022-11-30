@@ -19,4 +19,3 @@
       - com.github.tchx84.Flatseal # Manage Flatpak permissions
     state: present
   become: true
-

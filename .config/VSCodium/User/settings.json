@@ -1,4 +1,5 @@
 {
     "security.workspace.trust.untrustedFiles": "newWindow",
-    "redhat.telemetry.enabled": true
+    "redhat.telemetry.enabled": true,
+    "workbench.activityBar.visible": false
 }
