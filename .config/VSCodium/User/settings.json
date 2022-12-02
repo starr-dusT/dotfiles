@@ -2,5 +2,6 @@
     "security.workspace.trust.untrustedFiles": "newWindow",
     "redhat.telemetry.enabled": true,
     "editor.minimap.enabled": false,
-    "workbench.activityBar.visible": false
+    "workbench.activityBar.visible": false,
+    "git.enableSmartCommit": true
 }
