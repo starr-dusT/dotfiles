@@ -57,3 +57,14 @@ sudo mkdir -p /mnt/engi
 # Add following line to fstab
 //<server-ip>/engi     /mnt/engi 	cifs 	uid=1000,credentials=/home/tstarr/.smb,iocharset=utf8,noauto,x-systemd.automount 0 0
 ```
+## taskopen for taskwarrior
+
+taskopen needs is easier to install manually at this point since the fedora package is very old.
+
+```bash
+curl https://nim-lang.org/choosenim/init.sh -sSf | sh # install nim for compile
+git clone https://github.com/jschlatow/taskopen.git
+cd taskopen
+make PREFIX=/usr
+sudo make PREFIX=/usr install
+```

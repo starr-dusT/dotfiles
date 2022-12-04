@@ -4,5 +4,7 @@
       - stow # Symlink dots with a GNU 
       - vifm # File manager with curses interface
       - neovim # Vim-fork focused on extensibility and agility
+      - task
+      - timew
     state: present
   become: true
