@@ -17,5 +17,6 @@ return require('packer').startup(function(use)
 
   use ('ThePrimeagen/harpoon')
   use ('kdheepak/lazygit.nvim')
-  
+  use 'neovim/nvim-lspconfig'
+
 end)
