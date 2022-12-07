@@ -1,0 +1,71 @@
+#------------------------------------------------------------------------------
+#----- WINDOW LAYOUT
+#------------------------------------------------------------------------------
+
+
+super + shift + r
+	i3-msg restart
+
+super + shift + q
+	i3-msg exit
+
+super + q
+	i3-msg kill
+
+super + i; {q,w,e,r}
+	i3-msg layout {splith, tabbed, stacked, splitv}
+
+
+super + f
+	i3-msg fullscreen toggle
+
+super + t 
+	i3-msg floating toggle
+
+super + shift + t
+	i3-msg sticky toggle
+
+super + Tab
+	i3-msg focus mode_toggle
+
+#------------------------------------------------------------------------------
+#----- WINDOW CHANGE FOCUS
+#------------------------------------------------------------------------------
+
+super + {h,j,k,l}
+	i3-msg focus {left,down,up,right}
+
+super + {1-9,0}
+	i3-msg workspace {1-9,10}
+
+super + space
+	i3-msg focus output right
+
+super + b
+	i3-msg workspace back_and_forth
+
+#------------------------------------------------------------------------------
+#----- WINDOW MOVEMENT
+#------------------------------------------------------------------------------
+
+super + shift + {h,j,k,l}
+	i3-msg move {left,down,up,right}
+
+super + shift + {1-9,0}
+	i3-msg move container to workspace {1-9,10}
+
+#------------------------------------------------------------------------------
+#----- LAUNCH APPLICATIONS
+#------------------------------------------------------------------------------
+
+super + shift + w
+    rofi -show drun -theme gruvbox-dark-soft -show-icons
+
+super + w
+    rofi -show window -theme gruvbox-dark-soft -show-icons
+
+super + Return
+    alacritty
+
+super + o; b
+    firefox

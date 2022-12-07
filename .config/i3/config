@@ -1,0 +1,110 @@
+# i3 config file (v4)
+
+#-------------------------------------------------------------------------------
+#----- VARIABLES
+#-------------------------------------------------------------------------------
+
+set $HOME               /home/tstarr
+
+set $DISPLAY_DEV_1      HDMI-0
+set $DISPLAY_DEV_2      DP-4
+set $DISPLAY_MODE       1
+
+set $BOR_WIDTH          2
+set $GAP_INNER          2
+set $GAP_NULL           0
+
+#-------------------------------------------------------------------------------
+#----- COLORS 
+#-------------------------------------------------------------------------------
+
+set $CL_PRI             #17917A
+set $CL_SCR             #191C25
+set $CL_BLK             #282828
+set $CL_TXT             #FFFFFF
+set $CL_URG             #900000
+
+#-------------------------------------------------------------------------------
+#----- MISC. CONFIGURATION
+#-------------------------------------------------------------------------------
+
+font                    pango:Google Noto 8.5
+#focus_follows_mouse     no
+#floating_maximum_size   800x600
+#for_window [class="^.*"] border pixel $BOR_WIDTH
+
+#-------------------------------------------------------------------------------
+#----- WINDOW DECORATION
+#-------------------------------------------------------------------------------
+
+# CLASS                 BORDER    BACKGR.   TEXT      INDICATOR CHILD_BORDER
+client.focused          $CL_PRI   $CL_PRI   $CL_TXT   $CL_PRI   $CL_PRI
+client.focused_inactive $CL_SCR   $CL_BLK   $CL_PRI   $CL_SCR   $CL_SCR
+client.unfocused        $CL_SCR   $CL_BLK   $CL_TXT   $CL_SCR   $CL_SCR
+client.urgent           $CL_PRI   $CL_URG   $CL_TXT   $CL_PRI   $CL_PRI
+client.placeholder      $CL_BLK   $CL_SCR   $CL_TXT   $CL_SCR   $CL_SCR
+client.background       $CL_BLK
+
+#-------------------------------------------------------------------------------
+#----- BINDING WORKSPACE TO DISPLAY
+#-------------------------------------------------------------------------------
+
+workspace "1"           output $DISPLAY_DEV_1
+workspace "2"           output $DISPLAY_DEV_2
+workspace "3"           output $DISPLAY_DEV_1
+workspace "4"           output $DISPLAY_DEV_1
+workspace "5"           output $DISPLAY_DEV_1
+workspace "6"           output $DISPLAY_DEV_1
+workspace "7"           output $DISPLAY_DEV_1
+workspace "8"           output $DISPLAY_DEV_1
+workspace "9"           output $DISPLAY_DEV_1
+workspace "0"           output $DISPLAY_DEV_1
+
+#-------------------------------------------------------------------------------
+#----- CONTAINER GAPS
+#-------------------------------------------------------------------------------
+
+# CREATING GAPS BETWEEN THE WINDOWS AND EDGES
+gaps inner              $GAP_INNER
+gaps outer              0
+gaps horizontal         0
+gaps vertical           0
+gaps top                0 
+gaps bottom             0
+gaps right              0
+gaps left               0
+
+# WORKSPACE-SPECIFIC GAP 
+#workspace "5"           gaps top    $GAP_NULL
+#workspace "6"           gaps top    $GAP_NULL
+#workspace "7"           gaps top    $GAP_NULL
+#workspace "8"           gaps top    $GAP_NULL
+
+#-------------------------------------------------------------------------------
+#----- FORCE FLOATING
+#-------------------------------------------------------------------------------
+
+for_window [title="Steam - News"]   floating enable
+for_window [title="Friends List"]   floating enable
+for_window [title="Kazam"]          floating enable
+for_window [title="Settings"]       floating enable
+
+#-------------------------------------------------------------------------------
+#----- BINDING APPLICATIONS TO WORKSPACE
+#-------------------------------------------------------------------------------
+
+assign [class="yakyak"]             "10"
+assign [class="zoom"]               "9"
+assign [class="Steam"]              "9"
+for_window [class="Steam"]          move container to workspace "9"
+
+#-------------------------------------------------------------------------------
+#----- AUTOSTART WITH I3
+#-------------------------------------------------------------------------------
+
+exec             --no-startup-id $HOME/.config/sxhkd/launch.sh
+
+#-------------------------------------------------------------------------------
+bar {
+        status_command i3status
+}

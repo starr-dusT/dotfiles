@@ -8,6 +8,10 @@
       - btrbk # Backup tool for btrfs subvolumes
       - mpv # Movie player playing most video formats and DVDs
       - alacritty
+      - i3-gaps
+      - sxhkd
+      - rofi
+      - python-i3ipc
     state: present
   become: true
 
@@ -21,3 +25,6 @@
     state: present
   become: true
 
+# Commented out until keychords are implemented
+# - import_tasks: swhkd.yml
+  

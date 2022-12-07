@@ -1,0 +1,42 @@
+- name: Install swhkdi dependencies
+  block:
+    - name: Check if cargo is installed
+      shell: command -v cargo
+      register: cargo_exists
+      ignore_errors: yes
+    
+    - name: Download rustup installer
+      when: cargo_exists is failed
+      get_url:
+        url: https://sh.rustup.rs
+        dest: "/home/{{ user }}/tmp/sh.rustup.rs"
+        mode: '0755'
+        force: 'yes'
+      tags:
+        - rust
+    
+    - name: Install rust/cargo
+      when: cargo_exists is failed
+      shell: "/home/{{ user }}/tmp/sh.rustup.rs -y"
+
+- name: Clone swhkd repo
+  git:
+    repo: https://github.com/waycrate/swhkd
+    dest: "/home/{{ user }}/tmp/swhkd"
+    clone: yes
+    update: yes
+
+- name: Build swhkd
+  shell:
+    cmd: "{{ item }}"
+    chdir: "/home/{{ user }}/tmp/swhkd"
+  with_items:
+    - make setup
+    - make clean
+    - make
+
+- name: Install swhkd
+  shell:
+    cmd: make install 
+    chdir: "/home/{{ user }}/tmp/swhkd"
+  become: true
