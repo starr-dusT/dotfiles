@@ -4,61 +4,62 @@
 #----- VARIABLES
 #-------------------------------------------------------------------------------
 
-set $HOME               /home/tstarr
+set $HOME /home/tstarr
 
-set $DISPLAY_DEV_1      HDMI-0
-set $DISPLAY_DEV_2      DP-4
-set $DISPLAY_MODE       1
+set $DISP_PRI DP-4
+set $DISP_SEC HDMI-0
 
-set $BOR_WIDTH          2
-set $GAP_INNER          2
-set $GAP_NULL           0
+set $BOR_WIDTH 2
+set $GAP_INNER 2
+
+set $mod Mod4
+
+set $tag1 "1:game" 
+set $tag2 "2:dev"  
+set $tag3 "3:web"  
+set $tag4 "4:dev"  
+set $tag5 "5:web"  
+set $tag6 "6:web"  
+set $tag7 "7:web"  
+set $tag8 "8:web"  
+set $tag9 "9:comm" 
+set $tag0 "10:task"
 
 #-------------------------------------------------------------------------------
 #----- COLORS 
 #-------------------------------------------------------------------------------
 
-set $CL_PRI             #17917A
-set $CL_SCR             #191C25
-set $CL_BLK             #282828
-set $CL_TXT             #FFFFFF
-set $CL_URG             #900000
+# class                 border  bground text    indicator child_border
+client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
+client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
+client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+
+client.background       #F8F8F2
 
 #-------------------------------------------------------------------------------
 #----- MISC. CONFIGURATION
 #-------------------------------------------------------------------------------
 
 font                    pango:Google Noto 8.5
-#focus_follows_mouse     no
-#floating_maximum_size   800x600
-#for_window [class="^.*"] border pixel $BOR_WIDTH
-
-#-------------------------------------------------------------------------------
-#----- WINDOW DECORATION
-#-------------------------------------------------------------------------------
-
-# CLASS                 BORDER    BACKGR.   TEXT      INDICATOR CHILD_BORDER
-client.focused          $CL_PRI   $CL_PRI   $CL_TXT   $CL_PRI   $CL_PRI
-client.focused_inactive $CL_SCR   $CL_BLK   $CL_PRI   $CL_SCR   $CL_SCR
-client.unfocused        $CL_SCR   $CL_BLK   $CL_TXT   $CL_SCR   $CL_SCR
-client.urgent           $CL_PRI   $CL_URG   $CL_TXT   $CL_PRI   $CL_PRI
-client.placeholder      $CL_BLK   $CL_SCR   $CL_TXT   $CL_SCR   $CL_SCR
-client.background       $CL_BLK
+default_border pixel 1
+default_floating_border pixel 1
 
 #-------------------------------------------------------------------------------
 #----- BINDING WORKSPACE TO DISPLAY
 #-------------------------------------------------------------------------------
 
-workspace "1"           output $DISPLAY_DEV_1
-workspace "2"           output $DISPLAY_DEV_2
-workspace "3"           output $DISPLAY_DEV_1
-workspace "4"           output $DISPLAY_DEV_1
-workspace "5"           output $DISPLAY_DEV_1
-workspace "6"           output $DISPLAY_DEV_1
-workspace "7"           output $DISPLAY_DEV_1
-workspace "8"           output $DISPLAY_DEV_1
-workspace "9"           output $DISPLAY_DEV_1
-workspace "0"           output $DISPLAY_DEV_1
+workspace $tag1 output $DISP_PRI $DISP_SEC 
+workspace $tag2 output $DISP_PRI $DISP_SEC
+workspace $tag3 output $DISP_PRI $DISP_SEC
+workspace $tag4 output $DISP_PRI $DISP_SEC
+workspace $tag5 output $DISP_PRI $DISP_SEC
+workspace $tag6 output $DISP_SEC $DISP_PRI
+workspace $tag7 output $DISP_SEC $DISP_PRI
+workspace $tag8 output $DISP_SEC $DISP_PRI
+workspace $tag9 output $DISP_SEC $DISP_PRI
+workspace $tag0 output $DISP_SEC $DISP_PRI
 
 #-------------------------------------------------------------------------------
 #----- CONTAINER GAPS
@@ -74,37 +75,90 @@ gaps bottom             0
 gaps right              0
 gaps left               0
 
-# WORKSPACE-SPECIFIC GAP 
-#workspace "5"           gaps top    $GAP_NULL
-#workspace "6"           gaps top    $GAP_NULL
-#workspace "7"           gaps top    $GAP_NULL
-#workspace "8"           gaps top    $GAP_NULL
-
 #-------------------------------------------------------------------------------
 #----- FORCE FLOATING
 #-------------------------------------------------------------------------------
 
 for_window [title="Steam - News"]   floating enable
 for_window [title="Friends List"]   floating enable
-for_window [title="Kazam"]          floating enable
-for_window [title="Settings"]       floating enable
 
 #-------------------------------------------------------------------------------
 #----- BINDING APPLICATIONS TO WORKSPACE
 #-------------------------------------------------------------------------------
 
-assign [class="yakyak"]             "10"
-assign [class="zoom"]               "9"
-assign [class="Steam"]              "9"
-for_window [class="Steam"]          move container to workspace "9"
+assign [class="Steam"]              "1:game"
+for_window [class="Steam"]          move container to workspace "1:game"
+
+#-------------------------------------------------------------------------------
+#----- KEY BINDINGS
+#-------------------------------------------------------------------------------
+
+# i3 utility commands
+bindsym $mod+Ctrl+r restart 
+bindsym $mod+Ctrl+q exit
+
+# layout commands
+bindsym $mod+z layout splith
+bindsym $mod+x layout tabbed 
+bindsym $mod+c layout stacked
+bindsym $mod+v layout splitv
+
+# program management
+bindsym $mod+d kill
+bindsym $mod+Shift+f floating toggle
+bindsym $mod+Shift+s sticky toggle
+bindsym $mod+Tab focus mode_toggle 
+bindsym $mod+f fullscreen toggle
+
+# spatial container management
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# workspace management
+bindsym $mod+1 workspace $tag1
+bindsym $mod+2 workspace $tag2
+bindsym $mod+3 workspace $tag3
+bindsym $mod+4 workspace $tag4
+bindsym $mod+5 workspace $tag5
+bindsym $mod+q workspace $tag6
+bindsym $mod+w workspace $tag7
+bindsym $mod+e workspace $tag8
+bindsym $mod+r workspace $tag9
+bindsym $mod+t workspace $tag0
+bindsym $mod+b workspace back_and_forth
+bindsym $mod+Shift+1 move container to workspace $tag1
+bindsym $mod+Shift+2 move container to workspace $tag2
+bindsym $mod+Shift+3 move container to workspace $tag3
+bindsym $mod+Shift+4 move container to workspace $tag4
+bindsym $mod+Shift+5 move container to workspace $tag5
+bindsym $mod+Shift+q move container to workspace $tag6
+bindsym $mod+Shift+w move container to workspace $tag7
+bindsym $mod+Shift+e move container to workspace $tag8
+bindsym $mod+Shift+r move container to workspace $tag9
+bindsym $mod+Shift+t move container to workspace $tag0
+
+# system utils
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +2%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -2%
+bindsym XF86AudioMute exec amixer -q set Master toggle
+
+# open applications
+bindsym $mod+Return exec alacritty 
+bindsym $mod+a exec rofi -show drun -theme gruvbox-dark-soft -show-icons
+bindsym $mod+Shift+a exec rofi -show window -theme gruvbox-dark-soft -show-icons
+bindsym $mod+u exec firefox
 
 #-------------------------------------------------------------------------------
 #----- AUTOSTART WITH I3
 #-------------------------------------------------------------------------------
 
-exec             --no-startup-id $HOME/.config/sxhkd/launch.sh
-
-#-------------------------------------------------------------------------------
-bar {
-        status_command i3status
-}
+exec             --no-startup-id $HOME/.config/i3/scripts/xrandr.sh
+exec_always      --no-startup-id $HOME/.config/sxhkd/launch.sh
+exec_always      --no-startup-id $HOME/.config/i3/scripts/polybar.sh
+exec_always      --no-startup-id nitrogen --restore

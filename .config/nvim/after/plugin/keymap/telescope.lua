@@ -17,3 +17,4 @@ end)
 nnoremap("<leader>p", function ()
     require('telescope').extensions.project.project()
 end)
+

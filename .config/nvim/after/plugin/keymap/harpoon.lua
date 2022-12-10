@@ -1,6 +1,12 @@
 local nnoremap = require("tstarr.keymap").nnoremap
 local silent = { silent = true }
 
+require("harpoon").setup({
+    menu = {
+        width = vim.api.nvim_win_get_width(0) - 4,
+    }
+})
+
 nnoremap("<leader>ha", function() require("harpoon.mark").add_file() end, silent)
 nnoremap("<leader>hl", function() require("harpoon.ui").toggle_quick_menu() end, silent)
 
