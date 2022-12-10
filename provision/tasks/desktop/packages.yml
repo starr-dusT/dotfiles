@@ -7,12 +7,14 @@
       - btrfs-assistant # GUI to manage btrfs
       - btrbk # Backup tool for btrfs subvolumes
       - mpv # Movie player playing most video formats and DVDs
-      - alacritty # Fast, cross-platform, OpenGL terminal emulator
+      - kitty
       - i3-gaps # i3 with more features
       - sxhkd # Simple X hotkey daemon
       - rofi # Window switcher, application launcher and dmenu replacement
       - python-i3ipc # IPC interface to control i3 from Python
       - polybar # Fast and easy-to-use status bar
+      - xprop
+      - mpv
     state: present
   become: true
 

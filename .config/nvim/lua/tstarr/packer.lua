@@ -5,7 +5,7 @@ return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     -- Colors
-    use ('Mofiqul/dracula.nvim')
+    use ('dracula/vim')
 
     -- IDE
     use('nvim-lua/plenary.nvim')

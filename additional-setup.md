@@ -57,7 +57,7 @@ sudo mkdir -p /mnt/engi
 # Add following line to fstab
 //<server-ip>/engi     /mnt/engi 	cifs 	uid=1000,credentials=/home/tstarr/.smb,iocharset=utf8,noauto,x-systemd.automount 0 0
 ```
-## taskopen for taskwarrior
+## Taskopen for taskwarrior
 
 taskopen needs is easier to install manually at this point since the fedora package is very old.
 
@@ -68,3 +68,8 @@ cd taskopen
 make PREFIX=/usr
 sudo make PREFIX=/usr install
 ```
+
+## PWA for Bitwarden
+
+The default Bitwarden application kind of sucks so I use a [PWA plugin](https://github.com/filips123/PWAsForFirefox). Follow instructions to install rpm and adjust ID in i3 config to launch correct PWA for Bitwarden.
+
