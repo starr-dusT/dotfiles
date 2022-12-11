@@ -1,3 +1,0 @@
-[submodule ".config/i3/scripts/i3-wk-switch"]
-	path = .config/i3/scripts/i3-wk-switch
-	url = https://github.com/tmfink/i3-wk-switch.git
