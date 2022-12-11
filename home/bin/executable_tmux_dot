@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DIR="~/.dotfiles"
+DIR="~/.local/share/chezmoi"
 
 SESSION="Dots"
 SESSIONEXISTS=$(tmux list-sessions | grep $SESSION)

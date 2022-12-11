@@ -69,6 +69,10 @@ make PREFIX=/usr
 sudo make PREFIX=/usr install
 ```
 
+## Taskwarrior-tui
+
+Download a release [here](https://github.com/kdheepak/taskwarrior-tui) and move to /usr/bin.
+
 ## PWA for Bitwarden
 
 The default Bitwarden application kind of sucks so I use a [PWA plugin](https://github.com/filips123/PWAsForFirefox). Follow instructions to install rpm and adjust ID in i3 config to launch correct PWA for Bitwarden.

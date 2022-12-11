@@ -4,7 +4,7 @@ set -e
 echo -e "Starting update for Fedora..."
 
 # Goto playbook and run it
-cd ~/.dotfiles/provision
+cd {{ .chezmoi.workingTree }}/provision
 
 # Install ansible and run playbook
 ansible-playbook setup.yml -i hosts --ask-become-pass --tags "$1" --skip-tags "once"

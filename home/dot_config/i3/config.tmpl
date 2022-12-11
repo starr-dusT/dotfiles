@@ -95,6 +95,10 @@ for_window [con_mark="scratch-warden"] floating enable, \
     resize set 1000 px 800 px, \
     move position 780 px 320 px
 
+for_window [con_mark="scratch-warrior"] floating enable, \
+    resize set 1000 px 800 px, \
+    move position 780 px 320 px
+
 #-------------------------------------------------------------------------------
 #----- BINDING APPLICATIONS TO WORKSPACE
 #-------------------------------------------------------------------------------
@@ -175,12 +179,12 @@ bindsym $mod+i exec steam
 # open scratchpads
 bindsym $mod+Shift+Return exec $HOME/.config/i3/scripts/scratch.sh \
     'scratch-term' 'kitty'
-
 bindsym $mod+n exec $HOME/.config/i3/scripts/scratch.sh \
     'scratch-nnn' 'kitty -e nnn -d -e -H -r'
-    
 bindsym $mod+b exec --no-startup-id $HOME/.config/i3/scripts/scratch.sh \
     'scratch-warden' 'firefoxpwa site launch 01GKYZS658452DK05DVDCRF5V4'
+bindsym $mod+m exec $HOME/.config/i3/scripts/scratch.sh \
+    'scratch-warrior' 'kitty -e taskwarrior-tui'
 
 #-------------------------------------------------------------------------------
 #----- AUTOSTART WITH I3

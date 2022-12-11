@@ -35,3 +35,7 @@ verbose=blank,footnote,label,new-id,affected,edit,special,project,sync,unwait
 #include no-color.theme
 
 news.version=2.6.0
+
+### taskwarrior-tui configuration options
+
+uda.taskwarrior-tui.shortcuts.1=taskopen
