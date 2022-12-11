@@ -1,0 +1,12 @@
+## Python
+__pycache__
+
+##  
+/.config/VSCodium/*
+!/.config/VSCodium/User/
+/.config/VSCodium/User/*
+!/.config/VSCodium/User/settings.json
+!/.config/VSCodium/User/tasks.json
+!/.config/VSCodium/User/launch.json
+!/.config/VSCodium/User/extensions.json
+!/.config/VSCodium/User/keybindings.json

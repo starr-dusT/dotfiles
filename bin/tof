@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [[ $(task "$1" +fleeting 2>&1) == "No matches." ]];
+then
+    task "$1" modify +fleeting 
+    task "$1" annotate fleeting 
+    taskopen $1
+else
+    taskopen $1
+fi

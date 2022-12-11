@@ -1,0 +1,5 @@
+(setq package-enable-at-startup t)
+(defalias 'crafted-use-package 'straight-use-package)
+(setq crafted-package-system 'straight)
+(setq straight-base-dir "~/.emacs.d/straight")
+(crafted-package-bootstrap crafted-package-system)
