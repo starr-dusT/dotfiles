@@ -24,3 +24,9 @@ export PATH="$HOME/.nimble/bin:$PATH"
 
 alias spl="tmux_splat"
 alias n="nnn -d -e -H -r"
+
+# Chezmoi
+alias cmc="chezmoi cd"
+alias cmd="chezmoi apply --verbose --dry-run"
+alias cma="chezmoi apply --verbose"
+
