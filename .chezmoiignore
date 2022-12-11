@@ -3,4 +3,4 @@ readme.md
 .git
 provision
 additional-setup.md
-vars
+.gen

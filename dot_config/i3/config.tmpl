@@ -1,3 +1,5 @@
+{{- $i3:= include ".gen/i3.json" | mustFromJson -}}
+
 # i3 config file (v4)
 # TODO: add scratchpads (terminal, password manager, discord, task)
 
@@ -5,19 +7,13 @@
 #----- VARIABLES
 #-------------------------------------------------------------------------------
 
-set $HOME /home/tstarr
+set $HOME {{ .chezmoi.homeDir }}
 
-#set $DISP_PRI DP-4
-#set $DISP_SEC HDMI-0
+set $DISP_PRI {{ $i3.disp_pri }}
+set $DISP_SEC {{ $i3.disp_sec }} 
 
-set $DISP_PRI HDMI-0
-set $DISP_SEC DP-4 
-
-#set $DISP_PRI HDMI-0
-#set $DISP_SEC HDMI-0
-
-set $BOR_WIDTH 2
-set $GAP_INNER 2
+set $BOR_WIDTH 4
+set $GAP_INNER 4
 
 set $mod Mod4
 
@@ -111,7 +107,7 @@ for_window [class="Steam"]          move container to workspace "1:game"
 #-------------------------------------------------------------------------------
 
 # i3 utility commands
-bindsym $mod+Ctrl+r restart 
+bindsym $mod+Ctrl+r exec chezmoi apply && i3-msg restart
 bindsym $mod+Ctrl+q exit
 bindsym $mod+Ctrl+h resize shrink width 50
 bindsym $mod+Ctrl+j resize shrink height 50
@@ -190,6 +186,8 @@ bindsym $mod+b exec --no-startup-id $HOME/.config/i3/scripts/scratch.sh \
 #----- AUTOSTART WITH I3
 #-------------------------------------------------------------------------------
 
-exec             --no-startup-id $HOME/.config/i3/scripts/xrandr.sh
-exec_always      --no-startup-id $HOME/.config/i3/scripts/polybar.sh
-exec_always      --no-startup-id nitrogen --restore
+exec --no-startup-id "$HOME/.config/i3/scripts/xrandr.sh && \
+    chezmoi apply && \
+    i3-msg restart && \
+    $HOME/.config/i3/scripts/polybar.sh"
+exec_always --no-startup-id nitrogen --restore

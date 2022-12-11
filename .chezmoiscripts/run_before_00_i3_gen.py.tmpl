@@ -1,0 +1,41 @@
+#!/usr/bin/env python3
+
+import subprocess
+import json
+import pathlib
+
+# save needed information in a dictionary
+i3_dict = {}
+
+def pri_sec_monitor():
+    # save output of xrandr
+    output = str(subprocess.check_output("xrandr", shell=True))
+    primary = []
+    secondary = []
+    # Get name of primary and secondary monitor
+    for row in output.split('\\n'):
+        if " connected" in row and "primary" in row:
+            primary.append(row.split(" ")[0])
+        if " connected" in row and "primary" not in row:
+            secondary.append(row.split(" ")[0])
+    # If we only have on monitor set primary and secondary
+    # to the one monitor
+    if len(primary) == 1 and len(secondary) == 0:
+        secondary = primary
+    elif len(primary) == 0 and len(secondary) == 1:
+        primary = secondary 
+    elif len(primary) != 1 or len(secondary) != 1:
+        print("Error: i3_gen/pri_sec_monitor")
+        return "ERROR", "ERROR"
+    return primary[0], secondary[0]
+
+# pri_sec_monitor 
+monitors = pri_sec_monitor()
+i3_dict["disp_pri"] = monitors[0]
+i3_dict["disp_sec"] = monitors[1]
+
+# write result to json
+p = pathlib.Path('{{ .chezmoi.sourceDir }}/.gen/i3.json')
+p.parent.mkdir(parents=True, exist_ok=True)
+with open(p, 'w') as f:
+  json.dump(i3_dict, f, indent=4, sort_keys=True)

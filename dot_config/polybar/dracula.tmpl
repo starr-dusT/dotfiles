@@ -1,5 +1,7 @@
+{{- $i3:= include ".gen/i3.json" | mustFromJson -}}
+
 [bar/fullbar]
-monitor = HDMI-0
+monitor = {{ $i3.disp_sec }}
 include-file = ~/.config/polybar/common
 
 background = #bb282a36

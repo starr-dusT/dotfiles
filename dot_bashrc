@@ -28,5 +28,5 @@ alias n="nnn -d -e -H -r"
 # Chezmoi
 alias cmc="chezmoi cd"
 alias cmd="chezmoi apply --verbose --dry-run"
-alias cma="chezmoi apply --verbose"
+alias cma="chezmoi apply"
 
