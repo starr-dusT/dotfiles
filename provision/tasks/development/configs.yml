@@ -1,0 +1,27 @@
+- name: Add vscodium repo 
+  tags: ["once"]
+  yum_repository:
+    name: vscodium
+    description: Free/Libre Open Source Software Binaries of VS Code
+    baseurl: https://download.vscodium.com/rpms/
+    gpgkey: https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg
+  become: true
+  
+- name: Setup nvm
+  tags: ["once"]
+  shell: >
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+    creates=/home/{{ user }}/.nvm/nvm.sh
+    
+- name: Clone packer for nvim
+  tags: ["once"]
+  git:
+    repo: https://github.com/wbthomason/packer.nvim.git
+    dest: /home/{{ user }}/.local/share/nvim/site/pack/packer/start/packer.nvim
+
+- name: Enable lazygit copr repo
+  tags: ["once"]
+  community.general.copr:
+    name: atim/lazygit
+    state: enabled
+  become: true

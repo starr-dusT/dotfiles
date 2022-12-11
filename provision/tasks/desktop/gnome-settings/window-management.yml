@@ -1,0 +1,10 @@
+
+- name: Set Static workspaces
+  dconf:
+    key: "/org/gnome/mutter/dynamic-workspaces"
+    value: "false"
+
+- name: Set Number of workspaces
+  dconf:
+    key: "/org/gnome/desktop/wm/preferences/num-workspaces"
+    value: "5"

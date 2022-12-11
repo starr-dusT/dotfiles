@@ -1,0 +1,39 @@
+- name: Remove pre-installed gnome software
+  dnf:
+    name:
+      - rhytmbox
+      - cheese
+      - totem
+      - gnome-photos
+      - gnome-maps
+      - gnome-characters
+      - gnome-connections
+      - libreoffice
+      - libreoffice-writer
+      - libreoffice-impress
+      - libreoffice-calc
+      - rhythmbox
+      - gnome-tour
+      - yelp
+    state: absent
+  become: true
+    
+- name: Set desktop files to hide
+  include_tasks: _hide-desktop.yml
+  loop:
+    - /usr/share/applications/wine-winhelp.desktop
+    - /usr/share/applications/wine-mime-msi.desktop
+    - /usr/share/applications/wine-notepad.desktop
+    - /usr/share/applications/wine-oleview.desktop
+    - /usr/share/applications/wine-regedit.desktop
+    - /usr/share/applications/wine-uninstaller.desktop
+    - /usr/share/applications/wine-wineboot.desktop
+    - /usr/share/applications/wine-winecfg.desktop
+    - /usr/share/applications/wine-winefile.desktop
+    - /usr/share/applications/wine-winemine.desktop
+    - /usr/share/applications/wine-wordpad.desktop
+    - /usr/share/applications/vifm.desktop
+    - /usr/share/applications/dosbox-staging.desktop
+    - /usr/share/applications/nvim.desktop
+    - /usr/share/applications/syncthing-start.desktop
+    - /usr/share/applications/syncthing-ui.desktop

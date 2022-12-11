@@ -1,0 +1,3699 @@
+#+TITLE: Scratch Emacs Config
+#+PROPERTY: header-args:emacs-lisp
+
+* Table of Contents
+:PROPERTIES:
+:TOC:      :include all :depth 3
+:END:
+:CONTENTS:
+- [[#table-of-contents][Table of Contents]]
+- [[#custom-bits][Custom Bits]]
+- [[#system-configuration][System Configuration]]
+  - [[#lexical-binding][Lexical Binding]]
+  - [[#this-system][This-System]]
+  - [[#package-management][Package Management]]
+  - [[#straightel][Straight.el]]
+  - [[#automatic-package-update][Automatic Package Update]]
+  - [[#startup][Startup]]
+  - [[#runtime-performance][Runtime Performance]]
+  - [[#clean-emacsd][Clean emacs.d]]
+  - [[#buffers][Buffers]]
+  - [[#server-mode][Server Mode]]
+  - [[#ido][IDO]]
+- [[#general-configuration][General Configuration]]
+  - [[#completions][Completions]]
+  - [[#undo][Undo]]
+  - [[#ui][UI]]
+    - [[#ui-elements][UI Elements]]
+    - [[#scrolling][Scrolling]]
+    - [[#line-numbers][Line Numbers]]
+    - [[#file-warnings][File Warnings]]
+    - [[#hilight-matching-braces][Hilight Matching Braces]]
+    - [[#fix-annoying-buffers][Fix Annoying Buffers]]
+  - [[#theme][
+    Theme]]
+  - [[#fonts][Fonts]]
+  - [[#mode-line][Mode Line]]
+    - [[#time-format][Time Format]]
+    - [[#diminishing][Diminishing]]
+    - [[#doom-modeline][Doom Modeline]]
+    - [[#saving-tweaks][Saving Tweaks]]
+  - [[#keybinds][Keybinds]]
+    - [[#evil][Evil!]]
+    - [[#generalel-for-moar-evil][General.el for Moar Evil!]]
+    - [[#which-key][Which-key]]
+    - [[#keycord-binds][Keycord Binds]]
+    - [[#hydra][Hydra]]
+- [[#editing][Editing]]
+  - [[#general][General]]
+  - [[#the-mighty-org-mode][The Mighty Org-mode]]
+    - [[#start][Start]]
+    - [[#tangle-on-save][Tangle on Save]]
+    - [[#update-table-of-contents-on-save][Update Table of Contents on Save]]
+    - [[#fonts-and-bullets][Fonts and Bullets]]
+    - [[#org-file-paths][Org File Paths]]
+    - [[#tasks][Tasks]]
+    - [[#capture][Capture]]
+    - [[#refile][Refile]]
+    - [[#super-org-agenda][Super-org-agenda]]
+    - [[#tags][Tags]]
+    - [[#searching][Searching]]
+    - [[#end][End]]
+    - [[#bindings][Bindings]]
+  - [[#roam][Roam]]
+  - [[#beancount][Beancount]]
+  - [[#avy][Avy]]
+  - [[#expand-region][Expand Region]]
+  - [[#scratch][Scratch]]
+- [[#window-management][Window Management]]
+  - [[#frame-scaling][Frame Scaling]]
+  - [[#window-selection][Window Selection]]
+  - [[#window-history][Window History]]
+  - [[#burly][Burly]]
+- [[#file-browsing][File Browsing]]
+  - [[#dired][Dired]]
+  - [[#open-files-externally][Open Files Externally]]
+  - [[#open-videos-externally][Open Videos Externally]]
+  - [[#keybinds][Keybinds]]
+- [[#devel][Devel]]
+  - [[#git][Git]]
+    - [[#magit][Magit]]
+  - [[#projectile][Projectile]]
+  - [[#languages][Languages]]
+    - [[#haskell][Haskell]]
+    - [[#emacs-lisp][Emacs Lisp]]
+    - [[#html][HTML]]
+    - [[#yaml][YAML]]
+    - [[#beancount][beancount]]
+    - [[#http][HTTP]]
+    - [[#python][Python]]
+  - [[#productivity][Productivity]]
+    - [[#syntax-checking-with-flycheck][Syntax checking with Flycheck]]
+    - [[#snippets][Snippets]]
+    - [[#smart-parens][Smart Parens]]
+    - [[#rainbow-delimiters][Rainbow Delimiters]]
+    - [[#rainbow-mode][Rainbow Mode]]
+- [[#project-specific][Project Specific]]
+- [[#applications][Applications]]
+- [[#keybinds][Keybinds]]
+  - [[#general][General]]
+  - [[#main][Main]]
+  - [[#open][Open]]
+  - [[#window][Window]]
+  - [[#project][Project]]
+  - [[#git][Git]]
+  - [[#util][Util]]
+  - [[#help][Help]]
+  - [[#buffer][Buffer]]
+  - [[#dired][Dired]]
+  - [[#exwm][EXWM]]
+  - [[#roam][Roam]]
+- [[#desktop][Desktop]]
+  - [[#exwm-and-system-informationals][EXWM and System Informationals]]
+    - [[#exwm-modeline][EXWM Modeline]]
+    - [[#exwm-echo-area-bar][EXWM Echo Area Bar]]
+:END:
+
+* Custom Bits
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/framemove.el" "no")
+
+;;; framemove.el --- directional frame selection routines
+;;
+;; Copyright (C) 2010
+;;
+;; Author: Trey Jackson (bigfaceworm@gmail.com)
+;; Created: February 14, 2010
+;; Keywords: frame, movement, convenience
+;;
+;; This file is not (yet) a part of GNU Emacs.
+;;
+;; Very much like the windmove package, only for frames.
+;; Provide a simple set of keystrokes to move the input/focus
+;; between windows.
+;;
+;; Version 0.10
+;;
+;; This software is licensed under the GPL version 3.
+;;
+;; To install:
+;;   (require 'framemove)
+;;   (framemove-default-keybindings)
+;;
+;; If you want to integrate framemove and windmove
+;; You can omit the call to 'framemove-default-keybindings
+;; And instead do:
+;;    (require 'framemove)
+;;    (windmove-default-keybindings)
+;;    (setq framemove-hook-into-windmove t)
+;; 
+;; Compatibility: GNU Emacs 22.x, 23.x
+;; v0.10: change remove-if-not to cl-remove-if-not
+;;        req cl-seq in an eval-when-compile
+;;        quote lambdas with #'
+
+;;; Code:
+(eval-when-compile (require 'cl-seq))
+
+(defvar framemove-hook-into-windmove nil
+  "When non-nil, try moving frames if moving windows fails.")
+
+(defun fm-frame-bbox (frame)
+  ;; eval b/c when things are beyond borders, you get
+  ;; (+ -11) weirdness
+  (let ((yl (eval (frame-parameter frame 'top)))
+        (xl (eval (frame-parameter frame 'left))))
+    (list xl
+          yl
+          (+ xl (frame-pixel-width frame))
+          (+ yl (frame-pixel-height frame)))))
+
+(defun fm-opposite (dir)
+  (cdr (assq dir '((left . right) (right . left) (up . down) (down . up)))))
+
+(defun fm-frame-coord (frame-or-box dir)
+  (nth (cdr (assq dir '((left . 0) (up . 1) (right . 2) (down . 3))))
+       (if (framep frame-or-box)
+           (fm-frame-bbox frame-or-box)
+         frame-or-box)))
+
+(defun fm-frame-is-completly-to-dir-of (refframe dir otherframe)
+  (cond
+   ((eq refframe otherframe)
+    nil)
+   ((memq dir '(left up))
+    (< (fm-frame-coord refframe (fm-opposite dir)) (fm-frame-coord otherframe dir)))
+   ((memq dir '(right down))
+    (> (fm-frame-coord refframe (fm-opposite dir)) (fm-frame-coord otherframe dir)))
+   (t (error "Invalid direction of movement: %s" dir))))
+
+(defun fm-frame-is-to-dir-of (refframe dir otherframe)
+  (cond
+   ((not (eq (frame-parameter refframe 'display) (frame-parameter otherframe 'display)))
+      nil)
+   ((eq refframe otherframe)
+    nil)
+   ((memq dir '(left up))
+    (< (fm-frame-coord refframe dir) (fm-frame-coord otherframe dir)))
+   ((memq dir '(right down))
+    (> (fm-frame-coord refframe dir) (fm-frame-coord otherframe dir)))
+   (t (error "Invalid direction of movement: %s" dir))))
+
+(defun fm-absolute-coords-of-position (position)
+  (let ((rel-x-y (fm-frame-relative-coordinates position))
+        (frame-bbox (fm-frame-bbox (window-frame (posn-window position)))))
+    (cons (+ (car frame-bbox) (car rel-x-y))
+          (+ (cadr frame-bbox) (cdr rel-x-y)))))
+
+(defun fm-frame-relative-coordinates (position)
+  "Return frame-relative coordinates from POSITION."
+  (let* ((x-y (posn-x-y position))
+         (window (posn-window position))
+         (edges (window-inside-pixel-edges window)))
+    (cons (+ (car x-y) (car edges))
+          (+ (cdr x-y) (cadr edges)))))
+
+(defun fm-project (coord frame dir)
+  "project COORD in direction DIR to edge of FRAME"
+  (if (memq dir '(up down))
+      (cons (car coord)
+            (fm-frame-coord frame dir))
+    (cons (fm-frame-coord frame dir)
+          (cdr coord))))
+
+
+(defun fm-next-frame (dir)
+  "move focus to next frame in direction (from currently focused frame)"
+  (interactive (list
+                (intern (completing-read "Which direction: " '("up" "down" "left" "right") nil t))))
+  (let* ((thisframe (selected-frame))
+         (current-coords (fm-absolute-coords-of-position (posn-at-point)))
+         (coords-projected-in-dir (fm-project current-coords thisframe dir))
+         (possible-frames
+          (sort
+           (cl-remove-if-not
+            '(lambda (f) (fm-frame-is-to-dir-of f dir thisframe))
+            (visible-frame-list))
+           #'(lambda (f1 f2) (fm-frame-is-to-dir-of f1 (fm-opposite dir) f2)))))
+    (if possible-frames
+        (let ((frames-in-line-of-cursor
+               ;; try to find frame in line with cursor
+               (cl-remove-if-not
+                '(lambda (f) (fm-coord-in-range current-coords dir f))
+                possible-frames))
+              (frames-in-line-of-frame
+               ;; find frame that overlaps current frame
+               ;; need to sort by distance from cursor
+               (sort
+                (cl-remove-if-not
+                 '(lambda (f) (fm-range-overlap thisframe f dir))
+                 possible-frames)
+                #'(lambda (f1 f2)
+                   (< (fm-dist-from-coords coords-projected-in-dir f1)
+                      (fm-dist-from-coords coords-projected-in-dir f2))))))
+          (select-frame-set-input-focus
+           (or (car frames-in-line-of-cursor)
+               (car frames-in-line-of-frame)
+               (car possible-frames))))
+      (error "No frame in that direction"))))
+
+(defun fm-dist-from-coords (coord frame)
+  "distance from coord to the bbox of the frame"
+  (let* ((x (car coord))
+         (y (cdr coord))
+         (x-in-range (fm-v-in-range x (fm-bbox-range 'left frame)))
+         (y-in-range (fm-v-in-range y (fm-bbox-range 'up frame)))
+         (x-dist (min (abs (- x (fm-frame-coord frame 'left)))
+                      (abs (- x (fm-frame-coord frame 'right)))))
+         (y-dist (min (abs (- y (fm-frame-coord frame 'up)))
+                      (abs (- y (fm-frame-coord frame 'down))))))
+    (cond ((and x-in-range y-in-range)
+           0)
+          (x-in-range
+           y-dist)
+          (y-in-range
+           x-dist)
+          ((sqrt (+ (expt x-dist 2)
+                    (expt y-dist 2)))))))
+              
+(defun fm-v-in-range (v range)
+  (and (> v (car range))
+       (< v (cdr range))))
+
+(defun fm-bbox-range (dir box)
+  (if (memq dir '(up down))
+      (cons (fm-frame-coord box 'up)
+            (fm-frame-coord box 'down))
+    (cons (fm-frame-coord box 'left)
+          (fm-frame-coord box 'right))))
+
+(defun fm-range-overlap (f1 f2 dir)
+  "return true if the bbox'es of the two frames overlap using coords perpendicular to dir"
+  (let ((perp (if (memq dir '(up down)) 'left 'up))
+        (f1box (fm-frame-bbox f1))
+        (f2box (fm-frame-bbox f2)))
+    (or (fm-v-in-range (fm-frame-coord f1 perp) (fm-bbox-range perp f2))
+        (fm-v-in-range (fm-frame-coord f1 (fm-opposite perp)) (fm-bbox-range perp f2))
+        (fm-v-in-range (fm-frame-coord f2 perp) (fm-bbox-range perp f1))
+        (fm-v-in-range (fm-frame-coord f2 (fm-opposite perp)) (fm-bbox-range perp f1)))))
+
+(defun fm-coord-in-range (coord dir frame)
+  "return true if the coord can be projected in orientation of dir
+onto the bbox of the frame, or more simply, is the part of the coord
+perpendicular to DIR between the edges of frame perpendicular to DIR"
+  (let ((n (if (memq dir '(up down)) (car coord) (cdr coord)))
+        (perp (if (memq dir '(up down)) 'left 'up)))
+    (and (< (fm-frame-coord frame perp) n)
+         (> (fm-frame-coord frame (fm-opposite perp)) n))))
+
+(defun fm-sort-frames-by-edge (framelist dir)
+  (sort
+   framelist
+   (lambda (f1 f2)
+     (apply (symbol-function
+             (if (memq dir '(left up)) '> '<))
+            (list (fm-frame-coord f1 dir) (fm-frame-coord f2 dir))))))
+
+;;;###autoload
+(defun fm-down-frame ()
+  (interactive)
+  (fm-next-frame 'down))
+;;;###autoload
+(defun fm-up-frame ()
+  (interactive)
+  (fm-next-frame 'up))
+;;;###autoload
+(defun fm-left-frame ()
+  (interactive)
+  (fm-next-frame 'left))
+;;;###autoload
+(defun fm-right-frame ()
+  (interactive)
+  (fm-next-frame 'right))
+
+;;;###autoload
+(defun framemove-default-keybindings (&optional modifier)
+  "Set up keybindings for `framemove'.
+Keybindings are of the form MODIFIER-{left,right,up,down}.
+Default MODIFIER is 'meta."
+  (interactive)
+  (unless modifier (setq modifier 'meta))
+
+  (global-set-key (vector (list modifier 'down))  'fm-down-frame)
+  (global-set-key (vector (list modifier 'up))    'fm-up-frame)
+  (global-set-key (vector (list modifier 'left))  'fm-left-frame)
+  (global-set-key (vector (list modifier 'right)) 'fm-right-frame))
+
+(defadvice windmove-do-window-select (around framemove-do-window-select-wrapper activate)
+  "Let windmove do its own thing, if there is an error, try framemove in that direction."
+  (condition-case err
+      ad-do-it
+    (error
+     (if framemove-hook-into-windmove
+         (fm-next-frame (ad-get-arg 0))
+       (error (error-message-string err))))))
+
+(provide 'framemove)
+;;; framemove.el ends here
+
+#+end_src
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/an-old-hope-theme.el" "no")
+
+;; an-old-hope-theme.el -- a syntax theme from a galaxy far away... -*- lexical-binding: t -*-
+;; Author: MoHKale
+;; URL: https://github.com/MoHKale/an-old-hope-theme
+;; Version: 0.1.0
+;; Keywords: color, theme
+;; Package-Requires: ((emacs "24"))
+
+;; This file is not part of GNU Emacs
+
+;; This file is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 3, or (at your option)
+;; any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; For a full copy of the GNU General Public License
+;; see <http://www.gnu.org/licenses/>.
+
+;; Commentary:
+;; see https://github.com/MoHKale/an-old-hope-theme/tree/master/emacs
+
+(deftheme an-old-hope
+  "emacs theme inspired by a galaxy far far away...
+this theme is largely just a shot for shot copy of `jesseleite/an-old-hope-syntax-atom'
+ported to emacs because I refuse to live with an IDE that doesn't look like it XD.
+This theme isn't compatible with emacs in the terminal yet, when I find an easy way
+to approximate true-color colors to non-true-color colors, then I'll add support for
+it.
+")
+
+(with-eval-after-load 'ivy
+  (defface ivy-actual-highlight-face '((t (:inherit highlight)))
+    "face actually used by ivy to highlight some candidates.
+see an-old-hope-theme.el for why this is necessary."))
+
+(custom-theme-set-faces 'an-old-hope
+ ;; defaults
+ '(default ((t (:background "#1c1d20" :foreground "#cbccd1"))))
+ '(italic ((t (:italic t :inherit default))))
+ '(underline ((t (:inherit default))))
+ '(shadow ((t (:foreground "#848794"))))
+ '(hl-line ((t (:background "#313339"))))
+
+ '(font-lock-builtin-face ((t (:foreground "#4fb3d8"))))
+ '(font-lock-comment-face ((t (:foreground "#686b78"))))
+ '(font-lock-keyword-face ((t (:foreground "#78bd65"))))
+ '(font-lock-constant-face ((t (:foreground "#ea3d54" :inherit bold))))
+ '(font-lock-function-name-face ((t (:foreground "#fedd38"))))
+ '(font-lock-negation-char-face ((t (:foreground "#ea3d54"))))
+ '(font-lock-preprocessor-face ((t (:foreground "#86b270"))))
+ '(font-lock-string-face ((t (:foreground "#4fb3d8"))))
+ '(font-lock-doc-face ((t (:foreground "#4fb3d8")))) ; TODO optional bg
+ '(font-lock-type-face ((t (:foreground "#ea3d54"))))
+ '(font-lock-variable-name-face ((t (:foreground "#fedd38"))))
+ '(font-lock-warning-face ((t (:background "#fedd38" :distant-foreground "#fedd38" :foreground "#1c1d20" :underline nil :inherit bold))))
+
+ '(error ((t (:background "#ea3d54" :distant-foreground "#ea3d54" :foreground "#1c1d20" :inherit bold))))
+ '(success ((t (:background "#78bd65" :distant-foreground "#78bd65" :foreground "#1c1d20" :inherit bold))))
+ '(warning ((t (:background "#e5cc51" :distant-foreground "#e5cc51" :foreground "#1c1d20" :inherit bold))))
+
+ '(cursor ((t (:background "#ea3d54"))))
+ '(custom-button ((t (:background "#1c1d20" :foreground "#cbccd1" :box (:line-width 2 :style released-button)))))
+
+ '(fringe ((t (:background "#212125"))))
+ '(header-line ((t (:background "#1c1d20" :foreground "#4fb3d8"))))
+ '(line-number ((t (:background "#212125" :foreground "#cbccd1"))))
+ '(line-number-current-line ((t (:foreground "#4fb3d8" :inherit line-number))))
+ '(vertical-border ((t (:foreground "#cbccd1"))))
+ '(internal-border ((t (:foreground "#ffffff" :background "#ffffff"))))
+ '(minibuffer-prompt ((t (:foreground "#e5cc51" :weight bold))))
+
+ '(highlight ((t (:foreground "#1c1d20" :background "#4fb3d8" :distant-foreground "#4fb3d8" :inherit bold))))
+
+ '(region ((t (:background "#44464f" :weight bold))))
+ '(secondary-selection ((t (:inherit region))))
+
+ ;; face for current search match. exiting now takes you to it.
+ '(isearch ((t (:background "#b978ab" :inherit bold))))
+ '(isearch-fail ((t (:inherit compilation-mode-line-fail))))
+ '(match ((t (:foreground "#86b270"))))
+ ;; face for matches other than the current match
+ '(lazy-highlight ((t (:background "#5689f0" :foreground "#2d2d38"))))
+
+ ;; delimeter colors just taken from https://github.com/gastrodia/rainbow-brackets
+ ;; colors 5-8 just recycle 1-4, maybe come up with more.
+ '(rainbow-delimiters-depth-1-face ((t (:foreground "#E6B422"))))
+ '(rainbow-delimiters-depth-2-face ((t (:foreground "#C70067"))))
+ '(rainbow-delimiters-depth-3-face ((t (:foreground "#00A960"))))
+ '(rainbow-delimiters-depth-4-face ((t (:foreground "#FC7482"))))
+ '(rainbow-delimiters-depth-5-face ((t (:foreground "#E6B422"))))
+ '(rainbow-delimiters-depth-6-face ((t (:foreground "#C70067"))))
+ '(rainbow-delimiters-depth-7-face ((t (:foreground "#00A960"))))
+ '(rainbow-delimiters-depth-8-face ((t (:foreground "#FC7482"))))
+
+ ;; hyperlinks and path links
+ '(link ((t (:foreground "#4fb3d8"))))
+ '(link-visited ((t (:foreground "#67e4c4"))))
+
+ ;;; modeline/spaceline
+ '(mode-line ((t (:background "#cbccd1" :foreground "#1c1d20" :box (:line-width 1 :color "#cbccd1" :style none)))))
+
+ '(spaceline-evil-normal ((t (:inherit mode-line :foreground "#1c1d20" :background "DarkGoldenrod2"))))
+ '(spaceline-evil-insert ((t (:inherit mode-line :foreground "#1c1d20" :background "#5ac85a"))))
+ '(spaceline-evil-emacs ((t (:inherit mode-line :foreground "#1c1d20" :background "#4fb3d8"))))
+ '(spaceline-evil-replace ((t (:inherit mode-line :foreground "#1c1d20" :background "#19e5b2"))))
+ '(spaceline-evil-visual ((t (:inherit mode-line :foreground "#cbccd1" :background "#44464f"))))
+ '(spaceline-evil-motion ((t (:inherit mode-line :foreground "#1c1d20" :background "#c170b0"))))
+ '(spaceline-minibuffer ((t (:inherit mode-line :foreground "#1c1d20" :background "#4fb3d8"))))
+
+ '(spaceline-flycheck-error ((t (:inherit bold :foreground "#d45364"))))
+ '(spaceline-flycheck-warning ((t (:inherit bold :foreground "#d68e5b"))))
+ '(spaceline-flycheck-info ((t (:inherit bold :foreground "#86b270"))))
+
+ ;; major mode indicator
+ '(powerline-active1 ((t (:background "#212125" :foreground "#cbccd1" :inherit mode-line))))
+ ;; file-format + cursor-pos
+ '(powerline-active2 ((t (:background "#212125" :foreground "#cbccd1" :inherit mode-line))))
+
+ ;;; evil
+ '(vimish-fold-overlay ((t (:background "#44464f" :foreground "#78bd65"))))
+
+ ;;; flycheck
+ '(flycheck-info ((t (:underline (:style wave :color "#78bd65")))))
+ '(flycheck-warning ((t (:underline (:style wave :color "#e5cc51")))))
+ '(flycheck-duplicate ((t (:underline (:style wave :color "#ee7b29")))))
+ '(flycheck-incorrect ((t (:underline (:style wave :color "#ea3d54")))))
+
+ '(flycheck-fringe-info ((t (:foreground "#5ac85a" :inherit fringe))))
+ '(flycheck-fringe-warning ((t (:foreground "#fedd38" :inherit fringe))))
+ '(flycheck-fringe-error ((t (:foreground "#f43333" :inherit fringe))))
+
+ ;;; flyspell
+ '(flyspell-duplicate ((t (:foreground "#d68e5b" :underline t))))
+ '(flyspell-incorrect ((t (:foreground "#d45364" :underline t))))
+
+ ;;; avy
+ '(avy-background-face ((t (:foreground "#686b78"))))
+ '(avy-lead-face ((t (:background "#f43333" :foreground "#ffffff"))))
+ '(avy-lead-face-0 ((t (:background "#5689f0" :foreground "#ffffff"))))
+ '(avy-lead-face-1 ((t (:background "#cbccd1" :foreground "#1c1d20"))))
+ '(avy-lead-face-2 ((t (:background "#c170b0" :foreground "#ffffff"))))
+
+ '(frog-menu-border ((t (:background "#ffffff" :foreground "#ffffff"))))
+ '(frog-menu-posframe-background-face ((t (:background "#1c1d20"))))
+
+ ;;; company - intellisense
+ '(company-tooltip-mouse ((t (:foreground "#19e5b2"))))
+ '(company-template-field ((t (:foreground "#19e5b2"))))
+
+ ;; scrollbar
+ '(company-scrollbar-bg ((t (:background "#cbccd1" :foreground "#cbccd1"))))
+ '(company-scrollbar-fg ((t (:background "#44464f" :foreground "#44464f"))))
+
+ '(company-preview ((t (:foreground "#5689f0" :weight bold :inherit hl-line))))
+ '(company-preview-common ((t (:inherit company-preview))))
+ '(company-preview-search ((t (:foreground "#f29858" :weight normal :inherit company-preview))))
+
+ ;; NOTE tooltip is the drop down menu which shows up when multiple results exist
+ '(company-tooltip ((t (:inherit bold :background "#cbccd1" :foreground "#1c1d20"))))
+ '(company-tooltip-selection ((t (:foreground "#cbccd1" :background "#5689f0"))))
+ '(company-tooltip-common ((t (:foreground "#5689f0" :inherit company-tooltip))))
+ '(company-tooltip-common-selection ((t (:foreground "#1c1d20" :background "#5689f0" :inherit company-tooltip-common))))
+ '(company-tooltip-search ((t (:foreground "#ee7b29" :inherit company-tooltip))))
+ '(company-tooltip-search-common ((t (:inherit company-tooltip-search))))
+ '(company-tooltip-search-selection ((t (:background "#5689f0" :inherit company-tooltip-search))))
+
+ ;; NOTE annotations are extra information in the tooltip
+ '(company-tooltip-annotation ((t (:weight bold :foreground "#686b78"))))
+ '(company-tooltip-annotation-selection ((t (:foreground "#19e5b2" :background "#5689f0" :inherit company-tooltip-annotation))))
+
+ ;;;; custom mode variants
+ ;;; whitespace-mode
+ ;; `(whitespace-trailing ((,cls (:foreground "yellow" :background ,red))))
+ '(whitespace-space ((t (:foreground "#44464f"))))
+ '(trailing-whitespace ((t (:background "#44464f"))))
+
+ ;;; auto-highlight-symbol mode
+ ;; Note: distant foreground is meaningless here because the faces are always given priority
+ '(ahs-definition-face ((t (:background "#64a3c3" :distant-foreground "#64a3c3" :foreground "#44464f"))))
+ '(ahs-edit-mode-face ((t (:background "#d45364" :distant-foreground "#d45364" :foreground "#cbccd1"))))
+ '(ahs-face ((t (:background "#cbccd1" :foreground "#212125" :inherit bold))))
+ '(ahs-plugin-whole-buffer-face ((t (:background "#4fb3d8" :distant-foreground "#78bd65" :foreground "#212125"))))
+ '(ahs-plugin-bod-face ((t (:background "#5689f0" :distant-foreground "#5689f0" :foreground "#212125"))))
+ '(ahs-plugin-defalt-face ((t (:background "#d68e5b" :distant-foreground "#d68e5b" :foreground "#212125"))))
+ '(ahs-warning-face ((t (:foreground "#d45364"))))
+
+ ;;; compilation mode
+ '(compilation-line-number ((t (:foreground "#e5cc51"))))
+ '(compilation-column-number ((t (:inherit font-lock-doc-face))))
+
+ ;; NOTE also represents value count in mode line
+ '(compilation-error ((t (:foreground "#f43333" :inherit bold))))
+ '(compilation-info ((t (:foreground "#5ac85a" :inherit bold))))
+ '(compilation-warning ((t (:foreground "#f29858" :inherit bold))))
+
+ ;; NOTE these only represent the exit status indicator
+ ;; `(compilation-mode-line-exit ((,cls (:foreground very-dark-grey))))
+ ;; `(compilation-mode-line-fail ((,cls (:foreground ,very-dark-grey))))
+ ;; `(compilation-mode-line-run ((,cls (:foreground ,very-dark-grey))))
+
+ ;;; markdown-mode
+ '(markdown-code-face ((t (:inherit default))))
+
+ ;;; anzu
+ '(anzu-mode-line ((t (:foreground "#1c1d20" :inherit bold))))
+ '(anzu-mode-line-no-match ((t (:foreground "#f43333" :inherit bold))))
+
+ ;;; hydra-posframe
+ ;; for some reason... if hydra-posframe-face inherits default, internal border won't work
+ '(hydra-posframe-face ((t (:background "#1c1d20" :foreground "#cbccd1"))))
+ '(hydra-posframe-border-face ((t (:inherit internal-border))))
+
+ ;;; ivy
+ ;; by default, it seems if ivy-highlight-face has its own spec, it'll interfere
+ ;; with the face of ivy-current-match. Which'll make it harder to tell which
+ ;; candidate is the current candidate.
+ ;;
+ ;; If ivy-highlight-face just inherits another face, then when both it and
+ ;; ivy-current-match are applied to a string, ivy-current-match will override
+ ;; ivy-highlight-face. Thus, this.
+ '(ivy-actual-highlight-face ((t (:foreground "#1c1d20" :background "#67e4c4" :distant-foreground "#67e4c4" :inherit bold))))
+ '(ivy-highlight-face ((t (:inherit ivy-actual-highlight-face))))
+
+;;; org-mode
+ '(org-link ((t (:foreground "#4fb3d8" :inherit bold))))
+ '(org-footnote ((t (:foreground "#4fb3d8"))))
+
+ ;; Overridden by hl-todo-keyword-faces
+ '(org-todo ((t (:foreground "#c170b0" :inherit bold))))
+ '(org-done ((t (:foreground "#5ac85a" :inherit bold))))
+
+ '(org-upcoming-deadline ((t (:foreground "#d45364"))))
+ '(org-warning ((t (:foreground "#ee7b29" :inherit bold))))
+ '(org-scheduled-today ((t (:foreground "#5ac85a"))))
+ '(org-block-begin-line ((t (:background "royalblue4" :distant-foreground "royalblue4" :foreground "steelblue1" :extend t))))
+ '(org-meta-line ((t (:inherit (font-lock-comment-face)))))
+
+ '(org-block ((t (:background "#17181b" :extend t))))
+ '(org-document-title ((t (:foreground "#ffffff" :height 1.3 :inherit bold))))
+
+ ;;; rust[ic]-mode
+ '(rustic-compilation-warning ((t (:inherit compilation-warning))))
+ '(rustic-compilation-info ((t (:inherit compilation-info))))
+ '(rustic-compilation-error ((t (:inherit compilation-error))))
+ '(rustic-compilation-column ((t (:inherit compilation-column-number))))
+ '(rustic-compilation-line ((t (:inherit compilation-line-number))))
+
+ ;;; dashboard
+ '(dashboard-text-banner ((t (:foreground "#f29858"))))
+
+ ;;; eshell-prompt-extras
+ '(epe-remote-face ((t (:foreground "#67e4c4"))))
+ '(epe-venv-face ((t (:foreground "#b978ab"))))
+
+ ;;; magit
+ '(magit-mode-line-process-error ((t (:foreground "#ea3d54" :background "#cbccd1" :inherit bold))))
+
+ ;;; typescript
+ '(typescript-primitive-face ((t (:inherit font-lock-type-face))))
+
+ ;;; latex
+ '(font-latex-sedate-face ((t (:inherit font-lock-keyword-face))))
+ '(font-latex-sectioning-0-face ((t (:inherit font-lock-function-name-face))))
+ '(font-latex-sectioning-1-face ((t (:inherit font-lock-function-name-face))))
+ '(font-latex-sectioning-2-face ((t (:inherit font-lock-function-name-face))))
+ '(font-latex-sectioning-3-face ((t (:inherit font-lock-function-name-face))))
+ '(font-latex-sectioning-4-face ((t (:inherit font-lock-function-name-face))))
+ '(font-latex-sectioning-5-face ((t (:inherit font-lock-function-name-face))))
+
+ ;;; man/woman
+ '(Man-underline ((t (:foreground "#5ac85a" :inherit bold))))
+ '(woman-addition ((t (:foreground "#b978ab"))))
+ '(woman-bold ((t (:foreground "#ea3d54" :inherit bold))))
+ '(woman-unknown ((t (:inherit error))))
+ '(woman-italic ((t (:foreground "#78bd65"))))
+ )
+
+(custom-theme-set-variables 'an-old-hope
+  '(hl-todo-keyword-faces
+    '(("TODO"       . "#ea3d54")
+      ("NEXT"       . "#ea3d54")
+      ("RANT"       . "#ea3d54")
+      ("SEE"        . "#ea3d54")
+      ("THEM"       . "#b978ab")
+      ("PROG"       . "#5689f0")
+      ("OKAY"       . "#5689f0")
+      ("DONT"       . "#5ac85a")
+      ("FAIL"       . "#ea3d54")
+      ("DONE"       . "#5ac85a")
+      ("NOTE"       . "#fedd38")
+      ("KLUDGE"     . "#fedd38")
+      ("HACK"       . "#fedd38")
+      ("TEMP"       . "#fedd38")
+      ("FIXME"      . "#ee7b29")
+      ("WARN"       . "#ee7b29")
+      ("XXX+"       . "#ee7b29")
+      ("\\?\\?\\?+" . "#ee7b29"))))
+
+(provide-theme 'an-old-hope)
+
+#+end_src
+
+* System Configuration
+** Lexical Binding
+
+Add lexical binding tag to top of config file.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no") 
+
+;; -*- lexical-binding: t -*-
+(setq comp-deferred-compilation t)
+
+#+end_src
+
+** This-System
+
+This section aims to allow users to select which portions of the configuration are used on different systems by defining this-system and the possible categories for systems. This system is simply a name identifying the current system the config is being used on. Then the categories (system-category-1, system-category-2, ...) define the possible different combinations of different systems that use that portion of the config. An example of a tangle tag follows:
+
+:tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+The above statement indicates that for following portion of the config, if the current system is a member of category-1 then it will be tangled and thus effectively added to the final config. As such, we can define different categories for the different permutations of systems that may need different portions of the config. Hopefully that all makes sense :)
+
+#+begin_src emacs-lisp :tangle "~/.emacs.d/init.el" 
+
+(setq this-system "main")
+(setq system-category-1 '("main" "work" "termux"))
+(setq system-category-2 '("main"))
+
+#+end_src
+
+** Package Management
+
+Setup package management. Some lines can be uncommented for fresh installs.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+; Use package and add archives to list
+(require 'package)
+
+;(setq package-enable-at-startup nil)
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
+;(package-initialize)
+
+; Uncomment for fresh install
+(package-refresh-contents)
+(package-install 'use-package)
+
+(require 'use-package)
+(require 'use-package-ensure)
+
+; Ensure packages by default
+(setq use-package-always-ensure t)
+
+#+end_src
+
+** Straight.el
+
+Trying out straight.el for package management. So far so good!
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+; Uncomment for fresh install
+; Bootstrap straight.el
+;(defvar bootstrap-version)
+;(let ((bootstrap-file
+;      (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+;      (bootstrap-version 5))
+;  (unless (file-exists-p bootstrap-file)
+;    (with-current-buffer
+;        (url-retrieve-synchronously
+;        "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+;        'silent 'inhibit-cookies)
+;      (goto-char (point-max))
+;      (eval-print-last-sexp)))
+;  (load bootstrap-file nil 'nomessage))
+
+;; Always use straight to install on systems other than Linux
+(setq straight-use-package-by-default (not (eq system-type 'gnu/linux)))
+
+;; Use straight.el for use-package expressions
+(straight-use-package 'use-package)
+
+;; Load the helper package for commands like `straight-x-clean-unused-repos'
+(require 'straight-x)
+
+#+end_src
+
+** Automatic Package Update
+
+Setup package auto updates.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+(use-package auto-package-update
+  :custom
+  (auto-package-update-interval 7)
+  (auto-package-update-prompt-before-update t)
+  (auto-package-update-hide-results t)
+  :config
+  (auto-package-update-maybe)
+  (auto-package-update-at-time "09:00"))
+
+#+end_src
+
+** Startup
+
+Make startup faster by reducing the frequency of garbage collection and then use a hook to measure Emacs startup time.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+;; The default is 800 kilobytes.  Measured in bytes.
+(setq gc-cons-threshold (* 50 1000 1000))
+
+;; Profile emacs startup
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "*** Emacs loaded in %s with %d garbage collections."
+                     (format "%.2f seconds"
+                             (float-time
+                              (time-subtract after-init-time before-init-time)))
+                     gcs-done)))
+
+(setq package-quickstart t)
+
+#+end_src
+
+** Runtime Performance
+
+Dial the GC threshold back down so that garbage collection happens more frequently but in less time.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+;; Make gc pauses faster by decreasing the threshold.
+(setq gc-cons-threshold (* 2 1000 1000))
+
+;(use-package benchmark-init
+;  :ensure t
+;  :config
+;  ;; To disable collection of benchmark data after init is done.
+;  (add-hook 'after-init-hook 'benchmark-init/deactivate))
+
+#+end_src
+
+** Clean emacs.d 
+
+I don't want a bunch of transient files showing up as untracked in the Git repo so I move them all to another location.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+;; Keep transient cruft out of ~/.emacs.d/
+(setq user-emacs-directory "~/.cache/emacs/"
+      backup-directory-alist `(("." . ,(expand-file-name "backups" user-emacs-directory)))
+      url-history-file (expand-file-name "url/history" user-emacs-directory)
+      auto-save-list-file-prefix (expand-file-name "auto-save-list/.saves-" user-emacs-directory)
+      projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" user-emacs-directory))
+
+;; Keep customization settings in a temporary file (thanks Ambrevar!)
+(setq custom-file
+      (if (boundp 'server-socket-dir)
+          (expand-file-name "custom.el" server-socket-dir)
+        (expand-file-name (format "emacs-custom-%s.el" (user-uid)) temporary-file-directory)))
+(load custom-file t)
+
+#+end_src
+
+** Buffers 
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+(global-auto-revert-mode t) ; Allow buffers to update from disk contents
+
+#+end_src
+
+** Server Mode
+
+ Start the Emacs server from this instance so that all =emacsclient= calls are routed here.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+;(server-start)
+
+#+end_src
+
+** IDO
+
+IDO provides interactive bits and bobs for buffers and files.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+(ido-mode 1)
+(ido-everywhere 1)
+
+(use-package ido-completing-read+
+  :init
+  (ido-ubiquitous-mode 1))
+
+#+end_src
+
+* General Configuration
+** Completions
+
+Stolen from https://github.com/MatthewZMD
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+(use-package ivy
+  :diminish
+  :init
+  (use-package amx :defer t)
+  (use-package counsel :diminish :config (counsel-mode 1))
+  (use-package swiper :defer t)
+  (ivy-mode 1)
+  :bind
+  (("C-s" . swiper-isearch)
+   ("C-c s" . counsel-rg)
+   ("C-c b" . counsel-buffer-or-recentf)
+   ("C-c C-b" . counsel-ibuffer)
+   (:map ivy-minibuffer-map
+         ("C-r" . ivy-previous-line-or-history)
+         ("M-RET" . ivy-immediate-done))
+   (:map counsel-find-file-map
+         ("C-~" . counsel-goto-local-home)))
+  :custom
+  (ivy-use-virtual-buffers t)
+  (ivy-height 10)
+  (ivy-on-del-error-function nil)
+  (ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-create)
+  (ivy-count-format "【%d/%d】")
+  (ivy-wrap t)
+  :config
+  (defun counsel-goto-local-home ()
+      "Go to the $HOME of the local machine."
+      (interactive)
+    (ivy--cd "~/")))
+
+#+end_src
+** Undo
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+(use-package undo-tree
+  :init
+  (global-undo-tree-mode 1))
+
+#+end_src
+
+** UI
+*** UI Elements
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (setq inhibit-startup-message t)
+  (scroll-bar-mode -1)             ; Disable visible scrollbar
+  (tool-bar-mode -1)               ; Disable the toolbar
+  (tooltip-mode -1)                ; Disable tooltips
+  (set-fringe-mode 10)             ; Give some breathing room
+  (menu-bar-mode -1)               ; Disable the menu bar
+
+#+end_src
+
+*** Scrolling
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (setq mouse-wheel-scroll-amount '(5 ((shift) . 5))) ; start out scrolling 1 line at a time
+  (setq mouse-wheel-progressive-speed nil)              ; accelerate scrolling
+  (setq mouse-wheel-follow-mouse 't)                  ; scroll window under mouse
+  (setq scroll-step 5)                                ; keyboard scroll one line at a timesetq use-dialog-box nil
+
+#+end_src
+
+*** Line Numbers
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (column-number-mode)
+  (global-display-line-numbers-mode t)
+
+  ;; Disable line numbers for some modes
+  (dolist (mode '(org-mode-hook
+                  eshell-mode-hook))
+    (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+#+end_src
+
+*** File Warnings
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (setq large-file-warning-threshold nil) ; Don't warn for large files
+  (setq vc-follow-symlinks t)             ; Don't warn for following symlinked files
+  (setq ad-redefinition-action 'accept)   ; Don't warn when advice is added for functions
+
+#+end_src
+
+*** Hilight Matching Braces
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (use-package paren
+    :config
+    (set-face-attribute 'show-paren-match-expression nil :background "#363e4a")
+    (show-paren-mode 1))
+
+#+end_src
+
+*** Fix Annoying Buffers
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (use-package popwin
+    :config
+    (popwin-mode 1))
+
+#+end_src
+
+** Theme
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+(use-package doom-themes :defer t)
+(load-theme 'doom-old-hope t)
+
+#+end_src
+
+** Fonts
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  ;; Set the font face based on platform
+  (set-face-attribute 'default nil :font "JetBrains Mono Nerd Font" :height 80)
+  ;; Set the fixed pitch face
+  (set-face-attribute 'fixed-pitch nil :font "JetBrains Mono Nerd Font" :height 80)
+  ;; Set the variable pitch face
+  (set-face-attribute 'variable-pitch nil :font "JetBrains Mono Nerd Font" :height 80 :weight 'regular)
+
+#+end_src
+** Mode Line
+*** Time Format
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (setq display-time-format "%l:%M %p %b %y"
+        display-time-default-load-average nil)
+
+#+end_src
+*** Diminishing
+
+The [[https://github.com/myrjola/diminish.el][diminish]] package hides pesky minor modes from the modelines.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (use-package diminish)
+
+#+end_src
+
+*** Doom Modeline
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  ;; You must run (all-the-icons-install-fonts) one time after
+  ;; installing this package!
+
+  (use-package minions
+    :hook (doom-modeline-mode . minions-mode)
+    :custom
+    (minions-mode-line-lighter ""))
+
+  (use-package doom-modeline
+    ;:after eshell     ;; Make sure it gets hooked after eshell
+    :hook (after-init . doom-modeline-init)
+    :custom-face
+    (mode-line ((t (:height 0.85))))
+    (mode-line-inactive ((t (:height 0.85))))
+    :custom
+    (doom-modeline-height 20)
+    (doom-modeline-bar-width 6)
+    (doom-modeline-lsp t)
+    (doom-modeline-github nil)
+    (doom-modeline-mu4e nil)
+    (doom-modeline-irc nil)
+    (doom-modeline-minor-modes t)
+    (doom-modeline-persp-name nil)
+      (doom-modeline-buffer-file-name-style 'truncate-except-project)
+      (doom-modeline-major-mode-icon nil))
+
+  #+end_src
+
+*** Saving Tweaks
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+    ; Auto-save changed files
+    (use-package super-save
+      :ensure t
+      :defer 1
+      :diminish super-save-mode
+      :config
+      (super-save-mode +1)
+      (setq super-save-auto-save-when-idle t))
+
+    ; Auto revert changed files
+    (global-auto-revert-mode 1)
+
+  #+end_src
+
+** Keybinds
+*** Evil!
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+    (defun dw/evil-hook ()
+      (dolist (mode '(custom-mode
+                      eshell-mode
+                      git-rebase-mode
+                      erc-mode
+                      circe-server-mode
+                      circe-chat-mode
+                      circe-query-mode
+                      sauron-mode
+                      term-mode))
+      (add-to-list 'evil-emacs-state-modes mode)))
+
+    (defun dw/dont-arrow-me-bro ()
+      (interactive)
+      (message "Arrow keys are bad, you know?"))
+
+    (use-package evil
+      :init
+      (setq evil-want-integration t)
+      (setq evil-want-keybinding nil)
+      (setq evil-want-C-u-scroll t)
+      (setq evil-want-C-i-jump nil)
+      (setq evil-respect-visual-line-mode t)
+      :config
+      (add-hook 'evil-mode-hook 'dw/evil-hook)
+      (evil-mode 1)
+      (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+      (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
+
+      ;; Use visual line motions even outside of visual-line-mode buffers
+      (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+      (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+
+      ;; Disable arrow keys in normal and visual modes
+      (define-key evil-normal-state-map (kbd "<left>") 'dw/dont-arrow-me-bro)
+      (define-key evil-normal-state-map (kbd "<right>") 'dw/dont-arrow-me-bro)
+      (define-key evil-normal-state-map (kbd "<down>") 'dw/dont-arrow-me-bro)
+      (define-key evil-normal-state-map (kbd "<up>") 'dw/dont-arrow-me-bro)
+      (evil-global-set-key 'motion (kbd "<left>") 'dw/dont-arrow-me-bro)
+      (evil-global-set-key 'motion (kbd "<right>") 'dw/dont-arrow-me-bro)
+      (evil-global-set-key 'motion (kbd "<down>") 'dw/dont-arrow-me-bro)
+      (evil-global-set-key 'motion (kbd "<up>") 'dw/dont-arrow-me-bro)
+
+      (evil-set-initial-state 'messages-buffer-mode 'normal)
+      (evil-set-initial-state 'dashboard-mode 'normal))
+
+    (use-package evil-collection
+      :after evil
+      :custom
+      (evil-collection-outline-bind-tab-p nil)
+      :config
+      (evil-collection-init))
+
+  #+end_src
+*** General.el for Moar Evil!
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (use-package general
+    :ensure t
+    :config
+    (general-evil-setup t))
+
+    (general-create-definer dw/leader-key-def
+      :keymaps '(normal insert visual emacs)
+      :prefix "SPC"
+      :global-prefix "C-SPC")
+
+  #+end_src
+*** Which-key
+
+  [[https://github.com/justbur/emacs-which-key][which-key]] is great for getting an overview of what keybindings are available
+  based on the prefix keys you entered.  Learned about this one from Spacemacs.
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+    (use-package which-key
+      :init (which-key-mode)
+      :diminish which-key-mode
+      :config
+      (setq which-key-idle-delay 0.3)
+      (setq which-key-min-display-lines 6))
+
+  #+end_src
+
+*** Keycord Binds
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+    (use-package use-package-chords
+      :disabled
+      :config (key-chord-mode 1))
+
+  #+end_src
+
+*** Hydra
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+    (use-package hydra
+      :defer 1)
+
+  #+end_src
+
+* Editing
+** General
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  ; Set Default indentation to 2 characters
+  (setq-default tab-width 2)
+  (setq-default evil-shift-width tab-width)
+
+  ; Use spaces instead of tabs for indents
+  (setq-default indent-tabs-mode nil)
+
+  ; Automatic comment/uncomment lines
+  (use-package evil-nerd-commenter
+    :bind ("M-/" . evilnc-comment-or-uncomment-lines))
+
+  ; Use Parinfer for Lispy languages
+  ;(use-package parinfer
+  ;  :hook ((clojure-mode . parinfer-mode)
+  ;         (emacs-lisp-mode . parinfer-mode)
+  ;         (common-lisp-mode . parinfer-mode)
+  ;         (scheme-mode . parinfer-mode)
+  ;         (lisp-mode . parinfer-mode))
+  ;  :config
+  ;  (setq parinfer-extensions
+  ;      '(defaults       ; should be included.
+  ;        pretty-parens  ; different paren styles for different modes.
+  ;        evil           ; If you use Evil.
+  ;        smart-tab      ; C-b & C-f jump positions and smart shift with tab & S-tab.
+  ;        smart-yank)))  ; Yank behavior depend on mode.
+
+  ;(dw/leader-key-def
+  ;  "tp" 'parinfer-toggle-mode)
+
+  #+end_src
+** The Mighty Org-mode
+*** Start 
+
+  Set up Org Mode with a baseline configuration.  The following sections will add more things to it.
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  ;; TODO: Mode this to another section
+  (setq-default fill-column 80)
+
+  ;; Turn on indentation and auto-fill mode for Org files
+  (defun dw/org-mode-setup ()
+    (org-indent-mode)
+    (variable-pitch-mode 1)
+    (auto-fill-mode 0)
+    (visual-line-mode 1)
+    (setq evil-auto-indent nil)
+    (diminish org-indent-mode))
+
+  (use-package org-plus-contrib
+    :defer t
+    :hook (org-mode . dw/org-mode-setup)
+    :config
+    (setq org-ellipsis " ▾"
+          org-hide-emphasis-markers t
+          org-src-fontify-natively t
+          org-src-tab-acts-natively t
+          org-edit-src-content-indentation 0
+          org-hide-block-startup nil
+          org-src-preserve-indentation nil
+          org-startup-folded 'content
+          org-cycle-separator-lines 2)
+
+    (setq org-modules
+      '(org-crypt
+          org-habit))
+
+    (setq org-refile-targets '((nil :maxlevel . 3)
+                              (org-agenda-files :maxlevel . 3)))
+    (setq org-outline-path-complete-in-steps nil)
+    (setq org-refile-use-outline-path t)
+
+    (evil-define-key '(normal insert visual) org-mode-map (kbd "C-j") 'org-next-visible-heading)
+    (evil-define-key '(normal insert visual) org-mode-map (kbd "C-k") 'org-previous-visible-heading)
+
+    (evil-define-key '(normal insert visual) org-mode-map (kbd "M-j") 'org-metadown)
+    (evil-define-key '(normal insert visual) org-mode-map (kbd "M-k") 'org-metaup)
+
+    (org-babel-do-load-languages
+      'org-babel-load-languages
+      '((emacs-lisp . t)
+        (ledger . t)))
+
+    (push '("conf-unix" . conf-unix) org-src-lang-modes)
+
+    ;; NOTE: Subsequent sections are still part of this use-package block!
+
+  #+end_src
+
+*** Tangle on Save
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+      ;; Since we don't want to disable org-confirm-babel-evaluate all
+      ;; of the time, do it around the after-save-hook
+      (defun dw/org-babel-tangle-dont-ask ()
+      ;; Dynamic scoping to the rescue
+      (let ((org-confirm-babel-evaluate nil))
+    (org-babel-tangle)))
+
+      (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'dw/org-babel-tangle-dont-ask
+              'run-at-end 'only-in-org-mode)))
+
+  #+end_src
+
+*** Update Table of Contents on Save
+
+  It’s nice to have a table of contents section for long literate configuration files (like this one!) so I use org-make-toc to automatically update the ToC in any header with a property named TOC.
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (use-package org-make-toc
+    :hook (org-mode . org-make-toc-mode))
+
+  #+end_src
+
+*** Fonts and Bullets
+
+  Use bullet characters instead of asterisks, plus set the header font sizes to something more palatable.  A fair amount of inspiration has been taken from [[https://zzamboni.org/post/beautifying-org-mode-in-emacs/][this blog post]].
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (use-package org-bullets
+    :after org
+    :hook (org-mode . org-bullets-mode)
+    :custom
+    (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+
+  ;; Replace list hyphen with dot
+  (font-lock-add-keywords 'org-mode
+                          '(("^ *\\([-]\\) "
+                            (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+  (dolist (face '((org-level-1 . 1.2)
+                  (org-level-2 . 1.1)
+                  (org-level-3 . 1.05)
+                  (org-level-4 . 1.0)
+                  (org-level-5 . 1.1)
+                  (org-level-6 . 1.1)
+                  (org-level-7 . 1.1)
+                  (org-level-8 . 1.1)))
+      (set-face-attribute (car face) nil :font "JetBrains Mono Nerd Font" :weight 'regular :height (cdr face)))
+
+  ;; Make sure org-indent face is available
+  (require 'org-indent)
+
+  ;; Ensure that anything that should be fixed-pitch in Org files appears that way
+  (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
+  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+
+  #+end_src
+
+*** Org File Paths
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  ;;; Directory Options
+  ;; Set default working directory for org files
+  (setq org-directory "~/documents/org")
+  ;; Set default locations to store notes
+  (setq org-default-notes-file "~/documents/org/capture/refile.org")
+  ;; Set agenda files
+  (setq org-agenda-files (quote ("~/documents/org/capture"
+                                "~/documents/org/capture/agendas"
+                                "~/documents/org/capture/bookmarks"
+                                "~/documents/org/capture/notes")))
+
+  #+end_src
+*** Tasks 
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  ;;; Set Todo Options
+  ;; Set keywords for todo items
+  (setq org-todo-keywords
+        (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+                (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" ))))
+  ;; Set colors for todo items
+  (setq org-todo-keyword-faces
+        (quote (("TODO" :foreground "red" :weight bold)
+                ("NEXT" :foreground "blue" :weight bold)
+                ("DONE" :foreground "forest green" :weight bold)
+                ("WAITING" :foreground "orange" :weight bold)
+                ("HOLD" :foreground "magenta" :weight bold)
+                ("CANCELLED" :foreground "forest green" :weight bold))))
+  ;; Set tags based on todo changes
+  (setq org-todo-state-tags-triggers
+        (quote (("CANCELLED" ("CANCELLED" . t))
+                ("WAITING" ("WAITING" . t))
+                ("HOLD" ("WAITING") ("HOLD" . t))
+                (done ("WAITING") ("HOLD"))
+                ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
+                ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
+                ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
+
+  #+end_src
+*** Capture 
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+      ;; open org-capture
+      (global-set-key (kbd "C-c c") 'org-capture)
+
+    (defvar ts-capture-prmt-history nil
+      "History of prompt answers for org capture.")
+
+    (defun ts/prmt (prompt variable)
+      "PROMPT for string, save it to VARIABLE and insert it."
+      (make-local-variable variable)
+      (set variable (read-string (concat prompt ": ") nil ts-capture-prmt-history)))
+
+    
+      ;;; Set Org-Capture Options
+      ;; Capture templates for: TODO tasks, Notes, appointments, and meetings
+      (setq org-capture-templates
+            (quote (("t" "todo" entry (file "~/documents/org/capture/refile.org")
+                    "* TODO %?\n%U\n%a\n")
+                    ("r" "respond" entry (file "~/documents/org/capture/refile.org")
+                    "* TODO Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n")
+                    ("w" "workout" entry (file+datetree "~/documents/org/tracking/workout.org")
+                    "* Test: %(ts/prmt \"Hey\" 'lel) - %(ts/prmt \"Hey1\" 'lel)")
+                    ("n" "note" entry (file "~/documents/org/capture/refile.org")
+                    "* %? :NOTE:\n%U\n%a\n")
+                    ("m" "Meeting" entry (file "~/documents/org/capture/refile.org")
+                    "* MEETING with %? :MEETING:\n%U")
+                    ("h" "Habit" entry (file "~/documents/org/capture/refile.org")
+                    "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
+
+  #+end_src
+*** Refile
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  ;;; Set Task Refiling Options
+  ;; Targets include this file and any file contributing to the agenda - up to 9 levels deep
+  (setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                  (org-agenda-files :maxlevel . 9))))
+  ;; Use full outline paths for refile targets - we file directly with IDO
+  (setq org-refile-use-outline-path t)
+  ;; Targets complete directly with IDO
+  (setq org-outline-path-complete-in-steps nil)
+  ;; Allow refile to create parent tasks with confirmation
+  (setq org-refile-allow-creating-parent-nodes (quote confirm))
+  ;; Use IDO for both buffer and file completion and ido-everywhere to t
+  (setq org-completion-use-ido t)
+  (setq ido-everywhere t)
+  (setq ido-max-directory-size 100000)
+  (ido-mode (quote both))
+  ;; Use the current window when visiting files and buffers with ido
+  (setq ido-default-file-method 'selected-window)
+  (setq ido-default-buffer-method 'selected-window)
+  ;; Use the current window for indirect buffer display
+  (setq org-indirect-buffer-display 'current-window)
+  ;; Exclude DONE state tasks from refile targets
+  (defun bh/verify-refile-target ()
+    "Exclude todo keywords with a done state from refile targets"
+    (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+  (setq org-refile-target-verify-function 'bh/verify-refile-target)
+
+  #+end_src
+*** Super-org-agenda
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (use-package org-super-agenda
+    :after org-agenda
+    :init
+    (setq org-super-agenda-header-map (make-sparse-keymap))
+
+    (setq org-agenda-custom-commands
+          '(("c" "Custom Agenda"
+            ((agenda "" ((org-agenda-span 'day)
+                          (org-super-agenda-groups
+                                '((:name "--- LATE ---"
+                                    :face (:underline t)
+                                    :deadline past
+                                    :order 1)
+                                  (:name "--- DUE TODAY ---"
+                                    :time-grid t
+                                    :deadline today
+                                    :order 2)
+                                  (:name "--- SCHEDULED TODAY ---"
+                                    :time-grid t
+                                    :date today
+                                    :scheduled today
+                                    :order 3)
+                                  (:name ""
+                                    :discard (:anything)
+                                    :order 99))
+                                )))))))
+
+    :config
+    (org-super-agenda-mode))
+
+  #+end_src
+
+*** Tags
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+    ;; Configure common tags
+    (setq org-tag-alist
+      '((:startgroup)
+        ; Put mutually exclusive tags here
+        (:endgroup)
+        ("@errand" . ?E)
+        ("@home" . ?H)
+        ("@work" . ?W)
+        ("agenda" . ?a)
+        ("planning" . ?p)
+        ("publish" . ?P)
+        ("batch" . ?b)
+        ("note" . ?n)
+        ("idea" . ?i)
+        ("thinking" . ?t)
+        ("recurring" . ?r)))
+
+  #+end_src
+
+*** Searching
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (defun dw/search-org-files ()
+    (interactive)
+    (counsel-rg "" "~/documents/org/capture/notes" nil "Search Notes: "))
+
+  #+end_src
+
+*** End  
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  ;; This ends the use-package org-mode block
+  )
+
+  #+end_src
+
+*** Bindings
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+
+
+  (use-package evil-org
+    :after org
+    :hook ((org-mode . evil-org-mode)
+          (org-agenda-mode . evil-org-mode)
+          (evil-org-mode . (lambda () (evil-org-set-key-theme '(navigation todo insert textobjects additional)))))
+    :config
+    (require 'evil-org-agenda)
+    (evil-org-agenda-set-keys))
+
+  ;(dw/leader-key-def
+  ;  "o"   '(:ignore t :which-key "org mode")
+  ;  "oi"  '(:ignore t :which-key "insert")
+  ;  "oil" '(org-insert-link :which-key "insert link")
+  ;  "on"  '(org-toggle-narrow-to-subtree :which-key "toggle narrow")
+  ;  "os"  '(dw/counsel-rg-org-files :which-key "search notes")
+  ;  "oa"  '(org-agenda :which-key "status")
+  ;  "oc"  '(org-capture t :which-key "capture")
+  ;  "ox"  '(org-export-dispatch t :which-key "export"))
+
+  #+end_src
+
+** Roam
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (use-package org-roam
+        :straight (:host github :repo "org-roam/org-roam"
+        :files (:defaults "extensions/*"))
+      :init
+        (setq org-roam-v2-ack t) ;; Turn off v2 warning
+        (add-to-list 'display-buffer-alist
+            '("\\*org-roam\\*"
+              (display-buffer-in-direction)
+              (direction . right)
+              (window-width . 0.33)
+              (window-height . fit-window-to-buffer)))
+        (org-roam-db-autosync-mode)
+      :custom
+        (org-roam-directory (file-truename "/home/tstarr/documents/org/roam"))
+        (org-roam-dailies-directory "daily/")
+        (org-roam-completion-everywhere t)
+      :bind
+        (("C-c r b" . org-roam-buffer-toggle)
+          ("C-c r t" . org-roam-dailies-goto-today)
+          ("C-c r y" . org-roam-dailies-goto-yesterday)
+          ("C-M-n" . org-roam-node-insert)
+          :map org-mode-map
+          ("C-M-i"   . completion-at-point)
+          ("C-M-f" . org-roam-node-find)
+          ("C-M-c" . dl/org-roam-create-id)
+          ("C-<left>" . org-roam-dailies-goto-previous-note)
+          ("C-`" . org-roam-buffer-toggle)
+          ("C-<right>" . org-roam-dailies-goto-next-note)))
+
+  #+end_src
+
+** Beancount
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  ;(use-package Beancount
+  ;  :straight (beancount
+  ;             :type git
+  ;             :host github
+  ;             :repo "cnsunyour/beancount.el")
+  ;  :bind
+  ;  ("C-M-b" . (lambda ()
+  ;               (interactive)
+  ;               (find-file "~/Dropbox/beancount/main.bean")))
+  ;  :mode
+  ;  ("\\.bean\\(?:count\\)?\\'" . beancount-mode)
+  ;  :config
+  ;  (setq beancount-accounts-files
+  ;        (directory-files "~/Dropbox/beancount/accounts/"
+  ;                         'full
+  ;                         (rx ".bean" eos))))
+
+  #+end_src
+
+** Avy
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+    (use-package avy
+      :commands (avy-goto-char avy-goto-word-0 avy-goto-line))
+
+    (dw/leader-key-def
+      "j"   '(:ignore t :which-key "jump")
+      "jj"  '(avy-goto-char :which-key "jump to char")
+      "jw"  '(avy-goto-word-0 :which-key "jump to word")
+      "jl"  '(avy-goto-line :which-key "jump to line"))
+
+  #+end_src
+
+** Expand Region
+
+  This module is absolutely necessary for working inside of Emacs Lisp files,
+  especially when trying to some parent of an expression (like a =setq=).  Makes
+  tweaking Org agenda views much less annoying.
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+    (use-package expand-region
+      :bind (("M-[" . er/expand-region)
+            ("C-(" . er/mark-outside-pairs)))
+
+  #+end_src
+
+** Scratch
+
+  Since the =*scratch*= buffer is pretty hard-wired into Emacs (see
+  =buffer.c=), the least we could do is getting rid of its initial
+  message.  No, it's using its own mode instead of ~emacs-lisp-mode~ for
+  the questionable benefit of having a function inserting evaluation
+  values after a newline.
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+  (setq initial-scratch-message "")
+  (setq initial-major-mode 'emacs-lisp-mode)
+  #+END_SRC
+
+** Scratch
+
+  Since the =*scratch*= buffer is pretty hard-wired into Emacs (see
+  =buffer.c=), the least we could do is getting rid of its initial
+  message.  No, it's using its own mode instead of ~emacs-lisp-mode~ for
+  the questionable benefit of having a function inserting evaluation
+  values after a newline.
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+  (setq initial-scratch-message "")
+  (setq initial-major-mode 'emacs-lisp-mode)
+  #+END_SRC
+
+** Scratch
+
+
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+(use-package evil-multiedit)
+(evil-multiedit-default-keybinds)
+    
+  #+END_SRC
+
+* Window Management
+** Frame Scaling
+
+  The keybindings for this are =C+M+-= and =C+M+==.
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+    (use-package default-text-scale
+      :defer 1
+      :config
+      (default-text-scale-mode))
+
+  #+end_src
+
+** Window Selection
+
+  Use ace-window for selecting windows quickly.
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (use-package winum
+    :ensure t
+    :init
+    (winum-mode))
+
+
+  #+end_src
+
+  ** Window History
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (winner-mode)
+  (define-key evil-window-map "u" 'winner-undo)
+
+  #+end_src
+
+** Burly
+
+  Use burly to bookmark layouts and Emacs state.
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+    ;(use-package burly)
+
+(use-package perspective
+  :ensure t  ; use `:straight t` if using straight.el!
+  :bind (("C-x k" . persp-kill-buffer*))
+  :init
+  (persp-mode))
+
+(use-package bufler
+  :straight (bufler :fetcher github :repo "alphapapa/bufler.el"
+                  :files (:defaults (:exclude "helm-bufler.el"))))
+    
+  #+end_src
+
+** Frames only mode
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+(use-package frames-only-mode)
+    
+#+end_src
+
+* File Browsing
+** Dired 
+
+Stolen from [[https://github.com/daviwil][the_dev_aspect]]. I have edited to fit my needs including removing the termux logic.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (setq dired-listing-switches "-agho --group-directories-first"
+        dired-omit-files "^\\.[^.].*"
+        dired-omit-verbose nil)
+
+  (autoload 'dired-omit-mode "dired-x")
+
+  (add-hook 'dired-load-hook
+    (lambda ()
+    (interactive)
+    (dired-collapse)))
+
+  (add-hook 'dired-mode-hook
+    (lambda ()
+    (interactive)
+    (dired-omit-mode 1)
+    (hl-line-mode 1)))
+
+  (use-package dired-rainbow
+    :defer 2
+    :config
+    (dired-rainbow-define-chmod directory "#6cb2eb" "d.*")
+    (dired-rainbow-define html "#eb5286" ("css" "less" "sass" "scss" "htm" "html" "jhtm" "mht" "eml" "mustache" "xhtml"))
+    (dired-rainbow-define xml "#f2d024" ("xml" "xsd" "xsl" "xslt" "wsdl" "bib" "json" "msg" "pgn" "rss" "yaml" "yml" "rdata"))
+    (dired-rainbow-define document "#9561e2" ("docm" "doc" "docx" "odb" "odt" "pdb" "pdf" "ps" "rtf" "djvu" "epub" "odp" "ppt" "pptx"))
+    (dired-rainbow-define markdown "#ffed4a" ("org" "etx" "info" "markdown" "md" "mkd" "nfo" "pod" "rst" "tex" "textfile" "txt"))
+    (dired-rainbow-define database "#6574cd" ("xlsx" "xls" "csv" "accdb" "db" "mdb" "sqlite" "nc"))
+    (dired-rainbow-define media "#de751f" ("mp3" "mp4" "mkv" "MP3" "MP4" "avi" "mpeg" "mpg" "flv" "ogg" "mov" "mid" "midi" "wav" "aiff" "flac"))
+    (dired-rainbow-define image "#f66d9b" ("tiff" "tif" "cdr" "gif" "ico" "jpeg" "jpg" "png" "psd" "eps" "svg"))
+    (dired-rainbow-define log "#c17d11" ("log"))
+    (dired-rainbow-define shell "#f6993f" ("awk" "bash" "bat" "sed" "sh" "zsh" "vim"))
+    (dired-rainbow-define interpreted "#38c172" ("py" "ipynb" "rb" "pl" "t" "msql" "mysql" "pgsql" "sql" "r" "clj" "cljs" "scala" "js"))
+    (dired-rainbow-define compiled "#4dc0b5" ("asm" "cl" "lisp" "el" "c" "h" "c++" "h++" "hpp" "hxx" "m" "cc" "cs" "cp" "cpp" "go" "f" "for" "ftn" "f90" "f95" "f03" "f08" "s" "rs" "hi" "hs" "pyc" ".java"))
+    (dired-rainbow-define executable "#8cc4ff" ("exe" "msi"))
+    (dired-rainbow-define compressed "#51d88a" ("7z" "zip" "bz2" "tgz" "txz" "gz" "xz" "z" "Z" "jar" "war" "ear" "rar" "sar" "xpi" "apk" "xz" "tar"))
+    (dired-rainbow-define packaged "#faad63" ("deb" "rpm" "apk" "jad" "jar" "cab" "pak" "pk3" "vdf" "vpk" "bsp"))
+    (dired-rainbow-define encrypted "#ffed4a" ("gpg" "pgp" "asc" "bfe" "enc" "signature" "sig" "p12" "pem"))
+    (dired-rainbow-define fonts "#6cb2eb" ("afm" "fon" "fnt" "pfb" "pfm" "ttf" "otf"))
+    (dired-rainbow-define partition "#e3342f" ("dmg" "iso" "bin" "nrg" "qcow" "toast" "vcd" "vmdk" "bak"))
+    (dired-rainbow-define vc "#0074d9" ("git" "gitignore" "gitattributes" "gitmodules"))
+    (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*"))
+
+  (use-package dired-single
+    :ensure t
+    :defer t)
+
+  (use-package dired-ranger
+    :defer t)
+
+  (use-package dired-collapse
+    :defer t)
+
+#+end_src
+** Open Files Externally
+
+Stolen from [[https://github.com/daviwil][the_dev_aspect]]. Didn't even bother to change it ;) 
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (use-package openwith
+    :config
+    (setq openwith-associations
+      (list
+        (list (openwith-make-extension-regexp
+              '("mpg" "mpeg" "mp3" "mp4"
+                "avi" "wmv" "wav" "mov" "flv"
+                "ogm" "ogg" "mkv"))
+              "mpv"
+              '(file))
+        (list (openwith-make-extension-regexp
+              '("xbm" "pbm" "pgm" "ppm" "pnm"
+                "png" "gif" "bmp" "tif" "jpeg")) ;; Removed jpg because Telega was
+                                                  ;; causing feh to be opened...
+              "feh"
+              '(file))
+        (list (openwith-make-extension-regexp
+              '("pdf"))
+              "zathura"
+              '(file))))
+    (openwith-mode 1))
+
+#+end_src
+
+** Open Videos Externally  
+
+Can't remember where I stole this from. Might edit in future to integrate audio and video playing with Dired instead of using ncmpcpp for audio. I had to expand the file-name in the mpv-dir function to make it work with mpv. 
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (defun start-mpv (path &optional playlist-p)
+
+    "Start mpv with specified arguments"
+    (let* ((default-cmd "mpv --force-window")
+          (cmd (if playlist-p
+                    (s-append " --loop-playlist --playlist=" default-cmd)
+                  (s-append " --loop " default-cmd))))
+      (call-process-shell-command (s-concat cmd (shell-quote-argument path)) nil 0)))
+
+  (defun mpv ()
+    "Play a file in current line"
+    (interactive)
+    (start-mpv (dired-get-filename)))
+
+  (defun mpv-dir ()
+    "Play all multimedia files in current directory"
+    (interactive)
+    (start-mpv (expand-file-name default-directory)))
+
+  (defun mpv-playlist ()
+    "Play a playlist in current line"
+    (interactive)
+    (start-mpv (dired-get-filename) t))
+
+#+end_src
+
+** Keybinds
+
+Stolen from [[https://github.com/daviwil][the_dev_aspect]]. I have edited to fit my needs including changing/adding keybinds.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (setq which-key-sort-order 'which-key-prefix-then-key-order)
+
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "h" 'dired-single-up-directory
+    "H" 'dired-omit-mode
+    "l" 'dired-single-buffer
+    "y" 'dired-ranger-copy
+    "X" 'dired-ranger-move
+    "p" 'dired-ranger-paste)
+
+  (require 'cl)
+
+  (defun dw/dired-link (path)
+    (lexical-let ((target path))
+      (lambda () (interactive) (message "Path: %s" target) (dired target))))
+
+#+end_src
+
+* Devel
+** Git
+*** Magit
+
+https://magit.vc/manual/magit/
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (use-package magit
+    :commands (magit-status magit-get-current-branch)
+    :custom
+    (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+
+#+end_src
+
+** Projectile
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (use-package projectile
+    :diminish projectile-mode
+    :config (projectile-mode)
+    :bind-keymap
+    ("C-c p" . projectile-command-map)
+    :init
+    (when (file-directory-p "~/devel")
+      (setq projectile-project-search-path '("~/devel")))
+    (setq projectile-switch-project-action #'projectile-dired))
+
+  (use-package counsel-projectile
+    :after projectile)
+
+#+end_src
+
+** Treemacs
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+(use-package treemacs
+  :ensure t
+  :defer t
+  :init
+  (with-eval-after-load 'winum
+    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+  :config
+  (progn
+    (setq treemacs-collapse-dirs                   (if treemacs-python-executable 3 0)
+          treemacs-deferred-git-apply-delay        0.5
+          treemacs-directory-name-transformer      #'identity
+          treemacs-display-in-side-window          t
+          treemacs-eldoc-display                   'simple
+          treemacs-file-event-delay                5000
+          treemacs-file-extension-regex            treemacs-last-period-regex-value
+          treemacs-file-follow-delay               0.2
+          treemacs-file-name-transformer           #'identity
+          treemacs-follow-after-init               t
+          treemacs-expand-after-init               t
+          treemacs-find-workspace-method           'find-for-file-or-pick-first
+          treemacs-git-command-pipe                ""
+          treemacs-goto-tag-strategy               'refetch-index
+          treemacs-indentation                     2
+          treemacs-indentation-string              " "
+          treemacs-is-never-other-window           nil
+          treemacs-max-git-entries                 5000
+          treemacs-missing-project-action          'ask
+          treemacs-move-forward-on-expand          nil
+          treemacs-no-png-images                   nil
+          treemacs-no-delete-other-windows         t
+          treemacs-project-follow-cleanup          nil
+          treemacs-persist-file                    (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
+          treemacs-position                        'left
+          treemacs-read-string-input               'from-child-frame
+          treemacs-recenter-distance               0.1
+          treemacs-recenter-after-file-follow      nil
+          treemacs-recenter-after-tag-follow       nil
+          treemacs-recenter-after-project-jump     'always
+          treemacs-recenter-after-project-expand   'on-distance
+          treemacs-litter-directories              '("/node_modules" "/.venv" "/.cask")
+          treemacs-show-cursor                     nil
+          treemacs-show-hidden-files               t
+          treemacs-silent-filewatch                nil
+          treemacs-silent-refresh                  nil
+          treemacs-sorting                         'alphabetic-asc
+          treemacs-select-when-already-in-treemacs 'move-back
+          treemacs-space-between-root-nodes        t
+          treemacs-tag-follow-cleanup              t
+          treemacs-tag-follow-delay                1.5
+          treemacs-text-scale                      nil
+          treemacs-user-mode-line-format           nil
+          treemacs-user-header-line-format         nil
+          treemacs-wide-toggle-width               70
+          treemacs-width                           35
+          treemacs-width-increment                 1
+          treemacs-width-is-initially-locked       t
+          treemacs-workspace-switch-cleanup        nil)
+
+    ;; The default width and height of the icons is 22 pixels. If you are
+    ;; using a Hi-DPI display, uncomment this to double the icon size.
+    ;;(treemacs-resize-icons 44)
+
+    (treemacs-follow-mode t)
+    (treemacs-filewatch-mode t)
+    (treemacs-fringe-indicator-mode 'always)
+
+    (pcase (cons (not (null (executable-find "git")))
+                 (not (null treemacs-python-executable)))
+      (`(t . t)
+       (treemacs-git-mode 'deferred))
+      (`(t . _)
+       (treemacs-git-mode 'simple)))
+
+    (treemacs-hide-gitignored-files-mode nil))
+  :bind
+  (:map global-map
+        ("M-0"       . treemacs-select-window)
+        ("C-x t 1"   . treemacs-delete-other-windows)
+        ("C-x t t"   . treemacs)
+        ("C-x t d"   . treemacs-select-directory)
+        ("C-x t B"   . treemacs-bookmark)
+        ("C-x t C-t" . treemacs-find-file)
+        ("C-x t M-t" . treemacs-find-tag)))
+
+(use-package treemacs-evil
+  :after (treemacs evil)
+  :ensure t)
+
+(use-package treemacs-projectile
+  :after (treemacs projectile)
+  :ensure t)
+
+(use-package treemacs-icons-dired
+  :hook (dired-mode . treemacs-icons-dired-enable-once)
+  :ensure t)
+
+(use-package treemacs-magit
+  :after (treemacs magit)
+  :ensure t)
+
+(use-package treemacs-perspective ;;treemacs-perspective if you use perspective.el vs. persp-mode
+  :after (treemacs perspective) ;;or perspective vs. persp-mode
+  :ensure t
+  :config (treemacs-set-scope-type 'Perspectives))
+
+#+end_src
+
+** Languages
+*** Haskell
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+(use-package haskell-mode) 
+
+#+end_src
+
+*** Emacs Lisp
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (add-hook 'emacs-lisp-mode-hook #'flycheck-mode)
+
+  (use-package helpful
+    :ensure t
+    :custom
+    (counsel-describe-function-function #'helpful-callable)
+    (counsel-describe-variable-function #'helpful-variable)
+    :bind
+    ([remap describe-function] . counsel-describe-function)
+    ([remap describe-command] . helpful-command)
+    ([remap describe-variable] . counsel-describe-variable)
+    ([remap describe-key] . helpful-key))
+
+#+end_src
+
+*** HTML
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+(use-package web-mode
+  :mode "(\\.\\(html?\\|ejs\\|tsx\\|jsx\\)\\'"
+  :config
+  (setq-default web-mode-code-indent-offset 2)
+  (setq-default web-mode-markup-indent-offset 2)
+  (setq-default web-mode-attribute-indent-offset 2))
+
+;; 1. Start the server with `httpd-start'
+;; 2. Use `impatient-mode' on any buffer
+(use-package impatient-mode
+  :ensure t)
+
+(use-package skewer-mode
+  :ensure t)
+
+#+end_src
+
+*** YAML
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (use-package yaml-mode
+    :mode "\\.ya?ml\\'")
+
+#+end_src
+
+*** beancount
+**** Github stolen beancount functions
+Provide beancount major mode for personal ledger.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+(autoload 'ido-completing-read "ido")
+(require 'subr-x)
+(require 'outline)
+
+(defgroup beancount ()
+  "Editing mode for Beancount files."
+  :group 'beancount)
+
+(defcustom beancount-transaction-indent 2
+  "Transaction indent."
+  :type 'integer)
+
+(defcustom beancount-number-alignment-column 52
+  "Column to which align numbers in postinng definitions. Set to
+0 to automatically determine the minimum column that will allow
+to align all amounts."
+  :type 'integer)
+
+(defcustom beancount-highlight-transaction-at-point nil
+  "If t highlight transaction under point."
+  :type 'boolean)
+
+(defcustom beancount-use-ido t
+  "If non-nil, use ido-style completion rather than the standard."
+  :type 'boolean)
+
+(defcustom beancount-electric-currency nil
+  "If non-nil, make `newline' try to add missing currency to
+complete the posting at point. The correct currency is determined
+from the open directive for the relevant account."
+  :type 'boolean)
+
+(defgroup beancount-faces nil "Beancount mode highlighting" :group 'beancount)
+
+(defface beancount-directive
+  `((t :inherit font-lock-keyword-face))
+  "Face for Beancount directives.")
+
+(defface beancount-tag
+  `((t :inherit font-lock-type-face))
+  "Face for Beancount tags.")
+
+(defface beancount-link
+  `((t :inherit font-lock-type-face))
+  "Face for Beancount links.")
+
+(defface beancount-date
+  `((t :inherit font-lock-constant-face))
+  "Face for Beancount dates.")
+
+(defface beancount-account
+  `((t :inherit font-lock-builtin-face))
+  "Face for Beancount account names.")
+
+(defface beancount-amount
+  `((t :inherit font-lock-default-face))
+  "Face for Beancount amounts.")
+
+(defface beancount-narrative
+  `((t :inherit font-lock-builtin-face))
+  "Face for Beancount transactions narrative.")
+
+(defface beancount-narrative-cleared
+  `((t :inherit font-lock-string-face))
+  "Face for Beancount cleared transactions narrative.")
+
+(defface beancount-narrative-pending
+  `((t :inherit font-lock-keyword-face))
+  "Face for Beancount pending transactions narrative.")
+
+(defface beancount-metadata
+  `((t :inherit font-lock-type-face))
+  "Face for Beancount metadata.")
+
+(defface beancount-highlight
+  `((t :inherit highlight))
+  "Face to highlight Beancount transaction at point.")
+
+(defconst beancount-account-directive-names
+  '("balance"
+    "close"
+    "document"
+    "note"
+    "open"
+    "pad")
+  "Directive bames that can appear after a date and are followd by an account.")
+
+(defconst beancount-no-account-directive-names
+  '("commodity"
+    "event"
+    "price"
+    "query"
+    "txn")
+  "Directive names that can appear after a date and are _not_ followed by an account.")
+
+(defconst beancount-timestamped-directive-names
+  (append beancount-account-directive-names
+          beancount-no-account-directive-names)
+  "Directive names that can appear after a date.")
+
+(defconst beancount-directive-names
+  '("include"
+    "option"
+    "plugin"
+    "poptag"
+    "pushtag")
+  "Directive names that can appear at the beginning of a line.")
+
+(defconst beancount-account-categories
+  '("Assets" "Liabilities" "Equity" "Income" "Expenses"))
+
+(defconst beancount-tag-chars "[:alnum:]-_/.")
+
+(defconst beancount-account-chars "[:alnum:]-_:")
+
+(defconst beancount-option-names
+  ;; This list is kept in sync with the options defined in
+  ;; beancount/parser/options.py.
+  '("account_current_conversions"
+    "account_current_earnings"
+    "account_previous_balances"
+    "account_previous_conversions"
+    "account_previous_earnings"
+    "account_rounding"
+    "allow_deprecated_none_for_tags_and_links"
+    "allow_pipe_separator"
+    "booking_method"
+    "conversion_currency"
+    "documents"
+    "infer_tolerance_from_cost"
+    "inferred_tolerance_default"
+    "inferred_tolerance_multiplier"
+    "insert_pythonpath"
+    "long_string_maxlines"
+    "name_assets"
+    "name_equity"
+    "name_expenses"
+    "name_income"
+    "name_liabilities"
+    "operating_currency"
+    "plugin_processing_mode"
+    "render_commas"
+    "title"))
+
+(defconst beancount-date-regexp "[0-9]\\{4\\}[-/][0-9]\\{2\\}[-/][0-9]\\{2\\}"
+  "A regular expression to match dates.")
+
+(defconst beancount-account-regexp
+  (concat (regexp-opt beancount-account-categories)
+          "\\(?::[[:upper:]][[:alnum:]-_]+\\)+")
+  "A regular expression to match account names.")
+
+(defconst beancount-number-regexp "[-+]?[0-9]+\\(?:,[0-9]\\{3\\}\\)*\\(?:\\.[0-9]*\\)?"
+  "A regular expression to match decimal numbers.")
+
+(defconst beancount-currency-regexp "[A-Z][A-Z-_'.]*"
+  "A regular expression to match currencies.")
+
+(defconst beancount-flag-regexp
+  ;; Single char that is neither a space nor a lower-case letter.
+  "[^ a-z]")
+
+(defconst beancount-transaction-regexp
+  (concat "^\\(" beancount-date-regexp "\\) +"
+          "\\(?:txn +\\)?"
+          "\\(" beancount-flag-regexp "\\) +"
+          "\\(\".*\"\\)"))
+
+(defconst beancount-posting-regexp
+  (concat "^\\s-+"
+          "\\(" beancount-account-regexp "\\)"
+          "\\(?:\\s-+\\(\\(" beancount-number-regexp "\\)"
+          "\\s-+\\(" beancount-currency-regexp "\\)\\)\\)?"))
+
+(defconst beancount-directive-regexp
+  (concat "^\\(" (regexp-opt beancount-directive-names) "\\) +"))
+
+(defconst beancount-timestamped-directive-regexp
+  (concat "^\\(" beancount-date-regexp "\\) +"
+          "\\(" (regexp-opt beancount-timestamped-directive-names) "\\) +"))
+
+(defconst beancount-metadata-regexp
+  "^\\s-+\\([a-z][A-Za-z0-9_-]+:\\)\\s-+\\(.+\\)")
+
+;; This is a grouping regular expression because the subexpression is
+;; used in determining the outline level in `beancount-outline-level'.
+(defvar beancount-outline-regexp "\\(;;;+\\|\\*+\\)")
+
+(defun beancount-outline-level ()
+  (let ((len (- (match-end 1) (match-beginning 1))))
+    (if (equal (substring (match-string 1) 0 1) ";")
+        (- len 2)
+      len)))
+
+(defun beancount-face-by-state (state)
+  (cond ((string-equal state "*") 'beancount-narrative-cleared)
+        ((string-equal state "!") 'beancount-narrative-pending)
+        (t 'beancount-narrative)))
+
+(defun beancount-outline-face ()
+  (if outline-minor-mode
+      (cl-case (funcall outline-level)
+      (1 'org-level-1)
+      (2 'org-level-2)
+      (3 'org-level-3)
+      (4 'org-level-4)
+      (5 'org-level-5)
+      (6 'org-level-6)
+      (otherwise nil))
+    nil))
+
+(defvar beancount-font-lock-keywords
+  `((,beancount-transaction-regexp (1 'beancount-date)
+                                  (2 (beancount-face-by-state (match-string 2)) t)
+                                  (3 (beancount-face-by-state (match-string 2)) t))
+    (,beancount-posting-regexp (1 'beancount-account)
+                              (2 'beancount-amount nil :lax))
+    (,beancount-metadata-regexp (1 'beancount-metadata)
+                                (2 'beancount-metadata t))
+    (,beancount-directive-regexp (1 'beancount-directive))
+    (,beancount-timestamped-directive-regexp (1 'beancount-date)
+                                            (2 'beancount-directive))
+    ;; Fontify section headers when composed with outline-minor-mode.
+    (,(concat "^\\(" beancount-outline-regexp "\\).*") . (0 (beancount-outline-face)))
+    ;; Tags and links.
+    (,(concat "\\#[" beancount-tag-chars "]*") . 'beancount-tag)
+    (,(concat "\\^[" beancount-tag-chars "]*") . 'beancount-link)
+    ;; Number followed by currency not covered by previous rules.
+    (,(concat beancount-number-regexp "\\s-+" beancount-currency-regexp) . 'beancount-amount)
+    ;; Accounts not covered by previous rules.
+    (,beancount-account-regexp . 'beancount-account)
+    ))
+
+(defun beancount-tab-dwim (&optional arg)
+  (interactive "P")
+  (if (and outline-minor-mode
+          (or arg (outline-on-heading-p)))
+      (beancount-outline-cycle arg)
+    (indent-for-tab-command)))
+
+(defvar beancount-mode-map-prefix [(control c)]
+  "The prefix key used to bind Beancount commands in Emacs")
+
+(defvar beancount-mode-map
+  (let ((map (make-sparse-keymap))
+        (p beancount-mode-map-prefix))
+    (define-key map (kbd "TAB") #'beancount-tab-dwim)
+    (define-key map (kbd "M-RET") #'beancount-insert-date)
+    (define-key map (vconcat p [(\')]) #'beancount-insert-account)
+    (define-key map (vconcat p [(control g)]) #'beancount-transaction-clear)
+    (define-key map (vconcat p [(l)]) #'beancount-check)
+    (define-key map (vconcat p [(q)]) #'beancount-query)
+    (define-key map (vconcat p [(x)]) #'beancount-context)
+    (define-key map (vconcat p [(k)]) #'beancount-linked)
+    (define-key map (vconcat p [(p)]) #'beancount-insert-prices)
+    (define-key map (vconcat p [(\;)]) #'beancount-align-to-previous-number)
+    (define-key map (vconcat p [(\:)]) #'beancount-align-numbers)
+    map))
+
+(defvar beancount-mode-syntax-table
+  (let ((st (make-syntax-table)))
+    (modify-syntax-entry ?\" "\"\"" st)
+    (modify-syntax-entry ?\; "<" st)
+    (modify-syntax-entry ?\n ">" st)
+    st))
+
+;;;###autoload
+(define-derived-mode beancount-mode fundamental-mode "Beancount"
+  "A mode for Beancount files.
+\\{beancount-mode-map}"
+  :group 'beancount
+  :syntax-table beancount-mode-syntax-table
+
+  (setq-local paragraph-ignore-fill-prefix t)
+  (setq-local fill-paragraph-function #'beancount-indent-transaction)
+
+  (setq-local comment-start ";")
+  (setq-local comment-start-skip ";+\\s-*")
+  (setq-local comment-add 1)
+
+  (setq-local indent-line-function #'beancount-indent-line)
+  (setq-local indent-region-function #'beancount-indent-region)
+  (setq-local indent-tabs-mode nil)
+
+  (setq-local tab-always-indent 'complete)
+  (setq-local completion-ignore-case t)
+
+  (add-hook 'completion-at-point-functions #'beancount-completion-at-point nil t)
+  (add-hook 'post-command-hook #'beancount-highlight-transaction-at-point nil t)
+  (add-hook 'post-self-insert-hook #'beancount--electric-currency nil t)
+
+  (setq-local font-lock-defaults '(beancount-font-lock-keywords))
+  (setq-local font-lock-syntax-table t)
+
+  (setq-local outline-regexp beancount-outline-regexp)
+  (setq-local outline-level #'beancount-outline-level)
+
+  (setq imenu-generic-expression
+  (list (list nil (concat "^" beancount-outline-regexp "\\s-+\\(.*\\)$") 2))))
+
+(defun beancount-collect-pushed-tags (begin end)
+  "Return list of all pushed (and not popped) tags in the region."
+  (goto-char begin)
+  (let ((tags (make-hash-table :test 'equal)))
+    (while (re-search-forward
+        (concat "^\\(push\\|pop\\)tag\\s-+\\(#[" beancount-tag-chars "]+\\)") end t)
+      (if (string-equal (match-string 1) "push")
+          (puthash (match-string-no-properties 2) nil tags)
+        (remhash (match-string-no-properties 2) tags)))
+    (hash-table-keys tags)))
+
+(defun beancount-goto-transaction-begin ()
+  "Move the cursor to the first line of the transaction definition."
+  (interactive)
+  (beginning-of-line)
+  ;; everything that is indented with at lest one space or tab is part
+  ;; of the transaction definition
+  (while (looking-at-p "[ \t]+")
+    (forward-line -1))
+  (point))
+
+(defun beancount-goto-transaction-end ()
+  "Move the cursor to the line after the transaction definition."
+  (interactive)
+  (beginning-of-line)
+  (if (looking-at-p beancount-transaction-regexp)
+      (forward-line))
+  ;; everything that is indented with at least one space or tab as part
+  ;; of the transaction definition
+  (while (looking-at-p "[ \t]+")
+    (forward-line))
+  (point))
+
+(defun beancount-goto-next-transaction (&optional arg)
+  "Move to the next transaction.
+With an argument move to the next non cleared transaction."
+  (interactive "P")
+  (beancount-goto-transaction-end)
+  (let ((done nil))
+    (while (and (not done)
+                (re-search-forward beancount-transaction-regexp nil t))
+      (if (and arg (string-equal (match-string 2) "*"))
+          (goto-char (match-end 0))
+        (goto-char (match-beginning 0))
+        (setq done t)))
+    (if (not done) (goto-char (point-max)))))
+
+(defun beancount-find-transaction-extents (p)
+  (save-excursion
+    (goto-char p)
+    (list (beancount-goto-transaction-begin)
+          (beancount-goto-transaction-end))))
+
+(defun beancount-inside-transaction-p ()
+  (let ((bounds (beancount-find-transaction-extents (point))))
+    (> (- (cadr bounds) (car bounds)) 0)))
+
+(defun beancount-looking-at (regexp n pos)
+  (and (looking-at regexp)
+      (>= pos (match-beginning n))
+      (<= pos (match-end n))))
+
+(defvar beancount-accounts nil
+  "A list of the accounts available in this buffer.")
+(make-variable-buffer-local 'beancount-accounts)
+
+(defun beancount-completion-at-point ()
+  "Return the completion data relevant for the text at point."
+  (save-excursion
+    (save-match-data
+      (let ((pos (point)))
+        (beginning-of-line)
+        (cond
+        ;; non timestamped directive
+        ((beancount-looking-at "[a-z]*" 0 pos)
+          (list (match-beginning 0) (match-end 0)
+                (mapcar (lambda (s) (concat s " ")) beancount-directive-names)))
+
+        ;; poptag
+        ((beancount-looking-at
+          (concat "poptag\\s-+\\(\\(?:#[" beancount-tag-chars "]*\\)\\)") 1 pos)
+          (list (match-beginning 1) (match-end 1)
+                (beancount-collect-pushed-tags (point-min) (point))))
+
+        ;; option
+        ((beancount-looking-at
+          (concat "^option\\s-+\\(\"[a-z_]*\\)") 1 pos)
+          (list (match-beginning 1) (match-end 1)
+                (mapcar (lambda (s) (concat "\"" s "\" ")) beancount-option-names)))
+
+        ;; timestamped directive
+        ((beancount-looking-at
+          (concat beancount-date-regexp "\\s-+\\([[:alpha:]]*\\)") 1 pos)
+          (list (match-beginning 1) (match-end 1)
+                (mapcar (lambda (s) (concat s " ")) beancount-timestamped-directive-names)))
+
+        ;; timestamped directives followed by account
+        ((beancount-looking-at
+          (concat "^" beancount-date-regexp
+                  "\\s-+" (regexp-opt beancount-account-directive-names)
+                  "\\s-+\\([" beancount-account-chars "]*\\)") 1 pos)
+          (setq beancount-accounts nil)
+          (list (match-beginning 1) (match-end 1) #'beancount-account-completion-table))
+
+        ;; posting
+        ((and (beancount-looking-at
+                (concat "[ \t]+\\([" beancount-account-chars "]*\\)") 1 pos)
+              ;; Do not force the account name to start with a
+              ;; capital, so that it is possible to use substring
+              ;; completion and we can rely on completion to fix
+              ;; capitalization thanks to completion-ignore-case.
+              (beancount-inside-transaction-p))
+          (setq beancount-accounts nil)
+          (list (match-beginning 1) (match-end 1) #'beancount-account-completion-table))
+
+        ;; tags
+        ((beancount-looking-at
+          (concat "[ \t]+#\\([" beancount-tag-chars "]*\\)") 1 pos)
+          (let* ((candidates nil)
+                (regexp (concat "\\#\\([" beancount-tag-chars "]+\\)"))
+                (completion-table
+                  (lambda (string pred action)
+                    (if (null candidates)
+                        (setq candidates
+                              (sort (beancount-collect regexp 1) #'string<)))
+                    (complete-with-action action candidates string pred))))
+            (list (match-beginning 1) (match-end 1) completion-table)))
+
+        ;; links
+        ((beancount-looking-at
+          (concat "[ \t]+\\^\\([" beancount-tag-chars "]*\\)") 1 pos)
+          (let* ((candidates nil)
+                (regexp (concat "\\^\\([" beancount-tag-chars "]+\\)"))
+                (completion-table
+                  (lambda (string pred action)
+                    (if (null candidates)
+                        (setq candidates
+                              (sort (beancount-collect regexp 1) #'string<)))
+                    (complete-with-action action candidates string pred))))
+            (list (match-beginning 1) (match-end 1) completion-table))))))))
+
+(defun beancount-collect (regexp n)
+  "Return an unique list of REGEXP group N in the current buffer."
+  (let ((pos (point)))
+    (save-excursion
+      (save-match-data
+        (let ((hash (make-hash-table :test 'equal)))
+          (goto-char (point-min))
+          (while (re-search-forward regexp nil t)
+            ;; Ignore matches around `pos' (the point position when
+            ;; entering this funcyion) since that's presumably what
+            ;; we're currently trying to complete.
+            (unless (<= (match-beginning 0) pos (match-end 0))
+              (puthash (match-string-no-properties n) nil hash)))
+          (hash-table-keys hash))))))
+
+(defun beancount-account-completion-table (string pred action)
+  (if (eq action 'metadata) '(metadata (category . beancount-account))
+    (if (null beancount-accounts)
+        (setq beancount-accounts
+              (sort (beancount-collect beancount-account-regexp 0) #'string<)))
+    (complete-with-action action beancount-accounts string pred)))
+
+;; Default to substring completion for beancount accounts.
+(defconst beancount--completion-overrides
+  '(beancount-account (styles basic partial-completion substring)))
+(add-to-list 'completion-category-defaults beancount--completion-overrides)
+
+(defun beancount-number-alignment-column ()
+  "Return the column to which postings amounts should be aligned to.
+Returns `beancount-number-alignment-column' unless it is 0. In
+that case, scan the buffer to determine the minimum column that
+will allow to align all numbers."
+  (if (> beancount-number-alignment-column 0)
+      beancount-number-alignment-column
+    (save-excursion
+      (save-match-data
+        (let ((account-width 0)
+              (number-width 0))
+          (goto-char (point-min))
+          (while (re-search-forward beancount-posting-regexp nil t)
+            (if (match-string 2)
+                (let ((accw (- (match-end 1) (line-beginning-position)))
+                      (numw (- (match-end 3) (match-beginning 3))))
+                  (setq account-width (max account-width accw)
+                        number-width (max number-width numw)))))
+          (+ account-width 2 number-width))))))
+
+(defun beancount-compute-indentation ()
+  "Return the column to which the current line should be indented."
+  (save-excursion
+    (beginning-of-line)
+    (cond
+    ;; Only timestamped directives start with a digit.
+    ((looking-at-p "[0-9]") 0)
+    ;; Otherwise look at the previous line.
+    ((and (= (forward-line -1) 0)
+          (or (looking-at-p "[ \t].+")
+              (looking-at-p beancount-timestamped-directive-regexp)
+              (looking-at-p beancount-transaction-regexp)))
+      beancount-transaction-indent)
+    ;; Default.
+    (t 0))))
+
+(defun beancount-align-number (target-column)
+  (save-excursion
+    (beginning-of-line)
+    ;; Check if the current line is a posting with a number to align.
+    (when (and (looking-at beancount-posting-regexp)
+              (match-string 2))
+      (let* ((account-end-column (- (match-end 1) (line-beginning-position)))
+            (number-width (- (match-end 3) (match-beginning 3)))
+            (account-end (match-end 1))
+            (number-beginning (match-beginning 3))
+            (spaces (max 2 (- target-column account-end-column number-width))))
+        (unless (eq spaces (- number-beginning account-end))
+          (goto-char account-end)
+          (delete-region account-end number-beginning)
+          (insert (make-string spaces ? )))))))
+
+(defun beancount-indent-line ()
+  (let ((indent (beancount-compute-indentation))
+        (savep (> (current-column) (current-indentation))))
+    (unless (eq indent (current-indentation))
+      (if savep (save-excursion (indent-line-to indent))
+        (indent-line-to indent)))
+    (unless (eq this-command 'beancount-tab-dwim)
+      (beancount-align-number (beancount-number-alignment-column)))))
+
+(defun beancount-indent-region (start end)
+  "Indent a region automagically. START and END specify the region to indent."
+  (let ((deactivate-mark nil)
+        (beancount-number-alignment-column (beancount-number-alignment-column)))
+    (save-excursion
+      (setq end (copy-marker end))
+      (goto-char start)
+      (or (bolp) (forward-line 1))
+      (while (< (point) end)
+        (unless (looking-at-p "\\s-*$")
+          (beancount-indent-line))
+        (forward-line 1))
+      (move-marker end nil))))
+
+(defun beancount-indent-transaction (&optional _justify _region)
+  "Indent Beancount transaction at point."
+  (interactive)
+  (save-excursion
+    (let ((bounds (beancount-find-transaction-extents (point))))
+      (beancount-indent-region (car bounds) (cadr bounds)))))
+
+(defun beancount-transaction-clear (&optional arg)
+  "Clear transaction at point. With a prefix argument set the
+transaction as pending."
+  (interactive "P")
+  (save-excursion
+    (save-match-data
+      (let ((flag (if arg "!" "*")))
+        (beancount-goto-transaction-begin)
+        (if (looking-at beancount-transaction-regexp)
+            (replace-match flag t t nil 2))))))
+
+(defun beancount-insert-account (account-name)
+  "Insert one of the valid account names in this file.
+Uses ido niceness according to `beancount-use-ido'."
+  (interactive
+  (list
+    (if beancount-use-ido
+        ;; `ido-completing-read' does not understand functional
+        ;; completion tables thus directly build a list of the
+        ;; accounts in the buffer
+        (let ((beancount-accounts
+              (sort (beancount-collect beancount-account-regexp 0) #'string<)))
+          (ido-completing-read "Account: " beancount-accounts
+                              nil nil (thing-at-point 'word)))
+      (completing-read "Account: " #'beancount-account-completion-table
+                      nil t (thing-at-point 'word)))))
+  (let ((bounds (bounds-of-thing-at-point 'word)))
+    (when bounds
+      (delete-region (car bounds) (cdr bounds))))
+  (insert account-name))
+
+(defmacro beancount-for-line-in-region (begin end &rest exprs)
+  "Iterate over each line in region until an empty line is encountered."
+  `(save-excursion
+    (let ((end-marker (copy-marker ,end)))
+      (goto-char ,begin)
+      (beginning-of-line)
+      (while (and (not (eobp)) (< (point) end-marker))
+        (beginning-of-line)
+        (progn ,@exprs)
+        (forward-line 1)
+        ))))
+
+(defun beancount-align-numbers (begin end &optional requested-currency-column)
+  "Align all numbers in the given region. CURRENCY-COLUMN is the character
+at which to align the beginning of the amount's currency. If not specified, use
+the smallest columns that will align all the numbers.  With a prefix argument,
+align with the fill-column."
+  (interactive "r")
+
+  ;; With a prefix argument, align with the fill-column.
+  (when current-prefix-arg
+    (setq requested-currency-column fill-column))
+
+  ;; Loop once in the region to find the length of the longest string before the
+  ;; number.
+  (let (prefix-widths
+        number-widths
+        (number-padding "  "))
+    (beancount-for-line-in-region
+    begin end
+    (let ((line (thing-at-point 'line)))
+      (when (string-match (concat "\\(.*?\\)"
+                                  "[ \t]+"
+                                  "\\(" beancount-number-regexp "\\)"
+                                  "[ \t]+"
+                                  beancount-currency-regexp)
+                          line)
+        (push (length (match-string 1 line)) prefix-widths)
+        (push (length (match-string 2 line)) number-widths)
+        )))
+
+    (when prefix-widths
+      ;; Loop again to make the adjustments to the numbers.
+      (let* ((number-width (apply 'max number-widths))
+            (number-format (format "%%%ss" number-width))
+            ;; Compute rightmost column of prefix.
+            (max-prefix-width (apply 'max prefix-widths))
+            (max-prefix-width
+              (if requested-currency-column
+                  (max (- requested-currency-column (length number-padding) number-width 1)
+                      max-prefix-width)
+                max-prefix-width))
+            (prefix-format (format "%%-%ss" max-prefix-width))
+            )
+
+        (beancount-for-line-in-region
+        begin end
+        (let ((line (thing-at-point 'line)))
+          (when (string-match (concat "^\\([^\"]*?\\)"
+                                      "[ \t]+"
+                                      "\\(" beancount-number-regexp "\\)"
+                                      "[ \t]+"
+                                      "\\(.*\\)$")
+                              line)
+            (delete-region (line-beginning-position) (line-end-position))
+            (let* ((prefix (match-string 1 line))
+                    (number (match-string 2 line))
+                    (rest (match-string 3 line)) )
+              (insert (format prefix-format prefix))
+              (insert number-padding)
+              (insert (format number-format number))
+              (insert " ")
+              (insert rest)))))))))
+
+(defun beancount-align-to-previous-number ()
+  "Align postings under the point's paragraph.
+This function looks for a posting in the previous transaction to
+determine the column at which to align the transaction, or otherwise
+the fill column, and align all the postings of this transaction to
+this column."
+  (interactive)
+  (let* ((begin (save-excursion
+                  (beancount-beginning-of-directive)
+                  (point)))
+        (end (save-excursion
+                (goto-char begin)
+                (forward-paragraph 1)
+                (point)))
+        (currency-column (or (beancount-find-previous-alignment-column)
+                              fill-column)))
+    (beancount-align-numbers begin end currency-column)))
+
+
+(defun beancount-beginning-of-directive ()
+  "Move point to the beginning of the enclosed or preceding directive."
+  (beginning-of-line)
+  (while (and (> (point) (point-min))
+              (not (looking-at
+                      "[0-9][0-9][0-9][0-9][\-/][0-9][0-9][\-/][0-9][0-9]")))
+    (forward-line -1)))
+
+
+(defun beancount-find-previous-alignment-column ()
+  "Find the preceding column to align amounts with.
+This is used to align transactions at the same column as that of
+the previous transaction in the file. This function merely finds
+what that column is and returns it (an integer)."
+  ;; Go hunting for the last column with a suitable posting.
+  (let (column)
+    (save-excursion
+      ;; Go to the beginning of the enclosing directive.
+      (beancount-beginning-of-directive)
+      (forward-line -1)
+
+      ;; Find the last posting with an amount and a currency on it.
+      (let ((posting-regexp (concat
+                            "\\s-+"
+                            beancount-account-regexp "\\s-+"
+                            beancount-number-regexp "\\s-+"
+                            "\\(" beancount-currency-regexp "\\)"))
+            (balance-regexp (concat
+                            beancount-date-regexp "\\s-+"
+                            "balance" "\\s-+"
+                            beancount-account-regexp "\\s-+"
+                            beancount-number-regexp "\\s-+"
+                            "\\(" beancount-currency-regexp "\\)")))
+        (while (and (> (point) (point-min))
+                    (not (or (looking-at posting-regexp)
+                            (looking-at balance-regexp))))
+          (forward-line -1))
+        (when (or (looking-at posting-regexp)
+                  (looking-at balance-regexp))
+          (setq column (- (match-beginning 1) (point))))
+        ))
+    column))
+
+(defun beancount--account-currency (account)
+  ;; Build a regexp that matches an open directive that specifies a
+  ;; single account currencydaaee. The currency is match group 1.
+  (let ((re (concat "^" beancount-date-regexp " +open"
+                    "\\s-+" (regexp-quote account)
+                    "\\s-+\\(" beancount-currency-regexp "\\)\\s-+")))
+    (save-excursion
+      (goto-char (point-min))
+      (when (re-search-forward re nil t)
+        ;; The account has declared a single currency, so we can fill it in.
+        (match-string-no-properties 1)))))
+
+(defun beancount--electric-currency ()
+  (when (and beancount-electric-currency (eq last-command-event ?\n))
+    (save-excursion
+      (forward-line -1)
+      (when (and (beancount-inside-transaction-p)
+                (looking-at (concat "\\s-+\\(" beancount-account-regexp "\\)"
+                                    "\\s-+\\(" beancount-number-regexp "\\)\\s-*$")))
+        ;; Last line is a posting without currency.
+        (let* ((account (match-string 1))
+              (pos (match-end 0))
+              (currency (beancount--account-currency account)))
+          (when currency
+            (save-excursion
+        (goto-char pos)
+              (insert " " currency))))))))
+
+(defun beancount-insert-date ()
+  "Start a new timestamped directive."
+  (interactive)
+  (unless (bolp) (newline))
+  (insert (format-time-string "%Y-%m-%d") " "))
+
+(defvar beancount-install-dir nil
+  "Directory in which Beancount's source is located.
+Only useful if you have not installed Beancount properly in your PATH.")
+
+(defvar beancount-check-program "bean-check"
+  "Program to run to run just the parser and validator on an
+  input file.")
+
+(defvar compilation-read-command)
+
+(defun beancount--run (prog &rest args)
+  (let ((process-environment
+        (if beancount-install-dir
+            `(,(concat "PYTHONPATH=" beancount-install-dir)
+              ,(concat "PATH="
+                        (expand-file-name "bin" beancount-install-dir)
+                        ":"
+                        (getenv "PATH"))
+              ,@process-environment)
+          process-environment))
+        (compile-command (mapconcat (lambda (arg)
+                                      (if (stringp arg)
+                                          (shell-quote-argument arg) ""))
+                                    (cons prog args)
+                                    " ")))
+    (call-interactively 'compile)))
+
+(defun beancount-check ()
+  "Run `beancount-check-program'."
+  (interactive)
+  (let ((compilation-read-command nil))
+    (beancount--run beancount-check-program
+                    (file-relative-name buffer-file-name))))
+
+(defvar beancount-query-program "bean-query"
+  "Program to run to run just the parser and validator on an
+  input file.")
+
+(defun beancount-query ()
+  "Run bean-query."
+  (interactive)
+  ;; Don't let-bind compilation-read-command this time, since the default
+  ;; command is incomplete.
+  (beancount--run beancount-query-program
+                  (file-relative-name buffer-file-name) t))
+
+(defvar beancount-doctor-program "bean-doctor"
+  "Program to run the doctor commands.")
+
+(defun beancount-context ()
+  "Get the \"context\" from `beancount-doctor-program'."
+  (interactive)
+  (let ((compilation-read-command nil))
+    (beancount--run beancount-doctor-program "context"
+                    (file-relative-name buffer-file-name)
+                    (number-to-string (line-number-at-pos)))))
+
+
+(defun beancount-linked ()
+  "Get the \"linked\" info from `beancount-doctor-program'."
+  (interactive)
+  (let ((compilation-read-command nil))
+    (beancount--run beancount-doctor-program "linked"
+                    (file-relative-name buffer-file-name)
+                    (number-to-string (line-number-at-pos)))))
+
+(defvar beancount-price-program "bean-price"
+  "Program to run the price fetching commands.")
+
+(defun beancount-insert-prices ()
+  "Run bean-price on the current file and insert the output inline."
+  (interactive)
+  (call-process beancount-price-program nil t nil
+                (file-relative-name buffer-file-name)))
+
+;;; Transaction highligh
+
+(defvar beancount-highlight-overlay (list))
+(make-variable-buffer-local 'beancount-highlight-overlay)
+
+(defun beancount-highlight-overlay-make ()
+  (let ((overlay (make-overlay 1 1)))
+    (overlay-put overlay 'face 'beancount-highlight)
+    (overlay-put overlay 'priority '(nil . 99))
+    overlay))
+
+(defun beancount-highlight-transaction-at-point ()
+  "Move the highlight overlay to the current transaction."
+  (when beancount-highlight-transaction-at-point
+    (unless beancount-highlight-overlay
+      (setq beancount-highlight-overlay (beancount-highlight-overlay-make)))
+    (let* ((bounds (beancount-find-transaction-extents (point)))
+          (begin (car bounds))
+          (end (cadr bounds)))
+      (if (> (- end begin) 0)
+          (move-overlay beancount-highlight-overlay begin end)
+        (move-overlay beancount-highlight-overlay 1 1)))))
+
+;;; Outline minor mode support.
+
+(defun beancount-outline-cycle (&optional arg)
+  "Implement visibility cycling a la `org-mode'.
+The behavior of this command is determined by the first matching
+condition among the following:
+1. When point is at the beginning of the buffer, or when called
+    with a `\\[universal-argument]' universal argument, rotate the entire buffer
+    through 3 states:
+  - OVERVIEW: Show only top-level headlines.
+  - CONTENTS: Show all headlines of all levels, but no body text.
+  - SHOW ALL: Show everything.
+2. When point is at the beginning of a headline, rotate the
+    subtree starting at this line through 3 different states:
+  - FOLDED:   Only the main headline is shown.
+  - CHILDREN: The main headline and its direct children are shown.
+              From this state, you can move to one of the children
+              and zoom in further.
+  - SUBTREE:  Show the entire subtree, including body text."
+  (interactive "P")
+  (setq deactivate-mark t)
+  (cond
+  ;; Beginning of buffer or called with C-u: Global cycling
+  ((or (equal arg '(4))
+        (and (bobp)
+            ;; org-mode style behaviour - only cycle if not on a heading
+            (not (outline-on-heading-p))))
+    (beancount-cycle-buffer))
+
+  ;; At a heading: rotate between three different views
+  ((save-excursion (beginning-of-line 1) (looking-at outline-regexp))
+    (outline-back-to-heading)
+    (let ((goal-column 0) eoh eol eos)
+      ;; First, some boundaries
+      (save-excursion
+        (save-excursion (beancount-next-line) (setq eol (point)))
+        (outline-end-of-heading)              (setq eoh (point))
+        (outline-end-of-subtree)              (setq eos (point)))
+      ;; Find out what to do next and set `this-command'
+      (cond
+      ((= eos eoh)
+        ;; Nothing is hidden behind this heading
+        (beancount-message "EMPTY ENTRY"))
+      ((>= eol eos)
+        ;; Entire subtree is hidden in one line: open it
+        (outline-show-entry)
+        (outline-show-children)
+        (beancount-message "CHILDREN")
+        (setq
+        this-command 'beancount-cycle-children))
+      ((eq last-command 'beancount-cycle-children)
+        ;; We just showed the children, now show everything.
+        (outline-show-subtree)
+        (beancount-message "SUBTREE"))
+      (t
+        ;; Default action: hide the subtree.
+        (outline-hide-subtree)
+        (beancount-message "FOLDED")))))))
+
+(defvar beancount-current-buffer-visibility-state nil
+  "Current visibility state of buffer.")
+(make-variable-buffer-local 'beancount-current-buffer-visibility-state)
+
+(defvar beancount-current-buffer-visibility-state)
+
+(defun beancount-cycle-buffer (&optional arg)
+  "Rotate the visibility state of the buffer through 3 states:
+  - OVERVIEW: Show only top-level headlines.
+  - CONTENTS: Show all headlines of all levels, but no body text.
+  - SHOW ALL: Show everything.
+With a numeric prefix ARG, show all headlines up to that level."
+  (interactive "P")
+  (save-excursion
+    (cond
+    ((integerp arg)
+      (outline-show-all)
+      (outline-hide-sublevels arg))
+    ((eq last-command 'beancount-cycle-overview)
+      ;; We just created the overview - now do table of contents
+      ;; This can be slow in very large buffers, so indicate action
+      ;; Visit all headings and show their offspring
+      (goto-char (point-max))
+      (while (not (bobp))
+        (condition-case nil
+            (progn
+              (outline-previous-visible-heading 1)
+              (outline-show-branches))
+          (error (goto-char (point-min)))))
+      (beancount-message "CONTENTS")
+      (setq this-command 'beancount-cycle-toc
+            beancount-current-buffer-visibility-state 'contents))
+    ((eq last-command 'beancount-cycle-toc)
+      ;; We just showed the table of contents - now show everything
+      (outline-show-all)
+      (beancount-message "SHOW ALL")
+      (setq this-command 'beancount-cycle-showall
+            beancount-current-buffer-visibility-state 'all))
+    (t
+      ;; Default action: go to overview
+      (let ((toplevel
+            (cond
+              (current-prefix-arg
+              (prefix-numeric-value current-prefix-arg))
+              ((save-excursion
+                (beginning-of-line)
+                (looking-at outline-regexp))
+              (max 1 (funcall outline-level)))
+              (t 1))))
+        (outline-hide-sublevels toplevel))
+      (beancount-message "OVERVIEW")
+      (setq this-command 'beancount-cycle-overview
+            beancount-current-buffer-visibility-state 'overview)))))
+
+(defun beancount-message (msg)
+  "Display MSG, but avoid logging it in the *Messages* buffer."
+  (let ((message-log-max nil))
+    (message msg)))
+
+(defun beancount-next-line ()
+  "Forward line, but mover over invisible line ends.
+Essentially a much simplified version of `next-line'."
+  (interactive)
+  (beginning-of-line 2)
+  (while (and (not (eobp))
+              (get-char-property (1- (point)) 'invisible))
+    (beginning-of-line 2)))
+
+(provide 'beancount)
+
+#+end_src
+
+**** My beancount functions
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (defun beancount-fixme-replace ()
+    "Search for next FIXME in ledger and insert account."
+    (interactive)
+    (while t
+      (if (search-forward "FIXME")
+          (progn
+            (replace-match "" nil nil)
+            (call-interactively 'beancount-insert-account)))))
+
+#+end_src
+
+**** Keybinds
+
+Define Evil keybinds for editing Beancount ledger files.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+; Custom keybinds for the entry view
+(evil-define-key 'normal beancount-mode-map
+  (kbd "C-c C-n") 'beancount-fixme-replace)
+
+#+end_src
+
+*** HTTP
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (use-package know-your-http-well
+    :defer t)
+
+#+end_src
+
+*** Python
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+(use-package elpy
+  :ensure t
+  :init
+  (elpy-enable))
+
+(setq python-shell-interpreter "jupyter"
+      python-shell-interpreter-args "console --simple-prompt"
+      python-shell-prompt-detect-failure-warning nil)
+(add-to-list 'python-shell-completion-native-disabled-interpreters "jupyter")
+
+#+end_src
+
+** Productivity
+*** Syntax checking with Flycheck
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (use-package flycheck
+    :defer t
+    :hook (lsp-mode . flycheck-mode))
+
+#+end_src
+
+*** Snippets
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (use-package yasnippet
+    :hook (prog-mode . yas-minor-mode)
+    :config
+    (yas-reload-all))
+
+#+end_src
+
+*** Smart Parens
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (use-package smartparens
+    :hook (prog-mode . smartparens-mode))
+
+#+end_src
+
+*** Rainbow Delimiters
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  (use-package rainbow-delimiters
+    :hook (prog-mode . rainbow-delimiters-mode))
+
+#+end_src
+
+*** Rainbow Mode
+
+Sets the background of HTML color strings in buffers to be the color mentioned.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+(use-package rainbow-mode
+  :defer t
+  :hook (org-mode
+        emacs-lisp-mode
+        js2-mode))
+
+#+end_src
+* Project Specific
+** Recipes
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+(use-package org-chef
+  :ensure t)
+
+#+end_src
+
+* Applications
+* Keybinds
+  ** General
+
+  Define base bindings that aren't SPC lead.
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  ; Make ESC cancel all mini-buffer menus
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+  #+end_src
+
+  ** Main
+
+  Define SPC lead bindings that don't have submenus.
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  ; Make ESC cancel all mini-buffer menus
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+  ; Commands without sub-menus
+  (dw/leader-key-def
+    "RET"  '(bookmark-jump                 :which-key "Jump to Bookmark")
+    "SPC"  '(project-find-file             :which-key "Find file in project")
+    "'"    '(ivy-resume                    :which-key "Resume last search")
+    "."    '(find-file                     :which-key "Find file")
+    ":"    '(counsel-M-x                   :which-key "M-x")
+    ";"    '(eval-expression               :which-key "Eval expression")
+    "<"    '(switch-to-buffer              :which-key "Switch buffer")
+    "`"    '(switch-to-prev-buffer         :which-key "Switch to last buffer")
+    "C"    '(org-capture                   :which-key "Org Capture")
+    "a"    '(winum-select-window-by-number :which-key "Select window"))
+    ;"TAB"  '(:ignore t                    :which-key "workspace")
+    ;"b"    '(:ignore t                    :which-key "buffer")
+    ;"c"    '(:ignore t                    :which-key "code")
+    ;"f"    '(:ignore t                    :which-key "file")
+    ;"h"    '(:ignore t                    :which-key "help")
+    ;"i"    '(:ignore t                    :which-key "insert")
+    ;"n"    '(:ignore t                    :which-key "notes")
+    ;"o"    '(:ignore t                    :which-key "open")
+    ;"q"    '(:ignore t                    :which-key "quit/session")
+    ;"s"    '(:ignore t                    :which-key "search")
+    ;"t"    '(:ignore t                    :which-key "toggle"))
+
+  #+end_src
+
+  ** Open 
+
+  Define SPC lead bindings that open Emacs programs.
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  ; Menu for opening applications
+  (dw/leader-key-def
+    "o"    '(:ignore t   :which-key "open")
+    "om"    '(mu4e       :which-key "Mu4e")
+    "oe"    '(elfeed     :which-key "Elfeed")
+    "oa"    '(org-agenda :which-key "Agenda"))
+
+  #+end_src
+
+  ** Window
+
+  Define SPC lead bindings that manipulate Emacs windows.
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+  ; Open evil-window keybind menus
+  (dw/leader-key-def
+    "w"  '(evil-window-map :which-key "window"))
+
+  #+end_src
+
+  ** Project 
+
+  Define SPC lead bindings for projectile.
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  ; Commands for projectile projects
+  (dw/leader-key-def
+    "p"  '(:ignore t :which-key "project")
+    "p."  '(projectile-find-file                   :which-key "Find file in project")
+    "p>"  '(projectile-find-file-in-known-projects :which-key "Find file in know projects")
+    "p!"  '(projectile-run-shell-command-in-root   :which-key "Run cmd in project root")
+    "pa"  '(projectile-add-known-project           :which-key "Add new project")
+    "pb"  '(projectile-switch-to-buffer            :which-key "Switch to project buffer")
+    "pc"  '(projectile-compile-project             :which-key "Compile in project")
+    "pC"  '(projectile-repeat-last-command         :which-key "Repeat last command")
+    "pd"  '(projectile-remove-known-project        :which-key "Remove known project")
+    "pe"  '(projectile-edit-dir-locals             :which-key "Edit project .dir-locals")
+    "pg"  '(projectile-configure-project           :which-key "Configure project")
+    "pi"  '(projectile-invalidate-cache            :which-key "Invalidate project cache")
+    "pk"  '(projectile-kill-buffers                :which-key "Kill project buffers")
+    "po"  '(projectile-find-other-file             :which-key "Find other file")
+    "pp"  '(projectile-switch-project              :which-key "Switch project")
+    "pr"  '(projectile-recentf                     :which-key "Find recent project files")
+    "pR"  '(projectile-run-project                 :which-key "Run project")
+    "ps"  '(projectile-save-project-buffers        :which-key "Save project files")
+    "pt"  '(magit-todos-list                       :which-key "List project todos")
+    "pT"  '(projectile-test-project                :which-key "Test project"))
+
+  #+end_src
+
+  ** Git
+
+  Define SPC lead bindings for magit.
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  ; Commands for magit
+  (dw/leader-key-def
+    "g"   '(:ignore t                :which-key "git")
+    "gs"  '(magit-status             :which-key "Status")
+    "gd"  '(magit-diff-unstaged      :which-key "Diff Unstaged")
+    "gc"  '(magit-branch-or-checkout :which-key "Branch or Checkout")
+    "gb"  '(magit-branch             :which-key "Branch")
+    "gP"  '(magit-push-current       :which-key "Push Current")
+    "gp"  '(magit-pull-branch        :which-key "Pull Branch")
+    "gf"  '(magit-fetch              :which-key "Fetch")
+    "gF"  '(magit-fetch-all          :which-key "Fetch All")
+    "gr"  '(magit-rebase             :which-key "Rebase")
+    "gl"   '(:ignore t               :which-key "log")
+    "glc" '(magit-log-current        :which-key "Log Current")
+    "glf" '(magit-log-buffer-file    :which-key "Log Buffer File"))
+
+  #+end_src
+
+  ** Util
+
+  Define SPC lead bindings for various Emacs and general system utilites.
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  ; Keybinds
+  (dw/leader-key-def
+    "u"   '(:ignore t :which-key "util"))
+
+  #+end_src
+
+  ** Help
+
+  Define SPC lead bindings for finding documentation.
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  ; Help 
+  (dw/leader-key-def
+    "h"   '(:ignore t :which-key "help")
+    "hw"  '(:ignore t :which-key "which-key")
+    "hwm" '(which-key-show-major-mode :which-key "Major binds"))
+
+  #+end_src
+
+  ** Buffer
+
+  Define SPC lead bindings that manipulate Emacs buffers and bookmarks.
+
+  #+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+  ; Buffer
+  (dw/leader-key-def
+    "b"    '(:ignore t                          :which-key "buffer")
+    "b["   '(previous-buffer                    :which-key "Previous buffer")
+    "b]"   '(next-buffer                        :which-key "Next buffer")
+    "bb"   '(persp-switch-to-buffer             :which-key "Switch workspace buffer")
+  "bB"   '(switch-to-buffer                   :which-key "Switch buffer")
+  "bb"   '(switch-to-buffer                   :which-key "Switch buffer")
+  "bd"   '(delete-window                      :which-key "Delete buffer")
+  "bi"   '(ibuffer                            :which-key "ibuffer")
+  "bk"   '(kill-buffer-and-window             :which-key "Kill buffer")
+  "bl"   '(evil-switch-to-windows-last-buffer :which-key "Switch to last buffer")
+  "bm"   '(bookmark-set                       :which-key "Set bookmark")
+  "bM"   '(bookmark-delete                    :which-key "Delete bookmark")
+  "bn"   '(next-buffer                        :which-key "Next buffer")
+  "bN"   '(evil-buffer-new                    :which-key "New empty buffer")
+  "bp"   '(previous-buffer                    :which-key "Previous buffer")
+  "br"   '(revert-buffer                      :which-key "Revert buffer")
+  "bs"   '(basic-save-buffer                  :which-key "Save buffer")
+  "bS"   '(evil-write-all                     :which-key "Save all buffers")
+  "bw"   '(burly-bookmark-windows             :which-key "Bookmark windows")
+  "bz"   '(bury-buffer                        :which-key "Bury buffer"))
+
+#+end_src
+
+** Dired
+
+Define SPC lead bindings for dired.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+(dw/leader-key-def
+  "d"   '(:ignore t :which-key "dired")
+  "dd"  '(dired :which-key "here")
+  "dh"  `(,(dw/dired-link "~") :which-key "home")
+  "dn"  `(,(dw/dired-link "~/documents/org") :which-key "org")
+  "do"  `(,(dw/dired-link "~/downloads") :which-key "downloads")
+  "df"  `(,(dw/dired-link "~/media/pictures") :which-key "pictures")
+  "dv"  `(,(dw/dired-link "~/netdrive/media/video") :which-key "video")
+  "da"  `(,(dw/dired-link "~/netdrive/media/audio") :which-key "audio")
+  "dx"  `(,(dw/dired-link "~/.xmonad") :which-key "xmonad")
+  "dc"  `(,(dw/dired-link "~/.config") :which-key "configs")
+  "de"  `(,(dw/dired-link "~/devel/elisp/scratch") :which-key "emacs")
+  "dp"   '(:ignore t :which-key "play")
+  "dpf"   '(mpv :which-key "file")
+  "dpd"   '(mpv-dir :which-key "directory")
+  "dpp"   '(mpv-playlist :which-key "playlist"))
+
+#+end_src
+
+** EXWM
+
+Define SPC lead bindings for EXWM.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+(dw/leader-key-def
+  "e"  '(:ignore t :which-key "exwm")
+  "es" '(exwm-workspace-switch :which-key "switch workspaces")
+  "eg"  '(:ignore t :which-key "gamemode")
+  "egs" '(ts/start-gamemode :which-key "start gamemode")
+  "egk" '(ts/kill-gamemode :which-key "kill gamemode"))
+
+#+end_src
+
+** Roam
+
+Define SPC lead bindings for Roam.
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+(dw/leader-key-def
+  "r"  '(:ignore t :which-key "roam")
+  "rt" '(org-roam-buffer-toggle :which-key "toggle roam buffer")
+  "rf" '(org-roam-node-find :which-key "find node")
+  "ri" '(org-roam-node-insert :which-key "insert node"))
+
+#+end_src
+
+* Desktop
+
+#+begin_src emacs-lisp :tangle (if (member this-system system-category-1) "~/.emacs.d/init.el" "no")
+
+    (use-package exwm)
+
+    (setq ts/exwm-enabled t)
+
+    (defun ts/update-screen-layout ()
+      (interactive)
+      (let ((layout-script "~/.config/scratch/scripts/update-screens apt"))
+         (message "Running screen layout script: %s" layout-script)
+         (start-process-shell-command "xrandr" nil layout-script)))
+
+    (defun ts/set-wallpaper ()
+      (interactive)
+      (start-process-shell-command
+          "feh" nil  "nitrogen --restore"))
+
+    (defun ts/set-xmodmap ()
+      (interactive)
+      (start-process-shell-command
+          "xmodmap" nil  "xmodmap ~/.Xmodmap"))
+
+    (defun ts/set-imwheel ()
+      (interactive)
+      (start-process-shell-command
+          "imwheel" nil  "imwheel -b 45"))
+
+    (defun ts/start-gamemode ()
+      (interactive)
+      (start-process-shell-command
+          "gamemoded" nil "gamemoded -r"))
+
+    (defun ts/kill-gamemode ()
+      (interactive)
+      (start-process-shell-command
+          "killall" nil "killall gamemoded"))
+
+    (defun ts/configure-desktop ()
+      (interactive)
+        ;;(dw/run-xmodmap)
+        (ts/update-screen-layout)
+        (ts/set-imwheel)
+        (ts/set-wallpaper))
+        ;(ts/set-xmodmap))
+        ;;(run-at-time "2 sec" nil (lambda () (dw/update-wallpapers))))
+
+
+    (when ts/exwm-enabled
+      (set-frame-parameter (selected-frame) 'alpha '(95 . 95))
+      (add-to-list 'default-frame-alist '(alpha . (95 . 95))))
+
+    (defun ts/on-exwm-init ()
+      (ts/configure-desktop))
+
+    (when ts/exwm-enabled
+      ;; Configure the desktop for first load
+      (add-hook 'exwm-init-hook #'ts/on-exwm-init))
+
+    ;; Enable exwm-randr before exwm-init gets called
+    (require 'exwm-randr)
+    (exwm-randr-enable)
+
+    ;; Set the default number of workspaces
+    (setq exwm-workspace-number 6)
+    (setq exwm-workspace-index-map
+          (lambda (index) (number-to-string (1+ index))))
+    (setq exwm-layout-show-all-buffers t)
+    (setq exwm-workspace-show-all-buffers t)
+
+    (defun efs/exwm-update-class ()
+      (exwm-workspace-rename-buffer exwm-class-name))
+
+    (defun efs/exwm-update-title ()
+      (pcase exwm-class-name
+        ("Brave-browser" (exwm-workspace-rename-buffer (format "B-%s" (s-truncate 12 exwm-title))))
+        ("Firefox" (exwm-workspace-rename-buffer (format "F-%s" (s-truncate 12 exwm-title))))))
+
+    ;; When window "class" updates, use it to set the buffer name
+    (add-hook 'exwm-update-class-hook #'efs/exwm-update-class)
+
+    ;; When window title updates, use it to set the buffer name
+    (add-hook 'exwm-update-title-hook #'efs/exwm-update-title)
+
+    ;(defun ts/disable-tab-bar-on-class ()
+    ;  (pcase exwm-class-name
+    ;    ("steam" (lambda (frame) (toggle-frame-tab-bar frame)))))
+    ;
+
+    ;; These keys should always pass through to Emacs
+    (setq exwm-input-prefix-keys
+      '(?\C-x
+        ?\C-u
+        ?\C-h
+        ?\M-x
+        ?\M-`
+        ?\M-&
+        ?\M-:
+        ?\C-w
+        ?\C-\M-j  ;; Buffer list
+        ?\C-\ ))  ;; Ctrl+Space
+
+    ;; Ctrl+Q will enable the next key to be sent directly
+    (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
+
+  (defun ts/move-float-up ()
+    (interactive)
+    (exwm-floating-move 0 1))
+
+  (defun ts/move-float-down ()
+    (interactive)
+    (exwm-floating-move 0 -1))
+
+  (defun ts/move-float-left ()
+    (interactive)
+    (exwm-floating-move -1 0))
+
+  (defun ts/move-float-right ()
+    (interactive)
+    (exwm-floating-move 1 0))
+
+  (defun ts/shrink-window ()
+    (interactive)
+    (shrink-window-horizontally 10))
+
+  (defun ts/enlarge-window ()
+    (interactive)
+    (enlarge-window-horizontally 10))
+
+    ;; Set up global key bindings.  These always work, no matter the input state!
+    ;; Keep in mind that changing this list after EXWM initializes has no effect.
+    (setq exwm-input-global-keys
+          `(
+            ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
+            ([?\s-r] . exwm-reset)
+
+            ;; Move between windows
+            ([?\s-h] . windmove-left)
+            ([?\s-l] . windmove-right)
+            ([?\s-k] . windmove-up)
+            ([?\s-j] . windmove-down)
+
+            ([?\s-H] . ts/shrink-window)
+            ([?\s-L] . ts/enlarge-window)
+            ([?\s-K] . enlarge-window)
+            ([?\s-J] . shrink-window)
+
+            ([?\s-u] . ts/move-float-left)
+            ([?\s-i] . ts/move-float-up)
+            ([?\s-o] . ts/move-float-down)
+            ([?\s-p] . ts/move-float-right)
+
+            ;; Launch applications via shell command
+            ([?\s-w] . counsel-linux-app)
+
+            ;; Launch applications via shell command
+            ([?\s-c] . (lambda (command)
+                         (interactive (list (read-shell-command "$ ")))
+                         (start-process-shell-command command nil command)))
+
+            ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
+            ,@(mapcar (lambda (i)
+                        `(,(kbd (format "s-%d" i)) .
+                          (lambda ()
+                            (interactive)
+                            (exwm-workspace-switch-create , (1- i)))))
+                      (number-sequence 0 9))))
+
+    (setq exwm-randr-workspace-monitor-plist '(3 "HDMI-0" 4 "HDMI-0" 5 "HDMI-0"))
+
+    (use-package exwm-mff
+      :straight (:host github :repo "starr-dusT/exwm-mff")
+      :config
+      (exwm-mff-mode +1))
+
+    ;;; Set location for external packages.
+    (add-to-list 'load-path "~/.emacs.d")
+    (require 'framemove)
+    (setq framemove-hook-into-windmove t)
+
+    ;(exwm-enable)
+
+    (tab-bar-mode)
+    ;(add-hook 'after-make-frame-functions (lambda (frame) (set-frame-parameter frame 'tab-bar-lines 0)))
+
+
+#+end_src
+
+** EXWM and System Informationals
+
+Implement information relating to the underlying linux system and EXWM. This is done primarily through the echo area "bar" created using minibuffer-line and some helper functions and some minor things in the modeline.
+
+*** EXWM Modeline
+
+#+begin_src emacs-lisp :tangle "no"
+
+(use-package exwm-modeline
+  :straight (:host github :repo "SqrtMinusOne/exwm-modeline")
+  :after (exwm))
+
+(add-hook 'exwm-init-hook #'exwm-modeline-mode)
+
+#+end_src
+
+*** EXWM Echo Area Bar
+
+#+begin_src emacs-lisp :tangle "no"
+
+(defun ts/gamemode-status (char)
+  (interactive)
+  (let ((status (shell-command-to-string "gamemoded -s")))
+    (if (string-match "inactive" status)
+        (propertize char 'face '(:foreground "green"))
+      (propertize char 'face '(:foreground "red")))))
+
+(defun ts/cpu-percent (thresh)
+  (interactive)
+  (let* ((perc-cmd (shell-command-to-string "top -bn 2 -d 0.01 | grep '^%Cpu' | tail -n 1 | gawk '{print $2+$4+$6}'"))
+         (perc-num (string-to-number (substring perc-cmd 0 -1)))
+         (perc-str (format "%05.1f%%%%" (string-to-number (substring perc-cmd 0 -1)))))
+    (if (< perc-num thresh)
+        (propertize perc-str 'face '(:foreground "green"))
+      (propertize perc-str 'face '(:foreground "red")))))
+
+(defun ts/mem-percent (thresh)
+  (interactive)
+  (let* ((total (string-to-number (nth 1 (delete "" (split-string (shell-command-to-string "cat /proc/meminfo | grep MemTotal"))))))
+         (used (- total (string-to-number (nth 1 (delete "" (split-string (shell-command-to-string "cat /proc/meminfo | grep MemAvailable")))))))
+         (perc-use (* 100 (/ (float used) total)))
+         (perc-str (format "%05.1f%%%%" perc-use)))
+    (if (< perc-use thresh)
+        (propertize perc-str 'face '(:foreground "green"))
+      (propertize perc-str 'face '(:foreground "red")))))
+
+(defun ts/volume-percent (thresh)
+  (interactive)
+  (let* ((vol-cmd (shell-command-to-string "pactl list sinks | grep -A 7 'Name: alsa_output.usb-AudioQuest_inc._AudioQuest_DragonFly-00.analog-stereo' | tail -n 1"))
+         (mute-cmd (shell-command-to-string "pactl list sinks | grep -A 6 'Name: alsa_output.usb-AudioQuest_inc._AudioQuest_DragonFly-00.analog-stereo' | tail -n 1"))
+         (vol-str (concat (nth 4 (split-string vol-cmd)) "%"))
+         (mute-str (nth 1 (split-string mute-cmd))))
+    (if (string= mute-str "no")
+        (propertize vol-str 'face '(:foreground "green"))
+      (propertize vol-str 'face '(:foreground "red")))))
+
+(defun ts/mouse-charging-status (char)
+  (interactive)
+  (let ((status (shell-command-to-string "cat /sys/class/power_supply/hidpp_battery_*/uevent | grep POWER_SUPPLY_STATUS | tail -n1")))
+    (if (string-match "Discharging" status)
+        (propertize char 'face '(:foreground "red"))
+      (propertize char 'face '(:foreground "green")))))
+
+(defun ts/mouse-voltage (thresh)
+  (interactive)
+  (let* ((volt-cmd (shell-command-to-string "cat /sys/class/power_supply/hidpp_battery_*/uevent | grep POWER_SUPPLY_VOLTAGE"))
+         (volt-str (format "%smV" (substring (nth 1 (split-string volt-cmd "=")) 0 4)))
+         (volt-num (string-to-number volt-str)))
+    (if (> volt-num thresh)
+        (propertize volt-str 'face '(:foreground "green"))
+      (propertize volt-str 'face '(:foreground "red")))))
+
+(defun ts/white (str)
+  (interactive)
+  (propertize str 'face '(:foreground "white")))
+(use-package minibuffer-line
+  :straight (:host github :repo "starr-dusT/minibuffer-line")
+  :config
+  (setq minibuffer-line-refresh-interval 5)
+  (setq minibuffer-line-format
+        '((:eval (ts/white "閭 ")) (:eval (ts/cpu-percent 60)) (:eval (ts/white " | "))
+          (:eval (ts/white "  ")) (:eval (ts/mem-percent 60)) (:eval (ts/white " | "))
+          (:eval (ts/white " ")) (:eval (ts/volume-percent 70)) (:eval (ts/white " | ")) 
+          (:eval (ts/mouse-charging-status " ")) (:eval (ts/mouse-voltage 3700)) (:eval (ts/white " | ")) 
+          (:eval (ts/gamemode-status "")) (:eval (ts/white " | ")) 
+          (:eval (propertize (format-time-string "  %a %d/%m/%y  %H:%M:%S") 'face '(:foreground "white")))))
+  (minibuffer-line-mode))
+
+#+end_src

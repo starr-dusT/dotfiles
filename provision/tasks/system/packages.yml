@@ -1,0 +1,21 @@
+- name: Install system dnf packages
+  dnf:
+    name:
+      - git # Fast Version Control System
+      - git-lfs # Git extension for versioning large files
+      - python-psutil # Cross-platform library for retrieving information on running processes 
+      - syncthing # Continuous File Synchronization
+      - flatpak # Application deployment framework for desktop apps
+      - pipewire-codec-aptx # PipeWire Bluetooth aptX codec plugin
+      - ffmpeg # Digital VCR and streaming server
+      - wireguard # Fast, modern, secure vpn tunnel
+      - wireguard-tools # Tool for wireguard
+    state: present
+  become: true
+
+- name: Install system flatpaks
+  flatpak:
+    name:
+      - com.github.tchx84.Flatseal # Manage Flatpak permissions
+    state: present
+  become: true
