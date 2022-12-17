@@ -99,6 +99,14 @@ for_window [con_mark="scratch-warrior"] floating enable, \
     resize set 1000 px 800 px, \
     move position 780 px 320 px
 
+for_window [class="Blueman-manager"] floating enable, \
+    resize set 1000 px 800 px, \
+    move position 780 px 320 px
+
+for_window [class="Nm-connection-editor"] floating enable, \
+    resize set 1000 px 800 px, \
+    move position 780 px 320 px
+
 #-------------------------------------------------------------------------------
 #----- BINDING APPLICATIONS TO WORKSPACE
 #-------------------------------------------------------------------------------
@@ -122,15 +130,15 @@ bindsym $mod+Ctrl+l resize grow width 50
 bindsym $mod+z layout splith
 bindsym $mod+x layout tabbed 
 bindsym $mod+c layout stacked
-bindsym $mod+v layout splitv
-bindsym $mod+s split h
+# bindsym $mod+v layout splitv
+# bindsym $mod+s split h
 bindsym $mod+Shift+s split v
 
 # program management
 bindsym $mod+d kill
 bindsym $mod+f fullscreen toggle
 bindsym $mod+t floating toggle
-bindsym $mod+g sticky toggle
+bindsym $mod+s sticky toggle
 bindsym $mod+Tab focus mode_toggle 
 floating_modifier $mod
 
@@ -173,6 +181,7 @@ bindsym XF86AudioMute exec amixer -q set Master toggle
 bindsym $mod+Return exec kitty 
 bindsym $mod+a exec rofi -show drun -theme gruvbox-dark-soft -show-icons
 bindsym $mod+Shift+a exec rofi -show window -theme gruvbox-dark-soft -show-icons
+bindsym $mod+g exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 bindsym $mod+u exec firefox
 bindsym $mod+i exec steam
 
@@ -192,6 +201,10 @@ bindsym $mod+m exec $HOME/.config/i3/scripts/scratch.sh \
 
 exec --no-startup-id "$HOME/.config/i3/scripts/xrandr.sh && \
     chezmoi apply && \
-    i3-msg restart && \
-    $HOME/.config/i3/scripts/polybar.sh"
+    i3-msg restart"
+exec --no-startup-id greenclip daemon
+exec_always --no-startup-id "$HOME/.config/i3/scripts/polybar.sh"
+exec_always --no-startup-id "nm-applet"
+exec_always --no-startup-id "blueman-applet"
 exec_always --no-startup-id nitrogen --restore
+

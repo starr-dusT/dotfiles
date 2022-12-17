@@ -1,0 +1,5 @@
+- name: Grab {{ item.repo }}  latest binaries 
+  unarchive: 
+    src: "https://github.com/{{ item.user }}/{{ item.repo }}/releases/download/{{ repo_latest['tag'] }}/{{ item.name }}"
+    dest: /usr/local/bin
+    remote_src: true 

@@ -38,9 +38,41 @@ cmp.setup({
         { name = 'nvim_lsp' },
         { name = 'luasnip' }, -- For luasnip users.
     }, {
-        { name = 'buffer' },
+        { name = 'buffer',
+          option = {
+            get_bufnrs = function()
+              local bufs = {}
+              for _, win in ipairs(vim.api.nvim_list_wins()) do
+                bufs[vim.api.nvim_win_get_buf(win)] = true
+              end
+              return vim.tbl_keys(bufs)
+            end
+          }
+        },
     })
+})
+
+cmp.setup.cmdline('/', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' },
+    { name = 'buffer' }
+  }, {
+    {
+      name = 'cmdline',
+      option = {
+        ignore_cmds = { 'Man', '!' }
+      }
+    }
   })
+})
 
 local function config(_config)
 	return vim.tbl_deep_extend("force", {

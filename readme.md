@@ -33,7 +33,5 @@ update {tags} # valid tags: configs, updates, packages, services, once
 ## TODO
 
 - make homesever use btrfs and fix "target" for home backups 
-- update home directory with subvolumes to exclude from snapshots, etc.
-- hide desktop files from gnome app menu
-- Add task warrior (and maybe time warrior). Find or make extension that makes a report on a given date.
 - Add zsh with workable config
+- setup pavucontrol and bluetooth with scratchpads, polybar integration, etc.

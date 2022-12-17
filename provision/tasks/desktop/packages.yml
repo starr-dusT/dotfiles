@@ -15,6 +15,12 @@
       - polybar # Fast and easy-to-use status bar
       - xprop
       - mpv
+      - pavucontrol
+      - lxappearance
+      - network-manager-applet
+      - blueman
+      - xdotool
+      - xclip
     state: present
   become: true
 
@@ -27,6 +33,14 @@
       - org.inkscape.Inkscape # Vector Graphics Editor
     state: present
   become: true
+
+    #- name: Grab desktop binaries 
+    #  get_url: 
+    #    url: "{{ item.url }}"
+    #    dest: /home/{{ user }}/bin/{{ item.name }}
+    #    mode: 0755
+    #  loop:
+    #    - {name: "greenclip", url: "https://github.com/erebe/greenclip/releases/download/v4.2/greenclip-v4.2"}
 
 # Using sxhkd until swhkd supports keychords
 # - import_tasks: swhkd.yml

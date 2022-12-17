@@ -10,6 +10,7 @@
       - ffmpeg # Digital VCR and streaming server
       - wireguard # Fast, modern, secure vpn tunnel
       - wireguard-tools # Tool for wireguard
+      - anacron
     state: present
   become: true
 

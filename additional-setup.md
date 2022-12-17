@@ -47,6 +47,10 @@ sudo btrbk -c ~/.config/btrbk/home_btrbk.conf -v run # creates user backups and 
 sudo btrbk -c ~/.config/btrbk/root_btrbk.conf -v run # creates root snapshots 
 ```
 
+SSH keypair is used for password-less root ssh for remote back-up. See Github.
+
+anacron is used for daily backups. Copy home_backup.sh to /etc/cron.daily.
+
 ## Automount network drive with fstab
 
 Fstab can be mounted when the network drive is accessed. This is done for the "engi" home server.

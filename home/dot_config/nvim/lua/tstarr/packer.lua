@@ -16,7 +16,10 @@ return require('packer').startup(function(use)
     use ('nvim-telescope/telescope-project.nvim')
 
     use ('ThePrimeagen/harpoon')
+    use ('mbbill/undotree')
     use ('kdheepak/lazygit.nvim')
+
+    -- LSP
     use ('neovim/nvim-lspconfig')
     use ('hrsh7th/cmp-nvim-lsp')
     use ('hrsh7th/cmp-buffer')
@@ -25,6 +28,5 @@ return require('packer').startup(function(use)
     use ('hrsh7th/nvim-cmp')
     use ('L3MON4D3/LuaSnip')
     use ('saadparwaiz1/cmp_luasnip')
-
 
 end)

@@ -7,8 +7,8 @@ require("harpoon").setup({
     }
 })
 
-nnoremap("<leader>ha", function() require("harpoon.mark").add_file() end, silent)
-nnoremap("<leader>hl", function() require("harpoon.ui").toggle_quick_menu() end, silent)
+nnoremap("<leader>qa", function() require("harpoon.mark").add_file() end, silent)
+nnoremap("<leader>ql", function() require("harpoon.ui").toggle_quick_menu() end, silent)
 
 nnoremap("<leader>1", function() require("harpoon.ui").nav_file(1) end, silent)
 nnoremap("<leader>2", function() require("harpoon.ui").nav_file(2) end, silent)
