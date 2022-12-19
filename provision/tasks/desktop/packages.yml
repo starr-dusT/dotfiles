@@ -19,8 +19,13 @@
       - lxappearance
       - network-manager-applet
       - blueman
-      - xdotool
-      - xclip
+      - ImageMagick
+      - xrandr
+      - xdpyinfo
+      - xrdb
+      - xset
+      - dunst
+      - feh
     state: present
   become: true
 

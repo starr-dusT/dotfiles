@@ -20,11 +20,17 @@ set $mod Mod4
 set $tag1 "1:game" 
 set $tag2 "2:dev"  
 set $tag3 "3:web"  
-set $tag4 "4:web"  
+set $tag4 "4:dev"  
 set $tag5 "5:web"  
 set $tag6 "6:web"  
-set $tag7 "7:comm" 
-set $tag8 "8:task"
+set $tag7 "7:web" 
+set $tag8 "8:comm"
+set $tag9 "9:eng"
+set $tag0 "10:web"
+
+set $e exec i3-msg mode default
+
+set $mode_power "[q]uit | [s]hutdown"
 
 #-------------------------------------------------------------------------------
 #----- COLORS 
@@ -55,10 +61,12 @@ workspace $tag1 output $DISP_PRI
 workspace $tag2 output $DISP_PRI
 workspace $tag3 output $DISP_PRI
 workspace $tag4 output $DISP_PRI
-workspace $tag5 output $DISP_SEC
+workspace $tag5 output $DISP_PRI
 workspace $tag6 output $DISP_SEC
 workspace $tag7 output $DISP_SEC
 workspace $tag8 output $DISP_SEC
+workspace $tag9 output $DISP_SEC
+workspace $tag0 output $DISP_SEC
 
 #-------------------------------------------------------------------------------
 #----- CONTAINER GAPS
@@ -113,31 +121,47 @@ for_window [class="Nm-connection-editor"] floating enable, \
 
 assign [class="Steam"]              "1:game"
 for_window [class="Steam"]          move container to workspace "1:game"
+for_window [class="discord"]        move container to workspace $tag8
 
 #-------------------------------------------------------------------------------
 #----- KEY BINDINGS
 #-------------------------------------------------------------------------------
 
-# i3 utility commands
-bindsym $mod+Ctrl+r exec chezmoi apply && i3-msg restart
-bindsym $mod+Ctrl+q exit
-bindsym $mod+Ctrl+h resize shrink width 50
-bindsym $mod+Ctrl+j resize shrink height 50
-bindsym $mod+Ctrl+k resize grow height 50
-bindsym $mod+Ctrl+l resize grow width 50
+# [p]ower commands
+bindsym $mod+p mode $mode_power
+mode $mode_power {
+    bindsym s exec shutdown now
+    bindsym Escape mode default
+}
 
-# layout commands
-bindsym $mod+z layout splith
-bindsym $mod+x layout tabbed 
-bindsym $mod+c layout stacked
-# bindsym $mod+v layout splitv
-# bindsym $mod+s split h
-bindsym $mod+Shift+s split v
+# [u]tility commands
+bindsym $mod+u mode utility
+mode utility {
+    bindsym q exit
+    bindsym r exec chezmoi apply && i3-msg restart
+    # TODO: flameshot (mod+Ctrl+f)
+    # TODO: gamemode (mod+Ctrl+g). Needs script to toggle
+    bindsym Escape mode default
+}
+
+# l[a]yout commands
+bindsym $mod+a mode layout
+mode layout {
+    bindsym z layout splith
+    bindsym x layout tabbed 
+    bindsym c layout stacked
+    bindsym v layout splitv
+    bindsym h resize shrink width 50
+    bindsym j resize shrink height 50
+    bindsym k resize grow height 50
+    bindsym l resize grow width 50
+    bindsym Escape mode default
+}
 
 # program management
 bindsym $mod+d kill
 bindsym $mod+f fullscreen toggle
-bindsym $mod+t floating toggle
+bindsym $mod+y floating toggle
 bindsym $mod+s sticky toggle
 bindsym $mod+Tab focus mode_toggle 
 floating_modifier $mod
@@ -151,49 +175,61 @@ bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
+bindsym $mod+minus split v
+bindsym $mod+backslash split h
 
 # workspace management
 bindsym $mod+1 workspace $tag1
 bindsym $mod+2 workspace $tag2
 bindsym $mod+3 workspace $tag3
 bindsym $mod+4 workspace $tag4
-bindsym $mod+q workspace $tag5
-bindsym $mod+w workspace $tag6
-bindsym $mod+e workspace $tag7
-bindsym $mod+r workspace $tag8
+bindsym $mod+5 workspace $tag5
+bindsym $mod+q workspace $tag6
+bindsym $mod+w workspace $tag7
+bindsym $mod+e workspace $tag8
+bindsym $mod+r workspace $tag9
+bindsym $mod+t workspace $tag0
 bindsym $mod+Shift+1 move container to workspace $tag1
 bindsym $mod+Shift+2 move container to workspace $tag2
 bindsym $mod+Shift+3 move container to workspace $tag3
 bindsym $mod+Shift+4 move container to workspace $tag4
-bindsym $mod+Shift+q move container to workspace $tag5
-bindsym $mod+Shift+w move container to workspace $tag6
-bindsym $mod+Shift+e move container to workspace $tag7
-bindsym $mod+Shift+r move container to workspace $tag8
+bindsym $mod+Shift+5 move container to workspace $tag5
+bindsym $mod+Shift+q move container to workspace $tag6
+bindsym $mod+Shift+w move container to workspace $tag7
+bindsym $mod+Shift+e move container to workspace $tag8
+bindsym $mod+Shift+r move container to workspace $tag9
+bindsym $mod+Shift+t move container to workspace $tag0
 
-# system utils
+# audio
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +2%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -2%
 bindsym XF86AudioMute exec amixer -q set Master toggle
-# TODO: flameshot (mod+Ctrl+f)
-# TODO: gamemode (mod+Ctrl+g). Needs script to toggle
 
-# open applications
-bindsym $mod+Return exec kitty 
-bindsym $mod+a exec rofi -show drun -theme gruvbox-dark-soft -show-icons
-bindsym $mod+Shift+a exec rofi -show window -theme gruvbox-dark-soft -show-icons
-bindsym $mod+g exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
-bindsym $mod+u exec firefox
-bindsym $mod+i exec steam
+# [o]pen applications
+bindsym $mod+o mode open
+mode open {
+    bindsym Return exec kitty, $e
+    bindsym w exec rofi -show drun -theme gruvbox-dark-soft -show-icons, $e
+    bindsym r exec rofi -show window -theme gruvbox-dark-soft -show-icons, $e
+    bindsym b exec firefox, $e
+    bindsym s exec steam, $e
+    bindsym d exec flatpak run com.discordapp.Discord, $e
+    bindsym Escape mode default
+}
 
-# open scratchpads
-bindsym $mod+Shift+Return exec $HOME/.config/i3/scripts/scratch.sh \
-    'scratch-term' 'kitty'
-bindsym $mod+n exec $HOME/.config/i3/scripts/scratch.sh \
-    'scratch-nnn' 'kitty -e nnn -d -e -H -r'
-bindsym $mod+b exec --no-startup-id $HOME/.config/i3/scripts/scratch.sh \
-    'scratch-warden' 'firefoxpwa site launch 01GKYZS658452DK05DVDCRF5V4'
-bindsym $mod+m exec $HOME/.config/i3/scripts/scratch.sh \
-    'scratch-warrior' 'kitty -e taskwarrior-tui'
+# s[c]ratchpads commands
+bindsym $mod+c mode scratch
+mode scratch {
+    bindsym Return exec $HOME/.config/i3/scripts/scratch.sh \
+        'scratch-term' 'kitty', $e
+    bindsym b exec --no-startup-id $HOME/.config/i3/scripts/scratch.sh \
+        'scratch-warden' 'firefoxpwa site launch 01GKYZS658452DK05DVDCRF5V4, $e'
+    bindsym n exec $HOME/.config/i3/scripts/scratch.sh \
+        'scratch-nnn' 'kitty -e nnn -d -e -H -r', $e
+    bindsym t exec $HOME/.config/i3/scripts/scratch.sh \
+        'scratch-warrior' 'kitty -e taskwarrior-tui', $e
+    bindsym Escape mode default
+}
 
 #-------------------------------------------------------------------------------
 #----- AUTOSTART WITH I3
@@ -202,7 +238,6 @@ bindsym $mod+m exec $HOME/.config/i3/scripts/scratch.sh \
 exec --no-startup-id "$HOME/.config/i3/scripts/xrandr.sh && \
     chezmoi apply && \
     i3-msg restart"
-exec --no-startup-id greenclip daemon
 exec_always --no-startup-id "$HOME/.config/i3/scripts/polybar.sh"
 exec_always --no-startup-id "nm-applet"
 exec_always --no-startup-id "blueman-applet"

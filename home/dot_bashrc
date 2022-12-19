@@ -26,6 +26,7 @@ export PATH="$HOME/.nimble/bin:$PATH"
 
 alias spl="tmux_splat"
 alias n="nnn -d -e -H -r"
+alias s="startx"
 
 # Chezmoi
 alias cmc="chezmoi cd"
