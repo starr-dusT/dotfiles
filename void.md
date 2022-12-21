@@ -77,8 +77,7 @@ Add the following:
 #!/bin/sh
 
 export HOME=/home/tstarr/
-exec 2>&1
-exec /usr/bin/syncthing
+exec /usr/bin/syncthing > /dev/null 2>&1
 ```
 
 ## OH-my-zsh
