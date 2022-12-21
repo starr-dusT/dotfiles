@@ -31,15 +31,15 @@
     state: present
   become: true
 
-#- name: Install desktop flatpaks
-#  flatpak:
-#    name:
-#      - com.mattjakeman.ExtensionManager # Browse, install, and manage GNOME Shell Extensions
-#      - com.discordapp.Discord # Voice, video and text communication service
-#      - org.gimp.GIMP # Create images and edit photographs
-#      - org.inkscape.Inkscape # Vector Graphics Editor
-#    state: present
-#  become: true
+- name: Install desktop flatpaks
+  flatpak:
+    name:
+      - com.discordapp.Discord # Voice, video and text communication service
+      - org.gimp.GIMP # Create images and edit photographs
+      - org.inkscape.Inkscape # Vector Graphics Editor
+      - com.github.tchx84.Flatseal # Manage Flatpak permissions
+    state: present
+  become: true
 
 #- name: Grab desktop binaries 
 #  get_url: 
@@ -53,7 +53,6 @@
     #ansible
     #btrbk
     #chezmoi
-    #discord
     #elogind
     #fd
     #git
@@ -61,7 +60,6 @@
     #python3
     #ripgrep
     #rsync
-    #syncthing
     #unzip
     #void-repo-multilib
     #void-repo-multilib-nonfree

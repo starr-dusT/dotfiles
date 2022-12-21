@@ -1,22 +1,22 @@
 - name: Install system dnf packages
-  dnf:
+  xbps:
     name:
       - git # Fast Version Control System
       - git-lfs # Git extension for versioning large files
-      - python-psutil # Cross-platform library for retrieving information on running processes 
+      #- python-psutil # Cross-platform library for retrieving information on running processes 
       - syncthing # Continuous File Synchronization
       - flatpak # Application deployment framework for desktop apps
-      - pipewire-codec-aptx # PipeWire Bluetooth aptX codec plugin
-      - ffmpeg # Digital VCR and streaming server
-      - wireguard # Fast, modern, secure vpn tunnel
-      - wireguard-tools # Tool for wireguard
-      - anacron
+      #- pipewire-codec-aptx # PipeWire Bluetooth aptX codec plugin
+      #- wireguard # Fast, modern, secure vpn tunnel
+      #- wireguard-tools # Tool for wireguard
+      #- anacron
     state: present
   become: true
 
-- name: Install system flatpaks
-  flatpak:
-    name:
-      - com.github.tchx84.Flatseal # Manage Flatpak permissions
+- name: Add the flathub flatpak repository remote
+  flatpak_remote:
+    name: flathub
     state: present
+    flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
   become: true
+
