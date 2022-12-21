@@ -30,14 +30,14 @@ set $tag0 "10:web"
 
 set $e exec i3-msg mode default
 
-set $mode_power "[q]uit | [s]hutdown"
+set $mode_power "[r]eboot | [s]hutdown"
 
 #-------------------------------------------------------------------------------
 #----- COLORS 
 #-------------------------------------------------------------------------------
 
 # class                 border  bground text    indicator child_border
-client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
+client.focused          #bd93f9 #bd93f9 #F8F8F2 #bd93f9   #bd93f9
 client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
 client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
 client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
@@ -50,8 +50,8 @@ client.background       #F8F8F2
 #-------------------------------------------------------------------------------
 
 font                    pango:Google Noto 8.5
-default_border pixel 1
-default_floating_border pixel 1
+default_border pixel 3
+default_floating_border pixel 3
 
 #-------------------------------------------------------------------------------
 #----- BINDING WORKSPACE TO DISPLAY
@@ -130,12 +130,13 @@ for_window [class="discord"]        move container to workspace $tag8
 # [p]ower commands
 bindsym $mod+p mode $mode_power
 mode $mode_power {
-    bindsym s exec shutdown now
+    bindsym s exec loginctl poweroff
+    bindsym r exec loginctl reboot
     bindsym Escape mode default
 }
 
-# [u]tility commands
-bindsym $mod+u mode utility
+# [x]utility commands
+bindsym $mod+x mode utility
 mode utility {
     bindsym q exit
     bindsym r exec chezmoi apply && i3-msg restart
@@ -144,8 +145,8 @@ mode utility {
     bindsym Escape mode default
 }
 
-# l[a]yout commands
-bindsym $mod+a mode layout
+# layo[u]t commands
+bindsym $mod+u mode layout
 mode layout {
     bindsym z layout splith
     bindsym x layout tabbed 
@@ -206,11 +207,11 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -2%
 bindsym XF86AudioMute exec amixer -q set Master toggle
 
 # [o]pen applications
+bindsym $mod+Return exec alacritty
+bindsym $mod+a exec rofi -show drun -theme gruvbox-dark-soft -show-icons
+bindsym $mod+Shift+a exec rofi -show window -theme gruvbox-dark-soft -show-icons
 bindsym $mod+o mode open
 mode open {
-    bindsym Return exec kitty, $e
-    bindsym w exec rofi -show drun -theme gruvbox-dark-soft -show-icons, $e
-    bindsym r exec rofi -show window -theme gruvbox-dark-soft -show-icons, $e
     bindsym b exec firefox, $e
     bindsym s exec steam, $e
     bindsym d exec flatpak run com.discordapp.Discord, $e
@@ -221,13 +222,13 @@ mode open {
 bindsym $mod+c mode scratch
 mode scratch {
     bindsym Return exec $HOME/.config/i3/scripts/scratch.sh \
-        'scratch-term' 'kitty', $e
+        'scratch-term' 'alacritty', $e
     bindsym b exec --no-startup-id $HOME/.config/i3/scripts/scratch.sh \
         'scratch-warden' 'firefoxpwa site launch 01GKYZS658452DK05DVDCRF5V4, $e'
     bindsym n exec $HOME/.config/i3/scripts/scratch.sh \
-        'scratch-nnn' 'kitty -e nnn -d -e -H -r', $e
+        'scratch-nnn' 'alacritty -e nnn -d -e -H -r', $e
     bindsym t exec $HOME/.config/i3/scripts/scratch.sh \
-        'scratch-warrior' 'kitty -e taskwarrior-tui', $e
+        'scratch-warrior' 'alacritty -e taskwarrior-tui', $e
     bindsym Escape mode default
 }
 
@@ -235,11 +236,8 @@ mode scratch {
 #----- AUTOSTART WITH I3
 #-------------------------------------------------------------------------------
 
-exec --no-startup-id "$HOME/.config/i3/scripts/xrandr.sh && \
-    chezmoi apply && \
-    i3-msg restart"
+exec --no-startup-id "pipewire & pipewire-pulse &"
 exec_always --no-startup-id "$HOME/.config/i3/scripts/polybar.sh"
 exec_always --no-startup-id "nm-applet"
 exec_always --no-startup-id "blueman-applet"
 exec_always --no-startup-id nitrogen --restore
-

@@ -1,2 +1,3 @@
 user: tstarr 
 hostname: kestrel
+desktop: i3 # valid values: i3, gnome

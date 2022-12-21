@@ -1,51 +1,68 @@
 - name: Install desktop dnf packages
-  dnf:
+  xbps:
     name:
-      - gnome-tweaks # Customize advanced GNOME 3 options
-      - dconf-editor # Configuration editor for dconf
-      - keepassxc # Cross-platform password manager
-      - btrfs-assistant # GUI to manage btrfs
-      - btrbk # Backup tool for btrfs subvolumes
+      - xorg
+      - xterm
+      - alacritty
       - mpv # Movie player playing most video formats and DVDs
-      - kitty
-      - i3-gaps # i3 with more features
-      - sxhkd # Simple X hotkey daemon
-      - rofi # Window switcher, application launcher and dmenu replacement
-      - python-i3ipc # IPC interface to control i3 from Python
-      - polybar # Fast and easy-to-use status bar
+      - python3-i3ipc # IPC interface to control i3 from Python
       - xprop
-      - mpv
-      - pavucontrol
       - lxappearance
-      - network-manager-applet
       - blueman
-      - ImageMagick
       - xrandr
-      - xdpyinfo
-      - xrdb
-      - xset
       - dunst
-      - feh
+      - ffmpeg
+      - firefox
+      - i3-gaps
+      - i3status
+      - nitrogen
+      - nvidia
+      - nvidia-libs-32bit
+      - pavucontrol
+      - polybar
+      - rofi
+      - libdrm-32bit
+      - libgcc-32bit
+      - libstdc++-32bit
+      - mesa-dri-32bit
+      - steam
+      - pcmanfm
+      - xclip
     state: present
   become: true
 
-- name: Install desktop flatpaks
-  flatpak:
-    name:
-      - com.mattjakeman.ExtensionManager # Browse, install, and manage GNOME Shell Extensions
-      - com.discordapp.Discord # Voice, video and text communication service
-      - org.gimp.GIMP # Create images and edit photographs
-      - org.inkscape.Inkscape # Vector Graphics Editor
-    state: present
-  become: true
+#- name: Install desktop flatpaks
+#  flatpak:
+#    name:
+#      - com.mattjakeman.ExtensionManager # Browse, install, and manage GNOME Shell Extensions
+#      - com.discordapp.Discord # Voice, video and text communication service
+#      - org.gimp.GIMP # Create images and edit photographs
+#      - org.inkscape.Inkscape # Vector Graphics Editor
+#    state: present
+#  become: true
 
-    #- name: Grab desktop binaries 
-    #  get_url: 
-    #    url: "{{ item.url }}"
-    #    dest: /home/{{ user }}/bin/{{ item.name }}
-    #    mode: 0755
-    #  loop:
-    #    - {name: "greenclip", url: "https://github.com/erebe/greenclip/releases/download/v4.2/greenclip-v4.2"}
+#- name: Grab desktop binaries 
+#  get_url: 
+#    url: "{{ item.url }}"
+#    dest: /home/{{ user }}/bin/{{ item.name }}
+#    mode: 0755
+#  loop:
+#    - {name: "greenclip", url: "https://github.com/erebe/greenclip/releases/download/v4.2/greenclip-v4.2"}
+#    alacritty-0.11.0_1
 
-# Using sxhkd until swhkd supports keychords
-# - import_tasks: swhkd.yml
+    #ansible
+    #btrbk
+    #chezmoi
+    #discord
+    #elogind
+    #fd
+    #git
+    #pipewire
+    #python3
+    #ripgrep
+    #rsync
+    #syncthing
+    #unzip
+    #void-repo-multilib
+    #void-repo-multilib-nonfree
+    #void-repo-nonfree

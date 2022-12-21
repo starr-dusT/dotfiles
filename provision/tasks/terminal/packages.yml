@@ -1,13 +1,17 @@
 - name: Install terminal dnf packages
-  dnf:
+  xbps:
     name:
-      - stow # Symlink dots with a GNU 
-      - vifm # File manager with curses interface
       - neovim # Vim-fork focused on extensibility and agility
       - task # Command-line TODO list manager
-      - timew # Timewarrior tracks and reports time
+      - timewarrior # Timewarrior tracks and reports time
       - nnn # The missing terminal file browser for X
+      - vifm
+      - zsh
+      - tmux
+      - nmap
+      - w3m 
     state: present
   become: true
 
-- import_tasks: advcpmv.yml # Patched cp and mv for nnn
+#- import_tasks: advcpmv.yml # Patched cp and mv for nnn
+- import_tasks: nb.yml

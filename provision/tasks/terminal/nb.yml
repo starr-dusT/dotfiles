@@ -1,0 +1,5 @@
+- name: Download nb
+  ansible.builtin.get_url:
+    url: https://raw.github.com/xwmx/nb/master/nb
+    dest: /home/{{ user }}/bin/nb
+    mode: 0755
