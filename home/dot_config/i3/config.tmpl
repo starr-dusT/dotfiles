@@ -140,6 +140,7 @@ bindsym $mod+x mode utility
 mode utility {
     bindsym q exit
     bindsym r exec chezmoi apply && i3-msg restart
+    bindsym c exec "CM_LAUNCHER=rofi clipmenu -i", $e
     # TODO: flameshot (mod+Ctrl+f)
     # TODO: gamemode (mod+Ctrl+g). Needs script to toggle
     bindsym Escape mode default
@@ -208,8 +209,8 @@ bindsym XF86AudioMute exec amixer -q set Master toggle
 
 # [o]pen applications
 bindsym $mod+Return exec alacritty
-bindsym $mod+a exec rofi -show drun -theme gruvbox-dark-soft -show-icons
-bindsym $mod+Shift+a exec rofi -show window -theme gruvbox-dark-soft -show-icons
+bindsym $mod+a exec rofi -show drun -show-icons
+bindsym $mod+Shift+a exec rofi -show window -show-icons
 bindsym $mod+o mode open
 mode open {
     bindsym b exec firefox, $e
@@ -236,8 +237,10 @@ mode scratch {
 #----- AUTOSTART WITH I3
 #-------------------------------------------------------------------------------
 
+exec --no-startup-id "autorandr --change && i3-msg restart"
 exec --no-startup-id "pipewire & pipewire-pulse &"
 exec_always --no-startup-id "$HOME/.config/i3/scripts/polybar.sh"
+exec --no-startup-id "clipmenud"
 exec_always --no-startup-id "nm-applet"
 exec_always --no-startup-id "blueman-applet"
 exec_always --no-startup-id nitrogen --restore

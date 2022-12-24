@@ -10,6 +10,7 @@
       #- wireguard # Fast, modern, secure vpn tunnel
       #- wireguard-tools # Tool for wireguard
       #- anacron
+      - cifs-utils
     state: present
   become: true
 

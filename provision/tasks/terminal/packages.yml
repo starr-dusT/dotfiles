@@ -4,12 +4,14 @@
       - neovim # Vim-fork focused on extensibility and agility
       - task # Command-line TODO list manager
       - timewarrior # Timewarrior tracks and reports time
-      - nnn # The missing terminal file browser for X
       - vifm
       - zsh
       - tmux
       - nmap
       - w3m 
+      - lf
+      - khal
+      - vdirsyncer
     state: present
   become: true
 

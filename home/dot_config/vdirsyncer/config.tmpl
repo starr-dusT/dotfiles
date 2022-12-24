@@ -1,0 +1,20 @@
+[general]
+status_path = "~/.vdirsyncer/status/"
+
+[pair personal_calendar]
+a = "personal_calendar_local"
+b = "personal_calendar_remote"
+collections = ["from a", "from b"]
+metadata = ["color"]
+
+[storage personal_calendar_local]
+type = "filesystem"
+path = "~/.calendars/"
+fileext = ".ics"
+
+[storage personal_calendar_remote]
+type = "caldav"
+
+url = {{ (bitwardenFields "item" "98975280-32ee-4929-ae49-af7401888f67").url.value }}
+username = {{ (bitwarden "item" "98975280-32ee-4929-ae49-af7401888f67").login.username }}
+password = {{ (bitwarden "item" "98975280-32ee-4929-ae49-af7401888f67").login.password }}

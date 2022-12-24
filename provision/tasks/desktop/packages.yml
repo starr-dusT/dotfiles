@@ -28,6 +28,9 @@
       - steam
       - pcmanfm
       - xclip
+      - autorandr
+      - xsel
+      - clipmenu
     state: present
   become: true
 
@@ -41,14 +44,12 @@
     state: present
   become: true
 
-#- name: Grab desktop binaries 
-#  get_url: 
-#    url: "{{ item.url }}"
-#    dest: /home/{{ user }}/bin/{{ item.name }}
-#    mode: 0755
-#  loop:
-#    - {name: "greenclip", url: "https://github.com/erebe/greenclip/releases/download/v4.2/greenclip-v4.2"}
-#    alacritty-0.11.0_1
+- name: Install bitwarden
+  unarchive: 
+    src: "https://vault.bitwarden.com/download/?app=cli&platform=linux"
+    dest: /home/{{ user }}/bin
+    remote_src: true
+    mode: 0755
 
     #ansible
     #btrbk

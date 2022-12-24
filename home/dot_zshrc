@@ -107,3 +107,15 @@ alias s="startx"
 alias cmc="chezmoi cd"
 alias cmd="chezmoi apply --verbose --dry-run"
 alias cma="chezmoi apply"
+
+# xbps
+alias xi="sudo xbps-install"
+alias xr="sudo xbps-remove"
+
+# trashcli
+alias rm='echo "This is not the command you are looking for."; false'
+alias tp='trash-put'
+alias te='trash-empty'
+alias tl='trash-list'
+alias tre='trash-restore'
+alias trm='trash-rm'
