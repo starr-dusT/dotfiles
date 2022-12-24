@@ -11,6 +11,7 @@
       - w3m 
       - lf
       - khal
+      - khard
       - vdirsyncer
     state: present
   become: true

@@ -1,0 +1,19 @@
+[general]
+status_path = "~/.vdirsyncer/status/"
+
+[pair personal_contacts]
+a = "personal_contacts_local"
+b = "personal_contacts_remote"
+collections = ["from a", "from b"]
+
+[storage personal_contacts_local]
+type = "filesystem"
+path = "~/.contacts/"
+fileext = ".vcf"
+
+[storage personal_contacts_remote]
+type = "carddav"
+
+url = "{{ (bitwardenFields "item" "17646363-f639-4c2f-8895-af75000653ab").url.value }}"
+username = "{{ (bitwarden "item" "17646363-f639-4c2f-8895-af75000653ab").login.username }}"
+password = "{{ (bitwarden "item" "17646363-f639-4c2f-8895-af75000653ab").login.password }}"
