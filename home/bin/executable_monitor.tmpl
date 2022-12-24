@@ -42,6 +42,9 @@ else:
     #crash
     0/0
 
+
+os.system("autorandr --save current --force")
+
 # ask user to define primary and secondary monitor
 i3_dict["disp_pri"] = left if left_primary == 'y' else right
 i3_dict["disp_sec"] = left if left_primary == 'n' else right

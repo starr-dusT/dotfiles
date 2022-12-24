@@ -21,11 +21,6 @@
       - pavucontrol
       - polybar
       - rofi
-      - libdrm-32bit
-      - libgcc-32bit
-      - libstdc++-32bit
-      - mesa-dri-32bit
-      - steam
       - pcmanfm
       - xclip
       - autorandr
@@ -51,17 +46,6 @@
     remote_src: true
     mode: 0755
 
-    #ansible
-    #btrbk
-    #chezmoi
-    #elogind
-    #fd
-    #git
-    #pipewire
-    #python3
-    #ripgrep
-    #rsync
-    #unzip
     #void-repo-multilib
     #void-repo-multilib-nonfree
     #void-repo-nonfree

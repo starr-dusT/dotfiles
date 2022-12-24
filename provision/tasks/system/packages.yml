@@ -3,14 +3,20 @@
     name:
       - git # Fast Version Control System
       - git-lfs # Git extension for versioning large files
-      #- python-psutil # Cross-platform library for retrieving information on running processes 
       - syncthing # Continuous File Synchronization
       - flatpak # Application deployment framework for desktop apps
-      #- pipewire-codec-aptx # PipeWire Bluetooth aptX codec plugin
-      #- wireguard # Fast, modern, secure vpn tunnel
-      #- wireguard-tools # Tool for wireguard
-      #- anacron
+      - wireguard # Fast, modern, secure vpn tunnel
+      - wireguard-tools # Tool for wireguard
+      - cronie
+      - pipewire
+      - libspa-bluetooth
       - cifs-utils
+      - ansible
+      - btrbk
+      - chezmoi
+      - elogind
+      - rsync
+      - unzip
     state: present
   become: true
 

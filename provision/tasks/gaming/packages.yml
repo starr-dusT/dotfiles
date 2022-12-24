@@ -1,6 +1,10 @@
 - name: Install gaming dnf packages
-  dnf:
+  xbps:
     name:
+      - libdrm-32bit
+      - libgcc-32bit
+      - libstdc++-32bit
+      - mesa-dri-32bit
       - steam # Launcher for the Steam software distribution service
       - lutris # Video game preservation platform
       - gamemode # Optimize system performance for games on demand

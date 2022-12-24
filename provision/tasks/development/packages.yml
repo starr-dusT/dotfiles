@@ -1,14 +1,10 @@
 - name: Install development dnf packages
-  dnf:
+  xbps:
     name:
-      - codium # Free/Libre Open Source Software Binaries of VS Code
-      - python3.9 # Version 3.9 of the Python interpreter
+      - python3
       - python3-pip # A tool for installing and managing Python3 packages
-      - nodejs # JavaScript runtime
-      - npm # Node.js Package Manager
-      - gcc-c++
       - ripgrep
-      - fd-find
+      - fd
       - lazygit
     state: present
   become: true
@@ -17,3 +13,10 @@
   ansible.builtin.pip:
     name: 
       - ansible-lint # Command-line tool for linting playbooks, roles and collections 
+
+- name: Install development flatpaks
+  flatpak:
+    name:
+      - com.vscodium.codium # Free/Libre Open Source Software Binaries of VS Code
+    state: present
+  become: true

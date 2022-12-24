@@ -1,44 +1,13 @@
-
-- name: Ansible playbook to setup my local machine
+- name: Ansible playbook to setup void linux
   hosts: all
 
   vars_files:
     - vars/main.yml
 
-      #vars_prompt:
-      #  - name: github_token
-      #    prompt: "What is your GitHub Token?"
-      #    default: "{{ lookup('env','GITHUB_TOKEN') }}"
-      #    private: yes
-
-      #pre_tasks:
-      #  - name: Ensure setup directory exists
-      #    file:
-      #      path: "{{ setup_dir }}"
-      #      state: directory
-      #      mode: 0755
-      #    tags: [always]
-
-      #post_tasks:
-      #  - name: Remove setup directory
-      #    file:
-      #      path: "{{ setup_dir }}"
-      #      state: absent
-      #    become: true
-      #    tags: [always]
-
-      #handlers:
-      #  - name: restart docker
-      #    service:
-      #      name: docker
-      #      state: restarted
-      #    become: true
-
   tasks:
-    # This import MUST be first
     - import_tasks: tasks/system/_main.yml
     - import_tasks: tasks/terminal/_main.yml
-    #- import_tasks: tasks/development/_main.yml
+    - import_tasks: tasks/development/_main.yml
     - import_tasks: tasks/desktop/_main.yml
-    #- import_tasks: tasks/gaming/_main.yml
+    - import_tasks: tasks/gaming/_main.yml
 
