@@ -26,6 +26,7 @@
       - autorandr
       - xsel
       - clipmenu
+      - nerd-fonts
     state: present
   become: true
 
@@ -46,6 +47,12 @@
     remote_src: true
     mode: 0755
 
-    #void-repo-multilib
-    #void-repo-multilib-nonfree
-    #void-repo-nonfree
+- name: Install greenclip 
+  get_url: 
+    url: "https://github.com/erebe/greenclip/releases/download/v4.2/greenclip"
+    dest: /home/{{ user }}/bin
+    mode: 0755
+      
+#void-repo-multilib
+#void-repo-multilib-nonfree
+#void-repo-nonfree

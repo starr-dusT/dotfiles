@@ -15,6 +15,12 @@ sudo ln -s /etc/sv/polkitd /var/service
 sudo ln -s /etc/sv/bluetoothd /var/service
 ```
 
+## enable sshd 
+
+```bash
+sudo ln -s /etc/sv/sshd /var/service
+```
+
 ## enable non-free and multilib
 
 ```bash
