@@ -29,4 +29,6 @@ return require('packer').startup(function(use)
     use ('L3MON4D3/LuaSnip')
     use ('saadparwaiz1/cmp_luasnip')
 
+    use ('alker0/chezmoi.vim')
+
 end)

@@ -1,0 +1,6 @@
+[".themes"]
+    type = "archive"
+    url = "https://github.com/dracula/gtk/archive/master.zip"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
