@@ -1,5 +1,5 @@
 - name: Set desktop files to hide
-  include_tasks: _hide-desktop.yml
+  include_tasks: ../include/hide-desktop.yml
   loop:
     - /usr/share/applications/wine-winhelp.desktop
     - /usr/share/applications/wine-mime-msi.desktop
