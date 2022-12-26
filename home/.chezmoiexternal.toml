@@ -1,4 +1,4 @@
-[".themes"]
+[".themes/dracula"]
     type = "archive"
     url = "https://github.com/dracula/gtk/archive/master.zip"
     exact = true

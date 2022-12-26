@@ -13,8 +13,12 @@
       - khal
       - khard
       - vdirsyncer
+      - cargo # Required for rbw
     state: present
   become: true
 
-#- import_tasks: advcpmv.yml # Patched cp and mv for nnn
+- name: Install rbw
+  community.general.cargo:
+    name: rbw
+
 - import_tasks: nb.yml

@@ -6,6 +6,7 @@
       - ripgrep
       - fd
       - lazygit
+      - cargo
     state: present
   become: true
 

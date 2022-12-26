@@ -1,32 +1,32 @@
 - name: Install desktop dnf packages
   xbps:
     name:
-      - xorg
-      - xterm
-      - alacritty
-      - mpv # Movie player playing most video formats and DVDs
-      - python3-i3ipc # IPC interface to control i3 from Python
-      - xprop
-      - lxappearance
-      - blueman
-      - xrandr
-      - dunst
-      - ffmpeg
-      - firefox
-      - i3-gaps
-      - i3status
-      - nitrogen
-      - nvidia
-      - nvidia-libs-32bit
-      - pavucontrol
-      - polybar
-      - rofi
-      - pcmanfm
-      - xclip
-      - autorandr
-      - xsel
-      - clipmenu
-      - nerd-fonts
+      - xorg # X.org meta-package
+      - xterm # X Terminal Emulator
+      - alacritty # Cross-platform, GPU-accelerated terminal emulator
+      - mpv  # Video player based on MPlayer/mplayer2
+      - python3-i3ipc  # Improved Python library to control i3wm and sway
+      - xprop # Property displayer for X
+      - lxappearance # LXDE Theme Switcher
+      - blueman # GTK+ Bluetooth Manager
+      - xrandr # Primitive command line interface to RandR extension
+      - dunst # Lightweight and customizable notification daemon
+      - ffmpeg # Decoding, encoding and streaming software
+      - firefox # Mozilla Firefox web browser
+      - i3-gaps # Improved tiling window manager - i3 fork with more features
+      - i3status # Status bar generator for i3bar, dzen2, xmobar or similar programs
+      - nitrogen # Background browser and setter for X with support for Xinerama
+      - nvidia # NVIDIA drivers for linux - Libraries and Utilities
+      - nvidia-libs-32bit # NVIDIA drivers for linux - common libraries (32bit)
+      - pavucontrol # PulseAudio Volume Control
+      - polybar # Fast and easy-to-use status bar
+      - rofi # Window switcher, run dialog and dmenu replacement
+      - pcmanfm # LXDE file manager
+      - xclip # Command line interface to the X11 clipboard
+      - autorandr # Automatically select a display configuration based on connected devices
+      - xsel # Command-line getting and setting the contents of the X selection
+      - clipmenu # Clipboard management using dmenu
+      - nerd-fonts # Iconic font aggregator, collection and patcher
     state: present
   become: true
 
@@ -46,13 +46,12 @@
     dest: /home/{{ user }}/bin
     remote_src: true
     mode: 0755
-
-- name: Install greenclip 
-  get_url: 
-    url: "https://github.com/erebe/greenclip/releases/download/v4.2/greenclip"
-    dest: /home/{{ user }}/bin
-    mode: 0755
       
+- name: Install desktop python packages
+  ansible.builtin.pip:
+    name: 
+      - rofi-rbw 
+
 #void-repo-multilib
 #void-repo-multilib-nonfree
 #void-repo-nonfree

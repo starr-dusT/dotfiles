@@ -83,6 +83,7 @@ fi
 export PATH
 
 export PATH=/home/tstarr/.nimble/bin:$PATH
+export PATH=/home/tstarr/.cargo/bin:$PATH
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -108,9 +109,9 @@ alias n="nnn -d -e -H -r"
 alias s="startx"
 
 # Chezmoi
-alias cmc="chezmoi cd"
-alias cmd="chezmoi apply --verbose --dry-run"
-alias cma="chezmoi apply"
+alias cc="chezmoi cd"
+alias cdr="chezmoi apply --verbose --dry-run"
+alias ca="chezmoi apply"
 
 # xbps
 alias xi="sudo xbps-install"

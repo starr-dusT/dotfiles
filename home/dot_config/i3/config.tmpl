@@ -99,10 +99,6 @@ for_window [con_mark="scratch-nnn"] floating enable, \
     resize set 800 px 600 px, \
     move position 880 px 420 px
 
-for_window [con_mark="scratch-warden"] floating enable, \
-    resize set 1000 px 800 px, \
-    move position 780 px 320 px
-
 for_window [con_mark="scratch-warrior"] floating enable, \
     resize set 1000 px 800 px, \
     move position 780 px 320 px
@@ -140,7 +136,7 @@ bindsym $mod+x mode utility
 mode utility {
     bindsym q exit
     bindsym r restart
-    bindsym c exec "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}'", $e
+    bindsym p exec "rofi-rbw", $e
     # TODO: flameshot (mod+Ctrl+f)
     # TODO: gamemode (mod+Ctrl+g). Needs script to toggle
     bindsym Escape mode default
@@ -224,8 +220,6 @@ bindsym $mod+c mode scratch
 mode scratch {
     bindsym Return exec $HOME/.config/i3/scripts/scratch.sh \
         'scratch-term' 'alacritty', $e
-    bindsym b exec --no-startup-id $HOME/.config/i3/scripts/scratch.sh \
-        'scratch-warden' 'firefoxpwa site launch 01GKYZS658452DK05DVDCRF5V4, $e'
     bindsym n exec $HOME/.config/i3/scripts/scratch.sh \
         'scratch-nnn' 'alacritty -e nnn -d -e -H -r', $e
     bindsym t exec $HOME/.config/i3/scripts/scratch.sh \
@@ -240,6 +234,5 @@ mode scratch {
 exec --no-startup-id "autorandr --change && i3-msg restart"
 exec --no-startup-id "pipewire & pipewire-pulse &"
 exec_always --no-startup-id "$HOME/.config/i3/scripts/polybar.sh"
-exec --no-startup-id "greenclip daemon &"
 exec_always --no-startup-id "blueman-applet"
 exec_always --no-startup-id nitrogen --restore
