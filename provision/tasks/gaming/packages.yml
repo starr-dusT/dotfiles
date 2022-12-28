@@ -1,10 +1,10 @@
 - name: Install gaming dnf packages
   xbps:
     name:
-      - libdrm-32bit
-      - libgcc-32bit
-      - libstdc++-32bit
-      - mesa-dri-32bit
+      - libdrm-32bit # Userspace interface to kernel DRM services (32bit)
+      - libgcc-32bit # GNU Compiler Collection - GCC library (32bit)
+      - libstdc++-32bit # GNU Compiler Collection - Standard C++ Library (32bit)
+      - mesa-dri-32bit # Mesa DRI drivers (32bit)
       - steam # Launcher for the Steam software distribution service
       - lutris # Video game preservation platform
       - gamemode # Optimize system performance for games on demand

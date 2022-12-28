@@ -43,8 +43,4 @@
 - name: Install desktop python packages
   ansible.builtin.pip:
     name: 
-      - rofi-rbw 
-
-#void-repo-multilib
-#void-repo-multilib-nonfree
-#void-repo-nonfree
+      - rofi-rbw # Rofi frontend for Bitwarden

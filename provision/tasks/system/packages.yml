@@ -1,3 +1,12 @@
+- name: Install system repos 
+  xbps:
+    name:
+      - void-repo-multilib # Void Linux drop-in file for the multilib repository
+      - void-repo-multilib-nonfree # Void Linux drop-in file for the multilib/nonfree repository
+      - void-repo-nonfree # Void Linux drop-in file for the nonfree repository
+    state: present
+  become: true
+
 - name: Install system dnf packages
   xbps:
     name:
@@ -7,17 +16,17 @@
       - flatpak # Application deployment framework for desktop apps
       - wireguard # Fast, modern, secure vpn tunnel
       - wireguard-tools # Tool for wireguard
-      - cronie
-      - pipewire
-      - libspa-bluetooth
-      - cifs-utils
-      - ansible
-      - btrbk
-      - chezmoi
-      - elogind
-      - rsync
-      - unzip
-      - mimeo
+      - cronie # Runs specified programs at scheduled times
+      - pipewire # Server and user space API to deal with multimedia pipelines
+      - libspa-bluetooth # Server and user space API to deal with multimedia pipelines - bluetooth plugins
+      - cifs-utils # CIFS filesystem user-space tools
+      - ansible # Simple deployment, configuration management and execution framework
+      - btrbk # Backup tool for btrfs subvolumes
+      - chezmoi # Manage your dotfiles across multiple machines, securely
+      - elogind # Standalone logind fork
+      - rsync # Remote fast incremental file transfer tool
+      - unzip # List, test and extract compressed files in a ZIP archive
+      - mimeo # Open files by MIME-type or file name using regular expressions
     state: present
   become: true
 

@@ -1,12 +1,12 @@
 - name: Install development dnf packages
   xbps:
     name:
-      - python3
+      - python3 # Python programming language (3.11 series)
       - python3-pip # A tool for installing and managing Python3 packages
-      - ripgrep
-      - fd
-      - lazygit
-      - cargo
+      - ripgrep # Fast search tool inspired by ag and grep
+      - fd # Simple, fast and user-friendly alternative to find
+      - lazygit # Simple terminal UI for git commands
+      - cargo # Rust package manager
     state: present
   become: true
 

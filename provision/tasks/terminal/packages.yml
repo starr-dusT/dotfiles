@@ -4,21 +4,20 @@
       - neovim # Vim-fork focused on extensibility and agility
       - task # Command-line TODO list manager
       - timewarrior # Timewarrior tracks and reports time
-      - vifm
-      - zsh
-      - tmux
-      - nmap
-      - w3m 
-      - lf
-      - khal
-      - khard
-      - vdirsyncer
+      - vifm # Ncurses-based file manager with vi-like keybindings
+      - zsh # Z SHell
+      - tmux # Terminal Multiplexer
+      - nmap # Utility for network discovery and security auditing
+      - w3m  # Text-based Web browser and pager (with Debian patches)
+      - lf # Terminal file manager
+      - khal # Command-line calendar build around CalDAV
+      - khard # Command-line addressbook built around CardDAV
+      - vdirsyncer # Synchronize calendars and addressbooks
       - cargo # Required for rbw
     state: present
   become: true
 
 - name: Install rbw
   community.general.cargo:
-    name: rbw
-
-- import_tasks: nb.yml
+    name: rbw # Unofficial command line client for Bitwarden
+- import_tasks: nb.yml # Command line and local web note‑taking, bookmarking, archiving, and knowledge base application
