@@ -27,6 +27,7 @@
       - rsync # Remote fast incremental file transfer tool
       - unzip # List, test and extract compressed files in a ZIP archive
       - mimeo # Open files by MIME-type or file name using regular expressions
+      - busybox # Swiss Army Knife of Embedded Linux
     state: present
   become: true
 

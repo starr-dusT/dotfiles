@@ -20,4 +20,3 @@
 - name: Install rbw
   community.general.cargo:
     name: rbw # Unofficial command line client for Bitwarden
-- import_tasks: nb.yml # Command line and local web note‑taking, bookmarking, archiving, and knowledge base application

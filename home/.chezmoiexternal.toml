@@ -20,7 +20,14 @@
     url = "https://github.com/dracula/zsh/archive/master.zip"
     exact = true
     stripComponents = 1
+    refreshPeriod = "168h"
     include = ["*/dracula.zsh-theme", "*/lib/**"]
+
+["bin/nb"]
+    type = "file"
+    url = "https://raw.github.com/xwmx/nb/master/nb"
+    executable = true
+    refreshPeriod = "168h"
 
 #[".oh-my-zsh/custom/themes/dracula.zsh-theme"]
 #    type = "file"
