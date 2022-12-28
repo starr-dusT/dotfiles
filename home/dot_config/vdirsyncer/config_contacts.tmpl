@@ -14,6 +14,6 @@ fileext = ".vcf"
 [storage personal_contacts_remote]
 type = "carddav"
 
-url = "{{ (bitwardenFields "item" "17646363-f639-4c2f-8895-af75000653ab").url.value }}"
-username = "{{ (bitwarden "item" "17646363-f639-4c2f-8895-af75000653ab").login.username }}"
-password = "{{ (bitwarden "item" "17646363-f639-4c2f-8895-af75000653ab").login.password }}"
+url = "{{ (secret "Vdirsyncer - Contacts" "url") }}"
+username = "{{ (secret "Vdirsyncer - Contacts" "Username") }}"
+password = "{{ (secret "Vdirsyncer - Contacts" "Password") }}"

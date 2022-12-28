@@ -19,6 +19,11 @@ return require('packer').startup(function(use)
     use ('mbbill/undotree')
     use ('kdheepak/lazygit.nvim')
 
+    use({ "iamcco/markdown-preview.nvim", 
+          run = "cd app && npm install", 
+          setup = function() vim.g.mkdp_filetypes = { "markdown" } end, 
+          ft = { "markdown" }, 
+        })
     -- LSP
     use ('neovim/nvim-lspconfig')
     use ('hrsh7th/cmp-nvim-lsp')

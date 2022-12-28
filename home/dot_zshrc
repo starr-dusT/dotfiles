@@ -124,6 +124,3 @@ alias te='trash-empty'
 alias tl='trash-list'
 alias tre='trash-restore'
 alias trm='trash-rm'
-
-# bitwarden-cli
-alias bu='export BW_SESSION=$( bw unlock --raw )' # unlock and export bitwarden session

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# rbw-get <name of entry> <field of entry>
+# Ex: rbw-get google url
+
+if [[ "$2" == "Password" ]] 
+then
+    rbw get "$1"
+else
+    rbw get "$1" --full | grep "$2" | cut -d ' ' -f 2-
+fi

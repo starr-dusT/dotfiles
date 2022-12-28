@@ -17,6 +17,7 @@
       - elogind
       - rsync
       - unzip
+      - mimeo
     state: present
   become: true
 

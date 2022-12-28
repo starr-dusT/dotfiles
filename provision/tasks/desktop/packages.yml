@@ -39,13 +39,6 @@
       - com.github.tchx84.Flatseal # Manage Flatpak permissions
     state: present
   become: true
-
-- name: Install bitwarden
-  unarchive: 
-    src: "https://vault.bitwarden.com/download/?app=cli&platform=linux"
-    dest: /home/{{ user }}/bin
-    remote_src: true
-    mode: 0755
       
 - name: Install desktop python packages
   ansible.builtin.pip:
