@@ -6,7 +6,6 @@
       - ripgrep # Fast search tool inspired by ag and grep
       - fd # Simple, fast and user-friendly alternative to find
       - lazygit # Simple terminal UI for git commands
-      - cargo # Rust package manager
     state: present
   become: true
 

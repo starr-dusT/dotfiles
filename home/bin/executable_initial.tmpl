@@ -1,9 +1,11 @@
-#!/usr/bin/env sh
-set -e
-echo -e "Starting initial setup for Fedora..."
+#!/usr/bin/env bash
 
-# Install ansible and run playbook
-sudo dnf -y update && sudo dnf install -y ansible
+echo -e "Starting initial setup..."
+
+# Install ansible python dependencies
+sudo xpbs-install -Syu 
+sudo xbps-install python3 python3-pip ansible
+sudo pip install pexpect
 
 # Install ansible extensions
 ansible-galaxy install -r {{ .chezmoi.workingTree }}/provision/requirements.yml
@@ -19,7 +21,7 @@ read -p "Reboot? " -n 1 -r
 echo    # (optional) move to a new line
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
-    exit 1
+    exit 0
 fi
 
 sudo reboot

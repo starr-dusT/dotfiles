@@ -30,17 +30,20 @@
     state: present
   become: true
 
+- name: Install desktop xbps-src packages 
+  tags: ["src"]
+  include_tasks: ../include/xbps-src.yml
+  loop:
+    - package: rofi-rbw # Simplistic password typer/copier using rofi and wofi
+      repository: hostdir/binpkgs
+
 - name: Install desktop flatpaks
   flatpak:
     name:
-      - com.discordapp.Discord # Voice, video and text communication service
+      - com.discordapp.Discord # VoIP and instant messaging social platform
       - org.gimp.GIMP # Create images and edit photographs
       - org.inkscape.Inkscape # Vector Graphics Editor
       - com.github.tchx84.Flatseal # Manage Flatpak permissions
     state: present
   become: true
       
-- name: Install desktop python packages
-  ansible.builtin.pip:
-    name: 
-      - rofi-rbw # Rofi frontend for Bitwarden

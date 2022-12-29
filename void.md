@@ -86,12 +86,6 @@ export HOME=/home/tstarr/
 exec /usr/bin/syncthing > /dev/null 2>&1
 ```
 
-## OH-my-zsh
-
-```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-```
-
 ## Lxappearance
 
 GTK theme can be set with lxappearance

@@ -13,10 +13,12 @@
       - khal # Command-line calendar build around CalDAV
       - khard # Command-line addressbook built around CardDAV
       - vdirsyncer # Synchronize calendars and addressbooks
-      - cargo # Required for rbw
     state: present
   become: true
 
-- name: Install rbw
-  community.general.cargo:
-    name: rbw # Unofficial command line client for Bitwarden
+- name: Install terminal xbps-src packages 
+  tags: ["src"]
+  include_tasks: ../include/xbps-src.yml
+  loop:
+    - package: rbw # Unofficial command line client for bitwarden
+      repository: hostdir/binpkgs
