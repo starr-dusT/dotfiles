@@ -1,5 +1,13 @@
-- name: Grab {{ item.repo }}  latest binaries 
+- name: Get {{ item.repo }} information
+  github_release:
+    user: "{{ item.user }}"
+    repo: "{{ item.repo }}" 
+    action: latest_release
+  register: repo_latest 
+
+- name: Install {{ item.repo }}
   unarchive: 
     src: "https://github.com/{{ item.user }}/{{ item.repo }}/releases/download/{{ repo_latest['tag'] }}/{{ item.name }}"
     dest: /usr/local/bin
     remote_src: true 
+  become: true

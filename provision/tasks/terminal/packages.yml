@@ -22,3 +22,6 @@
   loop:
     - package: rbw # Unofficial command line client for bitwarden
       repository: hostdir/binpkgs
+
+- include_tasks: nb.yml # Command line and local web note‑taking, bookmarking, archiving, and knowledge base application
+- include_tasks: taskwarrior-tui.yml # Terminal User Interface (TUI) for Taskwarrior

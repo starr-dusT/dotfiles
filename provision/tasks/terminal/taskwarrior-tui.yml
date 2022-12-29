@@ -1,0 +1,6 @@
+- name: Install taskwarrior-tui
+  include_tasks: ../include/download-github.yml
+  loop:
+    - user: kdheepak
+      repo: taskwarrior-tui
+      name: taskwarrior-tui-x86_64-unknown-linux-gnu.tar.gz 
