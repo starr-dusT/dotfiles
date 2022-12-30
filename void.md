@@ -21,6 +21,18 @@ sudo ln -s /etc/sv/bluetoothd /var/service
 sudo ln -s /etc/sv/sshd /var/service
 ```
 
+## enable virt stuff
+
+```bash
+sudo ln -s /etc/sv/libvirtd /var/service
+sudo ln -s /etc/sv/virtlockd /var/service
+sudo ln -s /etc/sv/virtlogd /var/service
+```
+add user to group:
+```bash
+sudo gpasswd -a "$USER" libvirt
+```
+
 ## enable non-free and multilib
 
 ```bash

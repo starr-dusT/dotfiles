@@ -1,4 +1,4 @@
-- name: Install system void repos 
+- name: Install system void repos
   xbps:
     name:
       - void-repo-multilib # Void Linux drop-in file for the multilib repository
@@ -28,6 +28,10 @@
       - unzip # List, test and extract compressed files in a ZIP archive
       - mimeo # Open files by MIME-type or file name using regular expressions
       - busybox # Swiss Army Knife of Embedded Linux
+      - qemu # Open Source Processor Emulator
+      - libvirt # Virtualization API for controlling virtualization engines
+      - virt-manager # User interface for managing virtual machines
+      - bridge-utils # Layer2 ethernet bridging for Linux
     state: present
   become: true
 
