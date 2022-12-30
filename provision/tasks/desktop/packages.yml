@@ -1,4 +1,4 @@
-- name: Install desktop dnf packages
+- name: Install desktop void packages
   xbps:
     name:
       - xorg # X.org meta-package
@@ -27,7 +27,6 @@
       - xsel # Command-line getting and setting the contents of the X selection
       - clipmenu # Clipboard management using dmenu
       - nerd-fonts # Iconic font aggregator, collection and patcher
-      - PrusaSlicer # PrusaSlicer-2.4.2_2 G-code generator for 3D printers (RepRap, Makerbot, Ultimaker etc.)
     state: present
   become: true
 
@@ -47,4 +46,3 @@
       - com.github.tchx84.Flatseal # Manage Flatpak permissions
     state: present
   become: true
-      

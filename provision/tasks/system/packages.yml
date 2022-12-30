@@ -1,4 +1,4 @@
-- name: Install system repos 
+- name: Install system void repos 
   xbps:
     name:
       - void-repo-multilib # Void Linux drop-in file for the multilib repository
@@ -7,7 +7,7 @@
     state: present
   become: true
 
-- name: Install system dnf packages
+- name: Install system void packages
   xbps:
     name:
       - git # Fast Version Control System

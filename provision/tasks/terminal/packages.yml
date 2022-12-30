@@ -1,4 +1,4 @@
-- name: Install terminal dnf packages
+- name: Install terminal void packages
   xbps:
     name:
       - neovim # Vim-fork focused on extensibility and agility

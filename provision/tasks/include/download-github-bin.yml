@@ -4,13 +4,13 @@
     return_content: true
   register: repo_latest 
 
-- name: Install {{ item.repo }} - {{ repo_latest.json.tag_name }}
+- name: Install un-archived {{ item.repo }} - {{ repo_latest.json.tag_name }}
   loop: "{{ repo_latest.json.assets }}"
-  when: "item.match in asset.name"
-  unarchive:
-    src: "{{ asset.browser_download_url }}"
-    dest: /usr/local/bin
-    remote_src: true
+  when: "asset.name is regex(item.regex)"
+  get_url:
+    url: "{{ asset.browser_download_url }}"
+    dest: /usr/local/bin/{{ item.repo }}
+    mode: 0775
   loop_control:
     loop_var: asset
   become: true

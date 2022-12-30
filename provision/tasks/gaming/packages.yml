@@ -1,4 +1,4 @@
-- name: Install gaming dnf packages
+- name: Install gaming void packages
   xbps:
     name:
       - libdrm-32bit # Userspace interface to kernel DRM services (32bit)

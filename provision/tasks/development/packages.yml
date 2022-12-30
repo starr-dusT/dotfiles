@@ -1,4 +1,4 @@
-- name: Install development dnf packages
+- name: Install development void packages
   xbps:
     name:
       - python3 # Python programming language (3.11 series)
