@@ -3,4 +3,4 @@
   loop:
     - user: kdheepak
       repo: taskwarrior-tui
-      name: taskwarrior-tui-x86_64-unknown-linux-gnu.tar.gz 
+      match: unknown-linux-gnu.tar.gz

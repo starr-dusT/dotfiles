@@ -27,6 +27,7 @@
       - xsel # Command-line getting and setting the contents of the X selection
       - clipmenu # Clipboard management using dmenu
       - nerd-fonts # Iconic font aggregator, collection and patcher
+      - PrusaSlicer # PrusaSlicer-2.4.2_2 G-code generator for 3D printers (RepRap, Makerbot, Ultimaker etc.)
     state: present
   become: true
 

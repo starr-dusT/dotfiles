@@ -1,13 +1,16 @@
-- name: Get {{ item.repo }} information
-  github_release:
-    user: "{{ item.user }}"
-    repo: "{{ item.repo }}" 
-    action: latest_release
+- name: Get {{ item.repo }} release information
+  uri:
+    url: https://api.github.com/repos/{{ item.user }}/{{ item.repo }}/releases/latest
+    return_content: true
   register: repo_latest 
 
-- name: Install {{ item.repo }}
-  unarchive: 
-    src: "https://github.com/{{ item.user }}/{{ item.repo }}/releases/download/{{ repo_latest['tag'] }}/{{ item.name }}"
+- name: Install {{ item.repo }} - {{ repo_latest.json.tag_name }}
+  loop: "{{ repo_latest.json.assets }}"
+  when: "item.match in asset.name"
+  unarchive:
+    src: "{{ asset.browser_download_url }}"
     dest: /usr/local/bin
-    remote_src: true 
+    remote_src: true
+  loop_control:
+    loop_var: asset
   become: true
