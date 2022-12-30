@@ -3,9 +3,9 @@
 echo -e "Starting initial setup..."
 
 # Install ansible python dependencies
-sudo xpbs-install -Syu 
-sudo xbps-install python3 python3-pip ansible
-sudo pip install pexpect github3.py
+sudo xpbs-install -Syu -y
+sudo xbps-install python3 python3-pip ansible -y
+sudo pip install pexpect github3.py -y
 
 # Install ansible extensions
 ansible-galaxy install -r {{ .chezmoi.workingTree }}/provision/requirements.yml
@@ -17,11 +17,4 @@ ansible-playbook setup.yml -i hosts --ask-become-pass
 # Return to where you were
 cd -
 
-read -p "Reboot? " -n 1 -r
-echo    # (optional) move to a new line
-if [[ ! $REPLY =~ ^[Yy]$ ]]
-then
-    exit 0
-fi
-
-sudo reboot
+echo "I'd suggest rebooting"
