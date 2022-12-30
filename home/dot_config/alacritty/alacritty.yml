@@ -50,4 +50,4 @@ font:
     y: 0
 
 import:
-  - /home/tstarr/.config/alacritty/dracula.yml
+  - ~/.config/alacritty/dracula.yml

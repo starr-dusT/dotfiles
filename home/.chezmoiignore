@@ -1,3 +1,4 @@
+.oh-my-zsh/cache/**
 readme.md
 .gitignore
 .git

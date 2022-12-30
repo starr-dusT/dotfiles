@@ -62,7 +62,7 @@ label-font = 2
 
 [module/wlan]
 type = internal/network
-interface = enp3s0
+interface = {{ .network_interface }}
 interval = 5
 label-connected = 直 %local_ip% 
 label-connected-foreground = "#50fa7b"
@@ -72,7 +72,7 @@ content-padding = 2
 
 [module/bandwidth]
 type = internal/network
-interface = enp3s0 
+interface = {{ .network_interface }} 
 interval = 5
 label-connected =  %downspeed%  %upspeed% 
 label-disconnected =

@@ -4,7 +4,3 @@
     dest: /usr/local/bin/nb
     mode: 0755
   become: true
-
-- name: Setup nb completions
-  command: nb completions install --download
-  become: true

@@ -27,6 +27,7 @@
       - xsel # Command-line getting and setting the contents of the X selection
       - clipmenu # Clipboard management using dmenu
       - nerd-fonts # Iconic font aggregator, collection and patcher
+      - xdotool # Command-line X11 automation tool
     state: present
   become: true
 

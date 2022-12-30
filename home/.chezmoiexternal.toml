@@ -13,20 +13,14 @@
 [".oh-my-zsh"]
     type = "archive"
     url = "https://github.com/ohmyzsh/ohmyzsh/archive/master.tar.gz"
+    extact = true
+    stripComponents = 1
     refreshPeriod = "168h"
 
-[".oh-my-zsh/custom/themes"]
+[".oh-my-zsh/custom/themes/dracula"]
     type = "archive"
     url = "https://github.com/dracula/zsh/archive/master.zip"
     exact = true
     stripComponents = 1
     refreshPeriod = "168h"
     include = ["*/dracula.zsh-theme", "*/lib/**"]
-
-#[".oh-my-zsh/custom/themes/dracula.zsh-theme"]
-#    type = "file"
-#    url = "https://github.com/dracula/zsh/archive/master.zip"
-#    refreshPeriod = "168h"
-#    [".oh-my-zsh/custom/themes/dracula.zsh-theme".filter]
-#        command = "busybox"
-#        args = ["unzip", "/dev/stdin", "*/dracula.zsh-theme", "-p"]

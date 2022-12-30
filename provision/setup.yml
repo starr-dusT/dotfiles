@@ -2,7 +2,7 @@
   hosts: all
 
   vars_files:
-    - vars/main.yml
+    - ../home/.chezmoidata.yaml
 
   tasks:
     - import_tasks: tasks/system/_main.yml
@@ -10,4 +10,5 @@
     - import_tasks: tasks/development/_main.yml
     - import_tasks: tasks/desktop/_main.yml
     - import_tasks: tasks/gaming/_main.yml
+    - import_tasks: tasks/engineering/_main.yml
 

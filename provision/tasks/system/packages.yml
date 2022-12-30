@@ -32,6 +32,7 @@
       - libvirt # Virtualization API for controlling virtualization engines
       - virt-manager # User interface for managing virtual machines
       - bridge-utils # Layer2 ethernet bridging for Linux
+      - trash-cli # Command line interface to the freedesktop.org trashcan
     state: present
   become: true
 

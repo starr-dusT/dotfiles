@@ -5,33 +5,32 @@ My personal dotfiles repo. Documentation is pretty spotty. Maybe I'll fix that s
 
 ## Usage
 
-Dotfiles are managed with stow and Ansible (built for Fedora) is used for the bulk of configuration. Setup that cannot be easily automated with Ansible is documentd in [addtional-setup](additional-setup.md).
+Dotfiles are managed with chezmoi and Ansible (built for Void) is used for the bulk of configuration. 
 
 ## Initial Setup
 
-Install Fedora Workstation and run the following commands:
+Install Void with BTRFS and run the following commands:
 
 ```bash
-sudo dnf install -y git stow
-git clone https://github.com/starr-dusT/dotfiles ~/.dotfiles 
-rm ~/.bashrc
-cd ~/.dotfiles && stow .
-bash
-initial-setup
+sudo xbps-install -Syu -y
+sudo xbps-install -S git chezmoi -y
+git clone https://github.com/starr-dusT/dotfiles ~/.local/share/chezmoi 
 ```
+
+Then edit the `.chezmoidata.yaml` file within `home` to desired settings and run the following commands:
+
+```bash
+~/.local/share/chezmoi/jumpstart.sh
+```
+
+After reboot log into window manager and run `linux-monitor`, follow the prompts, reapply chezmoi config, and restart the window manager.
 
 Perform additional setup found in [additional-setup](additional-setup.md)
 
 ## Update Setup
 
-Run the following command with comma seperated tags:
-
-```bash
-update {tags} # valid tags: configs, updates, packages, services, once
-```
+`void-update` command updates the system with ansible. Run `void-update -h` for information on usage.
 
 ## TODO
 
-- make homesever use btrfs and fix "target" for home backups 
-- Add zsh with workable config
 - setup pavucontrol and bluetooth with scratchpads, polybar integration, etc.
