@@ -45,3 +45,7 @@ cd taskopen
 make PREFIX=/usr
 sudo make PREFIX=/usr install
 ```
+## Needs documentation...
+- syncthing
+- firefox setup
+- vdirsyncer for contacts/calendar
