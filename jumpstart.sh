@@ -17,7 +17,7 @@ ansible-galaxy install -r "$CHEZDIR/provision/requirements.yml"
 # Run setup playbook
 ansible-playbook "$CHEZDIR/provision/setup.yml" -i "$CHEZDIR/provision/hosts" --ask-become-pass
 
-#export PATH="$PATH:/usr/local/bin"
+export PATH="$PATH:/usr/local/bin"
 
 # Copy jumpstart scripts to temp bin dir and add to path
 mkdir -p "$CHEZDIR/temp_bin"
@@ -34,6 +34,9 @@ echo "{
     \"disp_pri\": \"HDMI-0\",
     \"disp_sec\": \"HDMI-0\"
 }" > "$CHEZDIR/home/.gen/i3.json"
+
+# initialize chezmoi
+chezmoi init
 
 # first chezmoi apply
 chezmoi apply
