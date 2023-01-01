@@ -1,31 +1,8 @@
 # Additional Setup
 
-The following documents Fedora setup that wasn't automated with ansible
+The following documents Void setup that wasn't automated with ansible
 
-## Zen-link Kernel for Fedora
-
-I like a kernel simliar to the Arch Zen kernel for gaming. [Nobara](https://nobaraproject.org/) provides one in this [copr repo](https://copr.fedorainfracloud.org/coprs/sentry/kernel-fsync/).
-
-```bash
-sudo dnf copr enable sentry/kernel-fsync
-sudo dnf update --refresh
-```
-
-## Properitary Nvidia Drivers
-
-Nvidia drivers are installed with this nice [copr repo](https://copr.fedorainfracloud.org/coprs/t0xic0der/nvidia-auto-installer-for-fedora/).
-
-```bash
-sudo dnf copr enable t0xic0der/nvidia-auto-installer-for-fedora -y
-sudo dnf install nvautoinstall -y
-sudo nvautoinstall rpmadd
-sudo nvautoinstall driver
-sudo nvautoinstall ffmpeg
-sudo nvautoinstall vulkan
-sudo nvautoinstall vidacc
-```
-
-## Wireguard Client
+## Wireguard Client (outdated)
 
 Wireguard is nice for a home vpn.
 
@@ -47,23 +24,19 @@ sudo btrbk -c ~/.config/btrbk/home_btrbk.conf -v run # creates user backups and 
 sudo btrbk -c ~/.config/btrbk/root_btrbk.conf -v run # creates root snapshots 
 ```
 
-SSH keypair is used for password-less root ssh for remote back-up. See Github.
+SSH keypair is used for password-less root ssh for remote back-up. See btrbk README.
 
-anacron is used for daily backups. Copy home_backup.sh to /etc/cron.daily.
+anacron is used for daily backups. Copy `home_backup.sh` to `/etc/cron.daily`.
 
-## Automount network drive with fstab
+## Mount network drives
 
-Fstab can be mounted when the network drive is accessed. This is done for the "engi" home server.
+I find fstab messing about more troubule than it is worth. Mount network drives when needed with the following commands:
 
-```bash
-sudo mkdir -p /mnt/engi
+Engi:`linux-mount-engi`
 
-# Add following line to fstab
-//<server-ip>/engi     /mnt/engi 	cifs 	uid=1000,credentials=/home/tstarr/.smb,iocharset=utf8,noauto,x-systemd.automount 0 0
-```
 ## Taskopen for taskwarrior
 
-taskopen needs is easier to install manually at this point since the fedora package is very old.
+taskopen needs is easier to install manually at this point since it isn't packaged and uses nim. Might get this automated in the future.
 
 ```bash
 curl https://nim-lang.org/choosenim/init.sh -sSf | sh # install nim for compile
@@ -71,16 +44,4 @@ git clone https://github.com/jschlatow/taskopen.git
 cd taskopen
 make PREFIX=/usr
 sudo make PREFIX=/usr install
-```
-
-## Taskwarrior-tui
-
-Download a release [here](https://github.com/kdheepak/taskwarrior-tui) and move to /usr/bin.
-
-## display manager (or lack thereof)
-
-I disable gdm and login from tty
-
-```bash
-sudo systemctl disable gdm
 ```
