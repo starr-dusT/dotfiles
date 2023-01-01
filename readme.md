@@ -36,3 +36,4 @@ Perform additional setup found in [additional-setup](additional-setup.md)
 - setup pavucontrol and bluetooth with scratchpads, polybar integration, etc.
 - install taskopen with ansible?
 - crontab for calendar and contact sync?
+- figure out wireguard setup for `additional-setup`
