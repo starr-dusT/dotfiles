@@ -17,7 +17,7 @@ sudo xbps-install -S git chezmoi -y
 git clone https://github.com/starr-dusT/dotfiles ~/.local/share/chezmoi 
 ```
 
-Then edit the `.chezmoidata.yaml` file within `home` to desired settings and run the following commands:
+Copy `.chezmoidata.yaml.example` to `.chezmoidata.yaml` and edit with desired settings then run the following commands:
 
 ```bash
 ~/.local/share/chezmoi/jumpstart.sh
@@ -30,10 +30,3 @@ Perform additional setup found in [additional-setup](additional-setup.md)
 ## Update Setup
 
 `void-update` command updates the system with ansible. Run `void-update -h` for information on usage.
-
-## TODO
-
-- setup pavucontrol and bluetooth with scratchpads, polybar integration, etc.
-- install taskopen with ansible?
-- crontab for calendar and contact sync?
-- figure out wireguard setup for `additional-setup`

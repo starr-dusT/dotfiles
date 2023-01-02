@@ -1,7 +1,0 @@
-user: test
-hostname: test
-desktop: i3 # valid values: i3, gnome
-network_interface: "eth0"
-git_user: "starr-dusT"
-git_email: &my_email "starrtyler88@gmail.com"
-bitwarden_email: *my_email
