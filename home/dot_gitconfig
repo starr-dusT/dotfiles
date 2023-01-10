@@ -8,7 +8,7 @@
     user = "starr-dusT"
 
 [core]
-    sshCommand = "ssh -i ~/.ssh/personal_github"
+    sshCommand = "ssh -i ~/.ssh/keys/personal_github"
 
 [includeIf "gitdir:~/devel/work/**"]
     path = ~/devel/work/.gitconfig.work
