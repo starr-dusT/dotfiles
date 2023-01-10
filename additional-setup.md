@@ -88,3 +88,21 @@ taskopen).
 
 My GTK theme is pulled down by chezmoi, but isn't active by default. This can
 be fixed with the lxappearance gui.
+
+## Single GPU Passthrough with Windows
+
+Install libvirt hooks:
+
+```bash
+sudo mkdir -p /etc/libvirt/hooks
+sudo wget 'https://raw.githubusercontent.com/PassthroughPOST/VFIO-Tools/master/libvirt_hooks/qemu' \
+     -O /etc/libvirt/hooks/qemu
+sudo chmod +x /etc/libvirt/hooks/qemu
+```
+
+reboot....
+
+
+```bash
+
+```

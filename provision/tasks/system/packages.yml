@@ -33,6 +33,11 @@
       - virt-manager # User interface for managing virtual machines
       - bridge-utils # Layer2 ethernet bridging for Linux
       - trash-cli # Command line interface to the freedesktop.org trashcan
+      - udiskie # Removable disk automounter using udisks
+      - curl # Client that groks URLs
+      - wget # GNU wget download utility
+      - NetworkManager # Network Management daemon
+      - network-manager-applet # NetworkManager panel applet for GNOME
     state: present
   become: true
 

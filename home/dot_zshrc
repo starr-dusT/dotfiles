@@ -105,10 +105,11 @@ export EDITOR=nvim
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
-alias spl="tmux_splat"
-alias n="nnn -d -e -H -r"
-alias s="startx"
+
+# tmuxinator 
+alias tsplat='tmuxinator start splat'
+alias tdot='tmuxinator start dot'
+alias ttask='tmuxinator start task'
 
 # Chezmoi
 alias cc="chezmoi cd"

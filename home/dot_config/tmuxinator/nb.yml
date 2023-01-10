@@ -1,0 +1,17 @@
+# /home/tstarr/.config/tmuxinator/nb.yml
+
+name: nb
+root: ~/
+
+on_project_first_start: ssh-add ~/.ssh/personal_github
+
+windows:
+  - home:
+    - nb use home
+    - clear
+    - nb
+  - void:
+    - nb use void
+    - clear
+    - nb
+  - server: nb browse --serve

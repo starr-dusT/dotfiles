@@ -19,6 +19,12 @@
     git config --global user.email {{ git_email }}
     git config --global user.name {{ git_user }}
 
+- name: Stop system services
+  shell: |
+    rm -R /var/service/dhcpcd
+  ignore_errors: true
+  become: true
+
 - name: Start system services
   shell: |
     ln -s /etc/sv/dbus /var/service
@@ -28,6 +34,7 @@
     ln -s /etc/sv/libvirtd /var/service
     ln -s /etc/sv/virtlockd /var/service
     ln -s /etc/sv/virtlogd /var/service
+    ln -s /etc/sv/NetworkManager /var/service
   ignore_errors: true
   become: true
 

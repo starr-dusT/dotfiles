@@ -13,7 +13,7 @@ Install Void with BTRFS and run the following commands:
 
 ```bash
 sudo xbps-install -Syu -y
-sudo xbps-install -S git chezmoi -y
+sudo xbps-install -S vim git chezmoi -y
 git clone https://github.com/starr-dusT/dotfiles ~/.local/share/chezmoi 
 ```
 

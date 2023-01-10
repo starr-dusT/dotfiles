@@ -1,0 +1,8 @@
+# /home/tstarr/.config/tmuxinator/dot.yml
+
+name: dot
+root: ~/.local/share/chezmoi
+
+windows:
+  - editor: nvim
+  - term: clear

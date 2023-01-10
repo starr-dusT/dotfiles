@@ -95,19 +95,15 @@ for_window [con_mark="scratch-term"] floating enable, \
     resize set 800 px 600 px, \
     move position 880 px 420 px
 
-for_window [con_mark="scratch-nnn"] floating enable, \
-    resize set 800 px 600 px, \
-    move position 880 px 420 px
-
 for_window [con_mark="scratch-warrior"] floating enable, \
-    resize set 1000 px 800 px, \
-    move position 780 px 320 px
+    resize set 1500 px 800 px, \
+    move position 530 px 320 px
 
 for_window [class="Blueman-manager"] floating enable, \
     resize set 1000 px 800 px, \
     move position 780 px 320 px
 
-for_window [class="Nm-connection-editor"] floating enable, \
+for_window [class="scratch-nb"] floating enable, \
     resize set 1000 px 800 px, \
     move position 780 px 320 px
 
@@ -209,7 +205,7 @@ bindsym $mod+a exec rofi -show drun -show-icons
 bindsym $mod+Shift+a exec rofi -show window -show-icons
 bindsym $mod+o mode open
 mode open {
-    bindsym b exec firefox, $e
+    bindsym b exec flatpak run org.mozilla.firefox, $e
     bindsym s exec steam, $e
     bindsym d exec flatpak run com.discordapp.Discord, $e
     bindsym Escape mode default
@@ -221,9 +217,9 @@ mode scratch {
     bindsym Return exec $HOME/.config/i3/scripts/scratch.sh \
         'scratch-term' 'alacritty', $e
     bindsym n exec $HOME/.config/i3/scripts/scratch.sh \
-        'scratch-nnn' 'alacritty -e nnn -d -e -H -r', $e
+        'scratch-nb' 'alacritty -e tmuxinator start nb', $e
     bindsym t exec $HOME/.config/i3/scripts/scratch.sh \
-        'scratch-warrior' 'alacritty -e taskwarrior-tui', $e
+        'scratch-warrior' 'alacritty -e tmuxinator start task', $e
     bindsym Escape mode default
 }
 
@@ -233,6 +229,7 @@ mode scratch {
 
 exec --no-startup-id "autorandr --change && i3-msg restart"
 exec --no-startup-id "pipewire & pipewire-pulse &"
+exec --no-startup-id "udiskie &"
 exec_always --no-startup-id "$HOME/.config/i3/scripts/polybar.sh"
 exec_always --no-startup-id "blueman-applet"
 exec_always --no-startup-id "xsetroot -solid '#282A36'"

@@ -12,7 +12,6 @@
       - xrandr # Primitive command line interface to RandR extension
       - dunst # Lightweight and customizable notification daemon
       - ffmpeg # Decoding, encoding and streaming software
-      - firefox # Mozilla Firefox web browser
       - i3-gaps # Improved tiling window manager - i3 fork with more features
       - i3status # Status bar generator for i3bar, dzen2, xmobar or similar programs
       - nitrogen # Background browser and setter for X with support for Xinerama
@@ -41,6 +40,7 @@
 - name: Install desktop flatpaks
   flatpak:
     name:
+      - org.mozilla.firefox # Mozilla Firefox web browser
       - com.discordapp.Discord # VoIP and instant messaging social platform
       - org.gimp.GIMP # Create images and edit photographs
       - org.inkscape.Inkscape # Vector Graphics Editor

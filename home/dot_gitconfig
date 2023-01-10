@@ -1,0 +1,14 @@
+# gloabl .gitconfig
+
+[user]
+    email = starrtyler88@gmail.com
+    name = Tyler Starr
+
+[github]
+    user = "starr-dusT"
+
+[core]
+    sshCommand = "ssh -i ~/.ssh/personal_github"
+
+[includeIf "gitdir:~/devel/work/**"]
+    path = ~/devel/work/.gitconfig.work

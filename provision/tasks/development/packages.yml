@@ -6,6 +6,7 @@
       - ripgrep # Fast search tool inspired by ag and grep
       - fd # Simple, fast and user-friendly alternative to find
       - lazygit # Simple terminal UI for git commands
+      - ruby-tmuxinator # Create and manage complex tmux sessions easily
     state: present
   become: true
 
