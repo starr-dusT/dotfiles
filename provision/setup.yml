@@ -1,4 +1,4 @@
-- name: Ansible playbook to setup void linux
+- name: Ansible playbook to setup arch linux
   hosts: all
 
   vars_files:

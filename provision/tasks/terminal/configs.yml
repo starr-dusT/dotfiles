@@ -4,7 +4,6 @@
     shell: /bin/zsh
   become: true
 
-
 - name: Set rbw email
   shell: |
     rbw config set email {{ bitwarden_email }}

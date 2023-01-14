@@ -1,47 +1,43 @@
-- name: Install desktop void packages
-  xbps:
+- name: Install desktop arch packages
+  pacman:
     name:
       - xorg # X.org meta-package
+      - xorg-xinit
       - xterm # X Terminal Emulator
       - alacritty # Cross-platform, GPU-accelerated terminal emulator
       - mpv  # Video player based on MPlayer/mplayer2
-      - python3-i3ipc  # Improved Python library to control i3wm and sway
-      - xprop # Property displayer for X
+      - python-i3ipc  # Improved Python library to control i3wm and sway
       - lxappearance # LXDE Theme Switcher
       - blueman # GTK+ Bluetooth Manager
-      - xrandr # Primitive command line interface to RandR extension
       - dunst # Lightweight and customizable notification daemon
       - ffmpeg # Decoding, encoding and streaming software
       - i3 # Improved tiling window manager
       - i3status # Status bar generator for i3bar, dzen2, xmobar or similar programs
       - nitrogen # Background browser and setter for X with support for Xinerama
-      - nvidia # NVIDIA drivers for linux - Libraries and Utilities
-      - nvidia-libs-32bit # NVIDIA drivers for linux - common libraries (32bit)
+      - nvidia-dkms # NVIDIA drivers for linux - Libraries and Utilities
+      - lib32-nvidia-utils # NVIDIA drivers for linux - common libraries (32bit)
       - pavucontrol # PulseAudio Volume Control
       - polybar # Fast and easy-to-use status bar
       - rofi # Window switcher, run dialog and dmenu replacement
       - pcmanfm # LXDE file manager
-      - xclip # Command line interface to the X11 clipboard
       - autorandr # Automatically select a display configuration based on connected devices
-      - xsel # Command-line getting and setting the contents of the X selection
       - clipmenu # Clipboard management using dmenu
-      - nerd-fonts # Iconic font aggregator, collection and patcher
-      - xdotool # Command-line X11 automation tool
       - flameshot # Powerful yet simple to use screenshot software for GNU/Linux
+      - firefox
     state: present
   become: true
 
-- name: Install desktop xbps-src packages 
-  tags: ["src"]
-  include_tasks: ../include/xbps-src.yml
-  loop:
-    - package: rofi-rbw # Simplistic password typer/copier using rofi and wofi
-      repository: hostdir/binpkgs
+- name: Install desktop aur packages
+  yay:
+    name:
+      - rofi-rbw # Simplistic password typer/copier using rofi and wofi
+      - nerd-fonts-complete
+    state: present
+  become: true
 
 - name: Install desktop flatpaks
   flatpak:
     name:
-      - org.mozilla.firefox # Mozilla Firefox web browser
       - com.discordapp.Discord # VoIP and instant messaging social platform
       - org.gimp.GIMP # Create images and edit photographs
       - org.inkscape.Inkscape # Vector Graphics Editor

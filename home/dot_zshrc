@@ -116,11 +116,6 @@ alias cc="chezmoi cd"
 alias cdr="chezmoi apply --verbose --dry-run"
 alias ca="chezmoi apply"
 
-# xbps
-alias xi="sudo xbps-install"
-alias xr="sudo xbps-remove"
-alias xl="void-list-packages"
-
 # trashcli
 alias rm='echo "This is not the command you are looking for."; false'
 alias tp='trash-put'

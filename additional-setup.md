@@ -1,6 +1,6 @@
 # Additional Setup
 
-The following documents Void setup that wasn't automated with ansible.
+The following documents Arch setup that wasn't automated with ansible.
 
 ## Radicale and vdirsyncer for contacts/calendar
 
@@ -88,21 +88,3 @@ taskopen).
 
 My GTK theme is pulled down by chezmoi, but isn't active by default. This can
 be fixed with the lxappearance gui.
-
-## Single GPU Passthrough with Windows
-
-Install libvirt hooks:
-
-```bash
-sudo mkdir -p /etc/libvirt/hooks
-sudo wget 'https://raw.githubusercontent.com/PassthroughPOST/VFIO-Tools/master/libvirt_hooks/qemu' \
-     -O /etc/libvirt/hooks/qemu
-sudo chmod +x /etc/libvirt/hooks/qemu
-```
-
-reboot....
-
-
-```bash
-
-```
