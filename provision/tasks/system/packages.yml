@@ -38,6 +38,9 @@
       - wget # GNU wget download utility
       - NetworkManager # Network Management daemon
       - network-manager-applet # NetworkManager panel applet for GNOME
+      - psensor # Graphical hardware temperature monitor for Linux
+      - upower # Abstraction for enumerating power devices
+      - android-udev-rules # Android udev rules list aimed to be the most comprehensive on the net
     state: present
   become: true
 

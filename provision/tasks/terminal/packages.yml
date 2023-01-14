@@ -13,6 +13,7 @@
       - khal # Command-line calendar build around CalDAV
       - khard # Command-line addressbook built around CardDAV
       - vdirsyncer # Synchronize calendars and addressbooks
+      - neofetch # Simple system information script
     state: present
   become: true
 

@@ -12,7 +12,7 @@
       - xrandr # Primitive command line interface to RandR extension
       - dunst # Lightweight and customizable notification daemon
       - ffmpeg # Decoding, encoding and streaming software
-      - i3-gaps # Improved tiling window manager - i3 fork with more features
+      - i3 # Improved tiling window manager
       - i3status # Status bar generator for i3bar, dzen2, xmobar or similar programs
       - nitrogen # Background browser and setter for X with support for Xinerama
       - nvidia # NVIDIA drivers for linux - Libraries and Utilities
@@ -27,6 +27,7 @@
       - clipmenu # Clipboard management using dmenu
       - nerd-fonts # Iconic font aggregator, collection and patcher
       - xdotool # Command-line X11 automation tool
+      - flameshot # Powerful yet simple to use screenshot software for GNU/Linux
     state: present
   become: true
 
