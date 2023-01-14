@@ -1,6 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=SuperSlicer
-Comment=SuperSlicer
-Exec=/usr/local/bin/SuperSlicer
-Terminal=false

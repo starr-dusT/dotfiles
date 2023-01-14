@@ -5,6 +5,7 @@
       - task # Command-line TODO list manager
       - timew # Timewarrior tracks and reports time
       - taskwarrior-tui
+      - task-open
       - vifm # Ncurses-based file manager with vi-like keybindings
       - zsh # Z SHell
       - tmux # Terminal Multiplexer

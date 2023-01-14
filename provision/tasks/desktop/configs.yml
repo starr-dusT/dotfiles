@@ -17,3 +17,10 @@
     - /usr/share/applications/nvim.desktop
     - /usr/share/applications/syncthing-start.desktop
     - /usr/share/applications/syncthing-ui.desktop
+
+- name: Start bluetooth
+  service:
+    name: bluetooth
+    state: started
+    enabled: yes
+  become: true
