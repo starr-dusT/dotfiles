@@ -2,6 +2,11 @@
   pacman:
     name:
       - freecad # General purpose 3D CAD modeler
-      - superslicer # PrusaSlicer fork (which is a slic3r fork)
     state: present
+  become: true
+      
+- name: Install engineering aur packages
+  yay:
+    name:
+      - superslicer-bin # PrusaSlicer fork (which is a slic3r fork)
   become: true

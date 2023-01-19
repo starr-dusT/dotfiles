@@ -57,6 +57,20 @@ when needed with the following command:
 linux-mount-<network drive name>
 ```
 
+## Taskopen for taskwarrior
+
+[taskopen](https://github.com/jschlatow/taskopeni) is easier to install 
+manually at this point since it isn't packaged and uses nim. Might get this 
+automated in the future.
+
+```bash
+curl https://nim-lang.org/choosenim/init.sh -sSf | sh # install nim
+git clone https://github.com/jschlatow/taskopen.git
+cd taskopen
+make PREFIX=/usr
+sudo make PREFIX=/usr install
+```
+
 ## Syncthing 
 
 Syncthing is used to sync folders between various computers and android. The 
@@ -69,18 +83,8 @@ expects them.
 taskopen).
 - `phone photos` - personal photos synched from android.
 - `phone screenshots` - personal screenshots synced from android.
-- `keys` - contains ssh keys for git remotes (~/.ssh/keys)
 
 ## Lxappearance
 
 My GTK theme is pulled down by chezmoi, but isn't active by default. This can
 be fixed with the lxappearance gui.
-
-## nb notebooks
-
-Remote nb notebooks are added with the following command:
-
-```bash
-nb notebooks add <notebook name> https://github.com/starr-dusT/nb <branch>
-```
-
