@@ -2,20 +2,14 @@
 
 echo -e "Starting initial setup..."
 
-CHEZDIR="/home/tstarr/.local/share/chezmoi"
+CHEZDIR="/home/test/.local/share/chezmoi"
 echo "Input email for bitwarden:"
 read bitemail
 
 # Install ansible python dependencies
-sudo pacman -Syu
-sudo pacman -S git chezmoi python python-pip ansible base-devel
+sudo xbps-install -Syu -y
+sudo xbps-install python3 python3-pip ansible -y
 sudo pip install pexpect
-
-# Install yay
-git clone https://aur.archlinux.org/yay.git ~/tmp/yay
-cd ~/tmp/yay
-makepkg -si
-cd -
 
 # Install ansible extensions
 ansible-galaxy install -r "$CHEZDIR/provision/requirements.yml"

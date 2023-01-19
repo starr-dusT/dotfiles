@@ -14,14 +14,80 @@
         mode: 0775
   become: true
 
+- name: Set git username and email
+  shell: |
+    git config --global user.email {{ git_email }}
+    git config --global user.name {{ git_user }}
+
+- name: Stop system services
+  shell: |
+    rm -R /var/service/dhcpcd
+  ignore_errors: true
+  become: true
+
+- name: Start system services
+  shell: |
+    ln -s /etc/sv/dbus /var/service
+    ln -s /etc/sv/polkitd /var/service
+    ln -s /etc/sv/bluetoothd /var/service
+    ln -s /etc/sv/sshd /var/service
+    ln -s /etc/sv/libvirtd /var/service
+    ln -s /etc/sv/virtlockd /var/service
+    ln -s /etc/sv/virtlogd /var/service
+    ln -s /etc/sv/NetworkManager /var/service
+  ignore_errors: true
+  become: true
+
 - name: Add {{ user }} to libvirt group
   shell: |
     gpasswd -a {{ user }} libvirt
   become: true
 
-- name: Start syncthing as {{ user }}
-  service:
-    name: syncthing@{{ user }}
-    state: started
-    enabled: yes
+- name: Setup user services
+  block:
+    - name: Create user folder
+      file:
+        path: /etc/sv/{{ user }} 
+        state: directory
+
+    - name: Create user service file
+      copy:
+        dest: /etc/sv/{{ user }}/run
+        content: |
+          #!/bin/sh
+          USER="{{ user }}"
+          GROUPS="$(id -Gn "$USER" | tr ' ' ':')"
+          SVDIR="/home/${USER}/.service"
+          if [ -d ${SVDIR} ]; then
+           chpst -u"${USER}:${GROUPS}" runsvdir ${SVDIR} 
+          fi
+        mode: 0755
+
+    - name: Enable user services
+      shell: |
+        ln -s /etc/sv/{{ user }} /var/service
+      ignore_errors: true
   become: true
+
+- name: Ensure user services folder exists
+  file:
+    path: /home/{{ user }}/.service
+    state: directory
+    mode: 0755
+
+- name: Start syncthing as {{ user }}
+  block:
+    - name: Create syncthing folder
+      file:
+        path: /home/{{ user }}/.service/syncthing
+        state: directory
+        mode: 0755
+
+    - name: Create synthing run file
+      copy:
+        dest: /home/{{ user }}/.service/syncthing/run
+        content: |
+          #!/bin/sh
+          export HOME=/home/{{ user }}/
+          exec /usr/bin/syncthing > /dev/null 2>&1
+        mode: 0755

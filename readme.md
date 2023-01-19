@@ -5,15 +5,15 @@ My personal dotfiles repo. Documentation is pretty spotty. Maybe I'll fix that s
 
 ## Usage
 
-Dotfiles are managed with chezmoi and Ansible (built for Arch) is used for the bulk of configuration. 
+Dotfiles are managed with chezmoi and Ansible (built for Void) is used for the bulk of configuration. 
 
 ## Initial Setup
 
-Install Arch with BTRFS and run the following commands:
+Install Void with BTRFS and run the following commands:
 
 ```bash
-sudo pacman -Syu
-sudo pacman -S vim git chezmoi
+sudo xbps-install -Syu -y
+sudo xbps-install -S vim git chezmoi -y
 git clone https://github.com/starr-dusT/dotfiles ~/.local/share/chezmoi 
 ```
 
@@ -29,4 +29,4 @@ Perform additional setup found in [additional-setup](additional-setup.md)
 
 ## Update Setup
 
-`arch-update` command updates the system with ansible. Run `arch-update -h` for information on usage.
+`void-update` command updates the system with ansible. Run `void-update -h` for information on usage.

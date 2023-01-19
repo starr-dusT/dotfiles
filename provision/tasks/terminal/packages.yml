@@ -1,10 +1,9 @@
-- name: Install terminal arch packages
-  pacman:
+- name: Install terminal void packages
+  xbps:
     name:
       - neovim # Vim-fork focused on extensibility and agility
       - task # Command-line TODO list manager
-      - timew # Timewarrior tracks and reports time
-      - taskwarrior-tui
+      - timewarrior # Timewarrior tracks and reports time
       - vifm # Ncurses-based file manager with vi-like keybindings
       - zsh # Z SHell
       - tmux # Terminal Multiplexer
@@ -18,10 +17,12 @@
     state: present
   become: true
 
-- name: Install terminal aur packages
-  yay:
-    name:
-      - rbw
-      - nb 
-    state: present
-  become: true
+- name: Install terminal xbps-src packages 
+  tags: ["src"]
+  include_tasks: ../include/xbps-src.yml
+  loop:
+    - package: rbw # Unofficial command line client for bitwarden
+      repository: hostdir/binpkgs
+
+- include_tasks: nb.yml # Command line and local web note‑taking, bookmarking, archiving, and knowledge base application
+- include_tasks: taskwarrior-tui.yml # Terminal User Interface (TUI) for Taskwarrior

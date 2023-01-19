@@ -1,21 +1,14 @@
-- name: Install development arch packages
-  pacman:
+- name: Install development void packages
+  xbps:
     name:
-      - python # Python programming language (3.11 series)
-      - python-pip # A tool for installing and managing Python3 packages
-      - python-setuptools
+      - python3 # Python programming language (3.11 series)
+      - python3-pip # A tool for installing and managing Python3 packages
       - ripgrep # Fast search tool inspired by ag and grep
       - fd # Simple, fast and user-friendly alternative to find
       - lazygit # Simple terminal UI for git commands
-      - python-pipenv # Python Development Workflow for Humans
-    state: present
-  become: true
-
-- name: Install development aur packages
-  yay:
-    name:
-      - tmuxinator # Create and manage complex tmux sessions easily
-      - nvm
+      - ruby-tmuxinator # Create and manage complex tmux sessions easily
+      - python3-pipenv # Python Development Workflow for Humans
+      - python3-devel # Python programming language (3.11 series) - development files
     state: present
   become: true
 

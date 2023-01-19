@@ -1,0 +1,39 @@
+import yaml
+import subprocess
+
+print("I'm the void doctor!")
+
+with open('/home/tstarr/.local/share/chezmoi/provision/tasks/desktop/packages.yml', 'r') as f:
+    in_yaml = yaml.safe_load(f)
+
+installed = subprocess.getoutput("xbps-query -m | sed 's!-[^-]*$!!'").split("\n")
+installed.extend(subprocess.getoutput("flatpak list --columns=application").split("\n"))
+
+standard_keys = ["xbps", "flatpak"]
+custom_keys = { "xbps-src": {"key": "include_tasks", "value": "xbps-src.yml"}}
+
+def parse_xbps_src(in_dict):
+    pack_list = []
+    for item in in_dict["loop"]:
+        if "package" in item.keys():
+            pack_list.append(item["package"])
+    return pack_list
+
+packages = []
+
+for item in in_yaml:
+    # Check standard for standard keys
+    for key in standard_keys:
+        if key in item.keys():
+            packages.extend(item[key]["name"])
+
+    # Check custom if standard doesn't work
+    for key in custom_keys.keys():
+        if custom_keys[key]["key"] in item.keys():
+            if custom_keys[key]["value"] in item[custom_keys[key]["key"]]:
+                if key == "xbps":
+                    packages.extend(parse_xbps_src(item))
+
+not_ansible = [i for i in installed if i not in packages]
+print("Installed, but not in ansible: ", not_ansible)
+

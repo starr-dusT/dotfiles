@@ -196,9 +196,9 @@ bindsym $mod+Shift+r move container to workspace $tag9
 bindsym $mod+Shift+t move container to workspace $tag0
 
 # audio
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2%
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle 
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +2%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -2%
+bindsym XF86AudioMute exec amixer -q set Master toggle
 
 # [o]pen applications
 bindsym $mod+Return exec alacritty
@@ -206,7 +206,7 @@ bindsym $mod+a exec rofi -show drun -show-icons
 bindsym $mod+Shift+a exec rofi -show window -show-icons
 bindsym $mod+o mode open
 mode open {
-    bindsym b exec firefox, $e
+    bindsym b exec flatpak run org.mozilla.firefox, $e
     bindsym s exec steam, $e
     bindsym d exec flatpak run com.discordapp.Discord, $e
     bindsym Escape mode default
@@ -229,6 +229,7 @@ mode scratch {
 #-------------------------------------------------------------------------------
 
 exec --no-startup-id "autorandr --change && i3-msg restart"
+exec --no-startup-id "pipewire & pipewire-pulse &"
 exec --no-startup-id "udiskie &"
 exec_always --no-startup-id "$HOME/.config/i3/scripts/polybar.sh"
 exec_always --no-startup-id "blueman-applet"
