@@ -41,6 +41,8 @@
       - psensor # Graphical hardware temperature monitor for Linux
       - upower # Abstraction for enumerating power devices
       - android-udev-rules # Android udev rules list aimed to be the most comprehensive on the net
+      - cups # Common Unix Printing System
+      - hplip # HP Linux Imaging and Printing
     state: present
   become: true
 

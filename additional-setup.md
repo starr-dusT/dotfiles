@@ -27,8 +27,12 @@ vdirsyncer -c ~/.config/vdirsyncer/config_contacts sync
 
 Wireguard is nice for a home vpn and [pivpn](https://pivpn.io/) makes it easy.
 
-1. Create client on server and copy resulting `.conf` file to `/etc/wireguard`
-2. Start/stop vpn with `wg-quick`
+1. Create client on server and copy resulting `.conf` file to local machine
+2. Import to networkmanager with:
+```bash
+nmcli connection import type wireguard file <conf file from pivpn>
+```
+3. Turn on/off from nm-applet
 
 ## BTRFS back-ups with btrbk  
 
@@ -83,26 +87,17 @@ expects them.
 taskopen).
 - `phone photos` - personal photos synched from android.
 - `phone screenshots` - personal screenshots synced from android.
+- `keys` - contains ssh keys for git remotes (~/.ssh/keys)
 
 ## Lxappearance
 
 My GTK theme is pulled down by chezmoi, but isn't active by default. This can
 be fixed with the lxappearance gui.
 
-## Single GPU Passthrough with Windows
+## nb notebooks
 
-Install libvirt hooks:
-
-```bash
-sudo mkdir -p /etc/libvirt/hooks
-sudo wget 'https://raw.githubusercontent.com/PassthroughPOST/VFIO-Tools/master/libvirt_hooks/qemu' \
-     -O /etc/libvirt/hooks/qemu
-sudo chmod +x /etc/libvirt/hooks/qemu
-```
-
-reboot....
-
+Remote nb notebooks are added with the following command:
 
 ```bash
-
+nb notebooks add <notebook name> https://github.com/starr-dusT/nb <branch>
 ```

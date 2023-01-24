@@ -10,7 +10,7 @@ wm-restack = i3
 
 modules-left = i3 spacing spacing xwindow
 modules-center = date
-modules-right = memory separator cpu separator spacing pulseaudio separator wlan separator bandwidth separator
+modules-right = memory separator cpu separator spacing pulseaudio separator bandwidth separator
 
 [module/xwindow]
 type = internal/xwindow
@@ -59,16 +59,6 @@ label = %date% %time%
 format-padding = 2
 format-background = "#44475a"
 label-font = 2
-
-[module/wlan]
-type = internal/network
-interface = {{ .network_interface }}
-interval = 5
-label-connected = 直 %local_ip% 
-label-connected-foreground = "#50fa7b"
-label-disconnected = 睊 NOT CONNECTED
-label-disconnected-foreground = "#ff5555"
-content-padding = 2
 
 [module/bandwidth]
 type = internal/network

@@ -25,8 +25,6 @@ set $tag5 "5:web"
 set $tag6 "6:web"  
 set $tag7 "7:web" 
 set $tag8 "8:comm"
-set $tag9 "9:eng"
-set $tag0 "10:web"
 
 set $e exec i3-msg mode default
 
@@ -61,12 +59,10 @@ workspace $tag1 output $DISP_PRI
 workspace $tag2 output $DISP_PRI
 workspace $tag3 output $DISP_PRI
 workspace $tag4 output $DISP_PRI
-workspace $tag5 output $DISP_PRI
+workspace $tag5 output $DISP_SEC
 workspace $tag6 output $DISP_SEC
 workspace $tag7 output $DISP_SEC
 workspace $tag8 output $DISP_SEC
-workspace $tag9 output $DISP_SEC
-workspace $tag0 output $DISP_SEC
 
 #-------------------------------------------------------------------------------
 #----- CONTAINER GAPS
@@ -133,39 +129,33 @@ mode utility {
     bindsym q exit
     bindsym r restart
     bindsym p exec "rofi-rbw", $e
-    # TODO: flameshot (mod+Ctrl+f)
     # TODO: gamemode (mod+Ctrl+g). Needs script to toggle
     bindsym Escape mode default
 }
 
-# layo[u]t commands
-bindsym $mod+u mode layout
-mode layout {
-    bindsym z layout splith
-    bindsym x layout tabbed 
-    bindsym c layout stacked
-    bindsym v layout splitv
-    bindsym h resize shrink width 50
-    bindsym j resize shrink height 50
-    bindsym k resize grow height 50
-    bindsym l resize grow width 50
-    bindsym e move position center
-    bindsym Escape mode default
-}
+# layout commands
+bindsym $mod+Ctrl+t splitv; layout tabbed
+bindsym $mod+Ctrl+v layout splitv
+bindsym $mod+Ctrl+s layout splith
+bindsym $mod+Ctrl+h resize shrink width 50
+bindsym $mod+Ctrl+j resize shrink height 50
+bindsym $mod+Ctrl+k resize grow height 50
+bindsym $mod+Ctrl+l resize grow width 50
+bindsym $mod+Ctrl+c move position center
 
 # program management
 bindsym $mod+d kill
 bindsym $mod+f fullscreen toggle
-bindsym $mod+y floating toggle
+bindsym $mod+t floating toggle
 bindsym $mod+s sticky toggle
 bindsym $mod+Tab focus mode_toggle 
 floating_modifier $mod
 
 # spatial container management
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+bindsym $mod+h exec $HOME/.config/i3/scripts/tabfocus.sh "h"
+bindsym $mod+j exec $HOME/.config/i3/scripts/tabfocus.sh "j"
+bindsym $mod+k exec $HOME/.config/i3/scripts/tabfocus.sh "k"
+bindsym $mod+l exec $HOME/.config/i3/scripts/tabfocus.sh "l"
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
@@ -178,22 +168,18 @@ bindsym $mod+1 workspace $tag1
 bindsym $mod+2 workspace $tag2
 bindsym $mod+3 workspace $tag3
 bindsym $mod+4 workspace $tag4
-bindsym $mod+5 workspace $tag5
-bindsym $mod+q workspace $tag6
-bindsym $mod+w workspace $tag7
-bindsym $mod+e workspace $tag8
-bindsym $mod+r workspace $tag9
-bindsym $mod+t workspace $tag0
+bindsym $mod+q workspace $tag5
+bindsym $mod+w workspace $tag6
+bindsym $mod+e workspace $tag7
+bindsym $mod+r workspace $tag8
 bindsym $mod+Shift+1 move container to workspace $tag1
 bindsym $mod+Shift+2 move container to workspace $tag2
 bindsym $mod+Shift+3 move container to workspace $tag3
 bindsym $mod+Shift+4 move container to workspace $tag4
-bindsym $mod+Shift+5 move container to workspace $tag5
-bindsym $mod+Shift+q move container to workspace $tag6
-bindsym $mod+Shift+w move container to workspace $tag7
-bindsym $mod+Shift+e move container to workspace $tag8
-bindsym $mod+Shift+r move container to workspace $tag9
-bindsym $mod+Shift+t move container to workspace $tag0
+bindsym $mod+Shift+q move container to workspace $tag5
+bindsym $mod+Shift+w move container to workspace $tag6
+bindsym $mod+Shift+e move container to workspace $tag7
+bindsym $mod+Shift+r move container to workspace $tag8
 
 # audio
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +2%
@@ -233,4 +219,6 @@ exec --no-startup-id "pipewire & pipewire-pulse &"
 exec --no-startup-id "udiskie &"
 exec_always --no-startup-id "$HOME/.config/i3/scripts/polybar.sh"
 exec_always --no-startup-id "blueman-applet"
+exec_always --no-startup-id "nm-applet"
+exec_always --no-startup-id "flameshot"
 exec_always --no-startup-id "xsetroot -solid '#282A36'"

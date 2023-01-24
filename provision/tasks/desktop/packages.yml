@@ -28,9 +28,7 @@
       - nerd-fonts # Iconic font aggregator, collection and patcher
       - xdotool # Command-line X11 automation tool
       - flameshot # Powerful yet simple to use screenshot software for GNU/Linux
-      - cups
-      - hplip
-      - system-config-printer
+      - system-config-printer # CUPS printer configuration tool and status applet
     state: present
   become: true
 
