@@ -1,7 +1,0 @@
-.oh-my-zsh/cache/**
-readme.md
-.gitignore
-.git
-provision
-additional-setup.md
-.gen

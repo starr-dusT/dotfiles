@@ -1,0 +1,19 @@
+.oh-my-zsh/cache/**
+readme.md
+.gitignore
+.git
+provision
+additional-setup.md
+.gen
+
+{{ if eq .chezmoi.os "darwin" }}
+bin
+.bash_profile
+.bashrc
+.local
+.nbrc
+.taskopenrc
+.taskrc
+.tmux.conf
+.ssh
+{{ end }}
