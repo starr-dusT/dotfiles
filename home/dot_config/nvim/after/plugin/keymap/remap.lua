@@ -1,14 +1,22 @@
-local nnoremap = require("tstarr.keymap").nnoremap
+local wk = require("which-key")
 
-nnoremap("<leader>pv", "<cmd>Ex<CR>")
-
-nnoremap("<leader>tn", "<cmd>tabnew<CR>")
-nnoremap("<leader>th", "<cmd>tabn<CR>")
-nnoremap("<leader>tl", "<cmd>tabp<CR>")
-nnoremap("<leader>tc", "<cmd>tabc<CR>")
-
-nnoremap("<leader>h", "<C-w>h")
-nnoremap("<leader>j", "<C-w>j")
-nnoremap("<leader>k", "<C-w>k")
-nnoremap("<leader>l", "<C-w>l")
-nnoremap("<leader>H", "<cmd>wincmd p<CR>")
+wk.register({
+    -- netrw commands
+    n = {
+        name = "+netrw",
+        v = { "<cmd>Ex<CR>", "Explorer" }
+    },
+    -- tab commands
+    t = {
+        name = "+tab",
+        f = { "<cmd>tabnew<CR>", "New" },
+        g = { "<cmd>tabn<CR>", "Next" },
+        b = { "<cmd>tabp<CR>","Previous" },
+        h = { "<cmd>tabc<CR>", "Close" }
+    },
+    -- pane movement commands
+    h = { "<C-w>h", "Pane Left" },
+    j = { "<C-w>j", "Pane Down" },
+    k = { "<C-w>k", "Pane Up" },
+    l = { "<C-w>l", "Pane Right" }
+}, { prefix = "<leader>" })

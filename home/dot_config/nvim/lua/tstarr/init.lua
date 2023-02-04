@@ -1,3 +1,5 @@
 require("tstarr.set")
 require("tstarr.packer")
 require("tstarr.telescope")
+require("tstarr.vimwiki")
+require("tstarr.which-key")

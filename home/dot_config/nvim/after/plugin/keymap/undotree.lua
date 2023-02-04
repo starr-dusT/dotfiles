@@ -1,4 +1,9 @@
-local nnoremap = require("tstarr.keymap").nnoremap
+local wk = require("which-key")
 
-nnoremap("<leader>u", "<cmd>UndotreeFocus<CR>")
-nnoremap("<leader>ut", "<cmd>UndotreeToggle<CR>")
+wk.register({
+    q = {
+        name = "+undotree",
+        u = { "<cmd>UndotreeFocus<CR>", "Focus Tree" },
+        t = { "<cmd>UndotreeToggle<CR>", "Toggle Tree" }
+    },
+}, { prefix = "<leader>" })

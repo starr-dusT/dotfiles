@@ -35,5 +35,7 @@ return require('packer').startup(function(use)
     use ('saadparwaiz1/cmp_luasnip')
     use ('alker0/chezmoi.vim')
     use ('nathangrigg/vim-beancount')
+    use ('vimwiki/vimwiki')
+    use ('folke/which-key.nvim')
 
 end)

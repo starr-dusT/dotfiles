@@ -1,5 +1,8 @@
-local Remap = require("tstarr.keymap")
-local nnoremap = Remap.nnoremap
-local silent = { silent = true }
+local wk = require("which-key")
 
-nnoremap("<leader>gg", "<cmd>LazyGit<CR>", silent)
+wk.register({
+    g = {
+        name = "+git",
+        g = { "<cmd>LazyGit<CR>", "Lazygit" },
+    },
+}, { prefix = "<leader>" })

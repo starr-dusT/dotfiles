@@ -1,5 +1,4 @@
-local nnoremap = require("tstarr.keymap").nnoremap
-local silent = { silent = true }
+local wk = require("which-key")
 
 require("harpoon").setup({
     menu = {
@@ -7,10 +6,14 @@ require("harpoon").setup({
     }
 })
 
-nnoremap("<leader>qa", function() require("harpoon.mark").add_file() end, silent)
-nnoremap("<leader>ql", function() require("harpoon.ui").toggle_quick_menu() end, silent)
-
-nnoremap("<leader>1", function() require("harpoon.ui").nav_file(1) end, silent)
-nnoremap("<leader>2", function() require("harpoon.ui").nav_file(2) end, silent)
-nnoremap("<leader>3", function() require("harpoon.ui").nav_file(3) end, silent)
-nnoremap("<leader>4", function() require("harpoon.ui").nav_file(4) end, silent)
+wk.register({
+    q = {
+        name = "+harpoon",
+        ["1"] = { function() require("harpoon.ui").nav_file(1) end, "Harpoon 1" },
+        ["2"] = { function() require("harpoon.ui").nav_file(2) end, "Harpoon 2" },
+        ["3"] = { function() require("harpoon.ui").nav_file(3) end, "Harpoon 3" },
+        ["4"] = { function() require("harpoon.ui").nav_file(4) end, "Harpoon 4" },
+        a = { function() require("harpoon.mark").add_file() end, "Add File" },
+        l = { function() require("harpoon.ui").toggle_quick_menu() end, "List Files" }
+    },
+}, { prefix = "<leader>" })

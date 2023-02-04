@@ -4,6 +4,7 @@
       - neovim # Vim-fork focused on extensibility and agility
       - task # Command-line TODO list manager
       - timewarrior # Timewarrior tracks and reports time
+      - python3-tasklib # Library for interacting with taskwarrior databases (Python3)
       - vifm # Ncurses-based file manager with vi-like keybindings
       - zsh # Z SHell
       - tmux # Terminal Multiplexer
@@ -16,6 +17,11 @@
       - neofetch # Simple system information script
     state: present
   become: true
+
+- name: Install terminal python packages
+  ansible.builtin.pip:
+    name: 
+      - pynvim 
 
 - name: Install terminal xbps-src packages 
   tags: ["src"]
