@@ -104,3 +104,4 @@ local function config(_config)
 end
 
 require("lspconfig").tsserver.setup(config())
+require'lspconfig'.pyright.setup(config())

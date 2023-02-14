@@ -37,5 +37,6 @@ return require('packer').startup(function(use)
     use ('nathangrigg/vim-beancount')
     use ('vimwiki/vimwiki')
     use ('folke/which-key.nvim')
+    use ('hkupty/iron.nvim')
 
 end)
