@@ -1,0 +1,3 @@
+[submodule "provision/void"]
+	path = provision/void
+	url = https://github.com/starr-dusT/provision-void.git
