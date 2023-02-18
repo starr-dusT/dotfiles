@@ -4,3 +4,4 @@
 [submodule "provision/fedora"]
 	path = provision/fedora
 	url = https://github.com/starr-dusT/provision-fedora.git
+    branch = master
