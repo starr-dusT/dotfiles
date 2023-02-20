@@ -11,6 +11,8 @@ EXAMPLE TAGS:
     packages,configs
               
 FLAGS:
+    -f, --fedora perform update for fedora 
+    -v, --void   perform update for void
     -s, --src    compile (or recompile) source based packages" 
     exit 0
 }
@@ -20,6 +22,14 @@ SRC=false
 
 while [[ $# -gt 0 ]]; do
   case $1 in
+    -v|--void)
+      distro="void" 
+      shift
+      ;;
+    -f|--fedora)
+      distro="fedora" 
+      shift
+      ;;
     -s|--src)
       SRC=true
       shift
@@ -41,7 +51,7 @@ done
 set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
 
 # Goto playbook and run it
-cd {{ .chezmoi.workingTree }}/provision
+cd "{{ .chezmoi.workingTree }}/provision/$distro/ansible"
 
 # Install ansible and run playbook
 if [ "$SRC" = true ] ; then
@@ -53,4 +63,4 @@ else
 fi
 
 # Return to where you were
-cd -
+cd - > /dev/null
