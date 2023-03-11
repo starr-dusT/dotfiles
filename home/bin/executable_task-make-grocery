@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [[ $(task "$1" +grocery 2>&1) == "No matches." ]];
+then
+    date_str=$(date +"_%Y%m%d_%H:%M:%S")
+    filename="$HOME/documents/warrior/fleeting/grocery${date_str}.md"
+    cp "$HOME/documents/warrior/templates/grocery.md" "${filename}"
+    task "$1" modify +grocery
+    task "$1" annotate "${filename}"
+    taskopen $1
+else
+    taskopen $1
+fi

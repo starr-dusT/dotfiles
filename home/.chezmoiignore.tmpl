@@ -18,3 +18,8 @@ bin
 .config/i3
 .config/polybar
 {{ end }}
+
+{{ if eq .chezmoi.os "android" }}
+*
+.config/nvim
+{{ end }}
