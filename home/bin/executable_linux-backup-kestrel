@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+
+echo "Creating backup with borg..."
+datetime=$(date +"%Y%m%d%H%M%S")
+borg create \
+    --progress \
+    --exclude "$HOME/.?*" \
+    --exclude "$HOME/mnt" \
+    "$HOME/mnt/engi/backup/borg-kestrel::kestrel-${datetime}" "$HOME"
