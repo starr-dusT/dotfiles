@@ -1,0 +1,13 @@
+- name: Ansible playbook to setup arch linux
+  hosts: all
+
+  vars_files:
+    - ../../../home/.chezmoidata.yaml
+
+  tasks:
+    - import_tasks: tasks/system/_main.yml
+    - import_tasks: tasks/terminal/_main.yml
+    - import_tasks: tasks/development/_main.yml
+    - import_tasks: tasks/gaming/_main.yml
+    - import_tasks: tasks/engineering/_main.yml
+    - import_tasks: tasks/desktop/_main.yml

@@ -1,0 +1,7 @@
+- name: Install engineering arch packages
+  pacman:
+    name:
+      - freecad # General purpose 3D CAD modeler
+      - superslicer
+    state: present
+  become: true

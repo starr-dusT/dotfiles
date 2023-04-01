@@ -106,6 +106,8 @@ export EDITOR=nvim
 # For a full list of active aliases, run `alias`.
 #
 
+alias ssway='export WLR_NO_HARDWARE_CURSORS=1 && sway --unsupported-gpu'
+
 # tmuxinator 
 alias tsplat='tmuxinator start splat'
 alias tdot='tmuxinator start dot'

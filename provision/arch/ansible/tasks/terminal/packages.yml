@@ -1,0 +1,29 @@
+- name: Install terminal arch packages
+  pacman:
+    name:
+      - neovim # Vim-fork focused on extensibility and agility
+      - task # Command-line TODO list manager
+      - taskwarrior-tui
+      - timew # Timewarrior tracks and reports time
+      - python-tasklib # Library for interacting with taskwarrior databases
+      - vifm # Ncurses-based file manager with vi-like keybindings
+      - zsh # Z SHell
+      - tmux # Terminal Multiplexer
+      - nmap # Utility for network discovery and security auditing
+      - w3m  # Text-based Web browser and pager (with Debian patches)
+      - lf # Terminal file manager
+      - khal # Command-line calendar build around CalDAV
+      - khard # Command-line addressbook built around CardDAV
+      - vdirsyncer # Synchronize calendars and addressbooks
+      - neofetch # Simple system information script
+    state: present
+  become: true
+
+- name: Install terminal python packages
+  ansible.builtin.pip:
+    name: 
+      - pynvim 
+
+- name: Install terminal cargo packages
+  community.general.cargo:
+    name: rbw # This is an unofficial command line client for Bitwarden
