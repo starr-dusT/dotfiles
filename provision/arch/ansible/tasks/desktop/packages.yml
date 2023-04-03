@@ -14,6 +14,7 @@
       - waybar
       - ttf-jetbrains-mono-nerd
       - ydotool
+      - wl-clipboard
       - udiskie
       - network-manager-applet
       - blueman
