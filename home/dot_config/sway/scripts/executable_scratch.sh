@@ -10,7 +10,7 @@ I3_MARK=${1}
 LAUNCH_CMD=${2}
 
 scratchpad_show() {
-    i3-msg "[con_mark=${I3_MARK}]" scratchpad show
+    swaymsg "[con_mark=${I3_MARK}]" scratchpad show
 }
 
 # try showing the scratchpad window
@@ -21,13 +21,13 @@ if ! scratchpad_show; then
     eval "${LAUNCH_CMD}" &
 
     # Wait for the next window event.
-    i3-msg -t subscribe  '[ "window" ]'
+    swaymsg -t subscribe  '[ "window" ]'
 
     # Set a mark
-    i3-msg mark ${I3_MARK}
+    swaymsg mark ${I3_MARK}
 
     # Move it to the scratchpad workspace
-    i3-msg move scratchpad
+    swaymsg move scratchpad
 
     # show the scratchpad window
     scratchpad_show

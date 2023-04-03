@@ -4,13 +4,20 @@
       - alacritty # Cross-platform, GPU-accelerated terminal emulator
       - mpv # Video player based on MPlayer/mplayer2
       - ffmpeg # Decoding, encoding and streaming software
-      - nvidia # NVIDIA drivers for linux - Libraries and Utilities
+      - nvidia-dkms # NVIDIA drivers for linux - Libraries and Utilities
       - nvidia-utils
       - lib32-nvidia-utils
       - firefox # Mozilla Firefox web browser
-        #- nerd-fonts # Iconic font aggregator, collection and patcher
       - sway
-      - 
+      - swayidle
+      - swaylock
+      - waybar
+      - ttf-jetbrains-mono-nerd
+      - ydotool
+      - udiskie
+      - network-manager-applet
+      - blueman
+      - flameshot
     state: present
   become: true
 

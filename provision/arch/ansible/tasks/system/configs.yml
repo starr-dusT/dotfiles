@@ -18,3 +18,25 @@
     regexp: ^Defaults    env_reset
     line: Defaults    env_reset,timestamp_timeout=60,!tty_tickets
   become: yes
+
+- name: Enable modeset for nvidia
+  tags: ["once"]
+  lineinfile:
+    path: /etc/default/grub
+    regexp: '^GRUB_CMDLINE_LINUX_DEFAULT="((:?(?!nvidia_drm.modeset=1).)*?)"$'
+    line: 'GRUB_CMDLINE_LINUX_DEFAULT="\1 nvidia_drm.modeset=1"'
+    backup: true
+    backrefs: true
+  become: yes
+
+- name: Update grub
+  tags: ["once"]
+  shell: >
+    grub-mkconfig -o /boot/grub/grub.cfg
+  become: true
+
+- name: Enable pipewire with pulse
+  tags: ["once"]
+  shell: >
+    systemctl --user --now enable pipewire pipewire-pulse
+  become: true

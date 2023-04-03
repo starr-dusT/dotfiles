@@ -38,6 +38,8 @@ echo "{
     \"disp_sec\": \"HDMI-0\"
 }" > "$CHEZDIR/home/.gen/i3.json"
 
+read lel
+
 # initialize chezmoi
 chezmoi init
 

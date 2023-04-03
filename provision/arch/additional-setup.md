@@ -180,7 +180,7 @@ sudo pacman -S meson
 # Use wayland branch
 git clone https://github.com/lbonn/rofi.git
 cd rofi
-meson setup build
+meson setup build -Dxcb=disabled
 ninja -C build
 sudo ninja -C build install
 ```

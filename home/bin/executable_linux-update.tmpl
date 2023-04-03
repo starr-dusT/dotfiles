@@ -12,6 +12,7 @@ EXAMPLE TAGS:
               
 FLAGS:
     -f, --fedora perform update for fedora 
+    -a, --arch perform update for arch
     -v, --void   perform update for void
     -s, --src    compile (or recompile) source based packages" 
     exit 0
@@ -24,6 +25,10 @@ while [[ $# -gt 0 ]]; do
   case $1 in
     -v|--void)
       distro="void" 
+      shift
+      ;;
+    -a|--arch)
+      distro="arch" 
       shift
       ;;
     -f|--fedora)

@@ -1,4 +1,4 @@
-- name: Install development void packages
+- name: Install development arch packages
   pacman:
     name:
       - python # Python programming language (3.11 series)

@@ -7,8 +7,8 @@
 
 set $HOME /home/tstarr
 
-set $DISP_PRI HDMI-0
-set $DISP_SEC HDMI-0 
+set $DISP_PRI HDMI-A-1
+set $DISP_SEC DP-3
 
 set $BOR_WIDTH 4
 set $GAP_INNER 4
@@ -24,7 +24,7 @@ set $tag6 "6:web"
 set $tag7 "7:web" 
 set $tag8 "8:comm"
 
-set $e exec sway-msg mode default
+set $e exec swaymsg mode default
 
 set $mode_power "[r]eboot | [s]hutdown"
 
@@ -190,7 +190,7 @@ bindsym $mod+a exec rofi -show drun -show-icons
 bindsym $mod+Shift+a exec rofi -show window -show-icons
 bindsym $mod+o mode open
 mode open {
-    bindsym b exec flatpak run org.mozilla.firefox, $e
+    bindsym b exec firefox, $e
     bindsym s exec steam, $e
     bindsym d exec flatpak run com.discordapp.Discord, $e
     bindsym Escape mode default
@@ -208,20 +208,25 @@ mode scratch {
     bindsym Escape mode default
 }
 
+output HDMI-A-1 {
+    resolution 2560x1440@143.912Hz
+    position 0,0
+}
+
+output DP-3 {
+    resolution 2560x1440@143.973Hz
+    position 2560,0
+}
+
 #-------------------------------------------------------------------------------
 #----- AUTOSTART WITH I3
 #-------------------------------------------------------------------------------
 
-exec --no-startup-id "autorandr --change && sway-msg restart"
-exec --no-startup-id "pipewire & pipewire-pulse &"
-exec --no-startup-id "udiskie &"
-exec_always --no-startup-id "$HOME/.config/sway/scripts/autolayout.sh"
-exec_always --no-startup-id "$HOME/.config/sway/scripts/polybar.sh"
+exec --no-startup-id "udiskie"
+#exec_always --no-startup-id "$HOME/.config/sway/scripts/autolayout.sh"
 exec_always --no-startup-id "blueman-applet"
 exec_always --no-startup-id "nm-applet"
 exec_always --no-startup-id "flameshot"
-exec_always --no-startup-id "xsetroot -solid '#282A36'"
-exec_always --no-startup-id "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK"
+#exec_always --no-startup-id "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK"
+exec_always --no-startup-id "waybar"
 
-seat seat0 xcursor_theme default 24
-exec waybar

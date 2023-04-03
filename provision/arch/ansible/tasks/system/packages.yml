@@ -20,7 +20,8 @@
       - linux-zen
       - linux-zen-headers
       - base-devel
-      - ttf-jetbrains-mono-nerd
+      - python-setuptools
+      - pipewire
     state: present
   become: true
 
