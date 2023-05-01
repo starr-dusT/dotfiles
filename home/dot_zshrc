@@ -132,4 +132,6 @@ alias tre='trash-restore'
 alias trm='trash-rm'
 alias rofi='wayland-rofi'
 
+# fedora
+alias update-grub='sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg'
 export GPG_TTY=$(tty)

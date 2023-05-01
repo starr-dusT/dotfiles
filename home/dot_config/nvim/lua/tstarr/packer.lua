@@ -38,5 +38,7 @@ return require('packer').startup(function(use)
     use ('vimwiki/vimwiki')
     use ('folke/which-key.nvim')
     use ('hkupty/iron.nvim')
+    use("mickael-menu/zk-nvim")
+    require("zk").setup()
 
 end)
