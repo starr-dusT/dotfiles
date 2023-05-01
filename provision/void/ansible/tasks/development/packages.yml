@@ -1,0 +1,25 @@
+- name: Install development void packages
+  xbps:
+    name:
+      - python3 # Python programming language (3.11 series)
+      - python3-pip # A tool for installing and managing Python3 packages
+      - ripgrep # Fast search tool inspired by ag and grep
+      - fd # Simple, fast and user-friendly alternative to find
+      - lazygit # Simple terminal UI for git commands
+      - ruby-tmuxinator # Create and manage complex tmux sessions easily
+      - python3-pipenv # Python Development Workflow for Humans
+      - python3-devel # Python programming language (3.11 series) - development files
+    state: present
+  become: true
+
+- name: Install development python packages
+  ansible.builtin.pip:
+    name: 
+      - ansible-lint # Command-line tool for linting playbooks, roles and collections 
+
+- name: Install development flatpaks
+  flatpak:
+    name:
+      - com.vscodium.codium # Free/Libre Open Source Software Binaries of VS Code
+    state: present
+  become: true

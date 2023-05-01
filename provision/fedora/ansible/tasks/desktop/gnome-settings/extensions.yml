@@ -1,0 +1,11 @@
+- name: Install gnome extensions
+  include_role:
+    name: ansible-role-customize-gnome
+  vars:
+    # For now extensions aren't enabled (https://github.com/PeterMosmans/ansible-role-customize-gnome/issues/25)
+    gnome_extensions:
+      - id: 779 # https://github.com/Tudmotu/gnome-shell-extension-clipboard-indicator
+      - id: 4362 # https://github.com/Noobsai/fullscreen-avoider
+      - id: 1460 # https://github.com/corecoding/Vitals
+      - id: 7 # https://gitlab.gnome.org/GNOME/gnome-shell-extensions
+    gnome_user: "{{ user }}"

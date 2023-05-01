@@ -1,0 +1,41 @@
+- name: Set desktop files to hide
+  include_tasks: ../include/hide-desktop.yml
+  loop:
+    - /usr/share/applications/wine-winhelp.desktop
+    - /usr/share/applications/wine-mime-msi.desktop
+    - /usr/share/applications/wine-notepad.desktop
+    - /usr/share/applications/wine-oleview.desktop
+    - /usr/share/applications/wine-regedit.desktop
+    - /usr/share/applications/wine-uninstaller.desktop
+    - /usr/share/applications/wine-wineboot.desktop
+    - /usr/share/applications/wine-winecfg.desktop
+    - /usr/share/applications/wine-winefile.desktop
+    - /usr/share/applications/wine-winemine.desktop
+    - /usr/share/applications/wine-wordpad.desktop
+    - /usr/share/applications/vifm.desktop
+    - /usr/share/applications/dosbox-staging.desktop
+    - /usr/share/applications/nvim.desktop
+    - /usr/share/applications/syncthing-start.desktop
+    - /usr/share/applications/syncthing-ui.desktop
+    - /usr/share/applications/cgnscalc.desktop
+    - /usr/share/applications/cgnsnodes.desktop
+    - /usr/share/applications/cgnsplot.desktop
+    - /usr/share/applications/cgnsview.desktop
+    - /usr/share/applications/qt5-assistant.desktop
+    - /usr/share/applications/opencascade-draw.desktop
+    - /usr/share/applications/unitconv.desktop
+
+- name: Uninstall desktop bloat 
+  dnf:
+    name:
+      - yelp
+      - gnome-boxes
+      - rhythmbox
+      - gnome-photos
+      - totem
+      - gnome-text-editor
+      - cheese
+      - gnome-tour
+      - gnome-maps
+    state: absent
+  become: true

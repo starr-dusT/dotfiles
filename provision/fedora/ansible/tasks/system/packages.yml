@@ -1,0 +1,57 @@
+- name: Install rpm-fusion
+  tags: ["once"]
+  block:
+    - name: Importing (free) key
+      ansible.builtin.rpm_key:
+        state: present
+        key: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-2020
+    
+    - name: Importing (non-free) key
+      ansible.builtin.rpm_key:
+        state: present
+        key: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020
+    
+    - name: install the rpmfusion repo packages
+      dnf:
+        name:
+          - http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
+          - http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
+        state: present
+  become: true
+
+- name: Enable iosevka font copr repo
+  community.general.copr:
+    name: peterwu/iosevka 
+    state: enabled
+  become: true
+
+- name: Install system fedora packages
+  dnf:
+    name:
+      - git # Fast Version Control System
+      - git-lfs # Git extension for versioning large files
+      - syncthing # Continuous File Synchronization
+      - flatpak # Application deployment framework for desktop apps
+      - wireguard-tools # Fast, modern, secure vpn tunnel
+      - pipewire-codec-aptx # PipeWire Bluetooth aptX codec plugin
+      - ansible # Simple deployment, configuration management and execution framework
+      - '@Development tools' # Development tools for Fedora
+      - '@virtualization' # Virtualization tools for Fedora
+      - trash-cli # Command line interface to the freedesktop.org trashcan
+      - android-tools # Android platform tools(adb, fastboot)
+      - snapper
+      - python3-dnf-plugin-snapper
+      - cargo
+      - iosevka-fonts
+      - borgbackup
+    state: present
+  become: true
+
+- name: Install chezmoi 
+  ansible.builtin.shell: sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin # Manage your dotfiles across multiple machines, securely
+
+- name: Add the flathub flatpak repository remote
+  tags: ["once"]
+  shell: |
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  become: true

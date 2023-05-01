@@ -1,0 +1,6 @@
+- import_tasks: extensions.yml
+  tags: ["gnome-extensions"]
+- import_tasks: keybinds.yml
+  tags: ["configs"]
+- import_tasks: window-management.yml
+  tags: ["configs"]
