@@ -5,8 +5,8 @@ spacer_len = 3
 wal_color = wal["colors"]
 
 widget_defaults = dict(
-    font="JetBrains Mono Nerd Font",
-    fontsize=10,
+    font="Jet Brains Mono",
+    fontsize=14,
     padding=3,
     background=wal_color["color0"],
 )
@@ -26,7 +26,7 @@ primary_widgets = [
         visible_groups=["1", "2", "3", "4", "5"],
     ),
     widget.TextBox(
-        text="\uE0B0",
+        text=" ",
         fontsize=17,
         padding=0,
         background=wal_color["color2"],

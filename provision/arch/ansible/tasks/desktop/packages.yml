@@ -8,17 +8,21 @@
       - nvidia-utils
       - lib32-nvidia-utils
       - firefox # Mozilla Firefox web browser
-      - sway
-      - swayidle
-      - swaylock
-      - waybar
       - ttf-jetbrains-mono-nerd
-      - ydotool
-      - wl-clipboard
       - udiskie
       - network-manager-applet
       - blueman
       - flameshot
+      - libx11 
+      - libxft 
+      - libxinerama 
+      - libxrandr 
+      - libxss
+      - pkgconf
+      - stack
+      - rofi
+      - xorg
+      - xorg-xinit
     state: present
   become: true
 
@@ -30,5 +34,6 @@
       - org.inkscape.Inkscape # Vector Graphics Editor
       - com.github.tchx84.Flatseal # Manage Flatpak permissions
       - org.kde.kdenlive
+      - com.bitwarden.desktop
     state: present
   become: true

@@ -5,7 +5,7 @@ return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     -- Colors
-    use ('dracula/vim')
+    --use ('dracula/vim')
 
     -- IDE
     use('nvim-lua/plenary.nvim')
@@ -40,5 +40,11 @@ return require('packer').startup(function(use)
     use ('hkupty/iron.nvim')
     use("mickael-menu/zk-nvim")
     require("zk").setup()
+
+    use('norcalli/nvim-colorizer.lua')
+    require("colorizer").setup()
+
+    use('loctvl842/monokai-pro.nvim')
+    require("monokai-pro").setup()
 
 end)

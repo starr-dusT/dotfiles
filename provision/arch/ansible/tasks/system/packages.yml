@@ -8,8 +8,6 @@
       - wireguard-tools # Fast, modern, secure vpn tunnel
       - libfreeaptx # PipeWire Bluetooth aptX codec plugin
       - ansible # Simple deployment, configuration management and execution framework
-      #- '@Development tools' # Development tools for Fedora
-      #- '@virtualization' # Virtualization tools for Fedora
       - trash-cli # Command line interface to the freedesktop.org trashcan
       - android-tools # Android platform tools(adb, fastboot)
       - snapper

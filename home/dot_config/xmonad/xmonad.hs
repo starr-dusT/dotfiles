@@ -15,7 +15,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.WorkspaceHistory
 import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
-import XMonad.Hooks.DynamicProperty
+import XMonad.Hooks.OnPropertyChange
 
 -- Layouts
 import XMonad.Layout.NoBorders
@@ -29,7 +29,7 @@ import XMonad.Layout.TwoPane
 import XMonad.Layout.TwoPanePersistent
 import XMonad.Layout.Combo
 import XMonad.Layout.Master
-import XMonad.Layout.StateFull (focusTracking)
+import XMonad.Layout.FocusTracking (focusTracking)
 import XMonad.Layout.Renamed
 
 --Utilities
@@ -59,7 +59,7 @@ import qualified XMonad.Util.ExtensibleState as XS
 
 -- Font to use
 myFont :: String
-myFont = "xft:Mononoki Nerd Font:pixelsize=12:antialias=true:hinting=true"
+myFont = "xft:Jet Brains Mono:pixelsize=12:antialias=true:hinting=true"
   
 -- Terminal to use
 myTerminal :: String
@@ -162,7 +162,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 t = 0.95 -h
                 l = 0.95 -w
         -- Discord 
-        spawnDiscord  = "discord"
+        spawnDiscord  = "flatpak run com.discordapp.Discord"
         findDiscord   = appName =? "discord"
         manageDiscord = customFloating $ W.RationalRect l t w h
             where
@@ -228,7 +228,7 @@ myManageHook = composeAll . concat $
 
 -- Set dynamic display modes
 myEventHook :: Event -> X All
-myEventHook = dynamicPropertyChange "WM_NAME" (title =? "scratch-emacs" --> floating)
+myEventHook = onXPropertyChange "WM_NAME" (title =? "scratch-emacs" --> floating)
                   where floating = customFloating $ W.RationalRect (1/6) 0.05 (2/3) 0.9
 -- Log hook
 myLogHook = historyHook <+> updatePointer (0.5, 0.5) (0, 0)

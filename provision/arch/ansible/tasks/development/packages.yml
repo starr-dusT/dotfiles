@@ -23,6 +23,7 @@
   ansible.builtin.pip:
     name: 
       - ansible-lint # Command-line tool for linting playbooks, roles and collections 
+      - pyright
 
 - name: Install development flatpaks
   flatpak:
