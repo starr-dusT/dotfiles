@@ -1,12 +1,12 @@
-Config { font = "xft:Mononoki Nerd Font:pixelsize=12:antialias=true:hinting=true"
-       , bgColor = "#282828"
-       , fgColor = "#EBDBB2"
+Config { font = "xft:Jet Brains Mono Nerd Font:pixelsize=12:antialias=true:hinting=true"
+       , bgColor = "#221e2d"
+       , fgColor = "#d1d1d1"
        , position = Static {xpos = 0, ypos = 0, width = 2560, height = 20} 
        , iconRoot = "X"
        , allDesktops = True
-       , commands = [ Run Cpu ["-t", " <fc=#FB4934><total></fc>%","-H", "2"] 10
-                    , Run Memory ["-t", "<fc=#FB4934><usedratio></fc>%"] 10
-                    , Run Network "enp3s0" [ "-t", "<fc=#FB4934><tx></fc>kb/<fc=#FB4934><rx></fc>kb" ] 10
+       , commands = [ Run Cpu ["-t", " <fc=#F92672><total></fc>%","-H", "2"] 10
+                    , Run Memory ["-t", "<fc=#F92672><usedratio></fc>%"] 10
+                    , Run Network "enp3s0" [ "-t", "<fc=#F92672><tx></fc>kb/<fc=#F92672><rx></fc>kb" ] 10
                     , Run Com "/home/tstarr/.config/xmobar/volume" [] "volume" 10
                     , Run Com "/home/tstarr/.config/xmobar/gamemode" [] "gamemode" 10
                     , Run Com "/home/tstarr/.config/xmobar/mouse" [] "mouse" 10 
@@ -15,5 +15,5 @@ Config { font = "xft:Mononoki Nerd Font:pixelsize=12:antialias=true:hinting=true
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " <fc=#FB4934>%StdinReader%</fc>}%date%{%enp3s0% | %mouse% | %volume% | 閭%cpu% |  %memory% |%gamemode%"
+       , template = " <fc=#F92672>%StdinReader%</fc>}%date%{%enp3s0% | %mouse% | 󰕾%volume% | %cpu% |  %memory% | %gamemode%"
       

@@ -17,6 +17,7 @@
       - vdirsyncer # Synchronize calendars and addressbooks
       - neofetch # Simple system information script
       - zk
+      - fzf
     state: present
   become: true
 

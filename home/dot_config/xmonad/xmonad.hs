@@ -90,17 +90,17 @@ myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 myBorderWidth = 2
 
 -- Border colors
-myNormalBorderColor = "#282828"
-myFocusedBorderColor = "#B16286"
+myNormalBorderColor = "#221e2d"
+myFocusedBorderColor = "#66d9ef"
 
 -- Config for xmonad prompts
 myXPConfig = 
     def { font                = myFont
-        , bgColor             = "#282828" 
-        , fgColor             = "#EBDBB2" 
-        , fgHLight            = "#B16286" 
-        , bgHLight            = "#282828" 
-        , borderColor         = "#B16286"
+        , bgColor             = "#221e2d" 
+        , fgColor             = "#d1d1d1" 
+        , fgHLight            = "#66d9ef" 
+        , bgHLight            = "#221e2d" 
+        , borderColor         = "#66d9ef"
         , promptBorderWidth   = 2
         , position            = CenteredAt 0.5 0.25
         , height              = 40
@@ -115,23 +115,21 @@ myXPConfig =
 -- Config for tabs
 myTabTheme =
   def { fontName            = myFont
-      , activeColor         = "#B16286" 
-      , inactiveColor       = "#282828" 
-      , activeBorderColor   = "#B16286" 
-      , inactiveBorderColor = "#282828"  
-      , activeTextColor     = "#282828" 
-      , inactiveTextColor   = "#B16286" 
+      , activeColor         = "#66d9ef" 
+      , inactiveColor       = "#221e2d" 
+      , activeBorderColor   = "#66d9ef"
+      , inactiveBorderColor = "#221e2d"  
+      , activeTextColor     = "#221e2d" 
+      , inactiveTextColor   = "#66d9ef"
       , decoHeight          = 15
       }
 
 myStartupHook = do
     spawnOnce "nitrogen --restore &"
     spawnOnce "lxsession &"
-    spawnOnce "xsetroot -cursor_name left_ptr"
-    spawnOnce "imwheel -b 45 &"
     spawnOnce "udiskie &"
-    spawnOnce "dunst -conf ~/.config/dunst/dunstrc"
-    spawnOnce "emacs --daemon"
+    spawnOnce "dunst -conf ~/.config/dunst/dunstrc &"
+    spawnOnce "picom &"
 
 -- Config layouts
 myLayout = windowNavigation
@@ -261,16 +259,12 @@ myKeys home =
     , ("M-C-j", rotSlavesDown)
     -- Swap the focused window with the previous window.
     , ("M-C-k", rotSlavesUp)
-    -- Move focus to the master window.
-    , ("M-m", windows W.focusMaster)
-    -- Swap the focused window and the master window.
-    , ("M-S-m", windows W.swapMaster)
     -- Increment number of windows in master
     , ("M-.", sendMessage (IncMasterN 1))
     -- Decrement number of windows in master
     , ("M-,", sendMessage (IncMasterN (-1)))
     -- Swap the focused window and the master window.
-    , ("M-b", nextMatch History (return True))
+    , ("M-b", nextMatch Backward (return True))
     -- Bring a window to focus.
     , ("M-z", bringMenu)
     -- Remove workspace
@@ -310,7 +304,7 @@ myKeys home =
     -- Open Applications
     --------------------------------------------------
     -- Spawn firefox
-    , ("M-o b"  , spawn "chromium")
+    , ("M-o b"  , spawn "firefox")
     -- Spawn lutris
     , ("M-o l"  , spawn "lutris")
     -- Spawn steam
@@ -367,8 +361,9 @@ main = do
       $ ewmhFullscreen
       $ navigation2DP def
                      ("", "h", "", "l")
-                     [("M-", screenGo),
-                      ("M-S-", screenSwap)]
+                     [("M-", windowGo),
+                      ("M-S-", windowSwap),
+                      ("M-C-", screenGo)]
                      False
       $ def
         {
@@ -387,13 +382,13 @@ main = do
         logHook = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP
             { ppOutput = \x -> hPutStrLn xmproc0 x
 	    		    >> hPutStrLn xmproc1 x
-            , ppCurrent = xmobarColor "#B8BB26" "" . wrap "[" "]"    -- Current workspace in xmobar
-            , ppVisible = xmobarColor "#83A598" ""                -- Visible but not current workspace
-            , ppHidden = xmobarColor "#83A598" "" . wrap "*" ""   -- Hidden workspaces in xmobar
+            , ppCurrent = xmobarColor "#a6e22e" "" . wrap "[" "]"    -- Current workspace in xmobar
+            , ppVisible = xmobarColor "#ae81ff" ""                -- Visible but not current workspace
+            , ppHidden = xmobarColor "#ae81ff" "" . wrap "*" ""   -- Hidden workspaces in xmobar
             , ppHiddenNoWindows= \( _ ) -> ""                                -- Only shows visible workspaces. Useful for TreeSelect.
-            , ppTitle = xmobarColor "#EBDBB2" "" . shorten 60     -- Title of active window in xmobar
-            , ppSep = "<fc=" ++ "#EBDBB2" ++ "> | </fc>"            -- Separators in xmobar
-            , ppUrgent = xmobarColor "#FB2934" "" . wrap "!" "!"             -- Urgent workspace
+            , ppTitle = xmobarColor "#d1d1d1" "" . shorten 60     -- Title of active window in xmobar
+            , ppSep = "<fc=" ++ "#d1d1d1" ++ "> | </fc>"            -- Separators in xmobar
+            , ppUrgent = xmobarColor "#a6e22e" "" . wrap "!" "!"             -- Urgent workspace
             , ppExtras = [windowCount]                                       -- # of windows current workspace
             , ppOrder = \(ws:l:t:ex) -> [ws,l]++ex++[t]},
         startupHook = myStartupHook

@@ -7,6 +7,7 @@
       - nvidia-dkms # NVIDIA drivers for linux - Libraries and Utilities
       - nvidia-utils
       - lib32-nvidia-utils
+      - nvidia-settings
       - firefox # Mozilla Firefox web browser
       - ttf-jetbrains-mono-nerd
       - udiskie
@@ -23,6 +24,11 @@
       - rofi
       - xorg
       - xorg-xinit
+      - picom
+      - dunst
+      - lxsession
+      - nitrogen
+      - lxappearance
     state: present
   become: true
 
@@ -37,3 +43,9 @@
       - com.bitwarden.desktop
     state: present
   become: true
+
+- name: Install desktop yay packages
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - google-earth-pro

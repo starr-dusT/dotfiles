@@ -2,9 +2,9 @@
 
 status=$(gamemoded -s)
 if [ "$status" == "gamemode is inactive" ]; then
-	color="#B8BB26"
+	color="#a6e22e"
 else
-	color="#FB4934"
+	color="#f92672"
 fi
 
-echo "<fc=$color>   </fc>"
+echo "<fc=$color>󰈸 </fc>"

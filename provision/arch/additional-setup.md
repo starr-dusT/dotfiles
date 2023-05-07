@@ -74,7 +74,7 @@ linux-mount-<network drive name>
 
 ## Taskopen for taskwarrior
 
-[taskopen](https://github.com/jschlatow/taskopeni) is easier to install 
+[taskopen](https://github.com/jschlatow/taskopen) is easier to install 
 manually at this point since it isn't packaged and uses nim. Might get this 
 automated in the future.
 
@@ -120,43 +120,6 @@ section).
 Transfer the `.mozilla` folder from install-to-install to maintain Firefox
 settings and configurations.
 
-## Dracula colorscheme for gnome terminal
-
-[Dracula](https://draculatheme.com/gnome-terminal) is used for gnome-terminal. 
-Run the following commands to install:
-
-```bash
-git clone https://github.com/dracula/gnome-terminal
-cd gnome-terminal
-./install.sh
-```
-
-## Bluetooth Audio
-
-In addition to the `pipewire-codec-aptx` package being required (installed
-with ansible) you need to set `ControllerMode = bredr` in
-`/etc/bluetooth/main.conf` to get bluetooth to work properly with audio devices.
-
-## Linux-tkg kernel
-
-The [linux-tkg](https://github.com/Frogging-Family/linux-tkg) kernel provides
-a more responsive desktop. Install with the following:
-
-```bash
-git clone https://github.com/Frogging-Family/linux-tkg.git
-cd linux-tkg
-```
-
-Set `CONFIG_EFI_HANDOVER_PROTOCOL` to `y` in 
-`linux-tkg-config/<kernel-version>/config.x86_64`.
-
-```bash
-./install.sh install
-sudo dnf install akmod-nvidia
-```
-
-Reboot into new kernel.
-
 ## Single GPU Passthrough to windows
 
 I use a windows virtual machine with gpu passthrough of the few games that
@@ -170,19 +133,11 @@ setup should usually be avoided by transfering the VM between machines:
 2. On the source host run `virsh dumpxml VMNAME > domxml.xml` and copy this xml to the destination host
 3. On the destination host run `virsh define domxml.xml`
 
-## Google earth pro
-
-[Google earth](https://www.google.com/earth/versions/) is nice for visualizing
-my hikes and checking out snow levels. Download the RPM and install with yum.
-
-## Emacs
+## xmonad
 
 ```bash
-git clone git://git.sv.gnu.org/emacs.git
-sudo dnf install autoconf texinfo gtk3-devel libgccjit-devel gnutls-devel ncurses-devel jansson jansson-devel
-cd emacs
-./autogen.sh
-./configure --with-native-compilation --with-json --with-pgtk
-make -j16
-sudo make install
+cd ~/.config/xmonad
+stack update
+stack init
+stack install
 ```

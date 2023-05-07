@@ -39,3 +39,18 @@
       - gnome-maps
     state: absent
   become: true
+
+- name: Delete amd vulkan files 
+  ansible.builtin.file:
+    state: absent
+    path: 
+      - /usr/share/vulkan/icd.d/amd_icd32.json
+      - /usr/share/vulkan/icd.d/amd_icd64.json
+
+- name: Start and enable bluetooth
+  tags: ["once"]
+  systemd:
+    name: bluetooth
+    enabled: true
+    state: started 
+  become: true

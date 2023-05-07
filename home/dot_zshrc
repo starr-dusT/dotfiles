@@ -114,7 +114,7 @@ alias tdot='tmuxinator start dot'
 alias ttask='tmuxinator start task'
 
 # Chezmoi
-alias cc="chezmoi cd"
+alias cc="cd ~/.local/share/chezmoi"
 alias cdr="chezmoi apply --verbose --dry-run"
 alias ca="chezmoi apply"
 
