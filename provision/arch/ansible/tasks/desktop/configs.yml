@@ -54,3 +54,11 @@
     enabled: true
     state: started 
   become: true
+
+- name: Start and enable bluetooth
+  tags: ["once"]
+  systemd:
+    name: libvirtd 
+    enabled: true
+    state: started 
+  become: true

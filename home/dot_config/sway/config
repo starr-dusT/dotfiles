@@ -186,6 +186,7 @@ bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
 
 # [o]pen applications
 bindsym $mod+Return exec alacritty
+bindsym $mod+u exec foot
 bindsym $mod+a exec rofi -show drun -show-icons
 bindsym $mod+Shift+a exec rofi -show window -show-icons
 bindsym $mod+o mode open
@@ -227,6 +228,6 @@ exec --no-startup-id "udiskie"
 exec_always --no-startup-id "blueman-applet"
 exec_always --no-startup-id "nm-applet"
 exec_always --no-startup-id "flameshot"
-#exec_always --no-startup-id "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK"
+exec_always --no-startup-id "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK"
 exec_always --no-startup-id "waybar"
 

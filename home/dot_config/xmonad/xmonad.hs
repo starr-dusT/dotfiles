@@ -353,7 +353,7 @@ rmKeys keys =
 main = do
     home <- getHomeDirectory
     xmproc0 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
-    xmproc1 <- spawnPipe "xmobar -x 1 ~/.config/xmobar/xmobarrc1"
+    --xmproc1 <- spawnPipe "xmobar -x 1 ~/.config/xmobar/xmobarrc1"
     -- The monad
     xmonad  
       $ docks
@@ -381,7 +381,7 @@ main = do
         handleEventHook = myEventHook,
         logHook = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP
             { ppOutput = \x -> hPutStrLn xmproc0 x
-	    		    >> hPutStrLn xmproc1 x
+--	    		    >> hPutStrLn xmproc1 x
             , ppCurrent = xmobarColor "#a6e22e" "" . wrap "[" "]"    -- Current workspace in xmobar
             , ppVisible = xmobarColor "#ae81ff" ""                -- Visible but not current workspace
             , ppHidden = xmobarColor "#ae81ff" "" . wrap "*" ""   -- Hidden workspaces in xmobar

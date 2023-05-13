@@ -18,7 +18,7 @@ Install Arch with BTRFS and partition:
        @home/.snapshots /home/.snapshots
 ```
 
-Select pipwire for audio, networkmanager for network, and install.
+Select pipewire for audio, networkmanager for network, and install.
 
 Run the following commands:
 

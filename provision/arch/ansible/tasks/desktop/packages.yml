@@ -29,6 +29,9 @@
       - lxsession
       - nitrogen
       - lxappearance
+      - virt-manager
+      - qemu-desktop
+      - dnsmasq
     state: present
   become: true
 
@@ -49,3 +52,4 @@
     use: yay
     name:
       - google-earth-pro
+      - google-chrome
