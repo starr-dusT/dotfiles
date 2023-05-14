@@ -137,7 +137,7 @@
       engineering.enable = true;
     };
     gaming = {
-        steam.enable = true;
+      steam.enable = true;
     };
   };
   

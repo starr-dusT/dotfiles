@@ -1,15 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, user, ... }:
 
-with lib;
-
-let
-  cfg = config.programs.steam;
+let cfg = config.modules.editors.steam;
 in {
-  options.programs.steam.enable = mkEnableOption "steam";
-
-  config = mkIf cfg.enable {
-    hardware.opengl = { # this fixes the "glXChooseVisual failed" bug, context:
-    https://github.com/NixOS/nixpkgs/issues/47932
+  options.modules.editors.steam.enable = lib.mkEnableOption "steam";
+  config = lib.mkIf cfg.enable {
+    hardware.opengl = { # this fixes the "glXChooseVisual failed" bug, context: https://github.com/NixOS/nixpkgs/issues/47932
       enable = true;
       driSupport32Bit = true;
     };
@@ -22,5 +17,4 @@ in {
     environment.systemPackages = [ pkgs.steam ];
   };
 
-  meta.maintainers = with maintainers; [ mkg20001 ];
 }
