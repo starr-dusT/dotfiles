@@ -1,5 +1,0 @@
-{ ... }:
-
-{
-  overrides = import ./overrides.nix;
-}

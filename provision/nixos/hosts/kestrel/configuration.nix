@@ -14,6 +14,7 @@
 
   # Add non-free packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = import ../../lib/overlays.nix;
 
   # Use zen kernel
   boot.kernelPackages = pkgs.linuxPackages_zen;
@@ -68,10 +69,12 @@
     nerdfonts
   ];
 
+  programs.zsh.enable = true;
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${user} = {
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
+    shell = pkgs.zsh;
   };
 
   # List packages installed in system profile. To search, run:
@@ -94,7 +97,6 @@
     gnome-extension-manager
     gnome.gnome-tweaks
     pinentry-curses 
-    zsh
     ripgrep
     trash-cli
   ];
@@ -124,7 +126,6 @@
      pinentryFlavor = "curses";
      enableSSHSupport = true;
   };
-
 
   # Enable modules
   imports = [ ../../modules ];
