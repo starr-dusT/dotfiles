@@ -1,21 +1,27 @@
 { config, pkgs, user, ... }:
-
 {
-
   home.username = "${user}";
   home.homeDirectory = "/home/${user}";
-
-  home.stateVersion = "22.05";
-
   programs.home-manager.enable = true;
 
-  programs.vscode = {
-    enable = true;
-    package = pkgs.vscode.fhsWithPackages (ps: with ps; [ ]);
+  # Enable user services
+  services = {
+    gvfs.enable = true; # USB automount
+    blueman.enable = true;
+    printing.enable = true;
+    printing.drivers = [ pkgs.hplip ];
+    #avahi.enable = true;
+    #avahi.nssmdns = true;
+    syncthing = {
+      enable = true;
+      user = "tstarr";
+      dataDir = "/home/tstarr/sync";
+      configDir = "/home/tstarr/.config/syncthing";
+    };
   };
 
   home.packages = with pkgs; [
-    brave
+    firefox
     rofi
     alacritty
     gamemode
@@ -29,6 +35,9 @@
     gruvbox-dark-gtk
     gruvbox-dark-icons-gtk
     libreoffice-fresh
+    chezmoi
+    rbw 
+    vscodium.fhs
   ];
 
   gtk = {
@@ -38,5 +47,5 @@
     };
   };
 
-
+  home.stateVersion = "22.11";
 }

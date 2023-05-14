@@ -108,6 +108,11 @@ export EDITOR=nvim
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
+#
+
+alias nixos-update='cd ~/.local/share/chezmoi/provision/nixos && \
+                    sudo nixos-rebuild switch --flake .#$(hostname) && \
+                    cd -'
 
 alias ssway='export WLR_NO_HARDWARE_CURSORS=1 && sway --unsupported-gpu'
 alias s='startx'

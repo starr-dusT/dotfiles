@@ -1,5 +1,5 @@
-#!/bin/bash
-
+#!/usr/bin/env bash 
+#
 # rbw-get <name of entry> <field of entry>
 # Ex: rbw-get google url
 
