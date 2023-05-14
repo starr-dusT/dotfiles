@@ -37,26 +37,26 @@
   time.timeZone = "America/Los_Angeles";
   i18n.defaultLocale = "en_US.UTF-8";
 
-  services.xserver = {
-    enable = true;
-    layout = "us";
+  #services.xserver = {
+  #  enable = true;
+  #  layout = "us";
 
-    desktopManager.xterm.enable = false;
+  #  desktopManager.xterm.enable = false;
 
-    # Use nvidia drivers
-    videoDrivers = [ "amdgpu" ];
+  #  # Use nvidia drivers
+  #  videoDrivers = [ "amdgpu" ];
 
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
+  #  displayManager.gdm.enable = true;
+  #  desktopManager.gnome.enable = true;
 
-    # Use the xmonad wm
-    windowManager = {
-      xmonad = {
-        enable = true;
-        enableContribAndExtras = true;
-      };
-    };
-  };
+  #  # Use the xmonad wm
+  #  windowManager = {
+  #    xmonad = {
+  #      enable = true;
+  #      enableContribAndExtras = true;
+  #    };
+  #  };
+  #};
 
   # Enable sound.
   sound.enable = true;
@@ -96,6 +96,7 @@
     pinentry-curses 
     zsh
     ripgrep
+    trash-cli
   ];
 
   # Enable user services
@@ -125,12 +126,12 @@
   };
 
 
+  # Enable modules
   imports = [ ../../modules ];
-
   modules = {
     services = {
       samba.enable = true;
-      vfio.enable = true;
+      vfio.enable = false; # Currently broken
     };
     devel = {
       python.enable = true;
@@ -138,6 +139,9 @@
     };
     gaming = {
       steam.enable = true;
+    };
+    desktop = {
+      sway.enable = true;
     };
   };
   

@@ -1,8 +1,8 @@
 { config, lib, pkgs, user, ... }:
 
-let cfg = config.modules.editors.steam;
+let cfg = config.modules.gaming.steam;
 in {
-  options.modules.editors.steam.enable = lib.mkEnableOption "steam";
+  options.modules.gaming.steam.enable = lib.mkEnableOption "steam";
   config = lib.mkIf cfg.enable {
     hardware.opengl = { # this fixes the "glXChooseVisual failed" bug, context: https://github.com/NixOS/nixpkgs/issues/47932
       enable = true;
