@@ -7,11 +7,11 @@
 
 set $HOME /home/tstarr
 
-set $DISP_PRI HDMI-A-1
-set $DISP_SEC DP-3
+set $DISP_PRI DP-2
+set $DISP_SEC HDMI-A-1
 
-set $BOR_WIDTH 4
-set $GAP_INNER 4
+set $BOR_WIDTH 3
+set $GAP_INNER 3
 
 set $mod Mod4
 
@@ -32,20 +32,26 @@ set $mode_power "[r]eboot | [s]hutdown"
 #----- COLORS 
 #-------------------------------------------------------------------------------
 
-# class                 border  bground text    indicator child_border
-client.focused          #bd93f9 #bd93f9 #F8F8F2 #bd93f9   #bd93f9
-client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
-client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
-client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
-client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+set $background #282A36
+set $foreground #F8F8F2
+set $focused #bd93f9
+set $inactive #44475A
+set $urgent #FF5555
 
-client.background       #F8F8F2
+# class                  border       bground       text     indicator  child_border
+client.focused           $focused    $focused    $foreground $focused    $focused
+client.focused_inactive  $inactive   $inactive   $foreground $inactive   $inactive
+client.unfocused         $background $background $foreground $background $background
+client.urgent            $inactive   $urgent     $foreground $urgent     $urgent
+client.placeholder       $background $background $foreground $background $background
+
+client.background       $foreground
 
 #-------------------------------------------------------------------------------
 #----- MISC. CONFIGURATION
 #-------------------------------------------------------------------------------
 
-font                    pango:Google Noto 8.5
+font pango:JetBrains Mono Nerd Font 10
 default_border pixel 3
 default_floating_border pixel 3
 
@@ -127,7 +133,7 @@ mode utility {
     bindsym q exit
     bindsym r reload
     bindsym p exec "rofi-rbw", $e
-    # TODO: gamemode (mod+Ctrl+g). Needs script to toggle
+    bindsym g exec "~/.config/sway/scripts/gamemode.sh", $e
     bindsym Escape mode default
 }
 
@@ -150,16 +156,18 @@ bindsym $mod+Tab focus mode_toggle
 floating_modifier $mod
 
 # spatial container management
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+bindsym $mod+h exec ~/.config/sway/scripts/tabfocus.sh "h"
+bindsym $mod+j exec ~/.config/sway/scripts/tabfocus.sh "j" 
+bindsym $mod+k exec ~/.config/sway/scripts/tabfocus.sh "k"
+bindsym $mod+l exec ~/.config/sway/scripts/tabfocus.sh "l"
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 bindsym $mod+minus split v
 bindsym $mod+backslash split h
+bindsym $mod+z splith; layout tabbed; focus parent
+bindsym $mod+Shift+z layout default 
 
 # workspace management
 bindsym $mod+1 workspace $tag1
@@ -180,15 +188,19 @@ bindsym $mod+Shift+e move container to workspace $tag7
 bindsym $mod+Shift+r move container to workspace $tag8
 
 # audio
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +2%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -2%
-bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # [o]pen applications
 bindsym $mod+Return exec alacritty
-bindsym $mod+u exec foot
-bindsym $mod+a exec rofi -show drun -show-icons
-bindsym $mod+Shift+a exec rofi -show window -show-icons
+bindsym $mod+a mode rofi
+mode rofi {
+    bindsym r exec rofi -show drun -show-icons, $e
+    bindsym w exec rofi -show window -show-icons, $e
+    bindsym e exec rofi -modi emoji -show emoji, $e
+    bindsym Escape mode default
+}
 bindsym $mod+o mode open
 mode open {
     bindsym b exec firefox, $e
@@ -206,6 +218,8 @@ mode scratch {
         'scratch-nb' 'alacritty -e tmuxinator start nb', $e
     bindsym t exec $HOME/.config/sway/scripts/scratch.sh \
         'scratch-warrior' 'alacritty -e tmuxinator start task', $e
+    bindsym b exec $HOME/.config/sway/scripts/scratch.sh \
+        'scratch-blue' 'blueman-manager', $e
     bindsym Escape mode default
 }
 
@@ -219,15 +233,25 @@ output DP-3 {
     position 2560,0
 }
 
+bar {
+    position top
+    #output $DISP_PRI
+    status_command while ~/.config/sway/scripts/status.sh; do sleep 1; done
+    tray_output none
+    pango_markup enabled
+    colors {
+        background #000000
+        focused_workspace $focused $focused $background
+    }
+}
+
 #-------------------------------------------------------------------------------
 #----- AUTOSTART WITH I3
 #-------------------------------------------------------------------------------
 
 exec --no-startup-id "udiskie"
-#exec_always --no-startup-id "$HOME/.config/sway/scripts/autolayout.sh"
 exec_always --no-startup-id "blueman-applet"
 exec_always --no-startup-id "nm-applet"
-exec_always --no-startup-id "flameshot"
+exec_always --no-startup-id "configure-gtk"
 exec_always --no-startup-id "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK"
-exec_always --no-startup-id "waybar"
-
+exec --no-startup-id "~/.config/sway/scripts/idle.sh"

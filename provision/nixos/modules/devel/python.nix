@@ -18,6 +18,8 @@ in {
       (python3.withPackages my-python-packages)
       beancount 
       fava 
+      nodePackages_latest.pyright
+      distrobox
     ];
   };
 }

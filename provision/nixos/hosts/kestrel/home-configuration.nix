@@ -6,6 +6,7 @@
 
 
   home.packages = with pkgs; [
+    google-chrome
     firefox
     alacritty
     gamemode

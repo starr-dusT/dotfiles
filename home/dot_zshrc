@@ -85,10 +85,9 @@ fi
 export PATH
 
 export PATH=/home/tstarr/.nimble/bin:$PATH
-export PATH=/home/tstarr/.cargo/bin:$PATH
-
-export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
-export PATH="$PATH:$GEM_HOME/bin"
+#export PATH=/home/tstarr/.cargo/bin:$PATH
+#export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
+#export PATH="$PATH:$GEM_HOME/bin"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

@@ -81,23 +81,14 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim
-    neovim
     git
-    haskellPackages.xmobar
     killall
     pciutils
     syncthing
-    nnn
-    xidlehook
-    pamixer
+    #pamixer
     vifm
-    play-with-mpv
     mpv
-    autokey
-    gnome-extension-manager
-    gnome.gnome-tweaks
     pinentry-curses 
-    ripgrep
     trash-cli
   ];
 
@@ -116,8 +107,10 @@
       configDir = "/home/tstarr/.config/syncthing";
     };
   };
-
-
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
+  };
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.pcscd.enable = true;
@@ -135,6 +128,7 @@
       vfio.enable = false; # Currently broken
     };
     devel = {
+      tooling.enable = true;
       python.enable = true;
       engineering.enable = true;
     };
