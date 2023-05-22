@@ -1,4 +1,14 @@
-# .bash_profile
+##⠀⠀⠀⠀⠀⠀⠀⠀⢠⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠀⠀⣼⡏⠸⣧⠀⠀⠀⠀⠀⠀⠀⠀
+#⠠⢤⣤⣤⣤⣤⣤⣴⡿⠀⠀⢻⣦⣤⣤⣤⣤⣤⡤⠄ Tyler Starr (starr-dusT)
+#⠀⠀⠙⠻⣦⣄⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⠟⠋⠀⠀ https://github.com/starr-dusT/dotfiles
+#⠀⠀⠀⠀⠀⠙⣿⡆⠀⠀⠀⠀⠰⣿⠋⠀⠀⠀⠀⠀ https://tstarr.us
+#⠀⠀⠀⠀⠀⢰⡟⠀⣀⣴⣦⣀⠀⢻⡆⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⢀⣾⣧⡾⠛⠁⠈⠙⠷⣼⣿⡀⠀⠀⠀⠀
+# ⠀⠀⠀⡸⠟⠁⠀⠀⠀⠀⠀⠀⠈⠛⢧⠀⠀⠀⠀
+# 
+# ~/.bash_profile
 
 # Get the aliases and functions
 [ -f $HOME/.bashrc ] && . $HOME/.bashrc

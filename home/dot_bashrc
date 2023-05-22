@@ -1,4 +1,14 @@
-# ~/.bashrc
+##⠀⠀⠀⠀⠀⠀⠀⠀⢠⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠀⠀⣼⡏⠸⣧⠀⠀⠀⠀⠀⠀⠀⠀
+#⠠⢤⣤⣤⣤⣤⣤⣴⡿⠀⠀⢻⣦⣤⣤⣤⣤⣤⡤⠄ Tyler Starr (starr-dusT)
+#⠀⠀⠙⠻⣦⣄⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⠟⠋⠀⠀ https://github.com/starr-dusT/dotfiles
+#⠀⠀⠀⠀⠀⠙⣿⡆⠀⠀⠀⠀⠰⣿⠋⠀⠀⠀⠀⠀ https://tstarr.us
+#⠀⠀⠀⠀⠀⢰⡟⠀⣀⣴⣦⣀⠀⢻⡆⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⢀⣾⣧⡾⠛⠁⠈⠙⠷⣼⣿⡀⠀⠀⠀⠀
+# ⠀⠀⠀⡸⠟⠁⠀⠀⠀⠀⠀⠀⠈⠛⢧⠀⠀⠀⠀
+# 
+# Bash config.
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then

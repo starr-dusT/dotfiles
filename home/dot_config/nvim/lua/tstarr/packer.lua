@@ -46,5 +46,6 @@ return require('packer').startup(function(use)
 
     use('loctvl842/monokai-pro.nvim')
     require("monokai-pro").setup()
-
+    use('stevearc/oil.nvim')
+    use('nvim-tree/nvim-tree.lua')
 end)

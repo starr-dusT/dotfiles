@@ -1,4 +1,14 @@
-# gloabl .gitconfig
+##⠀⠀⠀⠀⠀⠀⠀⠀⢠⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠀⠀⣼⡏⠸⣧⠀⠀⠀⠀⠀⠀⠀⠀
+#⠠⢤⣤⣤⣤⣤⣤⣴⡿⠀⠀⢻⣦⣤⣤⣤⣤⣤⡤⠄ Tyler Starr (starr-dusT)
+#⠀⠀⠙⠻⣦⣄⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⠟⠋⠀⠀ https://github.com/starr-dusT/dotfiles
+#⠀⠀⠀⠀⠀⠙⣿⡆⠀⠀⠀⠀⠰⣿⠋⠀⠀⠀⠀⠀ https://tstarr.us
+#⠀⠀⠀⠀⠀⢰⡟⠀⣀⣴⣦⣀⠀⢻⡆⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⢀⣾⣧⡾⠛⠁⠈⠙⠷⣼⣿⡀⠀⠀⠀⠀
+# ⠀⠀⠀⡸⠟⠁⠀⠀⠀⠀⠀⠀⠈⠛⢧⠀⠀⠀⠀
+# 
+# Global .gitconfig
 
 [user]
     email = starrtyler88@gmail.com

@@ -1,5 +1,4 @@
-#!/bin/bash
-#
+#!/usr/bin/env bash
 
 echo "Creating backup with borg..."
 datetime=$(date +"%Y%m%d%H%M%S")

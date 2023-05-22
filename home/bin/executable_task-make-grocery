@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [[ $(task "$1" +grocery 2>&1) == "No matches." ]];
 then
