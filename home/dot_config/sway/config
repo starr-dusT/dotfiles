@@ -122,8 +122,8 @@ for_window [class="discord"]        move container to workspace $tag8
 # [p]ower commands
 bindsym $mod+p mode $mode_power
 mode $mode_power {
-    bindsym s exec loginctl poweroff
-    bindsym r exec loginctl reboot
+    bindsym s exec shutdown now
+    bindsym r exec reboot
     bindsym Escape mode default
 }
 
@@ -205,7 +205,7 @@ bindsym $mod+o mode open
 mode open {
     bindsym b exec firefox, $e
     bindsym s exec steam, $e
-    bindsym d exec flatpak run com.discordapp.Discord, $e
+    bindsym d exec discord, $e
     bindsym Escape mode default
 }
 

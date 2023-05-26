@@ -69,6 +69,8 @@
     nerdfonts
   ];
 
+  virtualisation.docker.enable = true;
+  virtualisation.docker.storageDriver = "btrfs";
   programs.zsh.enable = true;
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${user} = {
@@ -90,6 +92,8 @@
     mpv
     pinentry-curses 
     trash-cli
+    bc
+    unzip
   ];
 
   # Enable user services
@@ -107,10 +111,7 @@
       configDir = "/home/tstarr/.config/syncthing";
     };
   };
-  virtualisation.docker.rootless = {
-    enable = true;
-    setSocketVariable = true;
-  };
+
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.pcscd.enable = true;

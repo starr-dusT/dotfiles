@@ -12,6 +12,7 @@ in {
     environment.systemPackages = with pkgs; [
       neovim
       ripgrep
+      tmux
       tmuxinator
     ];
   };

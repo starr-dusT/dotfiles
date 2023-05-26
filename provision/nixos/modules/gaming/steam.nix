@@ -14,7 +14,10 @@ in {
 
     hardware.steam-hardware.enable = true;
 
-    environment.systemPackages = [ pkgs.steam ];
+    environment.systemPackages = [ 
+      pkgs.steam 
+      pkgs.ryujinx
+    ];
   };
 
 }

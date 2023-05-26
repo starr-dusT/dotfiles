@@ -7,6 +7,8 @@ let
   my-python-packages = ps: with ps; [
     virtualenv
     i3ipc
+    ipython
+    pip
   ];
   
 in {

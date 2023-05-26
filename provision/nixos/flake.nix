@@ -7,9 +7,13 @@
       url = github:nix-community/home-manager;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mach-nix= {
+        url = "github:DavHau/mach-nix";
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, ... }:
+  outputs = inputs @ { self, nixpkgs, home-manager, mach-nix, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
