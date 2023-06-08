@@ -21,10 +21,11 @@ source $ZSH/oh-my-zsh.sh
 
 # Export PATHs
 export EDITOR=nvim
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
-then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
-fi
+
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then PATH="$HOME/.local/bin:$HOME/bin:$PATH"; fi
+if ! [[ "$PATH" =~ "$HOME/.nimble/bin:" ]]; then PATH="$HOME/.nimble/bin:$PATH"; fi
+if ! [[ "$PATH" =~ "$HOME/.cargo/bin:" ]]; then  PATH="$HOME/.cargo/bin:$PATH" ; fi
+
 export PATH
 
 # Create Aliases

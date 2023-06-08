@@ -19,9 +19,10 @@ else
 fi
 
 # Volume
-sink=$( pactl list short sinks | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | head -n 1 )
-volume=$( pactl list sinks | grep '^[[:space:]]Volume:' | head -n $(( $SINK + 1 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,' )
-mute=$(pactl list sinks | grep '^[[:space:]]Mute:' | head -n $(( $SINK + 1 )) | tail -n 1 | awk '{print $2}')
+sink=$(pactl list short sinks | grep 'RUNNING\|IDLE' | awk '{print $1}')
+#sink=$( pactl list short sinks | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | head -n 2 | tail -n 1)
+volume=$( pactl list sinks | grep '^[[:space:]]Volume:' | head -n $(( $sink + 1 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,' )
+mute=$(pactl list sinks | grep '^[[:space:]]Mute:' | head -n $(( $sink + 1 )) | tail -n 1 | awk '{print $2}')
 
 if [ "$mute" == "yes" ]; then
     volume_color='#f92672'
@@ -40,8 +41,8 @@ r2=`cat /sys/class/net/{{ .network_interface }}/statistics/rx_bytes`
 t2=`cat /sys/class/net/{{ .network_interface }}/statistics/tx_bytes`
 tx=`expr $t2 - $t1`
 rx=`expr $r2 - $r1`
-txmb=$(echo "scale = 1; $tx / 128000" | bc | awk '{printf "%05.1f\n", $0}')
-rxmb=$(echo "scale = 1; $rx / 128000" | bc | awk '{printf "%05.1f\n", $0}')
+txmb=$(echo "scale = 1; $tx / 1280000" | bc | awk '{printf "%05.1f\n", $0}')
+rxmb=$(echo "scale = 1; $rx / 1280000" | bc | awk '{printf "%05.1f\n", $0}')
 
 
 #<span foreground='#c16b26'>lel</span>

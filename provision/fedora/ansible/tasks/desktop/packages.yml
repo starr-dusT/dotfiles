@@ -3,22 +3,9 @@
     name:
       - mpv  # Video player based on MPlayer/mplayer2
       - ffmpeg # Decoding, encoding and streaming software
-      - akmod-nvidia # NVIDIA drivers for linux - Libraries and Utilities
       - firefox # Mozilla Firefox web browser
-      #- nerd-fonts # Iconic font aggregator, collection and patcher
       - gnome-tweaks
       - evolution
-      - "@base-x"
-      - alacritty
-      - rofi
-      - nitrogen
-      - libX11-devel 
-      - libXft-devel 
-      - libXinerama-devel 
-      - libXrandr-devel 
-      - libXScrnSaver-devel
-      - stack
-      - xorg-x11-xinit-session
     state: present
   become: true
 

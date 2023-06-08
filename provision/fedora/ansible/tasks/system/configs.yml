@@ -18,3 +18,9 @@
     regexp: ^Defaults    env_reset
     line: Defaults    env_reset,timestamp_timeout=60,!tty_tickets
   become: yes
+
+- name: Add user to libvirt group
+  tags: ["once"]
+  shell: |
+    usermod -a -G libvirt {{ user }} 
+  become: true

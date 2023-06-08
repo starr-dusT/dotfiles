@@ -88,24 +88,7 @@ gaps left               0
 
 for_window [title="Steam - News"]   floating enable
 for_window [title="Friends List"]   floating enable
-
 for_window [title="Picture-in-Picture"] sticky toggle
-
-for_window [con_mark="scratch-term"] floating enable, \
-    resize set 800 px 600 px, \
-    move position 880 px 420 px
-
-for_window [con_mark="scratch-warrior"] floating enable, \
-    resize set 1500 px 800 px, \
-    move position 530 px 320 px
-
-for_window [class="Blueman-manager"] floating enable, \
-    resize set 1000 px 800 px, \
-    move position 780 px 320 px
-
-for_window [class="scratch-nb"] floating enable, \
-    resize set 1000 px 800 px, \
-    move position 780 px 320 px
 
 #-------------------------------------------------------------------------------
 #----- BINDING APPLICATIONS TO WORKSPACE
@@ -204,22 +187,24 @@ mode rofi {
 bindsym $mod+o mode open
 mode open {
     bindsym b exec firefox, $e
-    bindsym s exec steam, $e
-    bindsym d exec discord, $e
+    bindsym s exec steam || flatpak run com.valvesoftware.Steam, $e
+    bindsym d exec discord || flatpak run com.discordapp.Discord, $e
     bindsym Escape mode default
 }
 
 # s[c]ratchpads commands
 bindsym $mod+c mode scratch
 mode scratch {
-    bindsym Return exec $HOME/.config/sway/scripts/scratch.sh \
-        'scratch-term' 'alacritty', $e
-    bindsym n exec $HOME/.config/sway/scripts/scratch.sh \
-        'scratch-nb' 'alacritty -e tmuxinator start nb', $e
-    bindsym t exec $HOME/.config/sway/scripts/scratch.sh \
-        'scratch-warrior' 'alacritty -e tmuxinator start task', $e
-    bindsym b exec $HOME/.config/sway/scripts/scratch.sh \
-        'scratch-blue' 'blueman-manager', $e
+    bindsym Return exec ~/.cargo/bin/sway-scratchpad \
+                            --command "alacritty" \
+                            --mark term \
+                            --width 40 \
+                            --height 71, $e
+    bindsym b exec ~/.cargo/bin/sway-scratchpad \
+                            --command "blueman-manager" \
+                            --mark blue \
+                            --width 40 \
+                            --height 71, $e
     bindsym Escape mode default
 }
 
@@ -250,8 +235,6 @@ bar {
 #-------------------------------------------------------------------------------
 
 exec --no-startup-id "udiskie"
-exec_always --no-startup-id "blueman-applet"
-exec_always --no-startup-id "nm-applet"
 exec_always --no-startup-id "configure-gtk"
 exec_always --no-startup-id "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK"
 exec --no-startup-id "~/.config/sway/scripts/idle.sh"

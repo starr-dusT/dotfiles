@@ -19,12 +19,6 @@
         state: present
   become: true
 
-- name: Enable iosevka font copr repo
-  community.general.copr:
-    name: peterwu/iosevka 
-    state: enabled
-  become: true
-
 - name: Install system fedora packages
   dnf:
     name:
@@ -42,7 +36,6 @@
       - snapper
       - python3-dnf-plugin-snapper
       - cargo
-      - iosevka-fonts
       - borgbackup
       - fzf
     state: present

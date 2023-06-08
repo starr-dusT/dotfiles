@@ -1,5 +1,7 @@
 - import_tasks: packages.yml
   tags: ["packages"]
+- import_tasks: sway.yml
+  tags: ["packages"]
 - import_tasks: configs.yml
   tags: ["configs"]
 - import_tasks: gnome-settings/_main.yml

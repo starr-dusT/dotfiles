@@ -25,6 +25,13 @@
     - /usr/share/applications/opencascade-draw.desktop
     - /usr/share/applications/unitconv.desktop
 
+- name: Delete amd vulkan files 
+  ansible.builtin.file:
+    state: absent
+    path: 
+      - /usr/share/vulkan/icd.d/amd_icd32.json
+      - /usr/share/vulkan/icd.d/amd_icd64.json
+
 - name: Uninstall desktop bloat 
   dnf:
     name:
@@ -38,4 +45,20 @@
       - gnome-tour
       - gnome-maps
     state: absent
+  become: true
+
+- name: Start and enable bluetooth
+  tags: ["once"]
+  systemd:
+    name: bluetooth
+    enabled: true
+    state: started 
+  become: true
+
+- name: Start and enable virtualization
+  tags: ["once"]
+  systemd:
+    name: libvirtd 
+    enabled: true
+    state: started 
   become: true

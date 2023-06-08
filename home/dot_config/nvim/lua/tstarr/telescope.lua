@@ -8,6 +8,7 @@ require('telescope').setup {
       },
       hidden_files = true,
       sync_with_nvim_tree = true, -- default false
+      no_ignore = true,
     }
   }
 }
