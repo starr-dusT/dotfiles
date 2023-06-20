@@ -22,6 +22,7 @@
       - khard # Command-line addressbook built around CardDAV
       - vdirsyncer # Synchronize calendars and addressbooks
       - neofetch # Simple system information script
+      - nnn
     state: present
   become: true
 

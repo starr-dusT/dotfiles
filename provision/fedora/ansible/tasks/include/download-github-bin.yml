@@ -9,8 +9,13 @@
   when: "asset.name is regex(item.regex)"
   get_url:
     url: "{{ asset.browser_download_url }}"
-    dest: /usr/local/bin/{{ item.repo }}
+    dest: /home/{{ user }}/.local/bin/{{ item.repo }}
     mode: 0775
+  when: item.name is not defined
+  get_url:
+    url: "{{ asset.browser_download_url }}"
+    dest: /home/{{ user }}/.local/bin/{{ item.name }}
+    mode: 0775
+  when: item.name is defined
   loop_control:
     loop_var: asset
-  become: true

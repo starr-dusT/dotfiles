@@ -9,7 +9,7 @@
   when: "asset.name is regex(item.regex)"
   unarchive:
     src: "{{ asset.browser_download_url }}"
-    dest: /usr/local/bin
+    dest: /home/{{ user }}/.local/bin
     remote_src: true
   loop_control:
     loop_var: asset

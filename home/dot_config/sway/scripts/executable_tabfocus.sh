@@ -18,6 +18,12 @@ move_tabbed_single =  {"h": "focus left",
                        "k": "focus left",
                        "l": "focus right"}
 
+def count_splits(node):
+    if node.layout == 'splitv' or node.layout == 'splith':
+        return 1 + sum(count_splits(n) for n in node.nodes)
+    else:
+        return sum(count_splits(n) for n in node.nodes)
+
 i3 = i3ipc.Connection()
 
 # Get the focused container
@@ -25,10 +31,12 @@ focused = i3.get_tree().find_focused()
 
 # Get number of splits (v or h)
 focused_workspace = focused.workspace()
-num_splits = sum(1 for con in focused_workspace.descendants() if con.layout == 'splitv' or con.layout == 'splith')
+num_splits = count_splits(focused_workspace) 
 
 # Get the layout of the parent container
 layout = focused.parent.layout
+
+print(num_splits, layout)
 
 if layout == "tabbed":
     if num_splits > 0:
