@@ -1,4 +1,0 @@
-- import_tasks: configs.yml
-  tags: ["configs"]
-- import_tasks: packages.yml
-  tags: ["packages"]

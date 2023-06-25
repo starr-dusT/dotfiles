@@ -1,9 +1,0 @@
-# Ansible Galaxy Roles
-roles:
-  - src: https://github.com/starr-dusT/ansible-role-customize-gnome  
-  - src: https://github.com/starr-dusT/ansible-rustup
-collections:
-   - name: community.general
-     version: 6.0.1
-     source: https://galaxy.ansible.com
-   - name: kewlfft.aur

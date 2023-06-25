@@ -1,7 +1,0 @@
-- import_tasks: packages.yml
-  tags: ["packages"]
-- import_tasks: configs.yml
-  tags: ["configs"]
-- import_tasks: gnome-settings/_main.yml
-  tags: ["configs"]
-  when: desktop == "gnome" 
