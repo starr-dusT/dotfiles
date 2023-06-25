@@ -1,5 +1,4 @@
 - name: Install nnn dependencies 
-  tags: ["test"]
   dnf:
     name:
       - readline-devel
@@ -7,7 +6,6 @@
   become: true
 
 - name: Clone nnn repo 
-  tags: ["test"]
   ansible.builtin.git:
     repo: https://github.com/jarun/nnn.git
     dest: /home/{{ user }}/tmp/nnn
@@ -23,3 +21,7 @@
     src: /home/{{ user }}/tmp/nnn/nnn
     dest: /home/{{ user }}/.local/bin/nnn
     mode: a+x
+
+- name: Download nnn plugins
+  shell: |
+    sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
