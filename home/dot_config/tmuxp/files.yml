@@ -1,0 +1,10 @@
+# tmuxp config for nnn file manager
+
+session_name: files 
+windows:
+  - window_name: files
+    shell_command_before:
+      - cd ~/
+    panes:
+      - shell_command:
+          - ~/tmp/nnn/nnn  

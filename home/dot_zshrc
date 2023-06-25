@@ -64,3 +64,9 @@ alias update-grub='sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg'
 alias xi="sudo xbps-install"
 alias xr="sudo xbps-remove"
 alias xl="void-list-packages"
+
+# nnn
+alias n="nnn -e"
+export NNN_FCOLORS='0000E6310000000000000000'
+export NNN_PLUG='f:finder;o:fzopen;d:diffs;t:nmount;v:imgview;q:preview-tui'
+export NNN_FIFO="/tmp/nnn.fifo"

@@ -1,10 +1,3 @@
-- name: Enable lf copr repo
-  tags: ["once"]
-  community.general.copr:
-    state: enabled
-    name: pennbauman/ports
-  become: true
-
 - name: Install terminal fedora packages
   dnf:
     name:
@@ -17,12 +10,10 @@
       - tmux # Terminal Multiplexer
       - nmap # Utility for network discovery and security auditing
       - w3m  # Text-based Web browser and pager (with Debian patches)
-      - lf # Terminal file manager
       - khal # Command-line calendar build around CalDAV
       - khard # Command-line addressbook built around CardDAV
       - vdirsyncer # Synchronize calendars and addressbooks
       - neofetch # Simple system information script
-      - nnn
     state: present
   become: true
 

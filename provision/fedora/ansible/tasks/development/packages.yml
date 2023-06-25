@@ -17,22 +17,16 @@
       - lazygit # Simple terminal UI for git commands
       - pipenv # Python Development Workflow for Humans
       - python3-devel # Python programming language (3.11 series) - development files
-      - rubygems
-      - perl
       - cloc
     state: present
   become: true
-
-- name: Install tmuxinator gem package
-  gem:
-    name: tmuxinator # Create and manage complex tmux sessions easily
-    state: latest
 
 - name: Install development python packages
   ansible.builtin.pip:
     name: 
       - ansible-lint # Command-line tool for linting playbooks, roles and collections 
       - pyright
+      - tmuxp
 
 - name: Install development flatpaks
   flatpak:

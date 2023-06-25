@@ -2,8 +2,7 @@
 # You should see changes to the status bar after saving this script.
 
 # Uptime 
-uptime_formatted=$(uptime | cut -d ',' -f1 | rev | cut -d ' ' -f1 | rev)
-
+uptime_formatted=$(uptime | awk -F'( |,|:)+' '{d=h=m=0; if ($7=="min") m=$6; else {if ($7~/^day/) {d=$6;h=$8;m=$9} else {h=$6;m=$7}}} {print d+0,"days,",h+0,"hours,",m+0,"minutes"}')
 # Date
 date_formatted=$(date "+%a %F %H:%M")
 

@@ -28,6 +28,8 @@ set $e exec swaymsg mode default
 
 set $mode_power "[r]eboot | [s]hutdown"
 
+set $TERM alacritty
+
 #-------------------------------------------------------------------------------
 #----- COLORS 
 #-------------------------------------------------------------------------------
@@ -89,6 +91,13 @@ gaps left               0
 for_window [title="Steam - News"]   floating enable
 for_window [title="Friends List"]   floating enable
 for_window [title="Picture-in-Picture"] sticky toggle
+
+for_window [app_id="file"] floating enable, \
+    border pixel 5, \
+    resize set 70 ppt 60 ppt, \
+    move position center, \
+    move to scratchpad, \
+    scratchpad show
 
 #-------------------------------------------------------------------------------
 #----- BINDING APPLICATIONS TO WORKSPACE
@@ -205,6 +214,14 @@ mode scratch {
                             --mark blue \
                             --width 40 \
                             --height 71, $e
+    bindsym f exec ~/.cargo/bin/sway-scratchpad \
+                            --command "alacritty -e /home/{{ .user }}/.local/bin/tmuxp load /home/{{ .user }}/.config/tmuxp/files.yml" \
+                            --mark files \
+                            --width 71 \
+                            --height 71, $e
+
+    bindsym Shift+c move scratchpad, $e
+    bindsym c scratchpad show, $e
     bindsym Escape mode default
 }
 
@@ -220,7 +237,6 @@ output DP-3 {
 
 bar {
     position top
-    #output $DISP_PRI
     status_command while ~/.config/sway/scripts/status.sh; do sleep 1; done
     tray_output none
     pango_markup enabled
@@ -234,7 +250,7 @@ bar {
 #----- AUTOSTART WITH I3
 #-------------------------------------------------------------------------------
 
-exec --no-startup-id "udiskie"
-exec_always --no-startup-id "configure-gtk"
 exec_always --no-startup-id "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK"
+exec_always --no-startup-id "configure-gtk"
 exec --no-startup-id "~/.config/sway/scripts/idle.sh"
+exec --no-startup-id "udiskie"
