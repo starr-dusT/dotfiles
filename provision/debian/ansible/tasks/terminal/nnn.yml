@@ -1,0 +1,27 @@
+- name: Install nnn dependencies 
+  dnf:
+    name:
+      - readline-devel
+    state: present
+  become: true
+
+- name: Clone nnn repo 
+  ansible.builtin.git:
+    repo: https://github.com/jarun/nnn.git
+    dest: /home/{{ user }}/tmp/nnn
+
+- name: Compile nnn 
+  shell: |
+    make O_NERD=1 
+  args:
+    chdir: /home/{{ user }}/tmp/nnn
+
+- name: Move nnn to .local bin
+  copy:
+    src: /home/{{ user }}/tmp/nnn/nnn
+    dest: /home/{{ user }}/.local/bin/nnn
+    mode: a+x
+
+- name: Download nnn plugins
+  shell: |
+    sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"

@@ -1,0 +1,12 @@
+- name: change {{ user }} shell to zsh
+  tags: ["once"]
+  user:
+    name: "{{ user }}"
+    shell: /bin/zsh
+  become: true
+
+- name: Set rbw email
+  tags: ["once"]
+  shell: |
+    rbw config set email {{ bitwarden_email }}
+

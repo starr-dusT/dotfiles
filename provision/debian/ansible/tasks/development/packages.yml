@@ -1,0 +1,37 @@
+- name: Enable lazygit copr repo
+  tags: ["once"]
+  community.general.copr:
+    name: atim/lazygit
+    state: enabled
+  become: true
+
+- name: Install development void packages
+  dnf:
+    name:
+      - python3 # Python programming language (3.11 series)
+      - python3.9
+      - python3-pip # A tool for installing and managing Python3 packages
+      - python3-ipython
+      - ripgrep # Fast search tool inspired by ag and grep
+      - fd-find # Simple, fast and user-friendly alternative to find
+      - lazygit # Simple terminal UI for git commands
+      - pipenv # Python Development Workflow for Humans
+      - python3-devel # Python programming language (3.11 series) - development files
+      - cloc
+    state: present
+  become: true
+
+- name: Install development python packages
+  ansible.builtin.pip:
+    name: 
+      - ansible-lint # Command-line tool for linting playbooks, roles and collections 
+      - pyright
+      - tmuxp
+
+- name: Install development flatpaks
+  flatpak:
+    name:
+      - com.vscodium.codium # Free/Libre Open Source Software Binaries of VS Code
+      - com.github.GradienceTeam.Gradience
+    state: present
+  become: true
