@@ -1,0 +1,14 @@
+- name: Create font directory 
+  file:
+    path: /home/{{ user }}/.local/share/fonts
+    state: directory
+
+- name: Download JetBrainsMono Font
+  ansible.builtin.unarchive:
+    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.1/JetBrainsMono.zip
+    dest: /home/{{ user }}/.local/share/fonts
+    remote_src: yes
+
+- name: Update font cache 
+  shell: |
+    fc-cache -fv

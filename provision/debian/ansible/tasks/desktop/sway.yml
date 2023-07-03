@@ -1,0 +1,23 @@
+- name: Install sway fedora packages
+  dnf:
+    name:
+      - alacritty
+      - rofi
+      - sway
+      - swayidle
+      - grim # screenshot functionality
+      - wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
+      - mako # notification system developed by swaywm maintainer
+      - wdisplays # tool to configure displays
+      - rofi
+      - feh
+      - pcmanfm
+      - blueman
+      - flameshot
+      - playerctl
+    state: present
+  become: true
+
+- name: Install sway cargo packages
+  community.general.cargo:
+    name: sway-scratchpad 

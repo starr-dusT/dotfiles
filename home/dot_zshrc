@@ -47,6 +47,7 @@ alias ttask='tmuxinator start task'
 alias cc="cd ~/.local/share/chezmoi"
 alias cdr="chezmoi apply --verbose --dry-run"
 alias ca="chezmoi apply"
+alias ce='chezmoi edit'
 
 # trashcli
 alias rm='echo "This is not the command you are looking for."; false'

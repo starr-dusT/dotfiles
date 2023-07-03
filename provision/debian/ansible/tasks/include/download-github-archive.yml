@@ -1,0 +1,16 @@
+- name: Get {{ item.repo }} release information
+  uri:
+    url: https://api.github.com/repos/{{ item.user }}/{{ item.repo }}/releases/latest
+    return_content: true
+  register: repo_latest 
+
+- name: Install archived {{ item.repo }} - {{ repo_latest.json.tag_name }}
+  loop: "{{ repo_latest.json.assets }}"
+  when: "asset.name is regex(item.regex)"
+  unarchive:
+    src: "{{ asset.browser_download_url }}"
+    dest: /home/{{ user }}/.local/bin
+    remote_src: true
+  loop_control:
+    loop_var: asset
+  become: true
