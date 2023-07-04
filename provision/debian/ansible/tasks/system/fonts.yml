@@ -12,3 +12,10 @@
 - name: Update font cache 
   shell: |
     fc-cache -fv
+
+- name: Install Noto Emoji Fonts
+  apt:
+    name:
+      - fonts-noto-color-emoji
+    state: present
+  become: true
