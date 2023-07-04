@@ -9,6 +9,7 @@ read bitemail
 # Install ansible python dependencies
 sudo apt update -y
 sudo apt install python3 python3-pip ansible cargo -y
+sudo find / -name "EXTERNALLY-MANAGED" -type f -delete
 pip install pexpect
 cargo install rbw
 

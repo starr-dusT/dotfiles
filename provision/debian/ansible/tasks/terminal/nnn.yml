@@ -1,7 +1,7 @@
 - name: Install nnn dependencies 
   apt:
     name:
-      - readline-devel
+      - libreadline-dev
     state: present
   become: true
 
