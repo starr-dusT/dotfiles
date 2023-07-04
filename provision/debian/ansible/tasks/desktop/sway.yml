@@ -1,5 +1,5 @@
 - name: Install sway fedora packages
-  dnf:
+  apt:
     name:
       - alacritty
       - rofi

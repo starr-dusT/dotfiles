@@ -33,7 +33,7 @@
       - /usr/share/vulkan/icd.d/amd_icd64.json
 
 - name: Uninstall desktop bloat 
-  dnf:
+  apt:
     name:
       - yelp
       - gnome-boxes

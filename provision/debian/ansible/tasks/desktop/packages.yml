@@ -1,5 +1,5 @@
 - name: Install desktop fedora packages
-  dnf:
+  apt:
     name:
       - mpv  # Video player based on MPlayer/mplayer2
       - ffmpeg # Decoding, encoding and streaming software

@@ -1,5 +1,5 @@
 - name: Install gaming fedora packages
-  dnf:
+  apt:
     name:
       - lutris # Video game preservation platform
       - gamemode # Optimize system performance for games on demand

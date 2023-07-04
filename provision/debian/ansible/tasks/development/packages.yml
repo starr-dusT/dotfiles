@@ -6,7 +6,7 @@
   become: true
 
 - name: Install development void packages
-  dnf:
+  apt:
     name:
       - python3 # Python programming language (3.11 series)
       - python3.9

@@ -1,5 +1,5 @@
 - name: Install engineering fedora packages
-  dnf:
+  apt:
     name:
       - freecad # General purpose 3D CAD modeler
       - gqrx
