@@ -2,8 +2,8 @@
   apt:
     name:
       - neovim # Vim-fork focused on extensibility and agility
-      - task # Command-line TODO list manager
-      - timew # Timewarrior tracks and reports time
+      - taskwarrior # Command-line TODO list manager
+      - timewarrior # Timewarrior tracks and reports time
       - python3-tasklib # Library for interacting with taskwarrior databases (Python3)
       - vifm # Ncurses-based file manager with vi-like keybindings
       - zsh # Z SHell

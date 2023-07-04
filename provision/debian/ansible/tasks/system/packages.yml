@@ -15,6 +15,7 @@
       - cargo
       - borgbackup
       - fzf
+      - unzip
     state: present
   become: true
 
