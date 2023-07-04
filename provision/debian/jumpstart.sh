@@ -8,8 +8,8 @@ read bitemail
 
 # Install ansible python dependencies
 sudo apt update -y
-sudo apt install python3 pipx ansible cargo -y
-pipx install pexpect
+sudo apt install python3 python3-pip ansible cargo -y
+pip install pexpect
 cargo install rbw
 
 # Add things to path for this script

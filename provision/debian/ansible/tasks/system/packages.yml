@@ -12,9 +12,6 @@
       - qemu-system 
       - libvirt-daemon-system
       - trash-cli # Command line interface to the freedesktop.org trashcan
-      - android-tools # Android platform tools(adb, fastboot)
-      - snapper
-      - python3-dnf-plugin-snapper
       - cargo
       - borgbackup
       - fzf

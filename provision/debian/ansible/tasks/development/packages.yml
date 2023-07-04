@@ -6,7 +6,7 @@
   become: true
 
 - name: Install development void packages
-  apt:
+  dnf:
     name:
       - python3 # Python programming language (3.11 series)
       - python3.9
@@ -22,7 +22,7 @@
   become: true
 
 - name: Install development python packages
-  community.general.pipx:
+  ansible.builtin.pip:
     name: 
       - ansible-lint # Command-line tool for linting playbooks, roles and collections 
       - pyright

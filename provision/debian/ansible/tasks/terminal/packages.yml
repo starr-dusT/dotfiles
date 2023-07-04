@@ -18,7 +18,7 @@
   become: true
 
 - name: Install terminal python packages
-  community.general.pipx:
+  ansible.builtin.pip:
     name: 
       - pynvim 
 
