@@ -1,15 +1,13 @@
-- name: Install development void packages
-  dnf:
+- name: Install development packages
+  apt:
     name:
       - python3 # Python programming language (3.11 series)
-      - python3.9
       - python3-pip # A tool for installing and managing Python3 packages
       - python3-ipython
       - ripgrep # Fast search tool inspired by ag and grep
       - fd-find # Simple, fast and user-friendly alternative to find
-      - lazygit # Simple terminal UI for git commands
       - pipenv # Python Development Workflow for Humans
-      - python3-devel # Python programming language (3.11 series) - development files
+      - python3-dev # Python programming language (3.11 series) - development files
       - cloc
     state: present
   become: true
@@ -25,7 +23,7 @@
   include_tasks: ../include/download-github-archive.yml
   loop:
     - user: jesseduffield
-      repo: lazygit 
+      repo: lazygit # Simple terminal UI for git commands 
       regex: Linux_x86_64.tar.gz 
 
 - name: Install development flatpaks
