@@ -70,7 +70,7 @@ Jumpstart scripts to install Debian with packages and configs I use.
    Copy `.chezmoidata.yaml.example` to `.chezmoidata.yaml` and edit with desired settings then run the following commands:
    
    ```bash
-   ~/.local/share/chezmoi/provision/fedora/jumpstart.sh
+   ~/.local/share/chezmoi/provision/debian/jumpstart.sh
    ```
 
 Perform additional setup found in [additional-setup](additional-setup.md)

@@ -17,6 +17,7 @@ cargo install rbw
 export PATH="$PATH:/usr/local/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$CHEZDIR/temp_bin"
+mkdir -p $HOME/.local/bin
 
 # Install ansible extensions
 ansible-galaxy install -r "$CHEZDIR/provision/debian/ansible/requirements.yml"

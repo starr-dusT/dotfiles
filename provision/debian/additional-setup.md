@@ -1,6 +1,6 @@
 # Additional Setup
 
-The following documents some Fedora setup that wasn't automated with ansible.
+The following documents some Debian setup that wasn't automated with ansible.
 
 ## Wireguard Client
 

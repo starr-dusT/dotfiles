@@ -1,4 +1,4 @@
-- name: Install system fedora packages
+- name: Install system packages
   apt:
     name:
       - git # Fast Version Control System

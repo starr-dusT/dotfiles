@@ -1,4 +1,4 @@
-- name: Install engineering fedora packages
+- name: Install engineering packages
   apt:
     name:
       - freecad # General purpose 3D CAD modeler

@@ -1,4 +1,4 @@
-- name: Install gaming fedora packages
+- name: Install gaming packages
   apt:
     name:
       - lutris # Video game preservation platform
@@ -7,10 +7,3 @@
       - steam
     state: present
   become: true
-
-    #- name: Install gaming flatpaks
-    #  flatpak:
-    #    name:
-    #      - com.valvesoftware.Steam
-    #    state: present
-    #  become: true

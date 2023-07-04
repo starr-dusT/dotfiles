@@ -1,4 +1,4 @@
-- name: Install desktop fedora packages
+- name: Install desktop packages
   apt:
     name:
       - mpv  # Video player based on MPlayer/mplayer2

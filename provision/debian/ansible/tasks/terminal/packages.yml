@@ -1,4 +1,4 @@
-- name: Install terminal fedora packages
+- name: Install terminal packages
   apt:
     name:
       - neovim # Vim-fork focused on extensibility and agility

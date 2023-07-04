@@ -1,4 +1,4 @@
-- name: Ansible playbook to setup fedora linux
+- name: Ansible playbook to setup Debian
   hosts: all
 
   vars_files:

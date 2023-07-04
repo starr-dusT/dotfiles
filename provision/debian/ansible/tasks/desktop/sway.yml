@@ -1,4 +1,4 @@
-- name: Install sway fedora packages
+- name: Install sway packages
   apt:
     name:
       - alacritty
