@@ -27,6 +27,7 @@
 - name: Add flatpak remote 
   ansible.builtin.shell: |
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  become: true
 
 - name: Enable Multi-Arch
   ansible.builtin.shell: |

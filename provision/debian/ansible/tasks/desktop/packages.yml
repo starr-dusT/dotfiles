@@ -4,8 +4,6 @@
       - mpv  # Video player based on MPlayer/mplayer2
       - ffmpeg # Decoding, encoding and streaming software
       - firefox # Mozilla Firefox web browser
-      - gnome-tweaks
-      - evolution
     state: present
   become: true
 
@@ -16,7 +14,6 @@
       - org.gimp.GIMP # Create images and edit photographs
       - org.inkscape.Inkscape # Vector Graphics Editor
       - com.github.tchx84.Flatseal # Manage Flatpak permissions
-      - com.mattjakeman.ExtensionManager # A utility for browsing and installing GNOME Shell Extensions
       - org.kde.kdenlive
       - com.bitwarden.desktop
     state: present
