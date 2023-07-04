@@ -8,7 +8,7 @@ read bitemail
 
 # Install ansible python dependencies
 sudo apt update -y
-sudo apt install chezmoi python3 pipx ansible cargo -y
+sudo apt install python3 pipx ansible cargo -y
 pipx install pexpect
 cargo install rbw
 

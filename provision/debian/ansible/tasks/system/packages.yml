@@ -6,7 +6,7 @@
       - syncthing # Continuous File Synchronization
       - flatpak # Application deployment framework for desktop apps
       - wireguard-tools # Fast, modern, secure vpn tunnel
-      - pipewire-codec-aptx # PipeWire Bluetooth aptX codec plugin
+      #- pipewire-codec-aptx # PipeWire Bluetooth aptX codec plugin
       - ansible # Simple deployment, configuration management and execution framework
       - build-essential
       - qemu-system 
