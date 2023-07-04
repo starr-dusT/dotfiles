@@ -22,7 +22,7 @@
   become: true
 
 - name: Install development python packages
-  ansible.builtin.pip:
+  community.general.pipx:
     name: 
       - ansible-lint # Command-line tool for linting playbooks, roles and collections 
       - pyright
