@@ -18,6 +18,8 @@
       - cargo
       - borgbackup
       - fzf
-      - chezmoi
     state: present
   become: true
+
+- name: Install chezmoi 
+  ansible.builtin.shell: sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin # Manage your dotfiles across multiple machines, securely
