@@ -106,6 +106,7 @@ for_window [app_id="file"] floating enable, \
 assign [class="Steam"]              "1:game"
 for_window [class="Steam"]          move container to workspace "1:game"
 for_window [class="discord"]        move container to workspace $tag8
+for_window [title="launcher"] floating enable
 
 #-------------------------------------------------------------------------------
 #----- KEY BINDINGS
@@ -124,7 +125,6 @@ bindsym $mod+x mode utility
 mode utility {
     bindsym q exit
     bindsym r reload
-    bindsym p exec "rofi-rbw", $e
     bindsym g exec "~/.config/sway/scripts/gamemode.sh", $e
     bindsym Escape mode default
 }
@@ -186,11 +186,11 @@ bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # [o]pen applications
 bindsym $mod+Return exec alacritty
-bindsym $mod+a mode rofi
-mode rofi {
-    bindsym r exec rofi -show drun -show-icons, $e
-    bindsym w exec rofi -show window -show-icons, $e
-    bindsym e exec rofi -modi emoji -show emoji, $e
+bindsym $mod+a mode launcher
+mode launcher {
+    bindsym r exec alacritty --title launcher -e /home/{{ .user }}/bin/linux-app-launcher, $e
+    #bindsym w exec rofi -show window -show-icons, $e
+    #bindsym e exec rofi -modi emoji -show emoji, $e
     bindsym Escape mode default
 }
 bindsym $mod+o mode open
