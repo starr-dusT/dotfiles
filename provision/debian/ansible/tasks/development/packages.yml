@@ -1,10 +1,3 @@
-- name: Enable lazygit copr repo
-  tags: ["once"]
-  community.general.copr:
-    name: atim/lazygit
-    state: enabled
-  become: true
-
 - name: Install development void packages
   dnf:
     name:
@@ -27,6 +20,13 @@
       - ansible-lint # Command-line tool for linting playbooks, roles and collections 
       - pyright
       - tmuxp
+
+- name: Install lazygit
+  include_tasks: ../include/download-github-archive.yml
+  loop:
+    - user: jesseduffield
+      repo: lazygit 
+      regex: Linux_x86_64.tar.gz 
 
 - name: Install development flatpaks
   flatpak:

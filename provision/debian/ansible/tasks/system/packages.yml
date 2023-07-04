@@ -9,6 +9,7 @@
       #- pipewire-codec-aptx # PipeWire Bluetooth aptX codec plugin
       - ansible # Simple deployment, configuration management and execution framework
       - build-essential
+      - pkg-config
       - qemu-system 
       - libvirt-daemon-system
       - trash-cli # Command line interface to the freedesktop.org trashcan
