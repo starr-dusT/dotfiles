@@ -1,5 +1,3 @@
-{{- $i3:= include ".gen/i3.json" | mustFromJson -}}
-
 # i3 config file (v4)
 # TODO: add scratchpads (terminal, password manager, discord, task)
 # Test a edit!
@@ -8,10 +6,10 @@
 #----- VARIABLES
 #-------------------------------------------------------------------------------
 
-set $HOME {{ .chezmoi.homeDir }}
+set $HOME /home/tstarr
 
-set $DISP_PRI {{ $i3.disp_pri }}
-set $DISP_SEC {{ $i3.disp_sec }} 
+set $DISP_PRI HDMI-0
+set $DISP_SEC DP-3
 
 set $BOR_WIDTH 4
 set $GAP_INNER 4

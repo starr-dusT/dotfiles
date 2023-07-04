@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
-echo -e "Starting initial setup for Fedora..."
+echo -e "Starting initial setup for Debian..."
 
 CHEZDIR="$HOME/.local/share/chezmoi"
 echo "Input email for bitwarden:"
 read bitemail
 
 # Install ansible python dependencies
-sudo dnf update -y
-sudo dnf install python3 python3-pip ansible cargo -y
-pip install pexpect
+sudo apt update -y
+sudo apt install chezmoi python3 pipx ansible cargo -y
+pipx install pexpect
 cargo install rbw
 
 # Add things to path for this script
@@ -18,10 +18,10 @@ export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$CHEZDIR/temp_bin"
 
 # Install ansible extensions
-ansible-galaxy install -r "$CHEZDIR/provision/fedora/ansible/requirements.yml"
+ansible-galaxy install -r "$CHEZDIR/provision/debian/ansible/requirements.yml"
 
 # Run setup playbook
-ansible-playbook "$CHEZDIR/provision/fedora/ansible/setup.yml" -i "$CHEZDIR/provision/fedora/ansible/hosts" --ask-become-pass
+ansible-playbook "$CHEZDIR/provision/debian/ansible/setup.yml" -i "$CHEZDIR/provision/debian/ansible/hosts" --ask-become-pass
 
 # Copy jumpstart scripts to temp bin dir and add to path
 mkdir -p "$CHEZDIR/temp_bin"
@@ -30,13 +30,6 @@ chmod +x "$CHEZDIR/temp_bin/rbw-get"
 
 # Set bitwarden email
 rbw config set email "$bitemail"
-
-# Make temporary i3 gen file
-mkdir -p "$CHEZDIR/home/.gen"
-echo "{
-    \"disp_pri\": \"HDMI-0\",
-    \"disp_sec\": \"HDMI-0\"
-}" > "$CHEZDIR/home/.gen/i3.json"
 
 # initialize chezmoi
 chezmoi init
