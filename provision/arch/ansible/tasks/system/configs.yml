@@ -32,3 +32,12 @@
     enabled: true
     state: started 
   become: true
+    
+- name: Start and enable dbus-broker globally
+  tags: ["once"]
+  systemd:
+    name: dbus-broker 
+    scope: global
+    enabled: true
+    state: started 
+  become: true
