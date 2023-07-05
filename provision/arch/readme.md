@@ -7,7 +7,7 @@ Jumpstart scripts to install Debian with packages and configs I use.
 
 1. Install Arch with `archinstall` and the following settings:
 
-![Install Options](img/install.png)
+![Install Options](https://github.com/starr-dusT/dotfiles/blob/master/provision/arch/img/install.png?raw=true)
 
 2. Complete installation until the "Install the base system" step.
 
