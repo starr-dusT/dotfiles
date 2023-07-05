@@ -3,7 +3,7 @@
     name:
       - mpv  # Video player based on MPlayer/mplayer2
       - ffmpeg # Decoding, encoding and streaming software
-      - firefox # Mozilla Firefox web browser
+      - firefox
     state: present
   become: true
 

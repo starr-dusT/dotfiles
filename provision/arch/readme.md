@@ -1,5 +1,5 @@
-# Provision Debian
-> \*Installs Debian from behind paywall...\*
+# Provision Arch
+> \*Yes, I haven't showered in days.\*
 
 Jumpstart scripts to install Debian with packages and configs I use.
 

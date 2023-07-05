@@ -8,29 +8,21 @@
       - wireguard-tools # Fast, modern, secure vpn tunnel
       #- pipewire-codec-aptx # PipeWire Bluetooth aptX codec plugin
       - ansible # Simple deployment, configuration management and execution framework
-      - build-essential
-      - pkg-config
-      - qemu-system 
-      - libvirt-daemon-system
+      - base-devel 
+      - qemu
+      - virt-manager
+      - dnsmasq
+      - iptables
       - trash-cli # Command line interface to the freedesktop.org trashcan
       - cargo
       - borgbackup
       - fzf
       - unzip
+      - chezmoi
     state: present
   become: true
-
-- name: Install chezmoi 
-  ansible.builtin.shell: |
-    sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin # Manage your dotfiles across multiple machines, securely
 
 - name: Add flatpak remote 
   ansible.builtin.shell: |
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-  become: true
-
-- name: Enable Multi-Arch
-  ansible.builtin.shell: |
-    dpkg --add-architecture i386
-    apt update
   become: true

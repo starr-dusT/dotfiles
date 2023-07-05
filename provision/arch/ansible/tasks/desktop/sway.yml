@@ -6,8 +6,7 @@
       - swayidle
       - grim # screenshot functionality
       - wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
-      - mako-notifier # notification system developed by swaywm maintainer
-      - wdisplays # tool to configure displays
+      - mako # notification system developed by swaywm maintainer
       - feh
       - pcmanfm
       - blueman

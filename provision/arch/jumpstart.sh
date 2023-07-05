@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
 
-echo -e "Starting initial setup for Debian..."
+echo -e "Starting initial setup for Arch..."
 
 CHEZDIR="$HOME/.local/share/chezmoi"
 echo "Input email for bitwarden:"
 read bitemail
 
 # Install ansible python dependencies
-sudo apt update -y
-sudo apt install python3 python3-pip ansible cargo -y
-sudo find / -name "EXTERNALLY-MANAGED" -type f -delete
+sudo pacman -Syu
+sudo pacman python3 python3-pip ansible cargo -y
 pip install pexpect
 cargo install rbw
 

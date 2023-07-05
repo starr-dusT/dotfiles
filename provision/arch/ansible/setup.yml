@@ -1,4 +1,4 @@
-- name: Ansible playbook to setup Debian
+- name: Ansible playbook to setup Arch
   hosts: all
 
   vars_files:
