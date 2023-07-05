@@ -34,11 +34,11 @@ chmod +x "$CHEZDIR/temp_bin/rbw-get"
 # Set bitwarden email
 rbw config set email "$bitemail"
 
-# initialize chezmoi
-chezmoi init
-
-# first chezmoi apply
-chezmoi apply
+## initialize chezmoi
+#chezmoi init
+#
+## first chezmoi apply
+#chezmoi apply
 
 # reboot!
 read -p "You should reboot, but I won't make you. Reboot? " -n 1 -r

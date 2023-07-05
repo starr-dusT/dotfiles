@@ -1,7 +1,7 @@
 - name: Install nnn dependencies 
   pacman:
     name:
-      - libreadline-dev
+      - readline
     state: present
   become: true
 

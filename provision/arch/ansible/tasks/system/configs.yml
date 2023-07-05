@@ -24,3 +24,11 @@
   shell: |
     usermod -a -G libvirt {{ user }} 
   become: true
+
+- name: Start and enable dbus-broker 
+  tags: ["once"]
+  systemd:
+    name: dbus-broker 
+    enabled: true
+    state: started 
+  become: true

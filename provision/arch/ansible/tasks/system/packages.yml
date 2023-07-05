@@ -19,6 +19,7 @@
       - fzf
       - unzip
       - chezmoi
+      - dbus-broker
     state: present
   become: true
 
