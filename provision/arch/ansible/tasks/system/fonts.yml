@@ -14,7 +14,7 @@
     fc-cache -fv
 
 - name: Install Noto Emoji Fonts
-  apt:
+  pacman:
     name:
       - fonts-noto-color-emoji
     state: present

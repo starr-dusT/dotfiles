@@ -1,5 +1,5 @@
 - name: Install development packages
-  apt:
+  pacman:
     name:
       - python3 # Python programming language (3.11 series)
       - python-pip # A tool for installing and managing Python3 packages

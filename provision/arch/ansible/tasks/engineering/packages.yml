@@ -1,5 +1,5 @@
 - name: Install engineering packages
-  apt:
+  pacman:
     name:
       - freecad # General purpose 3D CAD modeler
       - gqrx

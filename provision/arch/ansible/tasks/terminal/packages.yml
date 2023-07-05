@@ -1,5 +1,5 @@
 - name: Install terminal packages
-  apt:
+  pacman:
     name:
       - neovim # Vim-fork focused on extensibility and agility
       - task # Command-line TODO list manager

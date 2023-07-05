@@ -1,5 +1,5 @@
 - name: Install gaming packages
-  apt:
+  pacman:
     name:
       - lutris # Video game preservation platform
       - gamemode # Optimize system performance for games on demand

@@ -8,7 +8,8 @@ read bitemail
 
 # Install ansible python dependencies
 sudo pacman -Syu
-sudo pacman python3 python3-pip ansible cargo -y
+sudo pacman -Syu python3 python-pip ansible cargo
+sudo find / -name "EXTERNALLY-MANAGED" -type f -delete
 pip install pexpect
 cargo install rbw
 
@@ -20,10 +21,10 @@ export PATH="$PATH:$CHEZDIR/temp_bin"
 export PATH="$PATH:$HOME/.local/bin"
 
 # Install ansible extensions
-ansible-galaxy install -r "$CHEZDIR/provision/debian/ansible/requirements.yml"
+ansible-galaxy install -r "$CHEZDIR/provision/arch/ansible/requirements.yml"
 
 # Run setup playbook
-ansible-playbook "$CHEZDIR/provision/debian/ansible/setup.yml" -i "$CHEZDIR/provision/debian/ansible/hosts" --ask-become-pass
+ansible-playbook "$CHEZDIR/provision/arch/ansible/setup.yml" -i "$CHEZDIR/provision/arch/ansible/hosts" --ask-become-pass
 
 # Copy jumpstart scripts to temp bin dir and add to path
 mkdir -p "$CHEZDIR/temp_bin"
