@@ -5,12 +5,9 @@ Jumpstart scripts to install Debian with packages and configs I use.
 
 ## Usage
 
-1. Install Debian with "Expert" installer. Partition drives with gui as follows:
+1. Install Arch with `archinstall` and the following settings:
 
-   | Name | Type                 | Mount Point | Size         |
-   |------|----------------------|-------------|--------------|
-   | EFI  | EFI system partition | /boot/efi   | 512MB        |
-   | root | btrfs                | /           | rest of disk |
+![Install Options](img/install.png)
 
 2. Complete installation until the "Install the base system" step.
 
