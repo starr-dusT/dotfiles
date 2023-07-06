@@ -71,3 +71,4 @@ alias n="nnn -e"
 export NNN_FCOLORS='0000E6310000000000000000'
 export NNN_PLUG='f:finder;o:fzopen;d:diffs;t:nmount;v:imgview;q:preview-tui'
 export NNN_FIFO="/tmp/nnn.fifo"
+export NNN_TRASH=1

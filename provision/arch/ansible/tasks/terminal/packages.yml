@@ -15,6 +15,7 @@
       - vdirsyncer # Synchronize calendars and addressbooks
       - neofetch # Simple system information script
       - python-setuptools
+      - bashtop
     state: present
   become: true
 

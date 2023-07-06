@@ -20,6 +20,7 @@
       - unzip
       - chezmoi
       - dbus-broker
+      - vulkan-tools
     state: present
   become: true
 

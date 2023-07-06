@@ -7,7 +7,7 @@ Jumpstart scripts to install Arch with packages and configs I use.
 
 1. Install Arch with `archinstall` and the following settings:
 
-   ![Install Options](https://github.com/starr-dusT/dotfiles/blob/master/provision/arch/img/install.png?raw=true)
+   ![Install Options](https://github.com/starr-dusT/dotfiles/blob/master/provision/arch/install.jpg?raw=true)
 
 2. Edit fstab for btrfs subvolumes to have `rw,noatime,compress=zstd`. 
 
