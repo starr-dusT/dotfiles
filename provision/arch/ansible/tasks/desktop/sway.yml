@@ -12,6 +12,8 @@
       - blueman
       - flameshot
       - playerctl
+      - xorg-xwayland
+      - bc # needed for my sway status script
     state: present
   become: true
 
