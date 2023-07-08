@@ -1,6 +1,6 @@
 # Additional Setup
 
-The following documents some Debian setup that wasn't automated with ansible.
+The following documents some Arch setup that wasn't automated with ansible.
 
 ## Wireguard Client
 
@@ -12,6 +12,7 @@ Wireguard is nice for a home vpn and [pivpn](https://pivpn.io/) makes it easy.
 nmcli connection import type wireguard file <conf file from pivpn>
 ```
 3. Use `nm-connection-editor` to disable automatic connection
+4. Connect to vpn with `nmcli connection up <vpn connection name>
 
 ## Mount network drives
 
@@ -24,7 +25,7 @@ linux-mount-<network drive name>
 
 ## Taskopen for taskwarrior
 
-[taskopen](https://github.com/jschlatow/taskopeni) is easier to install 
+[taskopen](https://github.com/jschlatow/taskopen) is easier to install 
 manually at this point since it isn't packaged and uses nim. Might get this 
 automated in the future.
 
@@ -104,12 +105,26 @@ setup should usually be avoided by transfering the VM between machines:
 2. On the source host run `virsh dumpxml VMNAME > domxml.xml` and copy this xml to the destination host
 3. On the destination host run `virsh define domxml.xml`
 
-## Google earth pro
+## AUR Helper
 
-[Google earth](https://www.google.com/earth/versions/) is nice for visualizing
-my hikes and checking out snow levels. Download the RPM and install with yum.
+I install the absolute minimum number of AUR packages (and I don't automate
+thier installation). Run the following to install:
 
-## Google chrome
+```bash
+git clone https://aur.archlinux.org/yay-git.git
+cd yay
+makepkg -si
+```
 
-[Google chrome](https://www.google.com/chrome/) is gross, but I like to watch baseball. 
-Download the RPM and install with yum.
+I usually install the following packages:
+
+1. Google Earth
+2. Google Chrome (I like baseball)
+
+## Yuzu
+
+Copy over the `~/.config/yuzu` and `~/.local/share/yuzu` from prior install.
+
+## GTK Theme
+
+Set the GTK theme to `dracula` within the gnome-tweaks application.

@@ -43,7 +43,12 @@ rx=`expr $r2 - $r1`
 txmb=$(echo "scale = 1; $tx / 1280000" | bc | awk '{printf "%05.1f\n", $0}')
 rxmb=$(echo "scale = 1; $rx / 1280000" | bc | awk '{printf "%05.1f\n", $0}')
 
+# Vpn status
+vpn=$(nmcli c show --active | grep wireguard | cut -d ' ' -f1)
+if $vpn ; then
+    vpn="none"
+fi
 
 #<span foreground='#c16b26'>lel</span>
-echo -e "👍 $txmb 👎 $rxmb | ⬆️ $uptime_formatted | 🔉<span foreground='$volume_color'>$volume%</span> | $gamemode | 🐧 $linux_version | $date_formatted "
+echo -e "👍 $txmb 👎 $rxmb | 📡 $vpn | ⬆️ $uptime_formatted | 🔉<span foreground='$volume_color'>$volume%</span> | $gamemode | 🐧 $linux_version | $date_formatted "
 

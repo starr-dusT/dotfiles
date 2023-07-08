@@ -21,6 +21,7 @@
       - chezmoi
       - dbus-broker
       - vulkan-tools
+      - fuse2
     state: present
   become: true
 
