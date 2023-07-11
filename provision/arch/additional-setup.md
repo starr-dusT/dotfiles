@@ -2,9 +2,13 @@
 
 The following documents some Arch setup that wasn't automated with ansible.
 
-## Wireguard Client
+## Wireguard Client [x]
 
 Wireguard is nice for a home vpn and [pivpn](https://pivpn.io/) makes it easy.
+Currently my scripts for controlling (and visualizing the state of the vpn) 
+assume the connection name for the vpn is the same as the hostname of the system.
+This may need to be modified in the future if I end up needing multiple vpn
+connections.
 
 1. Create client on server and copy resulting `.conf` file to local machine
 2. Import to networkmanager with:
@@ -14,7 +18,7 @@ nmcli connection import type wireguard file <conf file from pivpn>
 3. Use `nm-connection-editor` to disable automatic connection
 4. Connect to vpn with `nmcli connection up <vpn connection name>
 
-## Mount network drives
+## Mount network drives [x]
 
 I find fstab messing about more troubule than it is worth. Credentials are 
 stored in ~/.smb. Mount network drives when needed with the following command:
@@ -23,7 +27,7 @@ stored in ~/.smb. Mount network drives when needed with the following command:
 linux-mount-<network drive name>
 ```
 
-## Taskopen for taskwarrior
+## Taskopen for taskwarrior [x]
 
 [taskopen](https://github.com/jschlatow/taskopen) is easier to install 
 manually at this point since it isn't packaged and uses nim. Might get this 
@@ -61,7 +65,7 @@ Gitconfig files for SSH git push/pull are automaitcally placed. The only
 additional configuration required is the transfer of SSH keys (see Syncthing
 section).
 
-## Firefox
+## Firefox [x]
 
 Transfer the `.mozilla` folder from install-to-install to maintain Firefox
 settings and configurations.
@@ -101,11 +105,13 @@ provides good information on setting up the virtual machine in virt-manager.
 The `patch.rom` required for my GPU is included in my repo. The virt-manager 
 setup should usually be avoided by transfering the VM between machines:
 
-1. Copy the VM's disks from `/var/lib/libvirt/images` on src host to the same dir on destination host
-2. On the source host run `virsh dumpxml VMNAME > domxml.xml` and copy this xml to the destination host
+1. Copy the VM's disks from `/var/lib/libvirt/images` on src host to the same 
+   dir on destination host
+2. On the source host run `virsh dumpxml VMNAME > domxml.xml` and copy this xml 
+   to the destination host
 3. On the destination host run `virsh define domxml.xml`
 
-## AUR Helper
+## AUR Helper [x]
 
 I install the absolute minimum number of AUR packages (and I don't automate
 thier installation). Run the following to install:
@@ -121,10 +127,22 @@ I usually install the following packages:
 1. Google Earth
 2. Google Chrome (I like baseball)
 
-## Yuzu
+## Yuzu [x]
 
 Copy over the `~/.config/yuzu` and `~/.local/share/yuzu` from prior install.
 
-## GTK Theme
+## Themeing (is that a word?)
+
+### Alacritty
+TODO
+
+### ZSH
+TODO
+
+### Sway
+TODO
+
+### GTK Theme [x]
 
 Set the GTK theme to `dracula` within the gnome-tweaks application.
+

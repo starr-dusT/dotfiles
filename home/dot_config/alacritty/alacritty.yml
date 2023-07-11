@@ -50,4 +50,4 @@ font:
     y: 1
 
 import:
-  - ~/.config/alacritty/themes/themes/monokai-pro.yml
+  - ~/.config/alacritty/themes/themes/dracula.yaml

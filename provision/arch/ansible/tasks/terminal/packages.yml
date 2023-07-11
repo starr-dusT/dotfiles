@@ -23,6 +23,7 @@
   ansible.builtin.pip:
     name: 
       - pynvim 
+      - yt-dlp
 
 - name: Install terminal cargo packages
   community.general.cargo:

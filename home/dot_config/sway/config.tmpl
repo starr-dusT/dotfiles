@@ -39,6 +39,7 @@ set $foreground #F8F8F2
 set $focused #bd93f9
 set $inactive #44475A
 set $urgent #FF5555
+set $workspace #50FA7B
 
 # class                  border       bground       text     indicator  child_border
 client.focused           $focused    $focused    $foreground $focused    $focused
@@ -243,7 +244,7 @@ bar {
     pango_markup enabled
     colors {
         background #000000
-        focused_workspace $focused $focused $background
+        focused_workspace $workspace $workspace $background
     }
 }
 
@@ -253,5 +254,6 @@ bar {
 
 exec_always --no-startup-id "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK"
 exec_always --no-startup-id "configure-gtk"
+exec_always --no-startup-id "swaybg -i ~/media/pictures/wallpapers/solar_system_wallpapers/mars.png"
 exec --no-startup-id "~/.config/sway/scripts/idle.sh"
 exec --no-startup-id "udiskie"

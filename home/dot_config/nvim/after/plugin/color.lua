@@ -1,2 +1,2 @@
 vim.o.termguicolors = true
-vim.cmd[[colorscheme monokai-pro]]
+vim.cmd[[colorscheme dracula]]

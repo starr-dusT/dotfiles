@@ -32,8 +32,6 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="$HOME/.nimble/bin:$PATH"
 
-. "$HOME/.cargo/env"
-
 alias spl="tmux_splat"
 alias n="nnn -d -e -H -r"
 alias s="startx"
