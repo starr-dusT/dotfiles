@@ -206,18 +206,18 @@ mode open {
 # s[c]ratchpads commands
 bindsym $mod+c mode scratch
 mode scratch {
-    bindsym Return exec ~/.cargo/bin/sway-scratchpad \
+    bindsym Return exec sway-scratchpad \
                             --command "alacritty" \
                             --mark term \
                             --width 40 \
                             --height 71, $e
-    bindsym b exec ~/.cargo/bin/sway-scratchpad \
+    bindsym b exec sway-scratchpad \
                             --command "blueman-manager" \
                             --mark blue \
                             --width 40 \
                             --height 71, $e
-    bindsym f exec ~/.cargo/bin/sway-scratchpad \
-                            --command "alacritty -e /home/{{ .user }}/.local/bin/tmuxp load /home/{{ .user }}/.config/tmuxp/files.yml" \
+    bindsym f exec sway-scratchpad \
+                            --command "alacritty -e tmuxp load /home/{{ .user }}/.config/tmuxp/files.yml" \
                             --mark files \
                             --width 71 \
                             --height 71, $e

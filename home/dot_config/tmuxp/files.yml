@@ -7,4 +7,4 @@ windows:
       - cd ~/
     panes:
       - shell_command:
-          - ~/.local/bin/nnn  
+          - nnn  
