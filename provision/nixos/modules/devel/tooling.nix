@@ -13,7 +13,7 @@ in {
       neovim
       ripgrep
       tmux
-      tmuxinator
+      tmuxp
     ];
   };
 }

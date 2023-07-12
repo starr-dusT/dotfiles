@@ -38,27 +38,6 @@
   time.timeZone = "America/Los_Angeles";
   i18n.defaultLocale = "en_US.UTF-8";
 
-  #services.xserver = {
-  #  enable = true;
-  #  layout = "us";
-
-  #  desktopManager.xterm.enable = false;
-
-  #  # Use nvidia drivers
-  #  videoDrivers = [ "amdgpu" ];
-
-  #  displayManager.gdm.enable = true;
-  #  desktopManager.gnome.enable = true;
-
-  #  # Use the xmonad wm
-  #  windowManager = {
-  #    xmonad = {
-  #      enable = true;
-  #      enableContribAndExtras = true;
-  #    };
-  #  };
-  #};
-
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
@@ -69,10 +48,14 @@
     nerdfonts
   ];
 
+  # Enable virtualisation
   virtualisation.docker.enable = true;
   virtualisation.docker.storageDriver = "btrfs";
+
+  # Enable zsh
   programs.zsh.enable = true;
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+
+  # Define user account.
   users.users.${user} = {
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
@@ -87,13 +70,10 @@
     killall
     pciutils
     syncthing
-    #pamixer
-    vifm
-    mpv
     pinentry-curses 
     trash-cli
-    bc
     unzip
+    nnn
   ];
 
   # Enable user services
@@ -106,9 +86,9 @@
     avahi.nssmdns = true;
     syncthing = {
       enable = true;
-      user = "tstarr";
-      dataDir = "/home/tstarr/sync";
-      configDir = "/home/tstarr/.config/syncthing";
+      user = "${user}";
+      dataDir = "/home/${user}/sync";
+      configDir = "/home/${user}/.config/syncthing";
     };
   };
 
@@ -126,7 +106,6 @@
   modules = {
     services = {
       samba.enable = true;
-      vfio.enable = false; # Currently broken
     };
     devel = {
       tooling.enable = true;
@@ -141,5 +120,5 @@
     };
   };
   
-  system.stateVersion = "22.11"; # Did you read the comment?
+  system.stateVersion = "23.05"; # Did you read the comment?
 }

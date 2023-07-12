@@ -16,7 +16,7 @@ in {
 
     environment.systemPackages = [ 
       pkgs.steam 
-      pkgs.ryujinx
+      pkgs.yuzu-early-access
     ];
   };
 

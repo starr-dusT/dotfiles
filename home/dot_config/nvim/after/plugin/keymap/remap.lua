@@ -1,11 +1,6 @@
 local wk = require("which-key")
 
 wk.register({
-    -- netrw commands
-    n = {
-        name = "+netrw",
-        v = { "<cmd>Ex<CR>", "Explorer" }
-    },
     -- tab commands
     t = {
         name = "+tab",

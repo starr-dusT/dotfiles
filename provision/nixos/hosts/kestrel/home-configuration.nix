@@ -4,21 +4,10 @@
   home.homeDirectory = "/home/${user}";
   programs.home-manager.enable = true;
 
-
   home.packages = with pkgs; [
-    google-chrome
-    firefox
-    alacritty
-    gamemode
-    lutris
-    pcmanfm
-    discord
-    inkscape
-    libreoffice-fresh
     chezmoi
     rbw 
-    vscodium.fhs
   ];
 
-  home.stateVersion = "22.11";
+  home.stateVersion = "23.05";
 }
