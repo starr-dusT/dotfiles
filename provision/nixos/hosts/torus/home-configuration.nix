@@ -7,7 +7,6 @@
   home.packages = with pkgs; [
     chezmoi
     rbw 
-    zk
   ];
 
   home.stateVersion = "23.05";

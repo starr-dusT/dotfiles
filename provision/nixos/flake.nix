@@ -1,5 +1,5 @@
 {
-  description = "Flake for kestrel configuration";
+  description = "Flake for nixos configurations";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
@@ -24,14 +24,31 @@
           inherit system;
           specialArgs = { inherit user; };
           modules = [
-            ./configuration.nix
-            ./hardware.nix
+            ./hosts/kestrel/configuration.nix
+            ./hosts/kestrel/hardware.nix
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit user; };
               home-manager.users.${user} = {
-                imports = [ ./home-configuration.nix ];
+                imports = [ ./hosts/kestrel/home-configuration.nix ];
+              };
+            }
+          ];
+        };
+
+        torus = lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit user; };
+          modules = [
+            ./hosts/torus/configuration.nix
+            ./hosts/torus/hardware.nix
+            home-manager.nixosModules.home-manager {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit user; };
+              home-manager.users.${user} = {
+                imports = [ ./hosts/torus/home-configuration.nix ];
               };
             }
           ];

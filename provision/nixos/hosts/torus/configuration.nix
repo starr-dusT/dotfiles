@@ -16,38 +16,21 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = import ../../lib/overlays.nix;
 
-  # Use zen kernel
-  boot.kernelPackages = pkgs.linuxPackages_zen;
-
-  # Hardware options
-  hardware.bluetooth.enable = true;
-  hardware.sensor.iio.enable = true;
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport = true;
-  hardware.opengl.driSupport32Bit = true;
+  # Use normal kernel
+  boot.kernelPackages = pkgs.linuxPackages;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Set networking options
-  networking.hostName = "kestrel"; 
+  networking.hostName = "torus"; 
   networking.networkmanager.enable = true;  
   networking.firewall.checkReversePath = "loose";
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
   i18n.defaultLocale = "en_US.UTF-8";
-
-  # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.support32Bit = true;
-
-  # Add fonts
-  fonts.fonts = with pkgs; [
-    nerdfonts
-  ];
 
   # Enable virtualisation
   virtualisation.docker.enable = true;
@@ -79,17 +62,9 @@
 
   # Enable user services
   services = {
-    gvfs.enable = true; # USB automount
-    blueman.enable = true;
-    printing.enable = true;
-    printing.drivers = [ pkgs.hplip ];
-    avahi.enable = true;
-    avahi.nssmdns = true;
     syncthing = {
       enable = true;
       user = "${user}";
-      dataDir = "/home/${user}/sync";
-      configDir = "/home/${user}/.config/syncthing";
     };
   };
 
@@ -107,17 +82,6 @@
   modules = {
     services = {
       samba.enable = true;
-    };
-    devel = {
-      tooling.enable = true;
-      python.enable = true;
-      engineering.enable = true;
-    };
-    gaming = {
-      steam.enable = true;
-    };
-    desktop = {
-      sway.enable = true;
     };
   };
   
