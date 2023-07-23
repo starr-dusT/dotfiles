@@ -33,6 +33,7 @@
   # Set networking options
   networking.hostName = "kestrel"; 
   networking.networkmanager.enable = true;  
+  networking.firewall.checkReversePath = "loose";
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";

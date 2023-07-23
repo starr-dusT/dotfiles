@@ -7,8 +7,8 @@
 
 set $HOME /home/{{ .user }}
 
-set $DISP_PRI DP-2
-set $DISP_SEC HDMI-A-1
+set $DISP_SEC DP-2
+set $DISP_PRI HDMI-A-1
 
 set $BOR_WIDTH 3
 set $GAP_INNER 3
@@ -227,12 +227,12 @@ mode scratch {
     bindsym Escape mode default
 }
 
-output HDMI-A-1 {
+output $DISP_SEC {
     resolution 2560x1440@143.912Hz
     position 0,0
 }
 
-output DP-3 {
+output $DISP_PRI {
     resolution 2560x1440@143.973Hz
     position 2560,0
 }

@@ -49,6 +49,7 @@ in {
       fzf
 
       # From home config
+      networkmanagerapplet
       pcmanfm
       google-chrome
       firefox

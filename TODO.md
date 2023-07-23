@@ -4,3 +4,5 @@
 - Document themeing options in additional-setup (to help and figure out automation)
 - Make fzf scratch pad for zk notes
 - Make scratch pad for taskwarrior/timewarrior?
+- Make kestrel vpn setup automatically
+- convert home server to nix?

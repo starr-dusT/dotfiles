@@ -1,5 +1,5 @@
 {
-  description = "A very basic flake";
+  description = "Flake for kestrel configuration";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
@@ -24,14 +24,14 @@
           inherit system;
           specialArgs = { inherit user; };
           modules = [
-            ./hosts/kestrel/configuration.nix
-            ./hosts/kestrel/hardware.nix
+            ./configuration.nix
+            ./hardware.nix
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit user; };
               home-manager.users.${user} = {
-                imports = [ ./hosts/kestrel/home-configuration.nix ];
+                imports = [ ./home-configuration.nix ];
               };
             }
           ];
