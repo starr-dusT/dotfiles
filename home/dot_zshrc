@@ -31,7 +31,7 @@ export PATH
 # Create Aliases
 
 # Nixos
-alias nixos-update="cd ~/.local/share/chezmoi/provision/nixos/hosts/$(hostname) && \
+alias nixos-update="cd ~/.local/share/chezmoi/provision/nixos && \
                     sudo nixos-rebuild switch --flake .#$(hostname) && \
                     cd -"
 
