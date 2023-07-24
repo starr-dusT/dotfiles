@@ -61,12 +61,12 @@
   ];
 
   # Enable user services
-  services = {
-    syncthing = {
-      enable = true;
-      user = "${user}";
-    };
-  };
+  #services = {
+  #  syncthing = {
+  #    enable = true;
+  #    user = "${user}";
+  #  };
+  #};
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -80,8 +80,14 @@
   # Enable modules
   imports = [ ../../modules ];
   modules = {
+    server = {
+      jellyfin.enable = true;
+    };
     services = {
       samba.enable = true;
+    };
+    devel = {
+      tooling.enable = true;
     };
   };
   
