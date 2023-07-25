@@ -106,7 +106,7 @@
   imports = [ ../../modules ];
   modules = {
     services = {
-      samba.enable = true;
+      samba-client.enable = true;
     };
     devel = {
       tooling.enable = true;

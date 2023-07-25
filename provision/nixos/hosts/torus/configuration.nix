@@ -19,6 +19,9 @@
   # Use normal kernel
   boot.kernelPackages = pkgs.linuxPackages;
 
+  # Set kernel modules
+  boot.kernelModules = [ "sg" ];
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -35,6 +38,15 @@
   # Enable virtualisation
   virtualisation.docker.enable = true;
   virtualisation.docker.storageDriver = "btrfs";
+  virtualisation.docker.enableNvidia = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+    setLdLibraryPath = true;
+  };
 
   # Enable zsh
   programs.zsh.enable = true;
@@ -80,11 +92,9 @@
   # Enable modules
   imports = [ ../../modules ];
   modules = {
-    server = {
-      jellyfin.enable = true;
-    };
     services = {
-      samba.enable = true;
+      samba-server.enable = true;
+      jellyfin.enable = true;
     };
     devel = {
       tooling.enable = true;

@@ -5,6 +5,8 @@ in {
   options.modules.server.jellyfin.enable = lib.mkEnableOption "jellyfin";
   config = lib.mkIf cfg.enable {
     services.jellyfin.enable = true;
+    services.jellyfin.openFirewall = true;
+    services.jellyfin.user = "${user}";
   };
 
 }
