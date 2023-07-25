@@ -1,4 +1,4 @@
 { ... }:
 {
-  imports = [ ./desktop ./gaming ./devel ./services ./server ];
+  imports = [ ./desktop ./gaming ./devel ./services ];
 }
