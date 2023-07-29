@@ -3,6 +3,12 @@
 
 Jumpstart scripts to install Arch with packages and configs I use.
 
+## Status
+
+:warning: :warning: :warning:
+
+I don't actively use this anymore. This is likely falling into disrepair.
+
 ## Usage
 
 1. Install Arch with `archinstall` and the following settings:
