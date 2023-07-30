@@ -58,6 +58,7 @@ in {
       inkscape
       libreoffice-fresh
       mpv
+      udiskie
     ];
 
     # xdg-desktop-portal works by exposing a series of D-Bus interfaces
