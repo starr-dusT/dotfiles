@@ -8,6 +8,8 @@
     chezmoi
     rbw 
     zk
+    joplin
+    joplin-desktop
   ];
 
   home.stateVersion = "23.05";

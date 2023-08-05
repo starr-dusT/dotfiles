@@ -75,6 +75,7 @@
     trash-cli
     unzip
     nnn
+    advcpmv
   ];
 
   # Enable user services
@@ -107,6 +108,7 @@
   modules = {
     services = {
       samba-client.enable = true;
+      vfio.enable = true;
     };
     devel = {
       tooling.enable = true;

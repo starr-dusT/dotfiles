@@ -3,4 +3,5 @@
  */
 final: prev: {
   sway-scratchpad = final.callPackage ../pkgs/sway-scratchpad.nix {};
+  advcpmv = final.callPackage ../pkgs/advcpmv.nix {};
 }

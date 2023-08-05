@@ -4,7 +4,7 @@
 
 let cfg = config.modules.services.vfio;
 in {
-  options.modules.services.vfio.enable = lib.mkEnableOption "samba";
+  options.modules.services.vfio.enable = lib.mkEnableOption "vfio";
   config = lib.mkIf cfg.enable {
 
     users.users.${user}.extraGroups = [ "qemu-libvirtd" "libvirtd" "kvm" ];
@@ -32,11 +32,11 @@ in {
         source = "/home/${user}/.local/share/chezmoi/provision/local/gpu-passthrough/qemu";
         mode = "0755";
       };
-      "libvirt/hooks/qemu.d/win10/prepare/begin/start.sh" = {
+      "libvirt/hooks/qemu.d/win11/prepare/begin/start.sh" = {
         source = "/home/${user}/.local/share/chezmoi/provision/local/gpu-passthrough/start.sh";
         mode = "0755";
       };
-      "libvirt/hooks/qemu.d/win10/release/end/revert.sh" = {
+      "libvirt/hooks/qemu.d/win11/release/end/revert.sh" = {
         source = "/home/${user}/.local/share/chezmoi/provision/local/gpu-passthrough/revert.sh";
         mode = "0755";
       };
@@ -46,6 +46,10 @@ in {
       };
       "libvirt/libvirtd.conf" = {
         source = "/home/${user}/.local/share/chezmoi/provision/local/gpu-passthrough/libvirtd.conf";
+        mode = "0755";
+      };
+      "libvirt/XFX.RX6700XT.12288.210201_1.rom" = {
+        source = "/home/${user}/.local/share/chezmoi/provision/local/gpu-passthrough/XFX.RX6700XT.12288.210201_1.rom";
         mode = "0755";
       };
     };
