@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   ];
 
   installPhase = ''
-    install -D "src/cp" "$out/bin/advcp"
-    install -D "src/mv" "$out/bin/advmv"
+    install -D "src/cp" "$out/bin/cpg"
+    install -D "src/mv" "$out/bin/mvg"
   '';
 }

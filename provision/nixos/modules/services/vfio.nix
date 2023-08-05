@@ -10,7 +10,7 @@ in {
     users.users.${user}.extraGroups = [ "qemu-libvirtd" "libvirtd" "kvm" ];
 
     # Boot configuration
-    boot.kernelParams = [ "amd_iommu=on" "iommu=pt" ];
+    boot.kernelParams = [ "amd_iommu=on" "iommu=pt" "iommu=1" "video=efifb:off" "disable_idle_d3=1" ];
     boot.kernelModules = [ "kvm-amd" "vfio-pci" ];
 
     programs.dconf.enable = true;
@@ -48,8 +48,8 @@ in {
         source = "/home/${user}/.local/share/chezmoi/provision/local/gpu-passthrough/libvirtd.conf";
         mode = "0755";
       };
-      "libvirt/XFX.RX6700XT.12288.210201_1.rom" = {
-        source = "/home/${user}/.local/share/chezmoi/provision/local/gpu-passthrough/XFX.RX6700XT.12288.210201_1.rom";
+      "libvirt/patch.rom" = {
+        source = "/home/${user}/.local/share/chezmoi/provision/local/gpu-passthrough/patch.rom";
         mode = "0755";
       };
     };

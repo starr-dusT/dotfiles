@@ -29,4 +29,4 @@ modprobe radeon
 modprobe drm_kms_helper
 
 # Kill sway 
-killall sway
+systemctl start display-manager.service

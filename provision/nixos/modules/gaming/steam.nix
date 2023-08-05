@@ -1,4 +1,4 @@
-{ config, lib, pkgs, user, ... }:
+{ config, lib, pkgs, pkgs-unstable, user, ... }:
 
 let cfg = config.modules.gaming.steam;
 in {
@@ -16,7 +16,7 @@ in {
 
     environment.systemPackages = [ 
       pkgs.steam 
-      pkgs.yuzu-early-access
+      pkgs-unstable.yuzu-early-access
     ];
   };
 

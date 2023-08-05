@@ -92,23 +92,46 @@
       dataDir = "/home/${user}/sync";
       configDir = "/home/${user}/.config/syncthing";
     };
+  #  xserver = {
+  #    enable = true;
+  #    displayManager = {
+  #      #defaultSession = "none+bspwm";
+  #      lightdm.greeters.mini = {
+  #        enable = true;
+  #        #user = "tstarr";
+  #        #extraConfig = ''
+  #        #  [greeter]
+  #        #  show-password-label = false
+  #        #  invalid-password-text = Access Denied
+  #        #  show-input-cursor = true
+  #        #  password-alignment = left
+  #        #  [greeter-theme]
+  #        #  font-size = 1em
+  #        #  background-image = ""
+  #        #'';
+  #      };
+  #    };
+  #  };
+  #};
+    xserver.enable = true;
+    xserver.displayManager.sddm.enable = true;
   };
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  services.pcscd.enable = true;
-  programs.gnupg.agent = {
-     enable = true;
-     pinentryFlavor = "curses";
-     enableSSHSupport = true;
-  };
+    # Enable the OpenSSH daemon.
+    services.openssh.enable = true;
+    services.pcscd.enable = true;
+    programs.gnupg.agent = {
+       enable = true;
+       pinentryFlavor = "curses";
+       enableSSHSupport = true;
+    };
 
   # Enable modules
   imports = [ ../../modules ];
   modules = {
     services = {
       samba-client.enable = true;
-      vfio.enable = true;
+      vfio.enable = false;
     };
     devel = {
       tooling.enable = true;
