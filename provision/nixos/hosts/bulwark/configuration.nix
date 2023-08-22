@@ -41,9 +41,9 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.support32Bit = true;
+  #sound.enable = true;
+  #hardware.pulseaudio.enable = true;
+  #hardware.pulseaudio.support32Bit = true;
 
   # Add fonts
   fonts.fonts = with pkgs; [
@@ -51,8 +51,8 @@
   ];
 
   # Enable virtualisation
-  virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "btrfs";
+  #virtualisation.docker.enable = true;
+  #virtualisation.docker.storageDriver = "btrfs";
 
   # Enable zsh
   programs.zsh.enable = true;

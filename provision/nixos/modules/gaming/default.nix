@@ -1,4 +1,4 @@
 { ... }:
 {
-  imports = [ ./steam.nix ];
+  imports = [ ./steam.nix ./steam-deck.nix ];
 }

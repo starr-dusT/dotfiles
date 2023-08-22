@@ -65,7 +65,7 @@
 
         bulwark = lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit user; inherit pkgs-unstable; };
+          specialArgs = { inherit user; inherit pkgs-unstable; inherit jovian-nixos; inherit home-manager; };
           modules = [
             ./hosts/bulwark/configuration.nix
             ./hosts/bulwark/hardware.nix

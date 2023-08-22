@@ -1,29 +1,34 @@
-{ config, lib, pkgs, pkgs-unstable, user, jovian-nixos, ... }:
+{ config, lib, pkgs, pkgs-unstable, user, jovian-nixos, home-manager, ... }:
 
 let
   cfg = config.modules.gaming.steam-deck;
 in {
+  imports = [
+    (jovian-nixos + "/modules")
+    home-manager.nixosModule
+  ];
   options.modules.gaming.steam-deck.enable = lib.mkEnableOption "steam-deck";
   config = lib.mkIf cfg.enable {
-    imports = [
-      (jovian-nixos + "/modules")
-      home-manager.nixosModule
-    ];
+
 
     jovian = {
       steam.enable = true;
+      steam.autoStart = true; 
+      steam.user = "${user}";
       devices.steamdeck = {
-        enable = true;
+        enable = false;
       };
     };
 
     services.xserver.displayManager.gdm.wayland = lib.mkForce true; # lib.mkForce is only required on my setup because I'm using some other NixOS configs that conflict with this value
     services.xserver.displayManager.defaultSession = "steam-wayland";
     services.xserver.displayManager.autoLogin.enable = true;
-    services.xserver.displayManager.autoLogin.user = ${user};
+    services.xserver.displayManager.autoLogin.user = "${user}";
 
     # Enable GNOME
     sound.enable = true;
+    hardware.pulseaudio.enable = lib.mkForce false;
+	
     services.xserver.desktopManager.gnome = {
       enable = true;
     };
@@ -89,9 +94,8 @@ in {
       steamdeck-firmware
     ];
 
-    # GNOME settings through home-manager
+    # GNOME settings through home
     home-manager.users.${user} = {
-      home.stateVersion = "22.11";
       dconf.settings = {
         # Enable on-screen keyboard
         "org/gnome/desktop/a11y/applications" = {
@@ -123,4 +127,5 @@ in {
         };
       };
     };
+  };
 }
