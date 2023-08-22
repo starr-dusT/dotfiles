@@ -8,9 +8,13 @@
       url = github:nix-community/home-manager/release-23.05;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    jovian-nixos = {
+      url = "git+https://github.com/Jovian-Experiments/Jovian-NixOS?ref=development";
+      flake = false;
+    };
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, home-manager, ... }:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, home-manager, jovian-nixos, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {

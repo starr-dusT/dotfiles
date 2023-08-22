@@ -1,4 +1,4 @@
 { ... }:
 {
-  imports = [ ./samba-server.nix ./samba-client.nix ./jellyfin.nix ./vfio.nix ];
+  imports = [ ./samba-server.nix ./samba-client.nix ./jellyfin.nix ];
 }

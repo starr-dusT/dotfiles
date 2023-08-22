@@ -31,7 +31,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Set networking options
-  networking.hostName = "kestrel"; 
+  networking.hostName = "bulwark"; 
   networking.networkmanager.enable = true;  
   networking.firewall.checkReversePath = "loose";
   networking.firewall.enable = false;
@@ -60,7 +60,7 @@
   # Define user account.
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "libvirtd" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
   };
 
@@ -109,18 +109,10 @@
   modules = {
     services = {
       samba-client.enable = true;
-      virt-manager.enable = true;
-    };
-    devel = {
-      tooling.enable = true;
-      python.enable = true;
-      engineering.enable = true;
     };
     gaming = {
       steam.enable = true;
-    };
-    desktop = {
-      sway.enable = true;
+      steam-deck.enable = true;
     };
   };
   
