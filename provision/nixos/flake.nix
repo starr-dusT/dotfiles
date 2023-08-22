@@ -62,6 +62,23 @@
             }
           ];
         };
+
+        bulwark = lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit user; inherit pkgs-unstable; };
+          modules = [
+            ./hosts/bulwark/configuration.nix
+            ./hosts/bulwark/hardware.nix
+            home-manager.nixosModules.home-manager {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit user; };
+              home-manager.users.${user} = {
+                imports = [ ./hosts/bulwark/home-configuration.nix ];
+              };
+            }
+          ];
+        };
       };
     };
 }
