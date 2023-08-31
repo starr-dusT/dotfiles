@@ -78,7 +78,7 @@
     nnn
     advcpmv
     neovim
-    ungoogled-chromium
+    brave
   ];
 
   # Enable user services
