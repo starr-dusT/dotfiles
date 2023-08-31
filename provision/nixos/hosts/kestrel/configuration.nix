@@ -64,6 +64,12 @@
     shell = pkgs.zsh;
   };
 
+  xdg.portal = {
+    enable = true;
+    gtkUsePortal = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr ];
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [

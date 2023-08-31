@@ -59,8 +59,10 @@ in {
       mpv
       udiskie
       p7zip
+      ungoogled-chromium
     ] ++ [
       pkgs-unstable.firefox
+      pkgs-unstable.brave
     ];
 
     # xdg-desktop-portal works by exposing a series of D-Bus interfaces
