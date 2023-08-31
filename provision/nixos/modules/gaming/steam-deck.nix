@@ -12,80 +12,80 @@ in {
 
 
     jovian = {
+      steam.desktopSession = "gnome-xorg";
       steam.enable = true;
       steam.autoStart = true; 
       steam.user = "${user}";
       devices.steamdeck = {
-        enable = false;
+        enable = true;
       };
     };
 
-    services.xserver.displayManager.gdm.wayland = lib.mkForce true; # lib.mkForce is only required on my setup because I'm using some other NixOS configs that conflict with this value
-    services.xserver.displayManager.defaultSession = "steam-wayland";
-    services.xserver.displayManager.autoLogin.enable = true;
-    services.xserver.displayManager.autoLogin.user = "${user}";
+    #services.xserver.displayManager.gdm.wayland = lib.mkForce true; # lib.mkForce is only required on my setup because I'm using some other NixOS configs that conflict with this value
+    #services.xserver.displayManager.defaultSession = "steam-wayland";
+    #services.xserver.displayManager.autoLogin.enable = true;
+    #services.xserver.displayManager.autoLogin.user = "${user}";
+    services.xserver.enable = true;
+    services.xserver.displayManager.gdm.enable = false;
+    services.xserver.desktopManager.gnome.enable = true;
 
     # Enable GNOME
     sound.enable = true;
     hardware.pulseaudio.enable = lib.mkForce false;
 	
-    services.xserver.desktopManager.gnome = {
-      enable = true;
-    };
-
     # Create user
     users.users.${user} = {
       isNormalUser = true;
     };
 
-    systemd.services.gamescope-switcher = {
-      wantedBy = [ "graphical.target" ];
-      serviceConfig = {
-        User = 1000;
-        PAMName = "login";
-        WorkingDirectory = "~";
+    #systemd.services.gamescope-switcher = {
+    #  wantedBy = [ "graphical.target" ];
+    #  serviceConfig = {
+    #    User = 1000;
+    #    PAMName = "login";
+    #    WorkingDirectory = "~";
 
-        TTYPath = "/dev/tty7";
-        TTYReset = "yes";
-        TTYVHangup = "yes";
-        TTYVTDisallocate = "yes";
+    #    TTYPath = "/dev/tty7";
+    #    TTYReset = "yes";
+    #    TTYVHangup = "yes";
+    #    TTYVTDisallocate = "yes";
 
-        StandardInput = "tty-fail";
-        StandardOutput = "journal";
-        StandardError = "journal";
+    #    StandardInput = "tty-fail";
+    #    StandardOutput = "journal";
+    #    StandardError = "journal";
 
-        UtmpIdentifier = "tty7";
-        UtmpMode = "user";
+    #    UtmpIdentifier = "tty7";
+    #    UtmpMode = "user";
 
-        Restart = "always";
-      };
+    #    Restart = "always";
+    #  };
 
-      script = ''
-        set-session () {
-          mkdir -p ~/.local/state
-          >~/.local/state/steamos-session-select echo "$1"
-        }
-        consume-session () {
-          if [[ -e ~/.local/state/steamos-session-select ]]; then
-            cat ~/.local/state/steamos-session-select
-            rm ~/.local/state/steamos-session-select
-          else58 closure
-            echo "gamescope"
-          fi
-        }
-        while :; do
-          session=$(consume-session)
-          case "$session" in
-            plasma)
-              dbus-run-session -- gnome-shell --display-server --wayland
-              ;;
-            gamescope)
-              steam-session
-              ;;
-          esac
-        done
-      '';
-    };
+    #  script = ''
+    #    set-session () {
+    #      mkdir -p ~/.local/state
+    #      >~/.local/state/steamos-session-select echo "$1"
+    #    }
+    #    consume-session () {
+    #      if [[ -e ~/.local/state/steamos-session-select ]]; then
+    #        cat ~/.local/state/steamos-session-select
+    #        rm ~/.local/state/steamos-session-select
+    #      else58 closure
+    #        echo "gamescope"
+    #      fi
+    #    }
+    #    while :; do
+    #      session=$(consume-session)
+    #      case "$session" in
+    #        plasma)
+    #          dbus-run-session -- gnome-shell --display-server --wayland
+    #          ;;
+    #        gamescope)
+    #          steam-session
+    #          ;;
+    #      esac
+    #    done
+    #  '';
+    #};
 
     environment.systemPackages = with pkgs; [
       gnome.gnome-terminal

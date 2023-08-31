@@ -17,7 +17,7 @@
   nixpkgs.overlays = import ../../lib/overlays.nix;
 
   # Use zen kernel
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+ # boot.kernelPackages = pkgs.linuxPackages_zen;
 
   # Hardware options
   hardware.bluetooth.enable = true;
@@ -77,6 +77,8 @@
     unzip
     nnn
     advcpmv
+    neovim
+    ungoogled-chromium
   ];
 
   # Enable user services
