@@ -59,9 +59,8 @@ in {
       mpv
       udiskie
       p7zip
-      ungoogled-chromium
+      pavucontrol
     ] ++ [
-      pkgs-unstable.firefox
       pkgs-unstable.brave
     ];
 
