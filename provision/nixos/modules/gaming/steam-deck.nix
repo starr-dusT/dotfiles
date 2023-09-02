@@ -10,7 +10,6 @@ in {
   options.modules.gaming.steam-deck.enable = lib.mkEnableOption "steam-deck";
   config = lib.mkIf cfg.enable {
 
-
     jovian = {
       steam.desktopSession = "gnome-xorg";
       steam.enable = true;
