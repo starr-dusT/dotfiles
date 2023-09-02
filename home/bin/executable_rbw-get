@@ -7,5 +7,5 @@ if [[ "$2" == "Password" ]]
 then
     rbw get "$1"
 else
-    rbw get "$1" --full | grep "$2" | cut -d ' ' -f 2-
+    rbw get "$1" --field="$2"
 fi
