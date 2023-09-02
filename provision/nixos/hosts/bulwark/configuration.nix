@@ -1,5 +1,9 @@
 { config, lib, pkgs, pkgs-unstable, user, ... }:
 {
+  imports = [
+    ./steam-deck.nix
+  ];
+
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = "experimental-features = nix-command flakes";
@@ -118,7 +122,6 @@
     };
     gaming = {
       steam.enable = true;
-      steam-deck.enable = true;
     };
   };
   
