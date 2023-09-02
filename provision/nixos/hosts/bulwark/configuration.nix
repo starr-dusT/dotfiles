@@ -1,4 +1,4 @@
-{ config, pkgs, user, lib, ... }:
+{ config, lib, pkgs, pkgs-unstable, user, ... }:
 {
   nix = {
     package = pkgs.nixFlakes;
@@ -78,7 +78,8 @@
     nnn
     advcpmv
     neovim
-    brave
+  ] ++ [
+      pkgs-unstable.brave
   ];
 
   # Enable user services
@@ -111,6 +112,9 @@
   modules = {
     services = {
       samba-client.enable = true;
+    };
+    devel = {
+      tooling.enable = true;
     };
     gaming = {
       steam.enable = true;
