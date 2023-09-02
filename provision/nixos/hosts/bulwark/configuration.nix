@@ -2,6 +2,7 @@
 {
   imports = [
     ./steam-deck.nix
+    ../../modules 
   ];
 
   nix = {
@@ -112,7 +113,6 @@
     };
 
   # Enable modules
-  imports = [ ../../modules ];
   modules = {
     services = {
       samba-client.enable = true;
