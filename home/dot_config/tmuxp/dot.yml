@@ -1,0 +1,11 @@
+# tmuxp config for general dev 
+
+session_name: dot
+windows:
+  - window_name: editor
+    shell_command_before:
+      - cd ~/.local/share/chezmoi
+    panes:
+      - shell_command:
+          - nvim
+  - window_name: term

@@ -21,8 +21,8 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = import ../../lib/overlays.nix;
 
-  # Use zen kernel
- # boot.kernelPackages = pkgs.linuxPackages_zen;
+  # Custom kernel is set within Jovian-Nixos
+  # boot.kernelPackages = pkgs.linuxPackages_zen;
 
   # Hardware options
   hardware.bluetooth.enable = true;
@@ -45,19 +45,10 @@
   time.timeZone = "America/Los_Angeles";
   i18n.defaultLocale = "en_US.UTF-8";
 
-  # Enable sound.
-  #sound.enable = true;
-  #hardware.pulseaudio.enable = true;
-  #hardware.pulseaudio.support32Bit = true;
-
   # Add fonts
   fonts.fonts = with pkgs; [
     nerdfonts
   ];
-
-  # Enable virtualisation
-  #virtualisation.docker.enable = true;
-  #virtualisation.docker.storageDriver = "btrfs";
 
   # Enable zsh
   programs.zsh.enable = true;
@@ -103,14 +94,14 @@
     };
   };
 
-    # Enable the OpenSSH daemon.
-    services.openssh.enable = true;
-    services.pcscd.enable = true;
-    programs.gnupg.agent = {
-       enable = true;
-       pinentryFlavor = "curses";
-       enableSSHSupport = true;
-    };
+  # Enable the OpenSSH daemon.
+  services.openssh.enable = true;
+  services.pcscd.enable = true;
+  programs.gnupg.agent = {
+     enable = true;
+     pinentryFlavor = "curses";
+     enableSSHSupport = true;
+  };
 
   # Enable modules
   modules = {

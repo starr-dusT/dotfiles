@@ -219,6 +219,11 @@ mode scratch {
                             --mark files \
                             --width 71 \
                             --height 71, $e
+    bindsym d exec sway-scratchpad \
+                            --command "alacritty -e tmuxp load /home/{{ .user }}/.config/tmuxp/dot.yml" \
+                            --mark dot \
+                            --width 90 \
+                            --height 90, $e
     bindsym Shift+c move scratchpad, $e
     bindsym c scratchpad show, $e
     bindsym Escape mode default
