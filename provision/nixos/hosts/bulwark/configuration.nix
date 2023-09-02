@@ -1,5 +1,10 @@
 { config, lib, pkgs, pkgs-unstable, user, ... }:
 {
+  imports = [
+    ./steam-deck.nix
+    ../../modules 
+  ];
+
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = "experimental-features = nix-command flakes";
@@ -108,7 +113,6 @@
     };
 
   # Enable modules
-  imports = [ ../../modules ];
   modules = {
     services = {
       samba-client.enable = true;
@@ -118,7 +122,6 @@
     };
     gaming = {
       steam.enable = true;
-      steam-deck.enable = true;
     };
   };
   
