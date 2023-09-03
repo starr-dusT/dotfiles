@@ -70,6 +70,7 @@
     trash-cli
     unzip
     nnn
+    docker-compose
   ];
 
   # Enable user services
@@ -87,6 +88,40 @@
      enable = true;
      pinentryFlavor = "curses";
      enableSSHSupport = true;
+  };
+
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "starrtyler88@gmail.com";
+  };
+
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedUDPPorts = [ 80 443 ];
+
+  services.nginx = {
+    enable = true;
+    recommendedGzipSettings = true;
+    recommendedOptimisation = true;
+    recommendedProxySettings = true;
+    recommendedTlsSettings = true;
+      virtualHosts = let
+      SSL = { 
+        enableACME = true; 
+        addSSL = true;
+      }; in {
+        #"tstarr.us" = (SSL // {
+        #  locations."/".proxyPass = "http://127.0.0.1:8080/"; 
+        #  serverAliases = [
+        #    "www.tstarr.us"
+        #  ];
+        #});
+        "media.tstarr.us" = (SSL // {
+          locations."/".proxyPass = "http://127.0.0.1:8096/"; 
+        });
+        "joplin.tstarr.us" = (SSL // {
+          locations."/".proxyPass = "http://127.0.0.1:22300/"; 
+        });
+      };
   };
 
   # Enable modules
