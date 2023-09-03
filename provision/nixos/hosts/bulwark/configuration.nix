@@ -1,5 +1,10 @@
-{ config, pkgs, user, lib, ... }:
+{ config, lib, pkgs, pkgs-unstable, user, ... }:
 {
+  imports = [
+    ./steam-deck.nix
+    ../../modules 
+  ];
+
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = "experimental-features = nix-command flakes";
@@ -16,8 +21,8 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = import ../../lib/overlays.nix;
 
-  # Use zen kernel
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  # Custom kernel is set within Jovian-Nixos
+  # boot.kernelPackages = pkgs.linuxPackages_zen;
 
   # Hardware options
   hardware.bluetooth.enable = true;
@@ -31,7 +36,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Set networking options
-  networking.hostName = "kestrel"; 
+  networking.hostName = "bulwark"; 
   networking.networkmanager.enable = true;  
   networking.firewall.checkReversePath = "loose";
   networking.firewall.enable = false;
@@ -40,19 +45,10 @@
   time.timeZone = "America/Los_Angeles";
   i18n.defaultLocale = "en_US.UTF-8";
 
-  # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.support32Bit = true;
-
   # Add fonts
   fonts.fonts = with pkgs; [
     nerdfonts
   ];
-
-  # Enable virtualisation
-  virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "btrfs";
 
   # Enable zsh
   programs.zsh.enable = true;
@@ -60,14 +56,8 @@
   # Define user account.
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "libvirtd" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
-  };
-
-  xdg.portal = {
-    enable = true;
-    gtkUsePortal = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr ];
   };
 
   # List packages installed in system profile. To search, run:
@@ -83,6 +73,9 @@
     unzip
     nnn
     advcpmv
+    neovim
+  ] ++ [
+      pkgs-unstable.brave
   ];
 
   # Enable user services
@@ -101,34 +94,27 @@
     };
   };
 
-    # Enable the OpenSSH daemon.
-    services.openssh.enable = true;
-    services.pcscd.enable = true;
-    programs.gnupg.agent = {
-       enable = true;
-       pinentryFlavor = "curses";
-       enableSSHSupport = true;
-    };
+  # Enable the OpenSSH daemon.
+  services.openssh.enable = true;
+  services.pcscd.enable = true;
+  programs.gnupg.agent = {
+     enable = true;
+     pinentryFlavor = "curses";
+     enableSSHSupport = true;
+  };
 
   # Enable modules
-  imports = [ ../../modules ];
   modules = {
     services = {
       samba-client.enable = true;
-      virt-manager.enable = true;
     };
     devel = {
       tooling.enable = true;
-      python.enable = true;
-      engineering.enable = true;
     };
     gaming = {
       steam.enable = true;
     };
-    desktop = {
-      sway.enable = true;
-    };
   };
-
+  
   system.stateVersion = "23.05"; # Did you read the comment?
 }

@@ -6,3 +6,5 @@
 - Make scratch pad for taskwarrior/timewarrior?
 - Make kestrel vpn setup automatically
 - convert home server to nix?
+- Make bookmarks fzf script
+- Make windows vm in virt manager

@@ -14,6 +14,7 @@ in {
       ripgrep
       tmux
       tmuxp
+      lazygit
     ];
   };
 }

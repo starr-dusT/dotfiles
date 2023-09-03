@@ -113,7 +113,7 @@ for_window [title="launcher"] floating enable
 #----- KEY BINDINGS
 #-------------------------------------------------------------------------------
 
-# [p]ower commands
+# Power commands
 bindsym $mod+p mode $mode_power
 mode $mode_power {
     bindsym s exec shutdown now
@@ -121,7 +121,7 @@ mode $mode_power {
     bindsym Escape mode default
 }
 
-# [x]utility commands
+# Utility commands
 bindsym $mod+x mode utility
 mode utility {
     bindsym q exit
@@ -131,7 +131,7 @@ mode utility {
     bindsym Escape mode default
 }
 
-# layout commands
+# Layout commands
 bindsym $mod+Ctrl+t splitv; layout tabbed
 bindsym $mod+Ctrl+v layout splitv
 bindsym $mod+Ctrl+s layout splith
@@ -141,7 +141,7 @@ bindsym $mod+Ctrl+k resize grow height 50
 bindsym $mod+Ctrl+l resize grow width 50
 bindsym $mod+Ctrl+c move position center
 
-# program management
+# Program management
 bindsym $mod+d kill
 bindsym $mod+f fullscreen toggle
 bindsym $mod+t floating toggle
@@ -149,7 +149,7 @@ bindsym $mod+s sticky toggle
 bindsym $mod+Tab focus mode_toggle 
 floating_modifier $mod
 
-# spatial container management
+# Spatial container management
 bindsym $mod+h exec ~/.config/sway/scripts/tabfocus.sh "h"
 bindsym $mod+j exec ~/.config/sway/scripts/tabfocus.sh "j" 
 bindsym $mod+k exec ~/.config/sway/scripts/tabfocus.sh "k"
@@ -163,7 +163,7 @@ bindsym $mod+backslash split h
 bindsym $mod+z splith; layout tabbed; focus parent
 bindsym $mod+Shift+z layout default 
 
-# workspace management
+# Workspace management
 bindsym $mod+1 workspace $tag1
 bindsym $mod+2 workspace $tag2
 bindsym $mod+3 workspace $tag3
@@ -181,29 +181,27 @@ bindsym $mod+Shift+w move container to workspace $tag6
 bindsym $mod+Shift+e move container to workspace $tag7
 bindsym $mod+Shift+r move container to workspace $tag8
 
-# audio
+# Audio
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
-# [o]pen applications
+# Open applications
 bindsym $mod+Return exec alacritty
 bindsym $mod+a mode launcher
 mode launcher {
     bindsym r exec alacritty --title launcher -e /home/{{ .user }}/bin/linux-app-launcher, $e
-    #bindsym w exec rofi -show window -show-icons, $e
-    #bindsym e exec rofi -modi emoji -show emoji, $e
     bindsym Escape mode default
 }
 bindsym $mod+o mode open
 mode open {
-    bindsym b exec firefox, $e
+    bindsym b exec brave, $e
     bindsym s exec steam || flatpak run com.valvesoftware.Steam, $e
     bindsym d exec discord || flatpak run com.discordapp.Discord, $e
     bindsym Escape mode default
 }
 
-# s[c]ratchpads commands
+# Scratchpads commands
 bindsym $mod+c mode scratch
 mode scratch {
     bindsym Return exec sway-scratchpad \
@@ -221,15 +219,14 @@ mode scratch {
                             --mark files \
                             --width 71 \
                             --height 71, $e
-
+    bindsym d exec sway-scratchpad \
+                            --command "alacritty -e tmuxp load /home/{{ .user }}/.config/tmuxp/dot.yml" \
+                            --mark dot \
+                            --width 90 \
+                            --height 90, $e
     bindsym Shift+c move scratchpad, $e
     bindsym c scratchpad show, $e
     bindsym Escape mode default
-}
-
-output $DISP_SEC {
-    resolution 2560x1440@143.912Hz
-    position 0,0
 }
 
 output $DISP_PRI {
@@ -237,11 +234,16 @@ output $DISP_PRI {
     position 2560,0
 }
 
+output $DISP_SEC {
+    resolution 2560x1440@143.912Hz
+    position 0,0
+}
+
 bar {
     position top
-    status_command while ~/.config/sway/scripts/status.sh; do sleep 1; done
     tray_output none
     pango_markup enabled
+    status_command while ~/.config/sway/scripts/status.sh; do sleep 1; done
     colors {
         background #000000
         focused_workspace $workspace $workspace $background
@@ -252,8 +254,8 @@ bar {
 #----- AUTOSTART WITH I3
 #-------------------------------------------------------------------------------
 
+#exec_always --no-startup-id "configure-gtk"
 exec_always --no-startup-id "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK"
-exec_always --no-startup-id "configure-gtk"
 exec_always --no-startup-id "swaybg -i ~/media/pictures/wallpapers/solar_system_wallpapers/mars.png"
 exec --no-startup-id "~/.config/sway/scripts/idle.sh"
 exec --no-startup-id "udiskie"

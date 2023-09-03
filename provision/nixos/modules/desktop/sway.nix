@@ -1,4 +1,4 @@
-{ config, lib, pkgs, user, ... }:
+{ config, lib, pkgs, pkgs-unstable, user, ... }:
 
 let 
     cfg = config.modules.desktop.sway;
@@ -52,12 +52,16 @@ in {
       networkmanagerapplet
       pcmanfm
       google-chrome
-      firefox
       gamemode
       discord
       inkscape
       libreoffice-fresh
       mpv
+      udiskie
+      p7zip
+      pavucontrol
+    ] ++ [
+      pkgs-unstable.brave
     ];
 
     # xdg-desktop-portal works by exposing a series of D-Bus interfaces
