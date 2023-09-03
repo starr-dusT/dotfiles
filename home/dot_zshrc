@@ -27,6 +27,11 @@ if ! [[ "$PATH" =~ "$HOME/.nimble/bin:" ]]; then PATH="$HOME/.nimble/bin:$PATH";
 if ! [[ "$PATH" =~ "$HOME/.cargo/bin:" ]]; then  PATH="$HOME/.cargo/bin:$PATH" ; fi
 
 export PATH
+PROMPT="%{$fg[red]%}%m%{$fg[green]%} ➜ %{$fg[blue]%}%1~%{$reset_color%}%{$fg[red]%}%{$reset_color%} $(git_prompt_info)%{$fg[cyan]%}%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_PREFIX="("
+ZSH_THEME_GIT_PROMPT_SUFFIX=")"
+ZSH_THEME_GIT_PROMPT_DIRTY=" ✗"
+ZSH_THEME_GIT_PROMPT_CLEAN=" ✔"
 
 # Create Aliases
 
