@@ -70,6 +70,6 @@ alias xl="void-list-packages"
 # nnn
 alias n="nnn -e"
 export NNN_FCOLORS='0000E6310000000000000000'
-export NNN_PLUG='f:finder;o:fzopen;d:diffs;t:nmount;v:imgview;q:preview-tui;g:getdrop'
+export NNN_PLUG='g:getdrop'
 export NNN_FIFO="/tmp/nnn.fifo"
 export NNN_TRASH=1
