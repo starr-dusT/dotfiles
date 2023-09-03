@@ -15,6 +15,7 @@ in {
       tmux
       tmuxp
       lazygit
+      git-annex
     ];
   };
 }
