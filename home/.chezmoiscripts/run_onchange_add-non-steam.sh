@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Add non-steam games to steam
 
 apps=(
     "dolphin-emu Dolphin"
