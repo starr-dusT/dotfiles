@@ -9,8 +9,6 @@
     rbw 
     zk
     bat
-    joplin
-    joplin-desktop
   ];
 
   home.stateVersion = "23.05";
