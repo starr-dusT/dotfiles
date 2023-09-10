@@ -16,6 +16,8 @@ in {
       tmuxp
       lazygit
       git-annex
+      pandoc
+      gollum
     ];
   };
 }

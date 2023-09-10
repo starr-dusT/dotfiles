@@ -73,3 +73,6 @@ export NNN_FCOLORS='0000E6310000000000000000'
 export NNN_PLUG='g:getdrop'
 export NNN_FIFO="/tmp/nnn.fifo"
 export NNN_TRASH=1
+
+# zk
+alias cz="cd ~/documents/zet"

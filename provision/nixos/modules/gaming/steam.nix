@@ -21,6 +21,8 @@ in {
       pkgs.dolphin-emu
       pkgs-unstable.sunshine
       pkgs-unstable.moonlight-qt
+      pkgs-unstable.joplin
+      pkgs-unstable.joplin-desktop
     ];
   };
 

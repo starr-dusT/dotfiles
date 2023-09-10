@@ -8,6 +8,7 @@
     chezmoi
     rbw 
     zk
+    bat
     joplin
     joplin-desktop
   ];

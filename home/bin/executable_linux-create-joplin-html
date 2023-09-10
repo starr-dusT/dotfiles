@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠀⠀⣼⡏⠸⣧⠀⠀⠀⠀⠀⠀⠀⠀
+#⠠⢤⣤⣤⣤⣤⣤⣴⡿⠀⠀⢻⣦⣤⣤⣤⣤⣤⡤⠄ Tyler Starr (starr-dusT)
+#⠀⠀⠙⠻⣦⣄⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⠟⠋⠀⠀ https://github.com/starr-dusT/dotfiles
+#⠀⠀⠀⠀⠀⠙⣿⡆⠀⠀⠀⠀⠰⣿⠋⠀⠀⠀⠀⠀ https://tstarr.us
+#⠀⠀⠀⠀⠀⢰⡟⠀⣀⣴⣦⣀⠀⢻⡆⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⢀⣾⣧⡾⠛⠁⠈⠙⠷⣼⣿⡀⠀⠀⠀⠀
+#⠀⠀⠀⠀⡸⠟⠁⠀⠀⠀⠀⠀⠀⠈⠛⢧⠀⠀⠀⠀
+# Create html bookmarks from "Bookmarks" note in Joplin
+
+tempdir=$(mktemp -d)
+joplin sync
+joplin export --note Bookmarks --format=md ${tempdir}
+joplin export --note "Watch Later" --format=md ${tempdir}
+pandoc --standalone "${tempdir}/Personal/Web/Bookmarks.md" > /tmp/Bookmarks.html
+pandoc --standalone "${tempdir}/Personal/Web/Watch Later.md" > /tmp/Watch_Later.html

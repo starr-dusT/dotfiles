@@ -21,7 +21,7 @@ set $tag3 "3:web"
 set $tag4 "4:dev"  
 set $tag5 "5:web"  
 set $tag6 "6:web"  
-set $tag7 "7:web" 
+set $tag7 "7:note" 
 set $tag8 "8:comm"
 
 set $e exec swaymsg mode default
@@ -104,9 +104,8 @@ for_window [app_id="file"] floating enable, \
 #----- BINDING APPLICATIONS TO WORKSPACE
 #-------------------------------------------------------------------------------
 
-assign [class="Steam"]              "1:game"
-for_window [class="Steam"]          move container to workspace "1:game"
-for_window [class="discord"]        move container to workspace $tag8
+for_window [class="Steam"] move container to workspace "1:game"
+for_window [class="discord"] move container to workspace $tag8
 for_window [title="launcher"] floating enable
 
 #-------------------------------------------------------------------------------
@@ -198,8 +197,11 @@ mode open {
     bindsym b exec brave, $e
     bindsym s exec steam || flatpak run com.valvesoftware.Steam, $e
     bindsym d exec discord || flatpak run com.discordapp.Discord, $e
+    bindsym j exec joplin-desktop, $e, exec ~/.config/sway/scripts/joplin.sh
     bindsym Escape mode default
 }
+
+for_window [con_mark="SCRATCHPAD_jop"] border pixel 1
 
 # Scratchpads commands
 bindsym $mod+c mode scratch
