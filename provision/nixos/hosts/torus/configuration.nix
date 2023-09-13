@@ -71,6 +71,9 @@
     unzip
     nnn
     docker-compose
+    python3
+    zk
+    gollum
   ];
 
   # Enable user services
@@ -98,31 +101,43 @@
   networking.firewall.allowedTCPPorts = [ 80 443 ];
   networking.firewall.allowedUDPPorts = [ 80 443 ];
 
+  security.pam.services.nginx.setEnvironment = false;
+  systemd.services.nginx.serviceConfig = {
+    SupplementaryGroups = [ "shadow" ];
+  };
+
+  networking.nameservers = [ "8.8.8.8" "8.8.4.4" ];
+  
   services.nginx = {
     enable = true;
     recommendedGzipSettings = true;
     recommendedOptimisation = true;
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
-      virtualHosts = let
-      SSL = { 
-        enableACME = true; 
-        addSSL = true;
-      }; in {
-        #"tstarr.us" = (SSL // {
-        #  locations."/".proxyPass = "http://127.0.0.1:8080/"; 
-        #  serverAliases = [
-        #    "www.tstarr.us"
-        #  ];
-        #});
-        "media.tstarr.us" = (SSL // {
-          locations."/".proxyPass = "http://127.0.0.1:8096/"; 
-        });
-        "joplin.tstarr.us" = (SSL // {
-          locations."/".proxyPass = "http://127.0.0.1:22300/"; 
-        });
-      };
+    additionalModules = [ pkgs.nginxModules.pam ];
+    virtualHosts = let
+    SSL = { 
+      enableACME = true; 
+      forceSSL = true;
+    }; in {
+      "media.tstarr.us" = (SSL // {
+        locations."/".proxyPass = "http://localhost:8096/"; 
+      });
+      "joplin.tstarr.us" = (SSL // {
+        locations."/".proxyPass = "http://localhost:22300/"; 
+      });
+      "wiki.tstarr.us" = (SSL // {
+        locations."/".proxyPass = "http://localhost:4567/"; 
+        extraConfig = ''
+          auth_pam  "Password Required";
+          auth_pam_service_name "nginx";        
+        '';
+      });
+    };
   };
+
+
+
 
   # Enable modules
   imports = [ ../../modules ];
