@@ -48,46 +48,11 @@
     setLdLibraryPath = true;
   };
 
-  # Enable zsh
-  programs.zsh.enable = true;
-
   # Define user account.
   users.users.${user} = {
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
-    shell = pkgs.zsh;
-  };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim
-    git
-    killall
-    pciutils
-    syncthing
-    pinentry-curses 
-    trash-cli
-    unzip
-    nnn
-    docker-compose
-  ];
-
-  # Enable user services
-  #services = {
-  #  syncthing = {
-  #    enable = true;
-  #    user = "${user}";
-  #  };
-  #};
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  services.pcscd.enable = true;
-  programs.gnupg.agent = {
-     enable = true;
-     pinentryFlavor = "curses";
-     enableSSHSupport = true;
+    shell = pkgs.bash;
   };
 
   security.acme = {
@@ -127,14 +92,19 @@
   # Enable modules
   imports = [ ../../modules ];
   modules = {
-    services = {
-      samba-server.enable = true;
-      jellyfin.enable = true;
-    };
     devel = {
       tooling.enable = true;
     };
+    services = {
+      samba-server.enable = true;
+      jellyfin.enable = true;
+      syncthing.enable = true;
+    };
+    system = {
+      terminal.enable = true;
+      ssh.enable = true;
+    };
   };
-  
-  system.stateVersion = "23.05"; # Did you read the comment?
+  # Did you read the comment?
+  system.stateVersion = "23.05";
 }
