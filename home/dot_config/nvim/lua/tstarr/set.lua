@@ -41,3 +41,6 @@ vim.opt.shortmess:append("c")
 vim.g.mapleader = " "
 
 vim.opt.colorcolumn = "80"
+
+-- Open web links with default system application
+vim.g.netrw_browsex_viewer="gio open"

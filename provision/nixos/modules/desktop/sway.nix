@@ -71,11 +71,33 @@ in {
     # The portal interfaces include APIs for file access, opening URIs,
     # printing and others.
     services.dbus.enable = true;
-    xdg.portal = {
-      enable = true;
-      wlr.enable = true;
-      # gtk portal needed to make gtk apps happy
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    xdg = {
+      portal = {
+        enable = true;
+        wlr.enable = true;
+        extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      };
+      mime = {
+        enable = true;
+        defaultApplications = {
+          "text/plain" = [ "nvim.desktop" ];
+          "inode/directory" = [ "pcmanfm.desktop" ];
+          "text/html" = [ "brave-browser.desktop" ];
+          "x-scheme-handler/http" = [ "brave-browser.desktop" ];
+          "x-scheme-handler/https" = [ "brave-browser.desktop" ];
+          "x-scheme-handler/ftp" = [ "brave-browser.desktop" ];
+          "x-scheme-handler/chrome" = [ "brave-browser.desktop" ];
+          "x-scheme-handler/about" = [ "brave-browser.desktop" ];
+          "x-scheme-handler/unknown" = [ "brave-browser.desktop" ];
+          "application/x-extension-htm" = [ "brave-browser.desktop" ];
+          "application/x-extension-html" = [ "brave-browser.desktop" ];
+          "application/x-extension-shtml" = [ "brave-browser.desktop" ];
+          "application/xhtml+xml" = [ "brave-browser.desktop" ];
+          "application/x-extension-xhtml" = [ "brave-browser.desktop" ];
+          "application/x-extension-xht" = [ "brave-browser.desktop" ];
+          "application/pdf" = [ "brave-browser.desktop" ];
+        };
+      };
     };
 
     # enable sway window manager

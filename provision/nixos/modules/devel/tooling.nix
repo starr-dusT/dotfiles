@@ -18,6 +18,9 @@ in {
       git-annex
       pandoc
       gollum
+      cmake
+      coreutils
+      gcc
     ];
   };
 }

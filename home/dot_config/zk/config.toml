@@ -92,6 +92,7 @@ conf = 'chezmoi edit ~/.config/zk/config.toml"'
 
 # Note Creation/Deletion/Editing
 ei = "zk edit --interactive && zk commit"
+view = "zk list --interactive --format {{path}} | xargs bat --color always"
 daily = 'zk new --no-input "journal/daily" && zk commit'
 del = 'zk list --interactive --format "{{path}}" | xargs rm && zk commit'
 bookmark = '~/.config/zk/scripts/bookmark.sh $ZK_NOTEBOOK_DIR && zk commit'
