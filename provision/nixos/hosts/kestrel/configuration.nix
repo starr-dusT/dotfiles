@@ -40,11 +40,6 @@
   time.timeZone = "America/Los_Angeles";
   i18n.defaultLocale = "en_US.UTF-8";
 
-  # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.support32Bit = true;
-
   # Add fonts
   fonts.fonts = with pkgs; [
     nerdfonts
@@ -54,62 +49,18 @@
   virtualisation.docker.enable = true;
   virtualisation.docker.storageDriver = "btrfs";
 
-  # Enable zsh
-  programs.zsh.enable = true;
-
   # Define user account.
   users.users.${user} = {
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" "libvirtd" ]; # Enable ‘sudo’ for the user.
-    shell = pkgs.zsh;
+    shell = pkgs.bash;
   };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim
-    git
-    killall
-    pciutils
-    syncthing
-    pinentry-curses 
-    trash-cli
-    unzip
-    nnn
-    advcpmv
-  ];
-
-  # Enable user services
-  services = {
-    gvfs.enable = true; # USB automount
-    blueman.enable = true;
-    printing.enable = true;
-    printing.drivers = [ pkgs.hplip ];
-    avahi.enable = true;
-    avahi.nssmdns = true;
-    syncthing = {
-      enable = true;
-      user = "${user}";
-      dataDir = "/home/${user}/sync";
-      configDir = "/home/${user}/.config/syncthing";
-    };
-  };
-
-    # Enable the OpenSSH daemon.
-    services.openssh.enable = true;
-    services.pcscd.enable = true;
-    programs.gnupg.agent = {
-       enable = true;
-       pinentryFlavor = "curses";
-       enableSSHSupport = true;
-    };
 
   # Enable modules
   imports = [ ../../modules ];
   modules = {
-    services = {
-      samba-client.enable = true;
-      virt-manager.enable = true;
+    desktop = {
+      sway.enable = true;
     };
     devel = {
       tooling.enable = true;
@@ -119,10 +70,17 @@
     gaming = {
       steam.enable = true;
     };
-    desktop = {
-      sway.enable = true;
+    services = {
+      samba-client.enable = true;
+      virt-manager.enable = true;
+      syncthing.enable = true;
+      peripherals.enable = true;
+    };
+    system = {
+      terminal.enable = true;
+      ssh.enable = true;
     };
   };
-
-  system.stateVersion = "23.05"; # Did you read the comment?
+  # Did you read the comment?
+  system.stateVersion = "23.05";
 }
