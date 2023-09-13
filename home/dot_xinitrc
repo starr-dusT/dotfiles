@@ -1,3 +1,0 @@
-exec dbus-launch xmonad
-#exec dbus-launch i3
-#exec dbus-launch qtile
