@@ -1,0 +1,101 @@
+# NOTE SETTINGS
+[note]
+
+# Language used when writing notes.
+# This is used to generate slugs or with date formats.
+language = "en"
+
+# The default title used for new note, if no `--title` flag is provided.
+default-title = "Untitled"
+
+# Template used to generate a note's filename, without extension.
+filename = "{{id}}-{{slug title}}"
+
+# The file extension used for the notes.
+extension = "md"
+
+# Template used to generate a note's content.
+# If not an absolute path, it is relative to .zk/templates/
+template = "default.md"
+
+# Length of the generated IDs.
+id-length = 4
+
+# Letter case for the random IDs, among lower, upper or mixed.
+id-case = "lower"
+
+# EXTRA VARIABLES
+[extra]
+author = "tstarr"
+
+[group.daily]
+# Directories listed here will automatically use this group when creating notes.
+paths = ["journal/daily"]
+
+[group.daily.note]
+# %Y-%m-%d is actually the default format, so you could use {{format-date now}} instead.
+filename = "{{format-date now '%Y-%m-%d'}}"
+extension = "md"
+template = "daily.md"
+
+# MARKDOWN SETTINGS
+[format.markdown]
+
+# Format used to generate links between notes.
+link-format = "markdown"
+
+# Indicates whether a link's path will be percent-encoded.
+link-encode-path = true
+
+# Indicates whether a link's path file extension will be removed.
+link-drop-extension = true
+
+# Enable support for #hashtags.
+hashtags = false
+
+# Enable support for :colon:separated:tags:.
+colon-tags = true 
+
+# EXTERNAL TOOLS
+[tool]
+
+# Default editor used to open notes. When not set, the EDITOR or VISUAL
+editor = "nvim"
+
+# Default shell used by aliases and commands.
+shell = "/bin/bash"
+
+# Pager used to scroll through long output.
+pager = "less -FIRX"
+
+# Command used to preview a note during interactive fzf mode.
+fzf-preview = "bat -p --color always {-1}"
+
+# LSP
+[lsp]
+[lsp.diagnostics]
+
+# Warn for dead links between notes.
+dead-link = "error"
+
+# NAMED FILTERS
+[filter]
+recents = "--sort created- --created-after 'last two weeks'"
+
+# COMMAND ALIASES
+[alias]
+
+# Admin
+commit = '~/.config/zk/scripts/commit.sh $ZK_NOTEBOOK_DIR' 
+push = 'git push origin master'
+conf = 'chezmoi edit ~/.config/zk/config.toml"'
+
+# Note Creation/Deletion/Editing
+ei = "zk edit --interactive && zk commit"
+view = "zk list --interactive --format {{path}} | xargs bat --color always"
+daily = 'zk new --no-input "journal/daily" && zk commit'
+del = 'zk list --interactive --format "{{path}}" | xargs rm && zk commit'
+bookmark = '~/.config/zk/scripts/bookmark.sh $ZK_NOTEBOOK_DIR && zk commit'
+
+# Note Searching
+recipe = "zk edit --interactive --tag recipe"

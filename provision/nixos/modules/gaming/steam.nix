@@ -16,6 +16,7 @@ in {
 
     environment.systemPackages = [ 
       pkgs.steam 
+      pkgs.steamtinkerlaunch
       pkgs-unstable.yuzu-early-access
       pkgs.dolphin-emu
       pkgs-unstable.sunshine

@@ -4,8 +4,14 @@ return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
-    -- Colors
+    -- Apperance
     use ('dracula/vim')
+    use('norcalli/nvim-colorizer.lua')
+    require("colorizer").setup()
+
+    -- Syntax Hilight
+    use ('alker0/chezmoi.vim')
+    use ('nathangrigg/vim-beancount')
 
     -- IDE
     use('nvim-lua/plenary.nvim')
@@ -15,15 +21,16 @@ return require('packer').startup(function(use)
     use ('nvim-telescope/telescope.nvim')
     use ('nvim-telescope/telescope-project.nvim')
 
+    -- Editing
     use ('ThePrimeagen/harpoon')
     use ('mbbill/undotree')
-    use ('kdheepak/lazygit.nvim')
+    use ('folke/which-key.nvim')
+    use("mickael-menu/zk-nvim")
 
-    use({ "iamcco/markdown-preview.nvim", 
-          run = "cd app && npm install", 
-          setup = function() vim.g.mkdp_filetypes = { "markdown" } end, 
-          ft = { "markdown" }, 
-        })
+    -- External
+    require("zk").setup()
+    use('mcchrish/nnn.vim')
+
     -- LSP
     use ('neovim/nvim-lspconfig')
     use ('hrsh7th/cmp-nvim-lsp')
@@ -33,18 +40,5 @@ return require('packer').startup(function(use)
     use ('hrsh7th/nvim-cmp')
     use ('L3MON4D3/LuaSnip')
     use ('saadparwaiz1/cmp_luasnip')
-    use ('alker0/chezmoi.vim')
-    use ('nathangrigg/vim-beancount')
-    use ('vimwiki/vimwiki')
-    use ('folke/which-key.nvim')
-    use ('hkupty/iron.nvim')
-    use("mickael-menu/zk-nvim")
-    require("zk").setup()
 
-    use('norcalli/nvim-colorizer.lua')
-    require("colorizer").setup()
-
-    use('loctvl842/monokai-pro.nvim')
-    require("monokai-pro").setup()
-    use('mcchrish/nnn.vim')
 end)
