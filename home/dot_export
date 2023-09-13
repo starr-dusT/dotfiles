@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# https://github.com/starr-dusT/dotfiles
+
+# Make vim the default editor.
+export EDITOR=nvim
+
+# Customize prompt
+export PROMPT="%{$fg[red]%}%m $PROMPT"
+
+# NNN exports 
+export NNN_FCOLORS='0000E6310000000000000000'
+export NNN_PLUG='g:getdrop'
+export NNN_FIFO="/tmp/nnn.fifo"
+export NNN_TRASH=1

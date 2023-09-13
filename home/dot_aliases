@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# https://github.com/starr-dusT/dotfiles
+
+# nixos
+alias nixos-update="cd ~/.local/share/chezmoi/provision/nixos && \
+                    sudo nixos-rebuild switch --flake .#$(hostname) && \
+                    cd -"
+# sway
+alias s='sway'
+
+# tmuxinator 
+alias tsplat='tmuxinator start splat'
+alias tdot='tmuxinator start dot'
+alias ttask='tmuxinator start task'
+
+# chezmoi
+alias cc="cd ~/.local/share/chezmoi"
+alias cdr="chezmoi apply --verbose --dry-run"
+alias ca="chezmoi apply"
+alias ce='chezmoi edit'
+
+# trashcli
+alias rm='echo "This is not the command you are looking for."; false'
+alias tp='trash-put'
+alias te='trash-empty'
+alias tl='trash-list'
+alias tre='trash-restore'
+alias trm='trash-rm'
+alias rofi='wayland-rofi'
+
+# zk
+alias cz="cd ~/documents/zet"
+
+# nnn 
+alias n="nnn -e"

@@ -15,26 +15,6 @@
     url = "https://github.com/wbthomason/packer.nvim.git"
     refreshPeriod = "168h"
 
-[".oh-my-zsh"]
-    type = "archive"
-    url = "https://github.com/ohmyzsh/ohmyzsh/archive/master.tar.gz"
-    extact = true
-    stripComponents = 1
-    refreshPeriod = "168h"
-
-[".oh-my-zsh/custom/themes/dracula"]
-    type = "archive"
-    url = "https://github.com/dracula/zsh/archive/master.zip"
-    exact = true
-    stripComponents = 1
-    refreshPeriod = "168h"
-    include = ["*/dracula.zsh-theme", "*/lib/**"]
-
-[".oh-my-zsh/custom/plugins/zsh-syntax-highlighting"]
-    type = "git-repo"
-    url = "https://github.com/zsh-users/zsh-syntax-highlighting.git"
-    refreshPeriod = "168h"
-
 [".config/xmonad/xmonad"]
     type = "git-repo"
     url = "https://github.com/xmonad/xmonad"
