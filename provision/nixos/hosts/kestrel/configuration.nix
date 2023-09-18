@@ -62,23 +62,25 @@
       sway.enable = true;
     };
     devel = {
-      tooling.enable = true;
-      python.enable = true;
       engineering.enable = true;
       notes.enable = true;
+      python.enable = true;
+      tooling.enable = true;
     };
     gaming = {
       steam.enable = true;
     };
     services = {
-      samba-client.enable = true;
-      virt-manager.enable = true;
-      syncthing.enable = true;
+      #jellyfin.enable = true;
       peripherals.enable = true;
+      samba-client.enable = true;
+      #samba-server.enable = true;
+      syncthing.enable = true;
+      virt-manager.enable = true;
     };
     system = {
-      terminal.enable = true;
       ssh.enable = true;
+      terminal.enable = true;
     };
   };
   # Did you read the comment?

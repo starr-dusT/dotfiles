@@ -6,20 +6,7 @@ provision
 additional-setup.md
 .gen
 
-{{ if eq .chezmoi.os "darwin" }}
-bin
-.bash_profile
-.bashrc
-.local
-.nbrc
-.taskopenrc
-.taskrc
-.config/vdirsyncer
-.config/i3
-.config/polybar
-{{ end }}
-
-{{ if eq .chezmoi.os "android" }}
+{{ if eq .chezmoi.osRelease.id "alpine" }}
 *
 .config/nvim
 {{ end }}
