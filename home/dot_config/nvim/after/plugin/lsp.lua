@@ -1,153 +1,60 @@
-local Remap = require("tstarr.keymap")
-local nnoremap = Remap.nnoremap
-local inoremap = Remap.inoremap
+local lsp = require("lsp-zero")
+
+lsp.preset("recommended")
+
+lsp.ensure_installed({
+  'tsserver',
+  'pyright',
+  'lua_ls',
+})
+
+-- Fix Undefined global 'vim'
+lsp.nvim_workspace()
+
+
 local cmp = require('cmp')
-local lspconfig = require('lspconfig')
-local configs = require('lspconfig/configs')
-
-cmp.setup({
-    snippet = {
-      expand = function(args)
-        require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-      end,
-    },
-    window = {
-      completion = cmp.config.window.bordered(),
-      documentation = cmp.config.window.bordered(),
-    },
-    mapping = cmp.mapping.preset.insert({
-      ["<Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item()
-        else
-          fallback()
-        end
-      end, { "i" }),
-      ["<S-Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item()
-        else
-          fallback()
-        end
-      end, { "i" }),
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    }),
-    sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'luasnip' }, -- For luasnip users.
-    }, {
-        { name = 'buffer',
-          option = {
-            get_bufnrs = function()
-              local bufs = {}
-              for _, win in ipairs(vim.api.nvim_list_wins()) do
-                bufs[vim.api.nvim_win_get_buf(win)] = true
-              end
-              return vim.tbl_keys(bufs)
-            end
-          }
-        },
-    })
+local cmp_select = {behavior = cmp.SelectBehavior.Select}
+local cmp_mappings = lsp.defaults.cmp_mappings({
+  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+  ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+  ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+  ["<C-Space>"] = cmp.mapping.complete(),
 })
 
-cmp.setup.cmdline('/', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = 'buffer' }
-  }
+cmp_mappings['<Tab>'] = nil
+cmp_mappings['<S-Tab>'] = nil
+
+lsp.setup_nvim_cmp({
+  mapping = cmp_mappings
 })
 
-cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = 'path' },
-    { name = 'buffer' }
-  }, {
-    {
-      name = 'cmdline',
-      option = {
-        ignore_cmds = { 'Man', '!' }
-      }
+lsp.set_preferences({
+    suggest_lsp_servers = false,
+    sign_icons = {
+        error = 'E',
+        warn = 'W',
+        hint = 'H',
+        info = 'I'
     }
-  })
 })
 
-local function config(_config)
-	return vim.tbl_deep_extend("force", {
-		on_attach = function()
-            local opts = { buffer = true };
-			nnoremap("gd", function() vim.lsp.buf.definition() end, opts)
-			nnoremap("K", function() vim.lsp.buf.hover() end, opts)
-			nnoremap("<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
-			nnoremap("<leader>vd", function() vim.diagnostic.open_float() end, opts)
-			nnoremap("[d", function() vim.diagnostic.goto_next() end, opts)
-			nnoremap("]d", function() vim.diagnostic.goto_prev() end, opts)
-			nnoremap("<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-			nnoremap("<leader>vco", function() vim.lsp.buf.code_action({
-                filter = function(code_action)
-                    if not code_action or not code_action.data then
-                        return false
-                    end
+lsp.on_attach(function(client, bufnr)
+  local opts = {buffer = bufnr, remap = false}
 
-                    local data = code_action.data.id
-                    return string.sub(data, #data - 1, #data) == ":0"
-                end,
-                apply = true
-            }) end, opts)
-			nnoremap("<leader>vrr", function() vim.lsp.buf.references() end, opts)
-			nnoremap("<leader>vrn", function() vim.lsp.buf.rename() end, opts)
-			inoremap("<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-		end,
-	}, _config or {})
-end
+  vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+  vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+  vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
+  vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
+  vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
+  vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+  vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
+  vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
+  vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
+  vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+end)
 
--- Python
-lspconfig.tsserver.setup(config())
-lspconfig.pyright.setup(config())
+lsp.setup()
 
--- zk
-configs.zk = {
-  default_config = {
-    cmd = {'zk', 'lsp'},
-    filetypes = {'markdown'},
-    root_dir = function()
-      return vim.loop.cwd()
-    end,
-    settings = {}
-  };
-}
-
-lspconfig.zk.setup({ on_attach = function(client, buffer) 
-  -- Add keybindings here, see https://github.com/neovim/nvim-lspconfig#keybindings-and-completion
-end })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+vim.diagnostic.config({
+    virtual_text = true
+})

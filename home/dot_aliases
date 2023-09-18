@@ -2,7 +2,7 @@
 # https://github.com/starr-dusT/dotfiles
 
 # nixos
-alias nixos-update="cd ~/.local/share/chezmoi/provision/nixos && \
+alias nu="cd ~/.local/share/chezmoi/provision/nixos && \
                     sudo nixos-rebuild switch --flake .#$(hostname) && \
                     cd -"
 # sway

@@ -1,13 +1,4 @@
-##⠀⠀⠀⠀⠀⠀⠀⠀⢠⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀
-#⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀
-#⠀⠀⠀⠀⠀⠀⠀⠀⣼⡏⠸⣧⠀⠀⠀⠀⠀⠀⠀⠀
-#⠠⢤⣤⣤⣤⣤⣤⣴⡿⠀⠀⢻⣦⣤⣤⣤⣤⣤⡤⠄ Tyler Starr (starr-dusT)
-#⠀⠀⠙⠻⣦⣄⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⠟⠋⠀⠀ https://github.com/starr-dusT/dotfiles
-#⠀⠀⠀⠀⠀⠙⣿⡆⠀⠀⠀⠀⠰⣿⠋⠀⠀⠀⠀⠀ https://tstarr.us
-#⠀⠀⠀⠀⠀⢰⡟⠀⣀⣴⣦⣀⠀⢻⡆⠀⠀⠀⠀⠀
-#⠀⠀⠀⠀⢀⣾⣧⡾⠛⠁⠈⠙⠷⣼⣿⡀⠀⠀⠀⠀
-# ⠀⠀⠀⡸⠟⠁⠀⠀⠀⠀⠀⠀⠈⠛⢧⠀⠀⠀⠀
-# 
+# https://github.com/starr-dusT/dotfiles
 # Global .gitconfig
 
 [user]
@@ -19,6 +10,3 @@
 
 [core]
     sshCommand = "ssh -i ~/.ssh/keys/github_personal"
-
-[includeIf "gitdir:~/devel/work/**"]
-    path = ~/devel/work/.gitconfig.work
