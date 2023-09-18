@@ -53,7 +53,6 @@
   users.users.${user} = {
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" "libvirtd" ]; # Enable ‘sudo’ for the user.
-    #shell = pkgs.bash;
   };
 
   # Enable modules
@@ -66,6 +65,7 @@
       tooling.enable = true;
       python.enable = true;
       engineering.enable = true;
+      notes.enable = true;
     };
     gaming = {
       steam.enable = true;

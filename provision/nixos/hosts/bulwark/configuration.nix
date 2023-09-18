@@ -75,7 +75,7 @@
     advcpmv
     neovim
   ] ++ [
-      pkgs-unstable.brave
+      pkgs-unstable.ungoogled-chromium
   ];
 
   # Enable user services

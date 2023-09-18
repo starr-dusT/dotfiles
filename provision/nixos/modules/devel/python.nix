@@ -15,7 +15,6 @@ in {
   options.modules.devel.python.enable = lib.mkEnableOption "python";
   config = lib.mkIf cfg.enable {
 
-    # Install packages
     environment.systemPackages = with pkgs; [ 
       (python3.withPackages my-python-packages)
       beancount 

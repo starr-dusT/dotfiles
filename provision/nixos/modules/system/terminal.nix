@@ -4,23 +4,34 @@ let cfg = config.modules.system.terminal;
 in {
   options.modules.system.terminal.enable = lib.mkEnableOption "terminal";
   config = lib.mkIf cfg.enable {
-    # Install packages
+
     environment.systemPackages = with pkgs; [
-      bash
-      bash-completion
-      neovim
-      ripgrep
-      tmux
-      tmuxp
       git
       git-annex
       killall
       pciutils
-      pinentry-curses 
-      trash-cli
-      unzip
+      chezmoi
+
+      rbw 
+      # for rbw
+        pinentry-curses 
+
+      bash
+      # for bash
+        bash-completion
+        tmux
+        tmuxp
+
       nnn
-      advcpmv
+      # for nnn
+        advcpmv
+        unzip
+        trash-cli
+
+      neovim
+      # for neovim
+        nodejs 
+        ripgrep
     ];
   };
 }

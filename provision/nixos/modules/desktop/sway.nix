@@ -61,7 +61,7 @@ in {
       p7zip
       pavucontrol
     ] ++ [
-      pkgs-unstable.brave
+      pkgs-unstable.ungoogled-chromium
     ];
 
     # xdg-desktop-portal works by exposing a series of D-Bus interfaces
@@ -82,20 +82,20 @@ in {
         defaultApplications = {
           "text/plain" = [ "nvim.desktop" ];
           "inode/directory" = [ "pcmanfm.desktop" ];
-          "text/html" = [ "brave-browser.desktop" ];
-          "x-scheme-handler/http" = [ "brave-browser.desktop" ];
-          "x-scheme-handler/https" = [ "brave-browser.desktop" ];
-          "x-scheme-handler/ftp" = [ "brave-browser.desktop" ];
-          "x-scheme-handler/chrome" = [ "brave-browser.desktop" ];
-          "x-scheme-handler/about" = [ "brave-browser.desktop" ];
-          "x-scheme-handler/unknown" = [ "brave-browser.desktop" ];
-          "application/x-extension-htm" = [ "brave-browser.desktop" ];
-          "application/x-extension-html" = [ "brave-browser.desktop" ];
-          "application/x-extension-shtml" = [ "brave-browser.desktop" ];
-          "application/xhtml+xml" = [ "brave-browser.desktop" ];
-          "application/x-extension-xhtml" = [ "brave-browser.desktop" ];
-          "application/x-extension-xht" = [ "brave-browser.desktop" ];
-          "application/pdf" = [ "brave-browser.desktop" ];
+          "text/html" = [ "chromium-browser.desktop" ];
+          "x-scheme-handler/http" = [ "chromium-browser.desktop" ];
+          "x-scheme-handler/https" = [ "chromium-browser.desktop" ];
+          "x-scheme-handler/ftp" = [ "chromium-browser.desktop" ];
+          "x-scheme-handler/chrome" = [ "chromium-browser.desktop" ];
+          "x-scheme-handler/about" = [ "chromium-browser.desktop" ];
+          "x-scheme-handler/unknown" = [ "chromium-browser.desktop" ];
+          "application/x-extension-htm" = [ "chromium-browser.desktop" ];
+          "application/x-extension-html" = [ "chromium-browser.desktop" ];
+          "application/x-extension-shtml" = [ "chromium-browser.desktop" ];
+          "application/xhtml+xml" = [ "chromium-browser.desktop" ];
+          "application/x-extension-xhtml" = [ "chromium-browser.desktop" ];
+          "application/x-extension-xht" = [ "chromium-browser.desktop" ];
+          "application/pdf" = [ "chromium-browser.desktop" ];
         };
       };
     };

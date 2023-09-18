@@ -31,13 +31,7 @@ linux-mount-<network drive name>
 
 Syncthing is used to sync folders between various computers and android. The 
 ansible script should setup and run the service, but shares must be setup
-via the web gui. Currently four shares exists:
-- `.warrior` - `.task` and `.timewarrior` folders to sync taskwarrior tasks.
-These two folders are symlinked to the home folder where taskwarrior/timewarrior 
-expects them.
-- `warrior` - contains text files associated with taskwarrior (mostly from
-taskopen).
-- `vimwiki` - contains text files associate with my personal vimwiki.
+via the web gui. 
 
 ## Git-annex
 
