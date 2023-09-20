@@ -55,6 +55,13 @@
     extraGroups = [ "wheel" "docker" "libvirtd" ]; # Enable ‘sudo’ for the user.
   };
 
+  # List packages installed in system profile.
+  environment.systemPackages = with pkgs; [
+      # One-off stable packages
+  ] ++ [
+      # One-off unstable packages
+  ];
+
   # Enable modules
   imports = [ ../../modules ];
   modules = {

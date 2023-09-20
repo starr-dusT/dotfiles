@@ -22,7 +22,7 @@
   nixpkgs.overlays = import ../../lib/overlays.nix;
 
   # Custom kernel is set within Jovian-Nixos
-  # boot.kernelPackages = pkgs.linuxPackages_zen;
+  #boot.kernelPackages = pkgs.linuxPackages_zen;
 
   # Hardware options
   hardware.bluetooth.enable = true;
@@ -50,9 +50,6 @@
     nerdfonts
   ];
 
-  # Enable zsh
-  programs.zsh.enable = true;
-
   # Define user account.
   users.users.${user} = {
     isNormalUser = true;
@@ -60,61 +57,41 @@
     shell = pkgs.zsh;
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
-    vim
-    git
-    killall
-    pciutils
-    syncthing
-    pinentry-curses 
-    trash-cli
-    unzip
-    nnn
-    advcpmv
-    neovim
+      # One-off stable packages
   ] ++ [
+      # One-off unstable packages
       pkgs-unstable.ungoogled-chromium
   ];
 
-  # Enable user services
-  services = {
-    gvfs.enable = true; # USB automount
-    blueman.enable = true;
-    printing.enable = true;
-    printing.drivers = [ pkgs.hplip ];
-    avahi.enable = true;
-    avahi.nssmdns = true;
-    syncthing = {
-      enable = true;
-      user = "${user}";
-      dataDir = "/home/${user}/sync";
-      configDir = "/home/${user}/.config/syncthing";
-    };
-  };
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  services.pcscd.enable = true;
-  programs.gnupg.agent = {
-     enable = true;
-     pinentryFlavor = "curses";
-     enableSSHSupport = true;
-  };
-
   # Enable modules
   modules = {
-    services = {
-      samba-client.enable = true;
+    desktop = {
+      #sway.enable = true;
     };
     devel = {
-      tooling.enable = true;
+      #engineering.enable = true;
+      notes.enable = true;
+      #python.enable = true;
+      #tooling.enable = true;
     };
     gaming = {
       steam.enable = true;
     };
+    services = {
+      #jellyfin.enable = true;
+      #peripherals.enable = true;
+      samba-client.enable = true;
+      #samba-server.enable = true;
+      syncthing.enable = true;
+      #virt-manager.enable = true;
+    };
+    system = {
+      ssh.enable = true;
+      terminal.enable = true;
+    };
   };
-  
-  system.stateVersion = "23.05"; # Did you read the comment?
+  # Did you read the comment?
+  system.stateVersion = "23.05"; 
 }
