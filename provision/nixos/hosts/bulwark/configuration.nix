@@ -54,7 +54,6 @@
   users.users.${user} = {
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
-    shell = pkgs.zsh;
   };
 
   # List packages installed in system profile.
