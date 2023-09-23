@@ -126,6 +126,7 @@
       samba-server.enable = true;
       jellyfin.enable = true;
       syncthing.enable = true;
+      wireguard-server.enable = true;
     };
     system = {
       terminal.enable = true;
