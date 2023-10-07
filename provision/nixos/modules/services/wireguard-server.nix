@@ -4,49 +4,52 @@ let cfg = config.modules.services.wireguard-server;
 in {
   options.modules.services.wireguard-server.enable = lib.mkEnableOption "wireguard-server";
   config = lib.mkIf cfg.enable {
-    # enable NAT
-    networking.nat.enable = true;
-    networking.nat.externalInterface = "enp4s0";
-    networking.nat.internalInterfaces = [ "wg0" ];
-    networking.firewall = {
-      allowedUDPPorts = [ 51820 ];
+    # Enable NAT
+    networking.nat = {
+      enable = true;
+      enableIPv6 = true;
+      externalInterface = "enp4s0";
+      internalInterfaces = [ "wg0" ];
     };
 
-    networking.wireguard.interfaces = {
+    # Open ports in the firewall
+    networking.firewall = {
+      allowedTCPPorts = [ 53 ];
+      allowedUDPPorts = [ 53 51820 ];
+    };
+      
+    networking.wg-quick.interfaces = {
       # "wg0" is the network interface name. You can name the interface arbitrarily.
       wg0 = {
-        # Determines the IP address and subnet of the server's end of the tunnel interface.
-        ips = [ "10.100.0.1/24" ];
-
-        # The port that WireGuard listens to. Must be accessible by the client.
+        # Determines the IP/IPv6 address and subnet of the client's end of the tunnel interface
+        address = [ "192.168.2.1/24" ];
+        # The port that WireGuard listens to - recommended that this be changed from default
         listenPort = 51820;
+        # Path to the server's private key
+        privateKeyFile = "/engi/apps/wireguard/private";
 
         # This allows the wireguard server to route your traffic to the internet and hence be like a VPN
-        # For this to work you have to set the dnsserver IP of your router (or dnsserver of choice) in your clients
-        postSetup = ''
-          ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
+        postUp = ''
+          ${pkgs.iptables}/bin/iptables -A FORWARD -i %i -j ACCEPT 
+          ${pkgs.iptables}/bin/iptables -A FORWARD -o %i -j ACCEPT 
+          ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -o enp4s0 -j MASQUERADE
+
         '';
 
-        # This undoes the above command
-        postShutdown = ''
-          ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
+        # Undo the above
+        preDown = ''
+          ${pkgs.iptables}/bin/iptables -D FORWARD -i %i -j ACCEPT 
+          ${pkgs.iptables}/bin/iptables -D FORWARD -o %i -j ACCEPT 
+          ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -o enp4s0 -j MASQUERADE
         '';
-
-        # Path to the private key file.
-        #
-        # Note: The private key can also be included inline via the privateKey option,
-        # but this makes the private key world-readable; thus, using privateKeyFile is
-        # recommended.
-        privateKeyFile = "/engi/apps/wireguard/torus-adjudicator";
 
         peers = [
-          # List of allowed peers.
-          { # Feel free to give a meaning full name
-            # Public key of the peer (not a file path).
-            publicKey = "boy07PYDJT8TuG6Zkwg1KqhKeoakc7GH7UxAw9NuSjE";
-            # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
-            allowedIPs = [ "10.100.0.2/32" ];
+          { 
+            # Adjudicator
+            publicKey = "r2/IeYCO1T+l248387wUBoNnc2DK9O8pHcIr/NQqezM=";
+            allowedIPs = [ "192.168.2.2/32" ];
           }
+          # More peers can be added here.
         ];
       };
     };
