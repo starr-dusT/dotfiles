@@ -81,7 +81,6 @@
       #jellyfin.enable = true;
       peripherals.enable = true;
       samba-client.enable = true;
-      #samba-server.enable = true;
       syncthing.enable = true;
       virt-manager.enable = true;
     };
