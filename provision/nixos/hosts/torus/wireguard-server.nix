@@ -45,6 +45,11 @@
           publicKey = "r2/IeYCO1T+l248387wUBoNnc2DK9O8pHcIr/NQqezM=";
           allowedIPs = [ "192.168.2.2/32" ];
         }
+        { 
+          # Kestrel
+          publicKey = "hPso657fppLYvBU31Rtqqg792JEoPv7r82JgLoF8S2Y=";
+          allowedIPs = [ "192.168.2.3/32" ];
+        }
         # More peers can be added here.
       ];
     };

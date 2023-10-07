@@ -1,5 +1,10 @@
 { config, pkgs, user, lib, ... }:
 {
+  imports = [ 
+    ./wireguard-client.nix
+    ../../modules 
+  ];
+
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = "experimental-features = nix-command flakes";
@@ -32,7 +37,6 @@
 
   # Set networking options
   networking.hostName = "kestrel"; 
-  networking.networkmanager.enable = true;  
   networking.firewall.checkReversePath = "loose";
   networking.firewall.enable = false;
 
@@ -63,7 +67,6 @@
   ];
 
   # Enable modules
-  imports = [ ../../modules ];
   modules = {
     desktop = {
       sway.enable = true;
