@@ -4,11 +4,11 @@
     allowedUDPPorts = [ 51820 ]; # Clients and peers can use the same port, see listenport
   };
   # Enable WireGuard
-  networking.wireguard.interfaces = {
+  networking.wg-quick.interfaces = {
     # "wg0" is the network interface name. You can name the interface arbitrarily.
     wg0 = {
       # Determines the IP address and subnet of the client's end of the tunnel interface.
-      ips = [ "192.168.2.3/32" ];
+      address = [ "192.168.2.3/32" ];
       listenPort = 51820; # to match firewall allowedUDPPorts (without this wg uses random port numbers)
 
       # Path to the private key file.
@@ -17,6 +17,10 @@
       # but this makes the private key world-readable; thus, using privateKeyFile is
       # recommended.
       privateKeyFile = "/home/${user}/.wireguard/kestrel";
+
+      # Don't autostart peer
+      # Start with systemctl start wg-quick-wg0
+      autostart = false;
 
       peers = [
         # For a client configuration, one peer entry for the server will suffice.
@@ -31,7 +35,7 @@
           #allowedIPs = [ "10.100.0.1" "91.108.12.0/22" ];
 
           # Set this to the server IP and port.
-          endpoint = "192.168.1.175:51820"; # ToDo: route to endpoint not automatically configured https://wiki.archlinux.org/index.php/WireGuard#Loop_routing https://discourse.nixos.org/t/solved-minimal-firewall-setup-for-wireguard-client/7577
+          endpoint = "66.218.43.87:51820"; # ToDo: route to endpoint not automatically configured https://wiki.archlinux.org/index.php/WireGuard#Loop_routing https://discourse.nixos.org/t/solved-minimal-firewall-setup-for-wireguard-client/7577
 
           # Send keepalives every 25 seconds. Important to keep NAT tables alive.
           persistentKeepalive = 25;
