@@ -1,5 +1,10 @@
 { config, pkgs, user, lib, ... }:
 {
+  imports = [ 
+    ./wireguard-server.nix
+    ../../modules 
+  ];
+
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = "experimental-features = nix-command flakes";
@@ -118,7 +123,6 @@
   };
 
   # Enable modules
-  imports = [ ../../modules ];
   modules = {
     devel = {
       tooling.enable = true;
@@ -127,7 +131,6 @@
       samba-server.enable = true;
       jellyfin.enable = true;
       syncthing.enable = true;
-      wireguard-server.enable = true;
     };
     system = {
       terminal.enable = true;
