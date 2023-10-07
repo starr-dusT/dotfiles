@@ -48,7 +48,7 @@
 
         torus = lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit user; };
+          specialArgs = { inherit user; inherit pkgs-unstable; };
           modules = [
             ./hosts/torus/configuration.nix
             ./hosts/torus/hardware.nix
