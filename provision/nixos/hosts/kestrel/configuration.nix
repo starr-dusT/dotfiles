@@ -59,6 +59,21 @@
     extraGroups = [ "dialout" "wheel" "docker" "libvirtd" ]; # Enable ‘sudo’ for the user.
   };
 
+  # Allow users to start/stop wireguard vpn
+  security.sudo.extraRules = [{
+    commands = [
+      {
+        command = "${pkgs.systemc}/bin/systemctl restart wg-quick-wg0";
+        options = [ "NOPASSWD" ];
+      }
+      {
+        command = "${pkgs.systemc}/bin/systemctl stop wg-quick-wg0";
+        options = [ "NOPASSWD" ];
+      }
+    ];
+    groups = [ "wheel" ];
+  }];
+
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
       # One-off stable packages
