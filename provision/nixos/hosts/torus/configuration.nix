@@ -2,6 +2,7 @@
 {
   imports = [ 
     ./wireguard-server.nix
+    ./samba-server.nix
     ../../modules 
   ];
 
@@ -128,7 +129,6 @@
       tooling.enable = true;
     };
     services = {
-      samba-server.enable = true;
       jellyfin.enable = true;
       syncthing.enable = true;
     };
