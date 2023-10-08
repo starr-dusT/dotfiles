@@ -1,7 +1,6 @@
 { config, pkgs, user, lib, ... }:
 {
   imports = [ 
-    ./wireguard-client.nix
     ../../modules 
   ];
 
@@ -81,7 +80,7 @@
       steam.enable = true;
     };
     services = {
-      #jellyfin.enable = true;
+      jellyfin.enable = false;
       peripherals.enable = true;
       samba-client.enable = true;
       syncthing.enable = true;
@@ -90,6 +89,13 @@
     system = {
       ssh.enable = true;
       terminal.enable = true;
+      wireguard-client = {
+        enable = true;
+        privateKeyFile = "/home/${user}/.wireguard/kestrel";
+        address = [ "192.168.2.3/24" ];
+        publicKey = "bd7bbZOngl/FTdBlnbIhgCLNf6yx5X8WjiRB7E1NEQQ=";
+        endpoint = "66.218.43.87";
+      };
     };
   };
   # Did you read the comment?
