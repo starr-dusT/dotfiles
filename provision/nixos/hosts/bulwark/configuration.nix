@@ -87,13 +87,14 @@
     system = {
       ssh.enable = true;
       terminal.enable = true;
-      wireguard-client = {
-        enable = true;
-        privateKeyFile = "/home/${user}/.wireguard/bulwark";
-        address = [ "192.168.2.4/24" ];
-        publicKey = "bd7bbZOngl/FTdBlnbIhgCLNf6yx5X8WjiRB7E1NEQQ=";
-        endpoint = "66.218.43.87";
-      };
+      # Wireguard managed by gnome
+      #wireguard-client = {
+      #  enable = true;
+      #  privateKeyFile = "/home/${user}/.wireguard/bulwark";
+      #  address = [ "192.168.2.4/24" ];
+      #  publicKey = "bd7bbZOngl/FTdBlnbIhgCLNf6yx5X8WjiRB7E1NEQQ=";
+      #  endpoint = "66.218.43.87";
+      #};
     };
   };
   # Did you read the comment?
