@@ -13,6 +13,8 @@ alias tsplat='tmuxinator start splat'
 alias tdot='tmuxinator start dot'
 alias ttask='tmuxinator start task'
 
+alias tw='linux-toggle-vpn'
+
 # chezmoi
 alias cc="cd ~/.local/share/chezmoi"
 alias cdr="chezmoi apply --verbose --dry-run"
