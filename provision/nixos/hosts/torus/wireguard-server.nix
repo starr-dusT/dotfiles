@@ -50,6 +50,11 @@
           publicKey = "hPso657fppLYvBU31Rtqqg792JEoPv7r82JgLoF8S2Y=";
           allowedIPs = [ "192.168.2.3/32" ];
         }
+        { 
+          # Bulwark
+          publicKey = "CDoy/XI8FRQV/ySHigLWG2tpWVw8hgEZXRQCEE3qYHQ=";
+          allowedIPs = [ "192.168.2.4/32" ];
+        }
         # More peers can be added here.
       ];
     };
