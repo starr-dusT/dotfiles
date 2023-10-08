@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ -f ~/.wg0 ]; then
+    sudo systemctl stop wg-quick-wg0.service
+    rm ~/.wg0
+else
+    sudo systemctl restart wg-quick-wg0.service
+    touch ~/.wg0
+fi

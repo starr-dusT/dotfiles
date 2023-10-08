@@ -1,4 +1,4 @@
-{ config, lib, pkgs, user, ... }:
+{ config, lib, pkgs, pkgs-unstable, user, ... }:
 
 let cfg = config.modules.system.terminal;
 in {
@@ -32,6 +32,13 @@ in {
       # for neovim
         nodejs 
         ripgrep
+
+    ] ++ [
+      pkgs-unstable.taskwarrior
+      # for taskwarrior
+        pkgs-unstable.taskwarrior-tui
+        pkgs-unstable.taskopen
+        pkgs-unstable.timewarrior
     ];
   };
 }

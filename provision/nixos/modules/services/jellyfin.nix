@@ -8,5 +8,4 @@ in {
     services.jellyfin.openFirewall = true;
     services.jellyfin.user = "${user}";
   };
-
 }

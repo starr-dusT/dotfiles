@@ -91,7 +91,8 @@ gaps left               0
 
 for_window [title="Steam - News"]   floating enable
 for_window [title="Friends List"]   floating enable
-for_window [title="Picture-in-Picture"] sticky toggle
+for_window [title=".*mpv$"] sticky toggle
+for_window [title=".*mpv$"] floating enable
 
 for_window [app_id="file"] floating enable, \
     border pixel 5, \
@@ -126,7 +127,6 @@ mode utility {
     bindsym q exit
     bindsym r reload
     bindsym g exec "~/.config/sway/scripts/gamemode.sh", $e
-    bindsym v exec "~/.config/sway/scripts/toggle-vpn.sh {{ .hostname }}", $e
     bindsym Escape mode default
 }
 
@@ -197,6 +197,7 @@ mode open {
     bindsym b exec chromium, $e
     bindsym s exec steam || flatpak run com.valvesoftware.Steam, $e
     bindsym d exec discord || flatpak run com.discordapp.Discord, $e
+    bindsym m exec mpv $(wl-paste), $e
     bindsym Escape mode default
 }
 

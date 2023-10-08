@@ -1,5 +1,11 @@
 { config, pkgs, user, lib, ... }:
 {
+  imports = [ 
+    ./wireguard-server.nix
+    ./samba-server.nix
+    ../../modules 
+  ];
+
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = "experimental-features = nix-command flakes";
@@ -28,8 +34,14 @@
 
   # Set networking options
   networking.hostName = "torus"; 
-  networking.networkmanager.enable = true;  
+  # Needed for wireguard-server
+  boot.kernel.sysctl = {
+    "net.ipv4.conf.all.forwarding" = true;
+  };
+  networking.firewall.enable = true;
   networking.firewall.checkReversePath = "loose";
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedUDPPorts = [ 80 443 ];
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
@@ -78,8 +90,6 @@
     defaults.email = "starrtyler88@gmail.com";
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
-  networking.firewall.allowedUDPPorts = [ 80 443 ];
 
   security.pam.services.nginx.setEnvironment = false;
   systemd.services.nginx.serviceConfig = {
@@ -103,9 +113,6 @@
       "media.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:8096/"; 
       });
-      "joplin.tstarr.us" = (SSL // {
-        locations."/".proxyPass = "http://localhost:22300/"; 
-      });
       "wiki.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:4567/"; 
         extraConfig = ''
@@ -117,13 +124,11 @@
   };
 
   # Enable modules
-  imports = [ ../../modules ];
   modules = {
     devel = {
       tooling.enable = true;
     };
     services = {
-      samba-server.enable = true;
       jellyfin.enable = true;
       syncthing.enable = true;
     };

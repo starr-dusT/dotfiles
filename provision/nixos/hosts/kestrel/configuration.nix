@@ -1,5 +1,9 @@
 { config, pkgs, user, lib, ... }:
 {
+  imports = [ 
+    ../../modules 
+  ];
+
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = "experimental-features = nix-command flakes";
@@ -32,7 +36,6 @@
 
   # Set networking options
   networking.hostName = "kestrel"; 
-  networking.networkmanager.enable = true;  
   networking.firewall.checkReversePath = "loose";
   networking.firewall.enable = false;
 
@@ -52,7 +55,7 @@
   # Define user account.
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "libvirtd" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "dialout" "wheel" "docker" "libvirtd" ]; # Enable ‘sudo’ for the user.
   };
 
   # List packages installed in system profile.
@@ -63,7 +66,6 @@
   ];
 
   # Enable modules
-  imports = [ ../../modules ];
   modules = {
     desktop = {
       sway.enable = true;
@@ -78,16 +80,22 @@
       steam.enable = true;
     };
     services = {
-      #jellyfin.enable = true;
+      jellyfin.enable = false;
       peripherals.enable = true;
       samba-client.enable = true;
-      #samba-server.enable = true;
       syncthing.enable = true;
       virt-manager.enable = true;
     };
     system = {
       ssh.enable = true;
       terminal.enable = true;
+      wireguard-client = {
+        enable = true;
+        privateKeyFile = "/home/${user}/.wireguard/kestrel";
+        address = [ "192.168.2.3/24" ];
+        publicKey = "bd7bbZOngl/FTdBlnbIhgCLNf6yx5X8WjiRB7E1NEQQ=";
+        endpoint = "66.218.43.87";
+      };
     };
   };
   # Did you read the comment?
