@@ -53,7 +53,7 @@
   # Define user account.
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "dialout" "wheel" "docker" "libvirtd" ]; # Enable ‘sudo’ for the user.
   };
 
   # List packages installed in system profile.
@@ -67,28 +67,34 @@
   # Enable modules
   modules = {
     desktop = {
-      #sway.enable = true;
+      sway.enable = false;
     };
     devel = {
-      #engineering.enable = true;
+      engineering.enable = false;
       notes.enable = true;
-      #python.enable = true;
-      #tooling.enable = true;
+      python.enable = false;
+      tooling.enable = false;
     };
     gaming = {
       steam.enable = true;
     };
     services = {
-      #jellyfin.enable = true;
-      #peripherals.enable = true;
+      jellyfin.enable = false;
+      peripherals.enable = false;
       samba-client.enable = true;
-      #samba-server.enable = true;
       syncthing.enable = true;
-      #virt-manager.enable = true;
+      virt-manager.enable = false;
     };
     system = {
       ssh.enable = true;
       terminal.enable = true;
+      wireguard-client = {
+        enable = true;
+        privateKeyFile = "/home/${user}/.wireguard/bulwark";
+        address = [ "192.168.2.4/24" ];
+        publicKey = "bd7bbZOngl/FTdBlnbIhgCLNf6yx5X8WjiRB7E1NEQQ=";
+        endpoint = "66.218.43.87";
+      };
     };
   };
   # Did you read the comment?
