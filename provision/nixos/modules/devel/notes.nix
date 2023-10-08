@@ -13,6 +13,7 @@ in {
       zk
       # for zk
         bat
+        fzf
     ];
   };
 }

@@ -37,7 +37,11 @@
         screen-keyboard-enabled = true;
       };
       "org/gnome/shell" = {
-        favorite-apps = ["steam.desktop"];
+        favorite-apps = [
+          "steam.desktop"
+          "org.gnome.Console.desktop"
+          "chromium-browser.desktop"
+        ];
       };
     };
   };
