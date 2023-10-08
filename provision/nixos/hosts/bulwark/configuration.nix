@@ -37,7 +37,6 @@
 
   # Set networking options
   networking.hostName = "bulwark"; 
-  networking.networkmanager.enable = true;  
   networking.firewall.checkReversePath = "loose";
   networking.firewall.enable = false;
 
