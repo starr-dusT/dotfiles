@@ -18,9 +18,8 @@ else
 fi
 
 # Volume
-sink=$(pactl list short sinks | grep 'RUNNING\|IDLE' | awk '{print $1}')
-#sink=$( pactl list short sinks | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | head -n 2 | tail -n 1)
-volume=$( pactl list sinks | grep '^[[:space:]]Volume:' | head -n $(( $sink + 1 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,' )
+volume=$(pactl list sinks | grep '^[[:space:]]Volume:' | \
+    head -n $(( $SINK + 1 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')
 mute=$(pactl list sinks | grep '^[[:space:]]Mute:' | head -n $(( $sink + 1 )) | tail -n 1 | awk '{print $2}')
 
 if [ "$mute" == "yes" ]; then
@@ -30,7 +29,7 @@ else
 fi
 
 #bluetooth=$(bluetoothctl devices | cut -f2 -d' ' | while read uuid; do bluetoothctl info $uuid; done | grep -e "Name\|Connected: yes" | grep -B1 "yes" | head -n 1 | cut -d\  -f2-)
-bluetooth="🫐"
+#bluetooth="🫐"
 
 # Network usage
 r1=`cat /sys/class/net/{{ .network_interface }}/statistics/rx_bytes`
@@ -50,5 +49,13 @@ else
     vpn="none"
 fi
 
+# Logitech mouse battery status
+bat=$(cat /sys/class/power_supply/hidpp_battery_0/capacity)
+if [ $bat -lt 20 ]; then
+    bat_color="#f92672"
+else
+    bat_color="#ffffff"
+fi
+
 #<span foreground='#c16b26'>lel</span>
-echo -e "👍 $txmb 👎 $rxmb | 📡 $vpn | ⬆️ $uptime_formatted | 🔉<span foreground='$volume_color'>$volume%</span> | $gamemode | 🐧 $linux_version | $date_formatted "
+echo -e "👍 $txmb 👎 $rxmb | 📡 $vpn | ⬆️ $uptime_formatted | 🔉<span foreground='$volume_color'>$volume%</span> | 🐁<span foreground='$bat_color'>$bat%</span> | $gamemode | 🐧 $linux_version | $date_formatted "

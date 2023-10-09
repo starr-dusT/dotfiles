@@ -5,6 +5,10 @@ in {
   options.modules.services.peripherals.enable = lib.mkEnableOption "peripherals";
   config = lib.mkIf cfg.enable {
 
+    environment.systemPackages = with pkgs; [
+        pulseaudio
+    ];
+
     # rtkit is optional but recommended
     security.rtkit.enable = true;
     services.pipewire = {
@@ -12,8 +16,6 @@ in {
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-      # If you want to use JACK applications, uncomment this
-      #jack.enable = true;
     };
 
     services = {
