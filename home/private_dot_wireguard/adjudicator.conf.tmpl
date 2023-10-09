@@ -1,7 +1,7 @@
 [Interface]
 # your own IP on the wireguard network
-Address = 192.168.2.4/24
-PrivateKey = {{ (secret "Wireguard - Bulwark Secret" "NOTES") }}
+Address = 192.168.2.2/24
+PrivateKey = {{ (secret "Wireguard - Adjudicator Secret" "NOTES") }}
 
 [Peer]
 PublicKey = bd7bbZOngl/FTdBlnbIhgCLNf6yx5X8WjiRB7E1NEQQ=
