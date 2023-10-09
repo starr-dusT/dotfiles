@@ -32,12 +32,13 @@ in {
       # for neovim
         nodejs 
         ripgrep
+      # taskwarrior
+      taskopen
 
     ] ++ [
       pkgs-unstable.taskwarrior
       # for taskwarrior
         pkgs-unstable.taskwarrior-tui
-        pkgs-unstable.taskopen
         pkgs-unstable.timewarrior
     ];
   };
