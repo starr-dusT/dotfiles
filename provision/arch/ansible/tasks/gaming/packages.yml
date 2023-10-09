@@ -1,9 +1,0 @@
-- name: Install gaming packages
-  pacman:
-    name:
-      - lutris # Video game preservation platform
-      - gamemode # Optimize system performance for games on demand
-      - wine # A compatibility layer for windows applications
-      - steam
-    state: present
-  become: true

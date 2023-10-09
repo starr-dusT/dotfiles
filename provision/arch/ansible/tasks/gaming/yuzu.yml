@@ -1,7 +1,0 @@
-- name: Install yuzu
-  include_tasks: ../include/download-github-bin.yml
-  loop:
-    - user: pineappleEA 
-      repo: pineapple-src 
-      regex: "Linux-Yuzu-EA-[0-9]"
-      name: Yuzu

@@ -1,9 +1,0 @@
-- name: Install engineering packages
-  pacman:
-    name:
-      - freecad # General purpose 3D CAD modeler
-      - gqrx
-    state: present
-  become: true
-      
-- include_tasks: superslicer.yml # PrusaSlicer fork (which is a slic3r fork)

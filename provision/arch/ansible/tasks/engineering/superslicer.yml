@@ -1,6 +1,0 @@
-- name: Install SuperSlicer
-  include_tasks: ../include/download-github-bin.yml
-  loop:
-    - user: supermerill
-      repo: SuperSlicer
-      regex: "SuperSlicer-ubuntu_18.04-[0-9]"
