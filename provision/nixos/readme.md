@@ -26,7 +26,8 @@ Set of configs files to setup NixOS.
    
    Move the installer created hardware.nix to dotfiles.
    
-   Copy `.chezmoidata.yaml.example` to `.chezmoidata.yaml` and edit with desired settings then run the following commands:
+   Copy `.chezmoidata.yaml.example` to `.chezmoidata.yaml` and edit with desired 
+   settings then run the following commands:
    
    ```bash
    nixos-update # Assuming hostname is same as flake name
