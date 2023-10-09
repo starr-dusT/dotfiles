@@ -55,6 +55,15 @@
     extraGroups = [ "dialout" "wheel" "docker" "libvirtd" ]; # Enable ‘sudo’ for the user.
   };
 
+  # Password-less root
+  security.sudo.extraRules = [{ 
+    users = [ "${user}" ];
+    commands = [{ 
+      command = "ALL" ;
+      options= [ "NOPASSWD" ];
+    }];
+  }];
+
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
       # One-off stable packages

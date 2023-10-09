@@ -63,7 +63,7 @@
     users = [ "${user}" ];
     commands = [{ 
       command = "ALL" ;
-      options= [ "NOPASSWD" ]; # "SETENV" # Adding the following could be a good idea
+      options= [ "NOPASSWD" ];
     }];
   }];
   
