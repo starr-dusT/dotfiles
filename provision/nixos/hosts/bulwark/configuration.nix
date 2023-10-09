@@ -91,7 +91,7 @@
       #wireguard-client = {
       #  enable = true;
       #  privateKeyFile = "/home/${user}/.wireguard/bulwark";
-      #  address = [ "192.168.2.4/24" ];
+      #  address = [ "192.168.3.4/24" ];
       #  publicKey = "bd7bbZOngl/FTdBlnbIhgCLNf6yx5X8WjiRB7E1NEQQ=";
       #  endpoint = "66.218.43.87";
       #};

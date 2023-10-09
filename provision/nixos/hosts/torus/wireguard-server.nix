@@ -18,7 +18,7 @@
     # "wg0" is the network interface name. You can name the interface arbitrarily.
     wg0 = {
       # Determines the IP/IPv6 address and subnet of the client's end of the tunnel interface
-      address = [ "192.168.2.1/24" ];
+      address = [ "192.168.3.1/24" ];
       # The port that WireGuard listens to - recommended that this be changed from default
       listenPort = 51820;
       # Path to the server's private key
@@ -43,17 +43,17 @@
         { 
           # Adjudicator
           publicKey = "r2/IeYCO1T+l248387wUBoNnc2DK9O8pHcIr/NQqezM=";
-          allowedIPs = [ "192.168.2.2/32" ];
+          allowedIPs = [ "192.168.3.2/32" ];
         }
         { 
           # Kestrel
           publicKey = "hPso657fppLYvBU31Rtqqg792JEoPv7r82JgLoF8S2Y=";
-          allowedIPs = [ "192.168.2.3/32" ];
+          allowedIPs = [ "192.168.3.3/32" ];
         }
         { 
           # Bulwark
           publicKey = "CDoy/XI8FRQV/ySHigLWG2tpWVw8hgEZXRQCEE3qYHQ=";
-          allowedIPs = [ "192.168.2.4/32" ];
+          allowedIPs = [ "192.168.3.4/32" ];
         }
         # More peers can be added here.
       ];
