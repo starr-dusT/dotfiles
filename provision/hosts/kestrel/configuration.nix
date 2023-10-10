@@ -83,7 +83,7 @@
     devel = {
       engineering.enable = true;
       notes.enable = true;
-      python.enable = false;
+      python.enable = true;
       tooling.enable = true;
     };
     gaming = {
