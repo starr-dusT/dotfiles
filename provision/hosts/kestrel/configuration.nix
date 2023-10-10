@@ -49,10 +49,8 @@
   ];
 
   # Enable docker 
-  virtualisation.docker.rootless = {
-    enable = true;
-    setSocketVariable = true;
-  };
+  virtualisation.docker.enable = true;
+  virtualisation.docker.storageDriver = "btrfs";
 
   # Define user account.
   users.users.${user} = {
@@ -72,6 +70,7 @@
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
       # One-off stable packages
+      distrobox
   ] ++ [
       # One-off unstable packages
   ];
@@ -84,7 +83,7 @@
     devel = {
       engineering.enable = true;
       notes.enable = true;
-      python.enable = true;
+      python.enable = false;
       tooling.enable = true;
     };
     gaming = {

@@ -1,0 +1,8 @@
+#!/bin/bash
+# https://github.com/starr-dusT/dotfiles
+
+sudo pacman -S python python-pip
+pip install cadquery --break-system-packages
+curl -LO https://github.com/CadQuery/CQ-editor/releases/download/nightly/CQ-editor-master-Linux-x86_64.sh
+sh CQ-editor-master-Linux-x86_64.sh
+rm CQ-editor-master-Linux-x86_64.sh

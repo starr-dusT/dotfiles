@@ -20,7 +20,6 @@ in {
       beancount 
       fava 
       nodePackages_latest.pyright
-      distrobox
     ];
   };
 }
