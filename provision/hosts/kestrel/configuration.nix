@@ -48,9 +48,11 @@
     nerdfonts
   ];
 
-  # Enable virtualisation
-  virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "btrfs";
+  # Enable docker 
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
+  };
 
   # Define user account.
   users.users.${user} = {
