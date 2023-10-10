@@ -1,0 +1,9 @@
+# tmuxp config for 3d modelling with cq-editor and cadquery 
+
+session_name: cq-editor 
+windows:
+  - window_name: term 
+  - window_name: editor
+    panes:
+      - shell_command:
+          - ~/cq-editor/run.sh
