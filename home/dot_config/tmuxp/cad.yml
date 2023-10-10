@@ -1,0 +1,14 @@
+# tmuxp config for 3d modelling and printing 
+
+session_name: cad
+windows:
+  - window_name: term 
+  - window_name: cq 
+    panes:
+      - shell_command:
+          - cd ~/cq-editor 
+          - ./run.sh
+  - window_name: simp
+    panes:
+      - shell_command:
+          - /opt/Simplify3D-5.1.2/LaunchScript.sh

@@ -45,3 +45,37 @@ of the large files (mostly roms) that I don't want to have fill copies on each
 machine. Current git-annex stores I have are:
 
 - `roms` - `~/mnt/engi/media/roms` from `torus`.
+
+## Cadquery and Simplify3d
+
+Cadquery and Simplify3d don't play nice with non-FHS filesystems (and Simplify3d
+is proprietary). I run these programs within distrobox. Some notes about using
+distrobox for these programs.
+
+If arch-box isn't created, create it and apply chezmoi dot files to secondary
+home directory:
+
+```bash
+distrobox create --image archlinux --name arch-box --home ~/box/arch
+chezmoi apply -D ~/home/arch
+```
+
+Then enter the box and run script to install cadquery and dependencies for 
+Simplify3d:
+
+```bash
+distrobox enter arch-box
+cd && ./bin/arch-install-cad
+```
+
+As the script suggest then download and install Simplify3d from the script on the
+[website](https://www.simplify3d.com/).
+
+The applications can be run within the box with the following commands:
+
+```bash
+# Simplify3d
+/opt/Simplify3D-5.1.2/LaunchScript.sh
+# CQ-editor
+cd ~/cq-editor && ./run.sh
+```
