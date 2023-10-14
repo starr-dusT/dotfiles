@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# https://github.com/starr-dusT/dotfiles
+
+tmuxp_files() {
+    ls ~/.config/tmuxp -1
+}
+
+selected="$(tmuxp_files | sed 's/.yml//g' | sort | fzf -e -i -m --reverse --delimiter / --with-nth -1)"
+[ -z "$selected" ] && exit
+echo "$selected"
+tmuxp load "~/.config/tmuxp/$selected.yml" -y
