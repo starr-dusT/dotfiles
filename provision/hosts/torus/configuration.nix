@@ -1,9 +1,10 @@
 { config, pkgs, user, lib, ... }:
 {
   imports = [ 
+    ../../modules 
     ./wireguard-server.nix
     ./samba-server.nix
-    ../../modules 
+    ./syncthing.nix
   ];
 
   nix = {
@@ -130,7 +131,6 @@
     };
     services = {
       jellyfin.enable = true;
-      syncthing.enable = true;
     };
     system = {
       terminal.enable = true;

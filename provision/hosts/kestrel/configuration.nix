@@ -94,7 +94,6 @@
       jellyfin.enable = false;
       peripherals.enable = true;
       samba-client.enable = true;
-      syncthing.enable = false;
       virt-manager.enable = true;
     };
     system = {
