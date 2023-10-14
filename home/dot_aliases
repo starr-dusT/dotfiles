@@ -8,10 +8,8 @@ alias nu="cd ~/.local/share/chezmoi/provision && \
 # sway
 alias s='sway'
 
-# tmuxinator 
-alias tsplat='tmuxinator start splat'
-alias tdot='tmuxinator start dot'
-alias ttask='tmuxinator start task'
+# tmuxp
+alias t='linux-tmuxp-launcher'
 
 alias tw='linux-toggle-vpn'
 
@@ -36,3 +34,9 @@ alias cz="cd ~/documents/zet"
 alias n="nnn -r -e"
 alias cp="cpg -g"
 alias mv="mvg -g"
+
+# git
+alias gs="git status"
+alias gc="git commit"
+alias ga="git add ."
+alias gd="git diff"

@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # https://github.com/starr-dusT/dotfiles
 
 # Load the shell dotfiles (that are available)
