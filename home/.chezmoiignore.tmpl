@@ -1,35 +1,5 @@
 .oh-my-zsh/cache/**
 
-{{ if .work }}
-bin
-.config/alacritty
-.config/btrbk
-.config/crafted-emacs
-.config/herbstluftwm
-.config/i3
-.config/khal
-.config/khard
-.config/lazygit
-.config/mako
-.config/mpd
-.config/ncmpcpp
-.config/nvim
-.config/picom
-.config/polybar
-.config/private_user-dirs.dirs
-.config/qtile
-.config/retroarch
-.config/rofi
-.config/scratch
-.config/stumpwm
-.config/sway
-.config/user-dirs.conf
-.config/vdirsyncer
-.config/vifm
-.config/waybar
-.config/xmobar
-.config/xmonad
-.config/zk
-.taskopenrc
-.taskrc
+{{ if eq .chezmoi.osRelease.id "alpine"}}
+.wireguard/
 {{ end }}
