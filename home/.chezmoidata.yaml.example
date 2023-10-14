@@ -1,8 +1,0 @@
-user: dudebro 
-hostname: *insert FTL ship here*
-desktop: dwm (jk) # valid values: i3, gnome
-network_interface: reeeeee
-git_user: hAxOr
-git_email: &my_email dude@bro.com
-bitwarden_email: *my_email
-work: false
