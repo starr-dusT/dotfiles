@@ -33,4 +33,6 @@ alias rofi='wayland-rofi'
 alias cz="cd ~/documents/zet"
 
 # nnn 
-alias n="nnn -e"
+alias n="nnn -r -e"
+alias cp="cpg -g"
+alias mv="mvg -g"
