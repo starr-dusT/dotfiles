@@ -1,8 +1,9 @@
 { config, lib, pkgs, pkgs-unstable, user, ... }:
 {
   imports = [
-    ./steam-deck.nix
     ../../modules 
+    ./steam-deck.nix
+    ./syncthing.nix
   ];
 
   nix = {
@@ -90,20 +91,11 @@
       jellyfin.enable = false;
       peripherals.enable = false;
       samba-client.enable = true;
-      syncthing.enable = true;
       virt-manager.enable = false;
     };
     system = {
       ssh.enable = true;
       terminal.enable = true;
-      # Wireguard managed by gnome
-      #wireguard-client = {
-      #  enable = true;
-      #  privateKeyFile = "/home/${user}/.wireguard/bulwark";
-      #  address = [ "192.168.3.4/24" ];
-      #  publicKey = "bd7bbZOngl/FTdBlnbIhgCLNf6yx5X8WjiRB7E1NEQQ=";
-      #  endpoint = "66.218.43.87";
-      #};
     };
   };
   # Did you read the comment?
