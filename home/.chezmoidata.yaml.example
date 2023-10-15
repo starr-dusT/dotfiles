@@ -1,3 +1,3 @@
 user: tstarr
-network_interface: eth0
+network_interface: enp3s0
 work: false
