@@ -68,6 +68,7 @@
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
       # One-off stable packages
+      firefox
   ] ++ [
       # One-off unstable packages
       pkgs-unstable.ungoogled-chromium
