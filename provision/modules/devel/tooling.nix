@@ -13,6 +13,7 @@ in {
       gcc
       coreutils
       gnumake
+      go
     ];
   };
 }

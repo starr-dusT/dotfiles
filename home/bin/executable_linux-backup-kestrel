@@ -6,4 +6,6 @@ borg create \
     --progress \
     --exclude "$HOME/.?*" \
     --exclude "$HOME/mnt" \
+    --exclude "$HOME/tmp" \
+    --exclude "$HOME/media/roms" \
     "$HOME/mnt/engi/backup/borg-kestrel::kestrel-${datetime}" "$HOME"

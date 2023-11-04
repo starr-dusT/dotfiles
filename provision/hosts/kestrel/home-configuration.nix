@@ -4,6 +4,13 @@
   home.homeDirectory = "/home/${user}";
   programs.home-manager.enable = true;
 
+  # Setup direnv
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true;
+    nix-direnv.enable = true;
+  };
+
   # Setup git
   programs.git = {
       enable = true;

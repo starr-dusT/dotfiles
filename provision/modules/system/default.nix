@@ -1,4 +1,4 @@
 { ... }:
 {
-  imports = [ ./wireguard-client.nix ./terminal.nix ./ssh.nix ];
+  imports = [ ./backup.nix ./wireguard-client.nix ./terminal.nix ./ssh.nix ];
 }

@@ -60,6 +60,7 @@ in {
       udiskie
       p7zip
       pavucontrol
+      borgbackup
     ] ++ [
       pkgs-unstable.ungoogled-chromium
     ];
