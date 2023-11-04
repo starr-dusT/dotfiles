@@ -69,9 +69,11 @@
   environment.systemPackages = with pkgs; [
       # One-off stable packages
       firefox
+      google-chrome
+      discord
+      gamemode
   ] ++ [
       # One-off unstable packages
-      pkgs-unstable.ungoogled-chromium
   ];
 
   # Enable modules
