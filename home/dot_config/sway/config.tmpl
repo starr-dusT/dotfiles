@@ -7,8 +7,8 @@
 
 set $HOME /home/{{ .user }}
 
-set $DISP_PRI DP-2
-set $DISP_SEC HDMI-A-1
+set $DISP_SEC DP-2
+set $DISP_PRI HDMI-A-1
 
 set $BOR_WIDTH 3
 set $GAP_INNER 3
@@ -190,7 +190,7 @@ bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym $mod+Return exec alacritty
 bindsym $mod+a mode launcher
 mode launcher {
-    bindsym r exec alacritty --title launcher -e /home/{{ .user }}/bin/linux-app-launcher, $e
+    bindsym r exec alacritty --title launcher -e ~/bin/linux-app-launcher, $e
     bindsym Escape mode default
 }
 bindsym $mod+o mode open
@@ -234,7 +234,7 @@ mode scratch {
 
 output $DISP_PRI {
     resolution 2560x1440@143.973Hz
-    position 2560,0
+    position 1080,0
 }
 
 output $DISP_SEC {

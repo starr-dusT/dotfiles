@@ -1,26 +1,19 @@
 #!/usr/bin/env bash
-#⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀
-#⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀
-#⠀⠀⠀⠀⠀⠀⠀⠀⣼⡏⠸⣧⠀⠀⠀⠀⠀⠀⠀⠀
-#⠠⢤⣤⣤⣤⣤⣤⣴⡿⠀⠀⢻⣦⣤⣤⣤⣤⣤⡤⠄ Tyler Starr (starr-dusT)
-#⠀⠀⠙⠻⣦⣄⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⠟⠋⠀⠀ https://github.com/starr-dusT/dotfiles
-#⠀⠀⠀⠀⠀⠙⣿⡆⠀⠀⠀⠀⠰⣿⠋⠀⠀⠀⠀⠀ https://tstarr.us
-#⠀⠀⠀⠀⠀⢰⡟⠀⣀⣴⣦⣀⠀⢻⡆⠀⠀⠀⠀⠀
-#⠀⠀⠀⠀⢀⣾⣧⡾⠛⠁⠈⠙⠷⣼⣿⡀⠀⠀⠀⠀
-#⠀⠀⠀⠀⡸⠟⠁⠀⠀⠀⠀⠀⠀⠈⠛⢧⠀⠀⠀⠀
-# 
-# Launch applications with fzf.
+# https://gist.github.com/nicedreams/f8d0a6373949f6d9b9583e7e1634a1c3
 
-desktop_file() {
-  find /usr/share/applications -name "*.desktop" 
-  find /usr/local/share/applications -name "*.desktop" 
-  find "$HOME/.local/share/applications" -name "*.desktop" 
-  find /var/lib/flatpak/exports/share/applications -name "*.desktop" 
-  find "$HOME/.local/share/flatpak/exports/share/applications" -name "*.desktop" 
-  find /run/current-system/sw/share/applications -name "*.desktop" 
+bmenu() {
+launchapp=$(IFS=':'; \
+  for p in ${PATH}; \
+  do find -L "${p}" -type f -executable -print 2> /dev/null; done \
+  | fzf --header="Select application to launch from PATH:" \
+    --multi=0 \
+    --exact \
+    --height="50%" \
+    --preview-window="down:wrap:3")
+  if [[ "${launchapp}" ]]; then
+    setsid -f "${launchapp}" >/dev/null &
+    sleep .1
+  fi
 }
 
-selected="$(desktop_file | sed 's/.desktop//g' | sort | fzf -e -i -m --reverse --delimiter / --with-nth -1)"
-[ -z "$selected" ] && exit
-cd || return
-echo "$selected" | while read -r line ; do setsid gio launch "$line".desktop ; done
+bmenu "$@"

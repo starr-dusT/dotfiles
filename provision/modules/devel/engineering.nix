@@ -12,7 +12,8 @@ in {
       super-slicer 
       blender 
     ] ++ [
-      pkgs-unstable.freecad 
+      # Freecad is broken right now (https://github.com/NixOS/nixpkgs/issues/263452)
+      #pkgs-unstable.freecad 
     ];
   };
 }
