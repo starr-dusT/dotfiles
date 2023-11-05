@@ -111,6 +111,12 @@
       enableACME = true; 
       forceSSL = true;
     }; in {
+      "rss.tstarr.us" = (SSL // {
+        locations."/".proxyPass = "http://localhost:8081/"; 
+      });
+      "rssbridge.tstarr.us" = (SSL // {
+        locations."/".proxyPass = "http://localhost:3000/"; 
+      });
       "media.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:8096/"; 
       });
