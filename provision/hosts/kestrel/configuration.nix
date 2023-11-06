@@ -95,6 +95,7 @@
       peripherals.enable = true;
       samba-client.enable = true;
       virt-manager.enable = true;
+      seafile-server.enable = false;
     };
     system = {
       ssh.enable = true;

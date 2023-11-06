@@ -114,6 +114,9 @@
       "rss.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:8081/"; 
       });
+      "wiki.tstarr.us" = (SSL // {
+        locations."/".proxyPass = "http://localhost:8082/"; 
+      });
       "rssbridge.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:3000/"; 
       });
@@ -137,6 +140,7 @@
     };
     services = {
       jellyfin.enable = true;
+      seafile-server.enable = true;
     };
     system = {
       terminal.enable = true;
