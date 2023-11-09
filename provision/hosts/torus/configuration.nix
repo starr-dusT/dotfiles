@@ -5,6 +5,8 @@
     ./wireguard-server.nix
     ./samba-server.nix
     ./syncthing.nix
+    ./obsidian-vault.nix
+    ./share.nix
   ];
 
   nix = {
@@ -114,17 +116,21 @@
       "rss.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:8081/"; 
       });
-      "wiki.tstarr.us" = (SSL // {
-        locations."/".proxyPass = "http://localhost:8082/"; 
-      });
       "rssbridge.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:3000/"; 
       });
       "media.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:8096/"; 
       });
-      "wiki.tstarr.us" = (SSL // {
-        locations."/".proxyPass = "http://localhost:4567/"; 
+      "vault.tstarr.us" = (SSL // {
+        locations."/".proxyPass = "http://localhost:5000/"; 
+        extraConfig = ''
+          auth_pam  "Password Required";
+          auth_pam_service_name "nginx";        
+        '';
+      });
+      "share.tstarr.us" = (SSL // {
+        locations."/".proxyPass = "http://localhost:5001/"; 
         extraConfig = ''
           auth_pam  "Password Required";
           auth_pam_service_name "nginx";        
@@ -140,7 +146,6 @@
     };
     services = {
       jellyfin.enable = true;
-      seafile-server.enable = true;
     };
     system = {
       terminal.enable = true;
