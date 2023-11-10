@@ -16,10 +16,6 @@
       "kestrel" = { id = "TY6I6UK-YWXZYB4-7DKSB5Y-6ZBGE6U-T5WNJK4-KPLTXP7-ZTZQPXU-LX4HPQZ"; };
     };
     folders = {
-      "Vault" = {
-        path = "/engi/apps/dufs/vault";
-        devices = [ "kestrel" ];
-      };
     };
   };
 }

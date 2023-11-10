@@ -25,10 +25,6 @@
         path = "/home/${user}/.local/share/yuzu/nand/user/save/0000000000000000/705C6CE0127692D598F92E68B640D644";
         devices = [ "bulwark" ];
       };
-      "Vault" = {
-        path = "/home/${user}/documents/vault";
-        devices = [ "torus" ];
-      };
     };
   };
 }
