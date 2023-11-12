@@ -41,5 +41,6 @@ in {
         pkgs-unstable.taskwarrior-tui
         pkgs-unstable.timewarrior
     ];
+
   };
 }

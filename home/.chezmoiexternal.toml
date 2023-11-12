@@ -15,14 +15,14 @@
     url = "https://github.com/wbthomason/packer.nvim.git"
     refreshPeriod = "168h"
 
+[".tmux/plugins/tpm"]
+    type = "git-repo"
+    url = "https://github.com/tmux-plugins/tpm"
+    refreshPeriod = "168h"
+
 [".task"]
     type = "git-repo"
     url = "git@github.com:starr-dusT/task.git"
-    refreshPeriod = "168h"
-
-["documents/zet"]
-    type = "git-repo"
-    url = "git@github.com:starr-dusT/zet.git"
     refreshPeriod = "168h"
 
 ### OLD ###

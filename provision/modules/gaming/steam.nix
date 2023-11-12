@@ -19,6 +19,7 @@ in {
       pkgs.steamtinkerlaunch
       pkgs-unstable.yuzu-early-access
       pkgs.dolphin-emu
+      pkgs-unstable.ppsspp
       pkgs-unstable.sunshine
       pkgs-unstable.moonlight-qt
     ];
