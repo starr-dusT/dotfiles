@@ -15,11 +15,11 @@ in {
     hardware.steam-hardware.enable = true;
 
     environment.systemPackages = [ 
-      pkgs.steam 
+      pkgs.steam
       pkgs.steamtinkerlaunch
-      pkgs-unstable.yuzu-early-access
+      pkgs.yuzu-early-access
       pkgs.dolphin-emu
-      pkgs-unstable.ppsspp
+      pkgs.ppsspp
       pkgs-unstable.sunshine
       pkgs-unstable.moonlight-qt
     ];
