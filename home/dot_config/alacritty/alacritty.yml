@@ -13,6 +13,13 @@ env:
   # `infocmp xterm-256color`.
   TERM: xterm-256color
 
+shell:
+  program: /run/current-system/sw/bin/bash
+  args:
+    - -l
+    - -c
+    - "tmux"
+    
 # Font configuration (changes require restart)
 font:
   # Normal (roman) font face
