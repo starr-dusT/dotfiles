@@ -5,6 +5,8 @@ steam_userid="47011563"
 shortcuts_vdf="$HOME/.steam/root/userdata/${steam_userid}/config/shortcuts.vdf"
 rm $shortcuts_vdf
 
+mkdir -p "$HOME/.local/share/Steam/userdata/47011563/config/grid"
+
 apps=(
     "/run/current-system/sw/bin/dolphin-emu Dolphin Emulator"
     "/run/current-system/sw/bin/yuzu Yuzu Emulator"
