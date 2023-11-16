@@ -29,6 +29,10 @@
         path = "/home/${user}/.config/ppsspp/PSP/SAVEDATA";
         devices = [ "bulwark" ];
       };
+      "PSP Save State" = {
+        path = "/home/${user}/.config/ppsspp/PSP/PPSSPP_STATE";
+        devices = [ "bulwark" ];
+      };
     };
   };
 }
