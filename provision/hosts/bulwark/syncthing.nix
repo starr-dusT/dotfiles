@@ -28,7 +28,7 @@
         path = "/home/${user}/.config/ppsspp/PSP/SAVEDATA";
         devices = [ "kestrel" ];
       };
-      "PSP Save State" = {
+      "PSP Save States" = {
         path = "/home/${user}/.config/ppsspp/PSP/PPSSPP_STATE";
         devices = [ "kestrel" ];
       };
