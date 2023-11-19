@@ -79,6 +79,7 @@
   modules = {
     desktop = {
       sway.enable = true;
+      browser.enable = true;
     };
     devel = {
       engineering.enable = true;

@@ -22,11 +22,8 @@
   ];
 
   # Enable home modules
-  modules = {
-    desktop = {
-      firefox.enable = true;
-    };
-  };
+  #modules = {
+  #};
 
   home.stateVersion = "23.05";
 }

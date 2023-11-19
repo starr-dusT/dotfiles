@@ -51,7 +51,6 @@ in {
       # From home config
       networkmanagerapplet
       pcmanfm
-      google-chrome
       gamemode
       discord
       inkscape
@@ -62,7 +61,6 @@ in {
       pavucontrol
       borgbackup
     ] ++ [
-      pkgs-unstable.ungoogled-chromium
     ];
 
     # xdg-desktop-portal works by exposing a series of D-Bus interfaces

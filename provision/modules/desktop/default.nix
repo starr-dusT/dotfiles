@@ -1,4 +1,4 @@
 { ... }:
 {
-  imports = [ ./sway.nix ];
+  imports = [ ./browser.nix ./sway.nix ];
 }
