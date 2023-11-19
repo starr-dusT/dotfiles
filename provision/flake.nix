@@ -33,6 +33,7 @@
           inherit system;
           specialArgs = { inherit user; inherit pkgs-unstable; };
           modules = [
+            ./modules
             ./hosts/kestrel/configuration.nix
             ./hosts/kestrel/hardware.nix
             home-manager.nixosModules.home-manager {
@@ -40,7 +41,10 @@
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit user; };
               home-manager.users.${user} = {
-                imports = [ ./hosts/kestrel/home-configuration.nix ];
+                imports = [ 
+                  ./home-modules
+                  ./hosts/kestrel/home-configuration.nix 
+                ];
               };
             }
           ];
@@ -50,6 +54,7 @@
           inherit system;
           specialArgs = { inherit user; inherit pkgs-unstable; };
           modules = [
+            ./modules
             ./hosts/torus/configuration.nix
             ./hosts/torus/hardware.nix
             home-manager.nixosModules.home-manager {
@@ -57,7 +62,10 @@
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit user; };
               home-manager.users.${user} = {
-                imports = [ ./hosts/torus/home-configuration.nix ];
+                imports = [ 
+                  ./home-modules
+                  ./hosts/torus/home-configuration.nix 
+                ];
               };
             }
           ];
@@ -67,6 +75,7 @@
           inherit system;
           specialArgs = { inherit user; inherit pkgs-unstable; inherit jovian-nixos; inherit home-manager; };
           modules = [
+            ./modules
             ./hosts/bulwark/configuration.nix
             ./hosts/bulwark/hardware.nix
             home-manager.nixosModules.home-manager {
@@ -74,7 +83,10 @@
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit user; };
               home-manager.users.${user} = {
-                imports = [ ./hosts/bulwark/home-configuration.nix ];
+                imports = [ 
+                  ./home-modules
+                  ./hosts/bulwark/home-configuration.nix 
+                ];
               };
             }
           ];

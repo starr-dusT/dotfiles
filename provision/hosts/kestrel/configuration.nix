@@ -1,7 +1,6 @@
 { config, pkgs, pkgs-unstable, user, lib, ... }:
 {
   imports = [ 
-    ../../modules 
     ./syncthing.nix
   ];
 
@@ -108,6 +107,7 @@
       };
     };
   };
+
   # Did you read the comment?
   system.stateVersion = "23.05";
 }

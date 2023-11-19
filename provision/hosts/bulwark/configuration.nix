@@ -1,6 +1,6 @@
 { config, lib, pkgs, pkgs-unstable, user, ... }:
 {
-  imports = [
+ imports = [
     ../../modules 
     ./steam-deck.nix
     ./syncthing.nix

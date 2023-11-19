@@ -13,13 +13,20 @@
 
   # Setup git
   programs.git = {
-      enable = true;
-      userName = "starr-dusT";
-      userEmail = "starrtyler88@gmail.com";
+    enable = true;
+    userName = "starr-dusT";
+    userEmail = "starrtyler88@gmail.com";
   };
 
   home.packages = with pkgs; [
   ];
+
+  # Enable home modules
+  modules = {
+    desktop = {
+      firefox.enable = true;
+    };
+  };
 
   home.stateVersion = "23.05";
 }

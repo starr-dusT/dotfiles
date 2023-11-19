@@ -1,5 +1,4 @@
 { ... }:
-
 {
-  imports = [ ./notes.nix ./tooling.nix ./python.nix ./engineering.nix ];
+  imports = [ ./notes.nix ./python.nix ./tooling.nix ./engineering.nix ];
 }

@@ -11,6 +11,7 @@ in {
       killall
       pciutils
       chezmoi
+      nix-init
 
       rbw 
       # for rbw
@@ -27,6 +28,7 @@ in {
         advcpmv
         unzip
         trash-cli
+        catimg
 
       neovim
       # for neovim

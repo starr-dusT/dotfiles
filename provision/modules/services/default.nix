@@ -1,4 +1,4 @@
 { ... }:
 {
-  imports = [ ./samba-client.nix ./jellyfin.nix ./virt-manager.nix ./peripherals.nix ];
+  imports = [ ./jellyfin.nix ./peripherals.nix ./samba-client.nix ./virt-manager.nix ];
 }
