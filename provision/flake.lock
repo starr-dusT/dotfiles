@@ -24,16 +24,15 @@
     "jovian-nixos": {
       "flake": false,
       "locked": {
-        "lastModified": 1700377627,
-        "narHash": "sha256-MrYHE/oWqVVwyV9n2MbtAHWplCkLvCcvLj3TOkyHD5k=",
-        "ref": "development",
-        "rev": "1ccd4c94521ef7e6678f9d918dbee703d116dd76",
-        "revCount": 514,
+        "lastModified": 1698485410,
+        "narHash": "sha256-+O5Acu2n4XQnT4M25W/oH5MLqXy4pFBFhBzKBFOF7Ik=",
+        "rev": "fd7753956149d4e8b19a810eed445d1a52aecd30",
+        "revCount": 459,
         "type": "git",
         "url": "https://github.com/Jovian-Experiments/Jovian-NixOS"
       },
       "original": {
-        "ref": "development",
+        "rev": "fd7753956149d4e8b19a810eed445d1a52aecd30",
         "type": "git",
         "url": "https://github.com/Jovian-Experiments/Jovian-NixOS"
       }
