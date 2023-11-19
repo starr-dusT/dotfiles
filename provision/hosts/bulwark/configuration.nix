@@ -1,7 +1,6 @@
 { config, lib, pkgs, pkgs-unstable, user, ... }:
 {
  imports = [
-    ../../modules 
     ./steam-deck.nix
     ./syncthing.nix
   ];
@@ -21,9 +20,6 @@
   # Add non-free packages
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = import ../../lib/overlays.nix;
-
-  # Custom kernel is set within Jovian-Nixos
-  #boot.kernelPackages = pkgs.linuxPackages_zen;
 
   # Hardware options
   hardware.bluetooth.enable = true;
@@ -68,8 +64,6 @@
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
       # One-off stable packages
-      firefox
-      google-chrome
       discord
       gamemode
   ] ++ [
@@ -80,6 +74,7 @@
   modules = {
     desktop = {
       sway.enable = false;
+      browser.enable = true;
     };
     devel = {
       engineering.enable = false;
@@ -99,8 +94,10 @@
     system = {
       ssh.enable = true;
       terminal.enable = true;
+      wireguard-client.enable = false;
     };
   };
+
   # Did you read the comment?
   system.stateVersion = "23.05"; 
 }

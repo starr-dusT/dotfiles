@@ -40,7 +40,7 @@
         favorite-apps = [
           "steam.desktop"
           "org.gnome.Console.desktop"
-          "firefox.desktop"
+          "chromium-browser.desktop"
         ];
       };
     };

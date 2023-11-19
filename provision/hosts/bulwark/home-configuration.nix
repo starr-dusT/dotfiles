@@ -14,5 +14,9 @@
   home.packages = with pkgs; [
   ];
 
+  # Enable home modules
+  #modules = {
+  #};
+
   home.stateVersion = "23.05";
 }

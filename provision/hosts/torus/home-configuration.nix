@@ -9,5 +9,9 @@
     rbw 
   ];
 
+  # Enable home modules
+  #modules = {
+  #};
+
   home.stateVersion = "23.05";
 }
