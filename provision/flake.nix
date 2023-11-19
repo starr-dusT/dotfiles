@@ -12,9 +12,10 @@
       url = "git+https://github.com/Jovian-Experiments/Jovian-NixOS?rev=fd7753956149d4e8b19a810eed445d1a52aecd30";
       flake = false;
     };
+    sops-nix.url = "github:Mic92/sops-nix";
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, home-manager, jovian-nixos, ... }:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, home-manager, jovian-nixos, sops-nix, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -36,6 +37,7 @@
             ./modules
             ./hosts/kestrel/configuration.nix
             ./hosts/kestrel/hardware.nix
+            sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
@@ -57,6 +59,7 @@
             ./modules
             ./hosts/torus/configuration.nix
             ./hosts/torus/hardware.nix
+            sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
@@ -78,6 +81,7 @@
             ./modules
             ./hosts/bulwark/configuration.nix
             ./hosts/bulwark/hardware.nix
+            sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
