@@ -97,6 +97,7 @@
       virt-manager.enable = true;
     };
     system = {
+      secrets.enable = true;
       ssh.enable = true;
       terminal.enable = true;
       wireguard-client = {

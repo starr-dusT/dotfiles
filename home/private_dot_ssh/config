@@ -1,3 +1,3 @@
-Host *
+Host github.com
   AddKeysToAgent yes
-  IdentityFile ~/.ssh/keys/github_personal
+  IdentityFile /run/secrets/github/private 
