@@ -150,6 +150,7 @@
     system = {
       terminal.enable = true;
       ssh.enable = true;
+      secrets.enable = true;
     };
   };
   # Did you read the comment?

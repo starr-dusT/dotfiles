@@ -22,7 +22,7 @@
       # The port that WireGuard listens to - recommended that this be changed from default
       listenPort = 51820;
       # Path to the server's private key
-      privateKeyFile = "/engi/apps/wireguard/private";
+      privateKeyFile = "/run/secrets/wireguard/torus";
   
       # This allows the wireguard server to route your traffic to the internet and hence be like a VPN
       postUp = ''

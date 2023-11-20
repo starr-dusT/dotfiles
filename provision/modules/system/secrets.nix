@@ -17,6 +17,7 @@ in {
       secrets."wireguard/kestrel" = { owner = "${user}"; };
       secrets."wireguard/bulwark" = { owner = "${user}"; };
       secrets."wireguard/adjudicator" = { owner = "${user}"; };
+      secrets."wireguard/torus" = { owner = "${user}"; };
     };
   };
 }
