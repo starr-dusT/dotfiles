@@ -10,8 +10,13 @@ in {
       defaultSopsFormat = "yaml";
       age.keyFile = "/home/${user}/.config/sops/age/keys.txt";
 
-      # Github private key
-      secrets."github/private" = { owner = "${user}"; };
+      # Github secrets
+      secrets."github/starr-dusT" = { owner = "${user}"; };
+
+      # Wireguard secrets
+      secrets."wireguard/kestrel" = { owner = "${user}"; };
+      secrets."wireguard/bulwark" = { owner = "${user}"; };
+      secrets."wireguard/adjudicator" = { owner = "${user}"; };
     };
   };
 }
