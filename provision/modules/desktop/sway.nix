@@ -60,6 +60,8 @@ in {
       p7zip
       pavucontrol
       borgbackup
+      w3m
+      newsboat
     ] ++ [
     ];
 

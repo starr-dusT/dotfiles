@@ -1,0 +1,22 @@
+# tmuxp config for terminal scratchpad 
+
+session_name: scratch
+windows:
+  - window_name: news
+    panes:
+      - shell_command:
+          - killall newsboat
+          - newsboat
+  - window_name: files
+    shell_command_before:
+      - cd ~/
+    panes:
+      - shell_command:
+          - nnn  
+  - window_name: dots
+    shell_command_before:
+      - cd ~/.local/share/chezmoi
+    panes:
+      - shell_command:
+          - nvim
+  - window_name: term
