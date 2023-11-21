@@ -28,7 +28,7 @@ set $e exec swaymsg mode default
 
 set $mode_power "[r]eboot | [s]hutdown"
 
-set $TERM alacritty
+set $TERM kitty
 
 #-------------------------------------------------------------------------------
 #----- COLORS 
@@ -93,13 +93,8 @@ for_window [title="Steam - News"]   floating enable
 for_window [title="Friends List"]   floating enable
 for_window [title=".*mpv$"] sticky toggle
 for_window [title=".*mpv$"] floating enable
-
-for_window [app_id="file"] floating enable, \
-    border pixel 5, \
-    resize set 70 ppt 60 ppt, \
-    move position center, \
-    move to scratchpad, \
-    scratchpad show
+# Float w3m image previews from newsboat
+for_window [title="ImageMagick"] floating enable
 
 #-------------------------------------------------------------------------------
 #----- BINDING APPLICATIONS TO WORKSPACE
@@ -188,10 +183,10 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # Open applications
-bindsym $mod+Return exec alacritty
+bindsym $mod+Shift+Return exec $TERM 
 bindsym $mod+a mode launcher
 mode launcher {
-    bindsym r exec alacritty --title launcher -e ~/bin/linux-app-launcher, $e
+    bindsym r exec "$TERM --title launcher -e ~/bin/linux-app-launcher", $e
     bindsym Escape mode default
 }
 bindsym $mod+o mode open
@@ -207,28 +202,18 @@ mode open {
 for_window [con_mark="SCRATCHPAD_jop"] border pixel 1
 
 # Scratchpads commands
+bindsym $mod+Return exec sway-scratchpad \
+                             --command "$TERM -e tmuxp load ~/.config/tmuxp/scratch.yml" \
+                             --mark scratch \
+                             --width 71 \
+                             --height 71, $e
 bindsym $mod+c mode scratch
 mode scratch {
-    bindsym Return exec sway-scratchpad \
-                            --command "alacritty" \
-                            --mark term \
-                            --width 40 \
-                            --height 71, $e
     bindsym b exec sway-scratchpad \
-                            --command "blueman-manager" \
-                            --mark blue \
-                            --width 40 \
-                            --height 71, $e
-    bindsym f exec sway-scratchpad \
-                            --command "alacritty -e tmuxp load /home/{{ .user }}/.config/tmuxp/files.yml" \
-                            --mark files \
-                            --width 71 \
-                            --height 71, $e
-    bindsym d exec sway-scratchpad \
-                            --command "alacritty -e tmuxp load /home/{{ .user }}/.config/tmuxp/dot.yml" \
-                            --mark dot \
-                            --width 90 \
-                            --height 90, $e
+                       --command "blueman-manager" \
+                       --mark blue \
+                       --width 40 \
+                       --height 71, $e
     bindsym Shift+c move scratchpad, $e
     bindsym c scratchpad show, $e
     bindsym Escape mode default

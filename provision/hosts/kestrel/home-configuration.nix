@@ -22,8 +22,11 @@
   ];
 
   # Enable home modules
-  #modules = {
-  #};
+  modules = {
+    desktop = {
+      kitty.enable = true;
+    };
+  };
 
   home.stateVersion = "23.05";
 }

@@ -1,8 +1,8 @@
 { config, lib, pkgs, user, ... }:
 
-let cfg = config.modules.gaming.steam;
+let cfg = config.modules.desktop.kitty;
 in {
-  options.modules.gaming.steam.enable = lib.mkEnableOption "steam";
+  options.modules.desktop.kitty.enable = lib.mkEnableOption "kitty";
   config = lib.mkIf cfg.enable {
     programs.kitty = {
       enable = true;
