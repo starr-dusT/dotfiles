@@ -6,13 +6,12 @@ in {
   config = lib.mkIf cfg.enable {
     programs.kitty = {
       enable = true;
-      theme = "Catppuccin-Mocha";
+      theme = "Dracula";
       font.name = "JetBrainsMono Nerd Font";
       shellIntegration.mode = "no-cursor";
       settings = {
         disable_ligatures = "never";
         cursor_shape = "block";
-        share_connections = "no";
       };
     };
   };
