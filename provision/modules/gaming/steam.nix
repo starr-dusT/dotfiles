@@ -20,6 +20,7 @@ in {
       pkgs.yuzu-early-access
       pkgs.dolphin-emu
       pkgs.ppsspp
+      pkgs.mgba
       pkgs-unstable.sunshine
       pkgs-unstable.moonlight-qt
     ];

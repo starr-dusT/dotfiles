@@ -11,6 +11,7 @@ apps=(
     "/run/current-system/sw/bin/dolphin-emu Dolphin Emulator"
     "/run/current-system/sw/bin/yuzu Yuzu Emulator"
     "/run/current-system/sw/bin/ppsspp PPSSPP Emulator"
+    "/run/current-system/sw/bin/mgba-qt mGBA Emulator"
 )
 
 if command -v steamtinkerlaunch &> /dev/null
