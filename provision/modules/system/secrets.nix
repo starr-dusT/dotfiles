@@ -18,6 +18,9 @@ in {
       secrets."wireguard/bulwark" = { owner = "${user}"; };
       secrets."wireguard/adjudicator" = { owner = "${user}"; };
       secrets."wireguard/torus" = { owner = "${user}"; };
+
+      # Homelab secrets
+      secrets."homelab/tstarr" = { owner = "${user}"; };
     };
   };
 }
