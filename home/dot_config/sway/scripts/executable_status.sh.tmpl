@@ -50,7 +50,7 @@ else
 fi
 
 # Logitech mouse battery status
-bat=$(cat /sys/class/power_supply/hidpp_battery_0/capacity)
+bat=$(cat /sys/class/power_supply/hidpp_battery_[0-9]*/capacity)
 if [ $bat -lt 20 ]; then
     bat_color="#f92672"
 else
