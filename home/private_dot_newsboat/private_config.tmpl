@@ -36,6 +36,6 @@ highlight article "\\[image\\ [0-9]+\\]" green default
 # Freshrss setup
 
 freshrss-login "tstarr"
-freshrss-passwordeval "cat /run/secrets/homelab/tstarr"
+freshrss-password "{{ (secret "/run/secrets/homelab/tstarr") }}"
 freshrss-url "https://rss.tstarr.us/api/greader.php"
 urls-source "freshrss"
