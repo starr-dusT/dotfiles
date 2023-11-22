@@ -32,12 +32,6 @@ following command:
 linux-mount-<network drive name>
 ```
 
-## Syncthing 
-
-Syncthing is used to sync folders between various computers. The service is 
-automatically installed and started with NixOS, but shares currently must be 
-setup with the web gui. 
-
 ## Git-annex
 
 I use [git-annex](https://git-annex.branchable.com/walkthrough/) to sync some 
@@ -92,5 +86,3 @@ Set to `https://blank.org`.
 
 - Vimium config is saved in chezmoi. Open the vimium [plugin page](chrome-extension://dbepggeogbaibhgnhhndojpepiihcmeb/pages/options.html)
 and restore config from `~/.config/vimium-options.json`.
-
-
