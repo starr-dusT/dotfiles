@@ -79,3 +79,18 @@ The applications can be run within the box with the following commands:
 # CQ-editor
 cd ~/cq-editor && ./run.sh
 ```
+
+## Chromium
+
+The vast majority of Chromium is setup with [browser.nix](./modules/desktop/browser.nix)
+including installing plugins and various settings. However, setup for [vimium](https://chromewebstore.google.com/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb)
+and [New Tab Redirect](https://chromewebstore.google.com/detail/new-tab-redirect/icpgjfneehieebagbmdbhnlpiopdcmna)
+could not be fully automated.
+
+- Upon launch New Tab Redirect should prompt to set the new tab page. 
+Set to `https://blank.org`.
+
+- Vimium config is saved in chezmoi. Open the vimium [plugin page](chrome-extension://dbepggeogbaibhgnhhndojpepiihcmeb/pages/options.html)
+and restore config from `~/.config/vimium-options.json`.
+
+

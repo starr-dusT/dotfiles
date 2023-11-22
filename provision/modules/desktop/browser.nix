@@ -12,21 +12,56 @@ in {
     programs.chromium = {
       enable = true;
       extraOpts = {
-        "BrowserSignin" = 0;
-        "SyncDisabled" = true;
+
+        # Disable all manner of account-related things.
+        "BrowserSignin" = 0; # disable
+        "BrowserAddPersonEnabled" = false;
+        "BrowserGuestModeEnabled" = false;
+        "UserDisplayName" = "PolicyUser";
+        "UserFeedbackAllowed" = false;
+        "BackgroundModeEnabled" = false;
+        "MetricsReportingEnabled" = false;
+        "BlockExternalExtensions" = true;
+        "AutofillAddressEnabled" = false;
+        "AutofillCreditCardEnabled" = false;
         "PasswordManagerEnabled" = false;
-        "MetricsReportingEnabled" = true;
+        "PromptForDownloadLocation" = true;
+        "SyncDisabled" = true;
         "SpellcheckEnabled" = true;
         "SpellcheckLanguage" = [ "en-US" ];
         "CloudPrintSubmitEnabled" = false;
         "EnableMediaRouter" = false;
         "ShowCastIconInToolbar" = false;
+
+        # Install extensions
         "ExtensionInstallForcelist" = [
           "gfapcejdoghpoidkfodoiiffaaibpaem" # Dracula Theme
           "fkeaekngjflipcockcnpobkpbbfbhmdn" # Copy as Markdown
           "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
           "hkgfoiooedgoejojocmhlaklaeopbecg" # Picture-in-Picture (by Google)
           "dbepggeogbaibhgnhhndojpepiihcmeb" # Viumium
+          "icpgjfneehieebagbmdbhnlpiopdcmna" # New Tab Redirect
+        ];
+
+        # Setup bookmarks
+         "BookmarkBarEnabled" = true;
+        "ShowAppsShortcutInBookmarkBar" = false;
+        "ManagedBookmarks" = [
+          { "toplevel_name" = "Bookmarks"; }
+          { "name" = "Daily"; "children" = [
+            { "url" = "https://www.youtube.com/feed/subscriptions"; name = "Youtube"; }
+            { "url" = "https://gmail.com/"; name = "Mail"; }
+            { "url" = "https://github.com/"; name = "GitHub"; }
+          ]; }
+          { "name" = "Nix"; "children" = [
+            { "url" = "https://nixos.org/nix/manual/"; name = "nix-manual"; }
+            { "url" = "https://nixos.org/nixpkgs/manual/"; name = "nixpkgs-manual"; }
+            { "url" = "https://nixos.org/nixos/manual/"; name = "nixos-manual"; }
+            { "url" = "https://nixos.org/nixos/options.html"; name = "nixos-options"; }
+            { "url" = "https://discourse.nixos.org/"; name = "nixos-discourse"; }
+            { "url" = "https://old.reddit.com/r/nixos/"; name = "nixos-reddit"; }
+            { "url" = "https://nixos.wiki/"; name = "nixos-wiki"; }
+          ]; }
         ];
       };
     };
