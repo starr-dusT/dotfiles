@@ -42,6 +42,7 @@ in {
           "dbepggeogbaibhgnhhndojpepiihcmeb" # Viumium
           "icpgjfneehieebagbmdbhnlpiopdcmna" # New Tab Redirect
           "hahklcmnfgffdlchjigehabfbiigleji" # Play with MPV
+          "oahiolknhkbpcolgnpljehalnhblolkm" # Shorts Blocker
         ];
 
         # Setup bookmarks
