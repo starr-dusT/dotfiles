@@ -7,16 +7,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1700392168,
-        "narHash": "sha256-v5LprEFx3u4+1vmds9K0/i7sHjT0IYGs7u9v54iz/OA=",
+        "lastModified": 1700695018,
+        "narHash": "sha256-MAiPLgBF4GLzSOlhnPCDWkWW5CDx4i7ApIYaR+TwTVg=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "28535c3a34d79071f2ccb68671971ce0c0984d7e",
+        "rev": "134deb46abd5d0889d913b8509413f6f38b0811e",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
-        "ref": "release-23.05",
         "repo": "home-manager",
         "type": "github"
       }
@@ -24,31 +23,32 @@
     "jovian-nixos": {
       "flake": false,
       "locked": {
-        "lastModified": 1698485410,
-        "narHash": "sha256-+O5Acu2n4XQnT4M25W/oH5MLqXy4pFBFhBzKBFOF7Ik=",
-        "rev": "fd7753956149d4e8b19a810eed445d1a52aecd30",
-        "revCount": 459,
+        "lastModified": 1700377627,
+        "narHash": "sha256-MrYHE/oWqVVwyV9n2MbtAHWplCkLvCcvLj3TOkyHD5k=",
+        "ref": "development",
+        "rev": "1ccd4c94521ef7e6678f9d918dbee703d116dd76",
+        "revCount": 514,
         "type": "git",
         "url": "https://github.com/Jovian-Experiments/Jovian-NixOS"
       },
       "original": {
-        "rev": "fd7753956149d4e8b19a810eed445d1a52aecd30",
+        "ref": "development",
         "type": "git",
         "url": "https://github.com/Jovian-Experiments/Jovian-NixOS"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1700272409,
-        "narHash": "sha256-Mge6iOvomplBsvQ47sIeVAwAUGSVXH4qCW4pLUt/qMI=",
+        "lastModified": 1700390070,
+        "narHash": "sha256-de9KYi8rSJpqvBfNwscWdalIJXPo8NjdIZcEJum1mH0=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "8e5e424b1c059e9ccf5db6a652458e30de05fa3a",
+        "rev": "e4ad989506ec7d71f7302cc3067abd82730a4beb",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "nixos-23.05",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -65,22 +65,6 @@
       "original": {
         "owner": "NixOS",
         "ref": "release-23.05",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-unstable": {
-      "locked": {
-        "lastModified": 1700204040,
-        "narHash": "sha256-xSVcS5HBYnD3LTer7Y2K8ZQCDCXMa3QUD1MzRjHzuhI=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "c757e9bd77b16ca2e03c89bf8bc9ecb28e0c06ad",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -106,7 +90,6 @@
         "home-manager": "home-manager",
         "jovian-nixos": "jovian-nixos",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-unstable": "nixpkgs-unstable",
         "sops-nix": "sops-nix"
       }
     },

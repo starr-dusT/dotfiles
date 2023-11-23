@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, user, ... }:
+{ config, lib, pkgs, user, ... }:
 {
  imports = [
     ./steam-deck.nix
@@ -42,7 +42,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   # Add fonts
-  fonts.fonts = with pkgs; [
+  fonts.packages= with pkgs; [
     nerdfonts
   ];
 
@@ -99,5 +99,5 @@
   };
 
   # Did you read the comment?
-  system.stateVersion = "23.05"; 
+  system.stateVersion = "23.11"; 
 }

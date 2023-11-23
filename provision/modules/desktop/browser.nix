@@ -1,11 +1,11 @@
-{ config, lib, pkgs, pkgs-unstable, user, ... }:
+{ config, lib, pkgs, user, ... }:
 
 let cfg = config.modules.desktop.browser;
 
 in {
   options.modules.desktop.browser.enable = lib.mkEnableOption "browser";
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs-unstable; [
+    environment.systemPackages = with pkgs; [
       chromium
       google-chrome
       play-with-mpv

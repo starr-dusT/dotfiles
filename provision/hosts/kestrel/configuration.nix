@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, user, lib, ... }:
+{ config, pkgs, user, lib, ... }:
 {
   imports = [ 
     ./syncthing.nix
@@ -44,7 +44,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   # Add fonts
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     nerdfonts
   ];
 
@@ -111,5 +111,5 @@
   };
 
   # Did you read the comment?
-  system.stateVersion = "23.05";
+  system.stateVersion = "23.11";
 }
