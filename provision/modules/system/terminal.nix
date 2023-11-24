@@ -8,6 +8,7 @@ in {
     environment.systemPackages = with pkgs; [
       git
       git-annex
+      lazygit
       killall
       pciutils
       chezmoi
