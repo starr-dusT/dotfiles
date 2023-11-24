@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, user, ... }:
+{ config, lib, pkgs, user, ... }:
 
 let 
     cfg = config.modules.desktop.sway;

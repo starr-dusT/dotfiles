@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, user, ... }:
+{ config, lib, pkgs, user, ... }:
 
 let
   cfg = config.modules.devel.notes;
@@ -8,12 +8,11 @@ in {
     environment.systemPackages = with pkgs; [
       pandoc
       gollum
+      obsidian
       zk
       # for zk
         bat
         fzf
-    ] ++ [
-      pkgs-unstable.obsidian
     ];
   };
 }

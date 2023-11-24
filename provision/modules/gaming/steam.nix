@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, user, ... }:
+{ config, lib, pkgs, user, ... }:
 
 let cfg = config.modules.gaming.steam;
 in {
@@ -14,15 +14,14 @@ in {
 
     hardware.steam-hardware.enable = true;
 
-    environment.systemPackages = [ 
-      pkgs.steam
-      pkgs.steamtinkerlaunch
-      pkgs.yuzu-early-access
-      pkgs.dolphin-emu
-      pkgs.ppsspp
-      pkgs.mgba
-      pkgs-unstable.sunshine
-      pkgs-unstable.moonlight-qt
+    environment.systemPackages = with pkgs; [ 
+      steam
+      yuzu-early-access
+      dolphin-emu
+      ppsspp
+      mgba
+      sunshine
+      moonlight-qt
     ];
   };
 

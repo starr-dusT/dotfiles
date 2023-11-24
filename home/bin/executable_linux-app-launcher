@@ -11,7 +11,7 @@ launchapp=$(IFS=':'; \
     --height="50%" \
     --preview-window="down:wrap:3")
   if [[ "${launchapp}" ]]; then
-    setsid -f "${launchapp}" >/dev/null &
+    setsid -f "${launchapp}" &> /dev/null &
     sleep .1
   fi
 }

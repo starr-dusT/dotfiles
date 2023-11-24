@@ -2,27 +2,22 @@
   description = "Flake for nixos configurations";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
-      url = github:nix-community/home-manager/release-23.05;
+      url = github:nix-community/home-manager;
       inputs.nixpkgs.follows = "nixpkgs";
     };
     jovian-nixos = {
-      url = "git+https://github.com/Jovian-Experiments/Jovian-NixOS?rev=fd7753956149d4e8b19a810eed445d1a52aecd30";
+      url = "git+https://github.com/Jovian-Experiments/Jovian-NixOS?ref=development";
       flake = false;
     };
     sops-nix.url = "github:Mic92/sops-nix";
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, home-manager, jovian-nixos, sops-nix, ... }:
+  outputs = inputs @ { self, nixpkgs, home-manager, jovian-nixos, sops-nix, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
-      pkgs-unstable = import nixpkgs-unstable {
         inherit system;
         config.allowUnfree = true;
       };
@@ -32,7 +27,7 @@
       nixosConfigurations = {
         kestrel = lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit user; inherit pkgs-unstable; };
+          specialArgs = { inherit user; };
           modules = [
             ./modules
             ./hosts/kestrel/configuration.nix
@@ -54,7 +49,7 @@
 
         torus = lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit user; inherit pkgs-unstable; };
+          specialArgs = { inherit user; };
           modules = [
             ./modules
             ./hosts/torus/configuration.nix
@@ -76,7 +71,7 @@
 
         bulwark = lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit user; inherit pkgs-unstable; inherit jovian-nixos; inherit home-manager; };
+          specialArgs = { inherit user; inherit jovian-nixos; inherit home-manager; };
           modules = [
             ./modules
             ./hosts/bulwark/configuration.nix

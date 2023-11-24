@@ -8,14 +8,15 @@
   services.syncthing = {
     enable = true;
     user = "${user}";
+    dataDir = "/home/${user}";
     configDir = "/home/${user}/.config/syncthing";
     guiAddress = "0.0.0.0:8384";
     overrideDevices = true;
     overrideFolders = true; 
-    devices = {
+    settings.devices = {
       "kestrel" = { id = "TY6I6UK-YWXZYB4-7DKSB5Y-6ZBGE6U-T5WNJK4-KPLTXP7-ZTZQPXU-LX4HPQZ"; };
     };
-    folders = {
+    settings.folders = {
     };
   };
 }

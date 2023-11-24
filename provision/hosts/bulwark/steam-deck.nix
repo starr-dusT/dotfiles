@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, user, jovian-nixos, home-manager, ... }:
+{ config, lib, pkgs, user, jovian-nixos, home-manager, ... }:
 {
   imports = [
     (jovian-nixos + "/modules")

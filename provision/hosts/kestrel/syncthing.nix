@@ -8,15 +8,16 @@
   services.syncthing = {
     enable = true;
     user = "${user}";
+    dataDir = "/home/${user}";
     configDir = "/home/${user}/.config/syncthing";
     guiAddress = "0.0.0.0:8384";
     overrideDevices = true;
     overrideFolders = true; 
-    devices = {
+    settings.devices = {
       "bulwark" = { id = "B5HZK2V-WA4WSQF-3JAIH4I-C6XQZ6J-EMMAIV5-CCYOA5G-N57GT6A-WH2GCQ2"; };
       "torus" = { id = "WCZYHD7-5Y33SSU-74JHAQR-V7LYMDM-SDG2NTN-DJ2VKF2-DUBBUE5-PU5CGQN"; };
     };
-    folders = {
+    settings.folders = {
       "Gamecube Saves" = {
         path = "/home/${user}/.local/share/dolphin-emu/GC";
         devices = [ "bulwark" ];
