@@ -46,7 +46,7 @@ in {
         ];
 
         # Setup bookmarks
-         "BookmarkBarEnabled" = true;
+        "BookmarkBarEnabled" = true;
         "ShowAppsShortcutInBookmarkBar" = false;
         "ManagedBookmarks" = [
           { "toplevel_name" = "Bookmarks"; }
