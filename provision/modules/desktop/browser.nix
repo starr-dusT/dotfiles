@@ -41,8 +41,8 @@ in {
           "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
           "dbepggeogbaibhgnhhndojpepiihcmeb" # Viumium
           "icpgjfneehieebagbmdbhnlpiopdcmna" # New Tab Redirect
-          "hahklcmnfgffdlchjigehabfbiigleji" # Play with MPV
           "oahiolknhkbpcolgnpljehalnhblolkm" # Shorts Blocker
+          "hkgfoiooedgoejojocmhlaklaeopbecg" # Picture-in-Picture (by Google)
         ];
 
         # Setup bookmarks
@@ -80,23 +80,6 @@ in {
             { "url" = "https://nixos.wiki/"; name = "nixos-wiki"; }
           ]; }
         ];
-      };
-    };
-
-    # Start play-with-mpv as service
-    systemd.user.services.play-with-mpv = {
-      path = with pkgs; [ play-with-mpv mpv ];
-      environment = {
-          DISPLAY = ":0";
-      };
-      description = "play videos with mpv from chromium.";
-      wantedBy = [ "default.target" ];
-      restartIfChanged = true;
-      
-      serviceConfig = {
-        Type = "simple";
-        Restart = "always";
-        ExecStart = "${pkgs.play-with-mpv}/bin/play-with-mpv";
       };
     };
   };

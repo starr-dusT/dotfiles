@@ -1,6 +1,7 @@
 { config, pkgs, user, lib, ... }:
 {
   imports = [ 
+    ./rss.nix
     ./syncthing.nix
   ];
 
