@@ -7,7 +7,6 @@
     ./syncthing.nix
     ./obsidian-vault.nix
     ./share.nix
-    ./tt-rss.nix
   ];
 
   nix = {
