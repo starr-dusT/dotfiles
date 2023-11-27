@@ -39,7 +39,6 @@ in {
           "gfapcejdoghpoidkfodoiiffaaibpaem" # Dracula Theme
           "fkeaekngjflipcockcnpobkpbbfbhmdn" # Copy as Markdown
           "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
-          "dbepggeogbaibhgnhhndojpepiihcmeb" # Viumium
           "icpgjfneehieebagbmdbhnlpiopdcmna" # New Tab Redirect
           "oahiolknhkbpcolgnpljehalnhblolkm" # Shorts Blocker
           "hkgfoiooedgoejojocmhlaklaeopbecg" # Picture-in-Picture (by Google)
