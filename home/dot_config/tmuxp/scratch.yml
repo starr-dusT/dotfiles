@@ -2,11 +2,6 @@
 
 session_name: scratch
 windows:
-  - window_name: news
-    panes:
-      - shell_command:
-          - killall newsboat
-          - newsboat
   - window_name: files
     shell_command_before:
       - cd ~/
