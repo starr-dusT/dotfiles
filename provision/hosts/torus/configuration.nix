@@ -7,6 +7,7 @@
     ./syncthing.nix
     ./obsidian-vault.nix
     ./share.nix
+    ./rss.nix
   ];
 
   nix = {
@@ -115,6 +116,9 @@
     }; in {
       "rss.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:8081/"; 
+      });
+      "rss1.tstarr.us" = (SSL // {
+        locations."/".proxyPass = "http://localhost:8087/"; 
       });
       "rssbridge.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:3000/"; 
