@@ -1,0 +1,74 @@
+diff --git a/bridges/YoutubeBridge.php b/bridges/YoutubeBridge.php
+index 993f8c90..b000a9ff 100644
+--- a/bridges/YoutubeBridge.php
++++ b/bridges/YoutubeBridge.php
+@@ -134,26 +134,20 @@ class YoutubeBridge extends BridgeAbstract
+                 $url_feed = $jsonData->metadata->channelMetadataRenderer->rssUrl;
+                 $this->feedIconUrl = $jsonData->metadata->channelMetadataRenderer->avatar->thumbnails[0]->url;
+             }
+-            if ($filterByDuration) {
+-                if (!$custom) {
+-                    // Fetch the html page
+-                    $html = $this->fetch($url_listing);
+-                    $jsonData = $this->extractJsonFromHtml($html);
+-                }
+-                $channel_id = '';
+-                if (isset($jsonData->contents)) {
+-                    $channel_id = $jsonData->metadata->channelMetadataRenderer->externalId;
+-                    $jsonData = $jsonData->contents->twoColumnBrowseResultsRenderer->tabs[1];
+-                    $jsonData = $jsonData->tabRenderer->content->richGridRenderer->contents;
+-                    // $jsonData = $jsonData->itemSectionRenderer->contents[0]->gridRenderer->items;
+-                    $this->fetchItemsFromFromJsonData($jsonData);
+-                } else {
+-                    returnServerError('Unable to get data from YouTube');
+-                }
++            if (!$custom) {
++                // Fetch the html page
++                $html = $this->fetch($url_listing);
++                $jsonData = $this->extractJsonFromHtml($html);
++            }
++            $channel_id = '';
++            if (isset($jsonData->contents)) {
++                $channel_id = $jsonData->metadata->channelMetadataRenderer->externalId;
++                $jsonData = $jsonData->contents->twoColumnBrowseResultsRenderer->tabs[1];
++                $jsonData = $jsonData->tabRenderer->content->richGridRenderer->contents;
++                // $jsonData = $jsonData->itemSectionRenderer->contents[0]->gridRenderer->items;
++                $this->fetchItemsFromFromJsonData($jsonData);
+             } else {
+-                // Fetch the xml feed
+-                $html = $this->fetch($url_feed);
+-                $this->extractItemsFromXmlFeed($html);
++                returnServerError('Unable to get data from YouTube');
+             }
+             $this->feedName = str_replace(' - YouTube', '', $html->find('title', 0)->plaintext);
+         } elseif ($playlist) {
+@@ -496,24 +490,23 @@ class YoutubeBridge extends BridgeAbstract
+                     continue;
+                 }
+             }
+-            if (!$description || !$timestamp) {
+-                $this->fetchVideoDetails($videoId, $author, $description, $timestamp);
+-            }
+-            $this->addItem($videoId, $title, $author, $description, $timestamp);
++            # Re-fetch better details from xml
++            $this->fetchVideoDetails($videoId, $author, $description, $timestamp);
++            $this->addItem($videoId, $title, $author, $description, $timestamp, $durationText);
+             if (count($this->items) >= 99) {
+                 break;
+             }
+         }
+     }
+ 
+-    private function addItem($videoId, $title, $author, $description, $timestamp, $thumbnail = '')
++    private function addItem($videoId, $title, $author, $description, $timestamp, $durationText, $thumbnail = '')
+     {
+         $description = nl2br($description);
+ 
+         $item = [];
+         // This should probably be uid?
+         $item['id'] = $videoId;
+-        $item['title'] = $title;
++        $item['title'] = $title . " [" . $durationText . "]";
+         $item['author'] = $author ?? '';
+         $item['timestamp'] = $timestamp;
+         $item['uri'] = self::URI . '/watch?v=' . $videoId;

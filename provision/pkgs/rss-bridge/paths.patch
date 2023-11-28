@@ -1,0 +1,44 @@
+diff --git a/index.php b/index.php
+index 123f6ecd..69071aa2 100644
+--- a/index.php
++++ b/index.php
+@@ -8,8 +8,8 @@ require_once __DIR__ . '/lib/bootstrap.php';
+ 
+ Configuration::verifyInstallation();
+ $customConfig = [];
+-if (file_exists(__DIR__ . '/config.ini.php')) {
+-    $customConfig = parse_ini_file(__DIR__ . '/config.ini.php', true, INI_SCANNER_TYPED);
++if (file_exists(getenv('RSSBRIDGE_DATA') . '/config.ini.php')) {
++    $customConfig = parse_ini_file(getenv('RSSBRIDGE_DATA') . '/config.ini.php', true, INI_SCANNER_TYPED);
+ }
+ Configuration::loadConfiguration($customConfig, getenv());
+ 
+diff --git a/lib/Configuration.php b/lib/Configuration.php
+index d699178f..5431f345 100644
+--- a/lib/Configuration.php
++++ b/lib/Configuration.php
+@@ -91,9 +91,8 @@ final class Configuration
+                 self::setConfig('system', 'debug_mode_whitelist', explode("\n", str_replace("\r", '', $debug)));
+             }
+         }
+-
+-        if (file_exists(__DIR__ . '/../whitelist.txt')) {
+-            $enabledBridges = trim(file_get_contents(__DIR__ . '/../whitelist.txt'));
++        if (file_exists(getenv('RSSBRIDGE_DATA') . '/whitelist.txt')) {
++            $enabledBridges = trim(file_get_contents(getenv('RSSBRIDGE_DATA') . '/whitelist.txt'));
+             if ($enabledBridges === '*') {
+                 self::setConfig('system', 'enabled_bridges', ['*']);
+             } else {
+diff --git a/lib/bootstrap.php b/lib/bootstrap.php
+index a95de9dd..78153a65 100644
+--- a/lib/bootstrap.php
++++ b/lib/bootstrap.php
+@@ -7,7 +7,7 @@ const PATH_LIB_FORMATS = __DIR__ . '/../formats/';
+ const PATH_LIB_CACHES = __DIR__ . '/../caches/';
+ 
+ /** Path to the cache folder */
+-const PATH_CACHE = __DIR__ . '/../cache/';
++define('PATH_CACHE', getenv('RSSBRIDGE_DATA') . '/cache/');
+ 
+ /** URL to the RSS-Bridge repository */
+ const REPOSITORY = 'https://github.com/RSS-Bridge/rss-bridge/';
