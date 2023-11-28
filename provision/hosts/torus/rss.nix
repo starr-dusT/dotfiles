@@ -1,5 +1,12 @@
 { config, lib, pkgs, user, ... }:
+let
+  domain = "rssbridge.tstarr.us";
+in 
 {
+  imports = [
+    ./rss-bridge.nix
+  ];
+
   services.postgresql = {
     enable = true;
     authentication = pkgs.lib.mkOverride 10 ''
@@ -23,5 +30,16 @@
                              ADMIN_USERNAME=miniflux
                              ADMIN_PASSWORD=miniflux
                            '';
+  };
+  
+  my-services.rss-bridge = {
+    enable = true;
+    whitelist = [ "*" ];
+    virtualHost = "${domain}";
+  };
+
+  services.nginx.virtualHosts.${domain} = {
+    forceSSL = true;
+    enableACME = true;
   };
 }
