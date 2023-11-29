@@ -3,7 +3,7 @@ index 123f6ecd..69071aa2 100644
 --- a/index.php
 +++ b/index.php
 @@ -8,8 +8,8 @@ require_once __DIR__ . '/lib/bootstrap.php';
- 
+
  Configuration::verifyInstallation();
  $customConfig = [];
 -if (file_exists(__DIR__ . '/config.ini.php')) {
@@ -12,16 +12,39 @@ index 123f6ecd..69071aa2 100644
 +    $customConfig = parse_ini_file(getenv('RSSBRIDGE_DATA') . '/config.ini.php', true, INI_SCANNER_TYPED);
  }
  Configuration::loadConfiguration($customConfig, getenv());
- 
-diff --git a/lib/Configuration.php b/lib/Configuration.php
-index d699178f..5431f345 100644
---- a/lib/Configuration.php
-+++ b/lib/Configuration.php
-@@ -91,9 +91,8 @@ final class Configuration
-                 self::setConfig('system', 'debug_mode_whitelist', explode("\n", str_replace("\r", '', $debug)));
+
+diff --git a/lib/BridgeFactory.php b/lib/BridgeFactory.php
+index ad433287..195c7af1 100644
+--- a/lib/BridgeFactory.php
++++ b/lib/BridgeFactory.php
+@@ -13,12 +13,18 @@ final class BridgeFactory
+         $this->cache = RssBridge::getCache();
+         $this->logger = RssBridge::getLogger();
+
+-        // Create all possible bridge class names from fs
++        // Create all possible bridge class names from original fs
+         foreach (scandir(__DIR__ . '/../bridges/') as $file) {
+             if (preg_match('/^([^.]+Bridge)\.php$/U', $file, $m)) {
+                 $this->bridgeClassNames[] = $m[1];
              }
          }
--
++        // Create all possible bridge class names from additional fs
++        foreach (scandir(PATH_BRIDGES) as $file) {
++            if (preg_match('/^([^.]+Bridge)\.php$/U', $file, $m)) {
++                $this->bridgeClassNames[] = $m[1];
++            }
++        }
+
+         $enabledBridges = Configuration::getConfig('system', 'enabled_bridges');
+         if ($enabledBridges === null) {
+diff --git a/lib/Configuration.php b/lib/Configuration.php
+index c6fed0fd..672a5699 100644
+--- a/lib/Configuration.php
++++ b/lib/Configuration.php
+@@ -92,8 +92,8 @@ final class Configuration
+             }
+         }
+
 -        if (file_exists(__DIR__ . '/../whitelist.txt')) {
 -            $enabledBridges = trim(file_get_contents(__DIR__ . '/../whitelist.txt'));
 +        if (file_exists(getenv('RSSBRIDGE_DATA') . '/whitelist.txt')) {
@@ -30,15 +53,26 @@ index d699178f..5431f345 100644
                  self::setConfig('system', 'enabled_bridges', ['*']);
              } else {
 diff --git a/lib/bootstrap.php b/lib/bootstrap.php
-index a95de9dd..78153a65 100644
+index a95de9dd..e8ed317f 100644
 --- a/lib/bootstrap.php
 +++ b/lib/bootstrap.php
-@@ -7,7 +7,7 @@ const PATH_LIB_FORMATS = __DIR__ . '/../formats/';
+@@ -7,7 +7,10 @@ const PATH_LIB_FORMATS = __DIR__ . '/../formats/';
  const PATH_LIB_CACHES = __DIR__ . '/../caches/';
- 
+
  /** Path to the cache folder */
 -const PATH_CACHE = __DIR__ . '/../cache/';
 +define('PATH_CACHE', getenv('RSSBRIDGE_DATA') . '/cache/');
- 
++
++/** Path to extra bridge files */
++define('PATH_BRIDGES', getenv('RSSBRIDGE_DATA') . '/bridges/');
+
  /** URL to the RSS-Bridge repository */
  const REPOSITORY = 'https://github.com/RSS-Bridge/rss-bridge/';
+@@ -41,6 +44,7 @@ spl_autoload_register(function ($className) {
+         __DIR__ . '/../caches/',
+         __DIR__ . '/../formats/',
+         __DIR__ . '/../lib/',
++        PATH_BRIDGES,
+     ];
+     foreach ($folders as $folder) {
+         $file = $folder . $className . '.php';

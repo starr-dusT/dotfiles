@@ -5,7 +5,7 @@ stdenv.mkDerivation rec {
   version = "b037d1b4d1f0b0f422e21125ddef00a58e185ed1";
 
   src = fetchFromGitHub {
-    owner = "starr-dusT";
+    owner = "RSS-Bridge";
     repo = "rss-bridge";
     rev = version;
     sha256 = "sha256-zyWnjSYE2NFK/OJLnsFsE5oEyf+yrJe8TT6MH4roBwU=";
@@ -13,7 +13,6 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./paths.patch
-    ./youtube_time_hack.patch
   ];
 
   installPhase = ''
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "The RSS feed for websites missing it";
-    homepage = "https://github.com/starr-dusT/rss-bridge";
+    homepage = "https://github.com/RSS-Bridge/rss-bridge";
     license = licenses.unlicense;
     maintainers = with maintainers; [ starr-dusT ];
     platforms = platforms.all;
