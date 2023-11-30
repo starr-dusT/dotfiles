@@ -1,3 +1,6 @@
+# Mostly a copy of https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/web-apps/rss-bridge.nix
+# Since I'm using a custom derivation of rss-bridge I must define my own services module.
+
 { config, lib, pkgs, ... }:
 with lib;
 let
