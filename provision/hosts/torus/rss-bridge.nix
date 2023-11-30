@@ -95,7 +95,6 @@ in
     };
     systemd.tmpfiles.rules = [
       "d '${cfg.dataDir}/cache' 0750 ${cfg.user} ${cfg.group} - -"
-      "d '${cfg.dataDir}/bridges' 0750 ${cfg.user} ${cfg.group} - -"
       (mkIf (cfg.whitelist != []) "L+ ${cfg.dataDir}/whitelist.txt - - - - ${whitelist}")
       "z '${cfg.dataDir}/config.ini.php' 0750 ${cfg.user} ${cfg.group} - -"
     ];
