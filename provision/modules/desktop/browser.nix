@@ -82,5 +82,12 @@ in {
         ];
       };
     };
+
+    networking.firewall.allowedTCPPorts = [ 8080 ];
+    services.static-web-server = {
+      enable = true;
+      listen = "[::]:8080";
+      root = ../../../resources/blank;
+    };
   };
 }
