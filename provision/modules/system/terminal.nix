@@ -13,6 +13,7 @@ in {
       pciutils
       chezmoi
       nix-init
+      btop
 
       rbw 
       # for rbw
