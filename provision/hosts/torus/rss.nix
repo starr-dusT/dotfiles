@@ -3,10 +3,6 @@ let
   domain = "rssbridge.tstarr.us";
 in 
 {
-  imports = [
-    ./rss-bridge.nix
-  ];
-
   services.postgresql = {
     enable = true;
     authentication = pkgs.lib.mkOverride 10 ''
@@ -32,7 +28,7 @@ in
                            '';
   };
   
-  my-services.rss-bridge = {
+  services.rss-bridge = {
     enable = true;
     whitelist = [ "*" ];
     virtualHost = "${domain}";

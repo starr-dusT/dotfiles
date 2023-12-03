@@ -5,5 +5,4 @@ final: prev: {
   sway-scratchpad = final.callPackage ../pkgs/sway-scratchpad.nix {};
   advcpmv = final.callPackage ../pkgs/advcpmv.nix {};
   taskopen = final.callPackage ../pkgs/taskopen.nix {};
-  rss-bridge = final.callPackage ../pkgs/rss-bridge {};
 }
