@@ -8,6 +8,7 @@
     ./obsidian-vault.nix
     ./share.nix
     ./rss.nix
+    ./home-assistant
   ];
 
   nix = {
@@ -117,8 +118,8 @@
       "rss.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:8081/"; 
       });
-      "rss1.tstarr.us" = (SSL // {
-        locations."/".proxyPass = "http://localhost:8087/"; 
+      "home.tstarr.us" = (SSL // {
+        locations."/".proxyPass = "http://localhost:8123/"; 
       });
       "media.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:8096/"; 
