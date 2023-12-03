@@ -51,12 +51,13 @@ in {
         "ManagedBookmarks" = [
           { "toplevel_name" = "Bookmarks"; }
           { "name" = "Daily"; "children" = [
+            { "url" = "https://rss.tstarr.us"; name = "Miniflux"; }
+            { "url" = "https://media.tstarr.us/web/index.html#!/home.html"; name = "Jellyfin"; }
+            { "url" = "https://home.tstarr.us"; name = "Home Assistant"; }
+            { "url" = "https://share.tstarr.us"; name = "Share (dufs)"; }
             { "url" = "https://www.youtube.com/feed/subscriptions"; name = "Youtube"; }
             { "url" = "https://gmail.com/"; name = "Mail"; }
             { "url" = "https://github.com/"; name = "GitHub"; }
-            { "url" = "https://media.tstarr.us/web/index.html#!/home.html"; name = "Jellyfin"; }
-            { "url" = "https://rss.tstarr.us"; name = "FreshRSS"; }
-            { "url" = "https://share.tstarr.us"; name = "Share (dufs)"; }
             { "url" = "https://www.google.com/"; name = "Google"; }
             { "url" = "https://www.icloud.com/"; name = "iCloud"; }
           ]; }
