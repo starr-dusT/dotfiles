@@ -118,9 +118,6 @@
       "rss.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:8087/"; 
       });
-      "home.tstarr.us" = (SSL // {
-        locations."/".proxyPass = "http://localhost:8123/"; 
-      });
       "media.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:8096/"; 
       });
