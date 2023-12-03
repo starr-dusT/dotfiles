@@ -82,7 +82,7 @@ and [New Tab Redirect](https://chromewebstore.google.com/detail/new-tab-redirect
 could not be fully automated.
 
 - Upon launch New Tab Redirect should prompt to set the new tab page. 
-Set to `https://blank.org`.
+Set to `http://localhost:8080`.
 
 - Vimium config is saved in chezmoi. Open the vimium [plugin page](chrome-extension://dbepggeogbaibhgnhhndojpepiihcmeb/pages/options.html)
 and restore config from `~/.config/vimium-options.json`.
