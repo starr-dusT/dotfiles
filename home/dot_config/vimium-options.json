@@ -10,7 +10,7 @@
     },
     {
       "passKeys": "",
-      "pattern": "https?://rss1.tstarr.us/*"
+      "pattern": "https?://rss.tstarr.us/*"
     }
   ]
 }
