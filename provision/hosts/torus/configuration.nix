@@ -116,7 +116,7 @@
       forceSSL = true;
     }; in {
       "rss.tstarr.us" = (SSL // {
-        locations."/".proxyPass = "http://localhost:8081/"; 
+        locations."/".proxyPass = "http://localhost:8087/"; 
       });
       "home.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:8123/"; 
