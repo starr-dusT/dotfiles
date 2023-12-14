@@ -36,7 +36,7 @@ in {
 
         # Install extensions
         "ExtensionInstallForcelist" = [
-          "gfapcejdoghpoidkfodoiiffaaibpaem" # Dracula Theme
+          "ihennfdbghdiflogeancnalflhgmanop" # Gruvbox theme
           "fkeaekngjflipcockcnpobkpbbfbhmdn" # Copy as Markdown
           "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
           "icpgjfneehieebagbmdbhnlpiopdcmna" # New Tab Redirect
