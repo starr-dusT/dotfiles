@@ -5,7 +5,7 @@ return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     -- Apperance
-    use ('dracula/vim')
+    use("ellisonleao/gruvbox.nvim")
     use('norcalli/nvim-colorizer.lua')
     require("colorizer").setup()
 

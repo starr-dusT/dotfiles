@@ -6,7 +6,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs.kitty = {
       enable = true;
-      theme = "Dracula";
+      theme = "Gruvbox Dark";
       font.name = "JetBrainsMono Nerd Font";
       shellIntegration.mode = "no-cursor";
       settings = {
