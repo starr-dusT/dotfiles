@@ -1,0 +1,67 @@
+{
+	"layer": "top",
+
+	// Choose the order of the modules
+	"modules-left": ["hyprland/workspaces", "hyprland/submap", "hyprland/window"],
+	"modules-center": ["clock"],
+	"modules-right": ["tray", "custom/separator", "network", "custom/separator", "cpu", "custom/separator", "memory", "custom/separator", "pulseaudio", "custom/separator", "custom/disk"],
+
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1"
+    },
+    "hyprland/window": {  
+        "format": "{}",
+        "max-length": 50,
+    },
+    "hyprland/submap": {
+        "format": " {}"
+    },
+	"custom/disk": {
+		"format": " 󰉉  <span color=\"{{ .themes.gruvbox.red }}\">{}</span>G ",
+		"interval": 30,
+		"exec": "df -h --output=avail / | awk 'NR==2 {sub(/.$/, \"\", $1); print $1}'",
+	},
+	"cpu": {
+		"format": "  <span color=\"{{ .themes.gruvbox.red }}\">{usage}</span>%",
+		"tooltip": false
+	},
+	"memory": {
+		"format": "  <span color=\"{{ .themes.gruvbox.red }}\">{used:0.1f}</span>G"
+	},
+    "network": {
+        "format-wifi": "({signalStrength}%) ",
+        "format-ethernet": "<span color=\"{{ .themes.gruvbox.green }}\">{ifname}</span>",
+        "tooltip-format": "{ifname} via {gwaddr}",
+        "format-linked": "{ifname} (No IP) ?",
+        "format-disconnected": "",
+        "on-click": "nm-connection-editor"
+    },
+	"pulseaudio": {
+		"format": "{icon} <span color=\"{{ .themes.gruvbox.red }}\">{volume}</span>% {format_source}",
+		"format-muted": "󰖁 {format_source}",
+		"format-bluetooth": "{icon}  <span color=\"{{ .themes.gruvbox.red }}\">{volume}</span>% {format_source}",
+		"format-bluetooth-muted": "󰖁  {format_source}",
+
+		"format-source": "  <span color=\"{{ .themes.gruvbox.red }}\">{volume}</span>%",
+		"format-source-muted": "",
+
+		"format-icons": {
+			"default": ["", "", ""]
+		},
+		"on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+	},
+	"clock": {
+		"interval": 1,
+		"format": " {:%Y-%m-%d   %H:%M:%S}"
+	},
+    "tray": {
+        "spacing": 10
+    },
+    "custom/separator": {
+        "format": " | ",
+        "interval": "once",
+        "tooltip": false
+    },
+}

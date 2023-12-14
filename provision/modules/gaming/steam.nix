@@ -22,6 +22,8 @@ in {
       mgba
       sunshine
       moonlight-qt
+      prismlauncher
+      jdk17
     ];
   };
 

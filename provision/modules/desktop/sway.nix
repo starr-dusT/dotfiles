@@ -59,6 +59,12 @@ in {
       p7zip
       pavucontrol
       borgbackup
+      waybar
+      (pkgs.waybar.overrideAttrs (oldAttrs: {
+         mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+         })
+      )
+
     ] ++ [
     ];
 
@@ -102,6 +108,10 @@ in {
     programs.sway = {
       enable = true;
       wrapperFeatures.gtk = true;
+    };
+    programs.hyprland = {
+      enable = true;
+      xwayland.enable = true;
     };
   };
 }
