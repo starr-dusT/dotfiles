@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# https://github.com/starr-dusT/dotfiles
+
+bits=""
+
+# Gamemode bit 
+if [ "$(gamemoded -s)" != "gamemode is inactive" ]; then
+    bits+="<span color=\"{{ .themes.gruvbox.blue0 }}\">G</span>"
+fi
+
+# VPN bit
+if [ -f ~/.wg0 ]; then 
+    bits+="<span color=\"{{ .themes.gruvbox.purple0 }}\">V</span>"
+fi
+
+# Print bits if there are any
+if [ "$bits" != "" ]; then
+    # Seperator
+    echo " | $bits "
+fi

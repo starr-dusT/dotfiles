@@ -4,7 +4,13 @@
 	// Choose the order of the modules
 	"modules-left": ["hyprland/workspaces", "hyprland/submap", "hyprland/window"],
 	"modules-center": ["clock"],
-	"modules-right": ["tray", "custom/separator", "network", "custom/separator", "cpu", "custom/separator", "memory", "custom/separator", "pulseaudio", "custom/separator", "custom/disk"],
+	"modules-right": ["tray", "custom/separator", 
+                      "network", "custom/separator", 
+                      "cpu", "custom/separator",
+                      "memory", "custom/separator", 
+                      "custom/mouse", "custom/separator", 
+                      "pulseaudio", "custom/separator", 
+                      "custom/disk", "custom/bits"],
 
     "hyprland/workspaces": {
         "format": "{icon}",
@@ -18,10 +24,15 @@
     "hyprland/submap": {
         "format": " {}"
     },
-	"custom/disk": {
-		"format": " 󰉉  <span color=\"{{ .themes.gruvbox.red }}\">{}</span>G ",
-		"interval": 30,
-		"exec": "df -h --output=avail / | awk 'NR==2 {sub(/.$/, \"\", $1); print $1}'",
+    "custom/bits": {
+	    "format": "{}",
+	    "interval": 5,
+	    "exec": "~/.config/waybar/scripts/bits.sh",
+	},
+    "custom/disk": {
+	    "format": " 󰉉  <span color=\"{{ .themes.gruvbox.red }}\">{}</span>G ",
+	    "interval": 30,
+	    "exec": "df -h --output=avail / | awk 'NR==2 {sub(/.$/, \"\", $1); print $1}'",
 	},
 	"cpu": {
 		"format": "  <span color=\"{{ .themes.gruvbox.red }}\">{usage}</span>%",
@@ -38,6 +49,11 @@
         "format-disconnected": "",
         "on-click": "nm-connection-editor"
     },
+	"custom/mouse": {
+		"format": " 󰍽 <span color=\"{{ .themes.gruvbox.red }}\">{}</span>% ",
+		"interval": 5,
+		"exec": "cat /sys/class/power_supply/hidpp_battery_[0-9]*/capacity | head -n 1",
+	},
 	"pulseaudio": {
 		"format": "{icon} <span color=\"{{ .themes.gruvbox.red }}\">{volume}</span>% {format_source}",
 		"format-muted": "󰖁 {format_source}",
