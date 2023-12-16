@@ -8,6 +8,9 @@ alias nu="cd ~/.local/share/chezmoi/provision && \
 # sway
 alias s='sway'
 
+# hyprland
+alias h='Hyprland'
+
 # tmuxp
 alias t='linux-tmuxp-launcher'
 
