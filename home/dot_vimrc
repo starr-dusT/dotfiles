@@ -5,17 +5,18 @@
 " general
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" automatically write files when changing when multiple files open
-set autowrite
+syntax enable
 set number
 set colorcolumn=79
-syntax enable
+set autowrite " automatically write files on close
+
+let mapleader = " " " map leader to Space
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " wildmenu
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Ignore compiled files
+" ignore compiled files
 set wildignore=*.o,*~,*.pyc
 if has("win16") || has("win32")
     set wildignore+=.git\*,.hg\*,.svn\*
@@ -23,34 +24,47 @@ else
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 endif
 
-set path=$PWD/**        " enable fuzzy finding in the vim command line
+" enable fuzzy finding in the vim command line
+set path=$PWD/**        
 set nowildmenu
 set wildmode=list:full
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " netrw
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:netrw_banner = 0
+
+let g:netrw_banner = 0 " disable dumb banner
+
+" use l and h for up/down dir
 augroup netrw_setup | au!
     au FileType netrw nmap <buffer> l <CR>
     au FileType netrw nmap <buffer> h -
 augroup END
 
+map <leader>e :Ex <cr> " open explorer
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" keys
+" marks
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" map leader to Space
-let mapleader = " "
+" allow only global marks
+noremap <silent> <expr> ' "'".toupper(nr2char(getchar()))
+noremap <silent> <expr> m "m".toupper(nr2char(getchar()))
+sunmap '
+sunmap m
 
-" movement
+nnoremap <silent> ' :call ListSelect("marks", "'")<CR> " list jumps/marks
+map <leader>md :delmarks A-Z0-9 <cr>                   " clear marks
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" misc keys
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" move between splits with hjkl
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
-
-" netrw
-map <leader>e :Ex <cr>
 
 " find
 map <leader>ff :find *
@@ -71,3 +85,28 @@ map <F4> :set spell!<CR>
 " better use of arrow keys, number increment/decrement
 nnoremap <up> <C-a>
 nnoremap <down> <C-x>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" helpers
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" display and select from a list of marks and jumps
+" https://vi.stackexchange.com/a/42965
+"
+function ListSelect(command, jump)
+  execute a:command
+  echohl Question
+  echo "Enter mark (ESC to cancel): "
+  echohl NONE
+  let mark = toupper(nr2char(getchar()))
+  redraw
+  if mark !=# "\e"
+    try
+      execute "normal! g" .. a:jump .. mark
+    catch
+      echohl ErrorMsg
+      echo substitute(v:exception, "^Vim(.*):", "", "")
+      echohl NONE
+    endtry
+  endif
+endfunction
