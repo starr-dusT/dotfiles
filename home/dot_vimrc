@@ -92,8 +92,8 @@ augroup quickfix
 augroup END
 
 " grep into quickfix/location list
-map <leader>fq :Grep  **/*<left><left><left><left><left>
-map <leader>fl :LGrep  **/*<left><left><left><left><left>
+map <leader>fq :Grep -r<space>
+map <leader>fl :LGrep -r<space>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " misc keys
