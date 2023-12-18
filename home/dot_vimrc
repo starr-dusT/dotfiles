@@ -31,7 +31,6 @@ set wildmode=list:full
 " netrw
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:netrw_banner = 0
-let g:netrw_keepdir = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " keys
@@ -47,10 +46,10 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " netrw
-map <leader>e :e . <cr>
+map <leader>e :Ex <cr>
 
 " open common files
-map <leader>ov :e ~/.vimrc<cr>
+map <leader>ov :e ~/.local/share/chezmoi/home/dot_vimrc <cr>
 
 " functions keys
 map <F1> :set number!<CR> :set relativenumber!<CR>
