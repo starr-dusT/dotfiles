@@ -52,6 +52,9 @@ map <C-l> <C-W>l
 " netrw
 map <leader>e :Ex <cr>
 
+" find
+map <leader>ff :find *
+
 " change directories
 map <leader>cc :cd<space>
 map <leader>cd :cd ~/.local/share/chezmoi  <cr>
