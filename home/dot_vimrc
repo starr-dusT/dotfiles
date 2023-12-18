@@ -31,6 +31,10 @@ set wildmode=list:full
 " netrw
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:netrw_banner = 0
+augroup netrw_setup | au!
+    au FileType netrw nmap <buffer> l <CR>
+    au FileType netrw nmap <buffer> h -
+augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " keys
