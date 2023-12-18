@@ -24,7 +24,6 @@ return require('packer').startup(function(use)
 
     -- External
     require("zk").setup()
-    use('mcchrish/nnn.vim')
 
     -- LSP
     use("nvim-treesitter/nvim-treesitter-context");
