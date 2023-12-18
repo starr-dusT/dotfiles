@@ -77,6 +77,25 @@ nnoremap <silent> ' :call ListSelect("marks", "'")<CR> " list jumps/marks
 map <leader>md :delmarks A-Z0-9 <cr>                   " clear marks
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" grep
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set grepprg=grep\ -snH\ $* " use system grep
+command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr Grep(<f-args>)
+command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr Grep(<f-args>)
+
+" open quickfix
+augroup quickfix
+	autocmd!
+	autocmd QuickFixCmdPost cgetexpr cwindow
+	autocmd QuickFixCmdPost lgetexpr lwindow
+augroup END
+
+" grep into quickfix/location list
+map <leader>fq :Grep  **/*<left><left><left><left><left>
+map <leader>fl :LGrep  **/*<left><left><left><left><left>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " misc keys
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -132,4 +151,11 @@ function! ListSelect(command, jump)
       echohl NONE
     endtry
   endif
+endfunction
+
+" better grep wrapper 
+" https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
+"
+function! Grep(...)
+	return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
 endfunction
