@@ -15,8 +15,6 @@ return require('packer').startup(function(use)
 
     -- IDE    
     use('nvim-lua/plenary.nvim')
-    use ('nvim-telescope/telescope.nvim')
-    use ('nvim-telescope/telescope-project.nvim')
 
     -- Editing
     use ('ThePrimeagen/harpoon')
