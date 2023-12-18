@@ -32,6 +32,7 @@ in {
         trash-cli
         catimg
 
+      vim
       neovim
       # for neovim
         nodejs 

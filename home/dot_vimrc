@@ -1,0 +1,63 @@
+" designed for vim 8+ (and inspired by rwxrob) 
+" https://github.com/starr-dusT/dotfiles
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" general
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" automatically write files when changing when multiple files open
+set autowrite
+set number
+set colorcolumn=79
+syntax enable
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" wildmenu
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+if has("win16") || has("win32")
+    set wildignore+=.git\*,.hg\*,.svn\*
+else
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+endif
+
+set path=$PWD/**        " enable fuzzy finding in the vim command line
+set nowildmenu
+set wildmode=list:full
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" netrw
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:netrw_banner = 0
+let g:netrw_keepdir = 0
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" keys
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" map leader to Space
+let mapleader = " "
+
+" movement
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" netrw
+map <leader>e :e . <cr>
+
+" open common files
+map <leader>ov :e ~/.vimrc<cr>
+
+" functions keys
+map <F1> :set number!<CR> :set relativenumber!<CR>
+map <F2> :set list!<CR>
+map <F3> :set cursorline!<CR>
+map <F4> :set spell!<CR>
+
+" better use of arrow keys, number increment/decrement
+nnoremap <up> <C-a>
+nnoremap <down> <C-x>
