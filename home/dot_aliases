@@ -34,7 +34,13 @@ alias rofi='wayland-rofi'
 alias cz="cd ~/documents/zet"
 
 # nnn 
-alias n="nnn -r -e"
+
+# Open nnn at location you closed it
+n() {
+    nnn -r -e $(cat ~/.nnn_last)
+    echo "$(pwd)" > ~/.nnn_last
+}
+
 alias cp="cpg -g"
 alias mv="mvg -g"
 
