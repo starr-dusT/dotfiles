@@ -2,15 +2,35 @@
 " https://github.com/starr-dusT/dotfiles
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" general
+" general 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set autowrite " automatically write files on close
+
+" tabs and spaces and stuff
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+
+" undos
+set undodir="~/.vim/undodir"
+set undofile
+
+" map leader to Space
+let mapleader = " " 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ui
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 syntax enable
 set number
 set colorcolumn=79
-set autowrite " automatically write files on close
-
-let mapleader = " " " map leader to Space
+set updatetime=50
+set scrolloff=8
+set smartindent
+set incsearch " hilight search matches while typing
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " wildmenu
@@ -60,6 +80,9 @@ map <leader>md :delmarks A-Z0-9 <cr>                   " clear marks
 " misc keys
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" open help with word under cursor 
+map <leader>oh :execute "help " . expand("<cword>")<CR>
+
 " move between splits with hjkl
 map <C-j> <C-W>j
 map <C-k> <C-W>k
@@ -93,7 +116,7 @@ nnoremap <down> <C-x>
 " display and select from a list of marks and jumps
 " https://vi.stackexchange.com/a/42965
 "
-function ListSelect(command, jump)
+function! ListSelect(command, jump)
   execute a:command
   echohl Question
   echo "Enter mark (ESC to cancel): "
