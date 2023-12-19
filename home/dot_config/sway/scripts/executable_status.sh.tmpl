@@ -32,11 +32,11 @@ fi
 #bluetooth="🫐"
 
 # Network usage
-r1=`cat /sys/class/net/{{ .network_interface }}/statistics/rx_bytes`
-t1=`cat /sys/class/net/{{ .network_interface }}/statistics/tx_bytes`
+r1=`cat /sys/class/net/enp3s0/statistics/rx_bytes`
+t1=`cat /sys/class/net/enp3s0/statistics/tx_bytes`
 sleep 1
-r2=`cat /sys/class/net/{{ .network_interface }}/statistics/rx_bytes`
-t2=`cat /sys/class/net/{{ .network_interface }}/statistics/tx_bytes`
+r2=`cat /sys/class/net/enp3s0/statistics/rx_bytes`
+t2=`cat /sys/class/net/enp3s0/statistics/tx_bytes`
 tx=`expr $t2 - $t1`
 rx=`expr $r2 - $r1`
 txmb=$(echo "scale = 1; $tx / 1280000" | bc | awk '{printf "%05.1f\n", $0}')
