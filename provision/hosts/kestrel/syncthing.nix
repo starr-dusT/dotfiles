@@ -14,7 +14,7 @@
     overrideDevices = true;
     overrideFolders = true; 
     settings.devices = {
-      "bulwark" = { id = "B5HZK2V-WA4WSQF-3JAIH4I-C6XQZ6J-EMMAIV5-CCYOA5G-N57GT6A-WH2GCQ2"; };
+      "bulwark" = { id = "ZGLQ725-OJSDNTE-MXYLIUD-XDB7REJ-2B2DVNU-PAFF6VC-MUUWRI6-4SNPWAK"; };
       "torus" = { id = "WCZYHD7-5Y33SSU-74JHAQR-V7LYMDM-SDG2NTN-DJ2VKF2-DUBBUE5-PU5CGQN"; };
     };
     settings.folders = {

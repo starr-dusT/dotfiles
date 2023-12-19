@@ -13,7 +13,7 @@
     overrideDevices = true;
     overrideFolders = true; 
     settings.devices = {
-      "kestrel" = { id = "TY6I6UK-YWXZYB4-7DKSB5Y-6ZBGE6U-T5WNJK4-KPLTXP7-ZTZQPXU-LX4HPQZ"; };
+      "kestrel" = { id = "KYEWTBL-GL343U7-OIM63LT-2IYGJAP-RCL545L-2KJOIY4-6352W6Y-DZRVGAL"; };
     };
     settings.folders = {
       "Gamecube Saves" = {
