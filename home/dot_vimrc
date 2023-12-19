@@ -95,6 +95,14 @@ augroup END
 map <leader>fq :Grep -r<space>
 map <leader>fl :LGrep -r<space>
 
+" next/last location
+map <leader>nl :lnext<CR>
+map <leader>pl :lprev<CR>
+
+" next/last quickfix
+map <leader>nc :lnext<CR>
+map <leader>pc :lnext<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " misc keys
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
