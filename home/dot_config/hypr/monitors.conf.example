@@ -1,0 +1,10 @@
+# This is an example for a monitors.config
+# Modify current system and monitor config
+
+# See https://wiki.hyprland.org/Configuring/Monitors/
+monitor=MON1,XxY@ZZZ,XxY,1
+monitor=MON2,XxY@ZZZ,XxY,1
+
+# Primary/secondary monitor definitions 
+$pri = MON1 
+$sec = MON2
