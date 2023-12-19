@@ -17,7 +17,6 @@ return require('packer').startup(function(use)
     use('nvim-lua/plenary.nvim')
 
     -- Editing
-    use ('folke/which-key.nvim')
     use("mickael-menu/zk-nvim")
 
     -- External

@@ -1,5 +1,3 @@
-local wk = require("which-key")
-
 -- Move visual blocks up and down
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -24,19 +22,3 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 -- Replace word under cursor
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-
-wk.register({
-    -- tab commands
-    t = {
-        name = "+tab",
-        f = { "<cmd>tabnew<CR>", "New" },
-        g = { "<cmd>tabn<CR>", "Next" },
-        b = { "<cmd>tabp<CR>","Previous" },
-        h = { "<cmd>tabc<CR>", "Close" }
-    },
-    -- pane movement commands
-    h = { "<C-w>h", "Pane Left" },
-    j = { "<C-w>j", "Pane Down" },
-    k = { "<C-w>k", "Pane Up" },
-    l = { "<C-w>l", "Pane Right" }
-}, { prefix = "<leader>" })
