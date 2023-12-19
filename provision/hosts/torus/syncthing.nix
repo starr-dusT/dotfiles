@@ -8,7 +8,7 @@
   services.syncthing = {
     enable = true;
     user = "${user}";
-    dataDir = "/home/${user}";
+    dataDir = "/home/${user}/.local/share/syncthing";
     configDir = "/home/${user}/.config/syncthing";
     guiAddress = "0.0.0.0:8384";
     overrideDevices = true;

@@ -9,7 +9,7 @@
     enable = true;
     user = "${user}";
     dataDir = "/home/${user}";
-    configDir = "/home/${user}/.config/syncthing";
+    dataDir = "/home/${user}/.local/share/syncthing";
     guiAddress = "0.0.0.0:8384";
     overrideDevices = true;
     overrideFolders = true; 
