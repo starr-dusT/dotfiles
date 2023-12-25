@@ -165,11 +165,16 @@ function! IsValidFilename(filename)
   endif
 endfunction
 
+" Place sign with particular symbol at line
+" ChatGippity 
+"
 function! PlaceSign(id, symbol, prio, line_number)
   call sign_define(a:symbol, {'text': a:symbol})
   call sign_place(a:id, '', a:symbol, bufnr(''), {'lnum': a:line_number, 'priority': a:prio, 'text': a:symbol})
 endfunction
 
+" Use signs to visualize marks and update for current buffer
+"
 function! UpdateMarkSigns()
     " Reserved unique IDs for marks in case we want to remove in future
     " without wiping out all signs
