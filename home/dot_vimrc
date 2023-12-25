@@ -67,14 +67,19 @@ map <leader>e :Ex <cr> " open explorer
 " marks
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" automatically update marks with helper function
+au CursorHold,CursorHoldI,CursorMoved,CursorMovedI,TextChanged,TextChangedP,CmdlineEnter,CmdlineLeave,CmdlineChanged * silent! call UpdateMarkSigns()
+
 " allow only global marks
 noremap <silent> <expr> ' "'".toupper(nr2char(getchar()))
 noremap <silent> <expr> m "m".toupper(nr2char(getchar()))
 sunmap '
 sunmap m
 
-nnoremap <silent> ' :call ListSelect("marks", "'")<CR> " list jumps/marks
-map <leader>md :delmarks A-Z0-9 <cr>                   " clear marks
+" list jumps/marks
+map <leader>mm :call ListSelect("marks", "'")<CR>
+" clear marks
+map <leader>md :delmarks A-Z0-9 <cr>                   
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " grep
@@ -166,4 +171,57 @@ endfunction
 "
 function! Grep(...)
 	return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
+endfunction
+
+" Check if file is valid and exists
+" ChatGippity 
+"
+function! IsValidFilename(filename)
+  let expanded_filename = expand(a:filename)
+  if !empty(expanded_filename) && filereadable(expanded_filename)
+    return 1
+  else
+    return 0
+  endif
+endfunction
+
+function! PlaceSign(id, symbol, prio, line_number)
+  call sign_define(a:symbol, {'text': a:symbol})
+  call sign_place(a:id, '', a:symbol, bufnr(''), {'lnum': a:line_number, 'priority': a:prio, 'text': a:symbol})
+endfunction
+
+function! UpdateMarkSigns()
+    " Reserved unique IDs for marks in case we want to remove in future
+    " without wiping out all signs
+    let resvIDs = range(1000, 1027)
+    
+   " wipe out all signs (might improve in future)
+    execute "sign unplace *"
+
+    " get all marks
+    let lines = []
+    redir => lines 
+    silent marks
+    redir END
+
+    let lines = split(lines, "\n")[1:]
+    for i in range(len(lines))
+        let line = lines[i]
+        let id = resvIDs[i]
+
+        let splitLine = split(line)
+        let name = splitLine[0] 
+        let row = splitLine[1]
+        let col = splitLine[2]
+        try " empty lines at marks will break things
+            let file = splitLine[3]
+        catch
+            let file = ""
+        endtry
+
+        " If marks is in another file we don't need to display it
+        if !IsValidFilename(file)
+            call PlaceSign(id, name, 99, row)
+        endif
+    endfor
 endfunction
