@@ -76,8 +76,9 @@ noremap <silent> <expr> m "m".toupper(nr2char(getchar()))
 sunmap '
 sunmap m
 
-" list jumps/marks
-map <leader>mm :call ListSelect("marks", "'")<CR>
+" list marks
+map <leader>mm :marks<cr>
+
 " clear marks
 map <leader>md :delmarks A-Z0-9 <cr>                   
 
@@ -144,27 +145,6 @@ nnoremap <down> <C-x>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " helpers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" display and select from a list of marks and jumps
-" https://vi.stackexchange.com/a/42965
-"
-function! ListSelect(command, jump)
-  execute a:command
-  echohl Question
-  echo "Enter mark (ESC to cancel): "
-  echohl NONE
-  let mark = toupper(nr2char(getchar()))
-  redraw
-  if mark !=# "\e"
-    try
-      execute "normal! g" .. a:jump .. mark
-    catch
-      echohl ErrorMsg
-      echo substitute(v:exception, "^Vim(.*):", "", "")
-      echohl NONE
-    endtry
-  endif
-endfunction
 
 " better grep wrapper 
 " https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
