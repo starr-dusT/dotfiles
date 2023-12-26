@@ -32,6 +32,9 @@
   # GNOME settings through home
   home-manager.users.${user} = {
     dconf.settings = {
+      "org/gnome/desktop/background" = {
+        picture-uri = "file://${../../../resources/img/bulwark.png}";
+      };
       # Enable on-screen keyboard
       "org/gnome/desktop/a11y/applications" = {
         screen-keyboard-enabled = true;
