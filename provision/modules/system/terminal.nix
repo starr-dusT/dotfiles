@@ -43,6 +43,7 @@ in {
         taskopen
         taskwarrior-tui
         timewarrior
+      ollama
     ];
 
   };
