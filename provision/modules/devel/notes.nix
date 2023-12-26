@@ -5,6 +5,9 @@ let
 in {
   options.modules.devel.notes.enable = lib.mkEnableOption "notes";
   config = lib.mkIf cfg.enable {
+    nixpkgs.config.permittedInsecurePackages = [
+        "electron-25.9.0"
+    ];
     environment.systemPackages = with pkgs; [
       pandoc
       gollum
