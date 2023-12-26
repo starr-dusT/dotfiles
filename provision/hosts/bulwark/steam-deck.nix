@@ -33,7 +33,9 @@
   home-manager.users.${user} = {
     dconf.settings = {
       "org/gnome/desktop/background" = {
+        picture-options = "centered";
         picture-uri = "file://${../../../resources/img/bulwark.png}";
+        picture-uri-dark = "file://${../../../resources/img/bulwark.png}";
       };
       # Enable on-screen keyboard
       "org/gnome/desktop/a11y/applications" = {
