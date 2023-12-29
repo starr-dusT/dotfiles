@@ -14,11 +14,21 @@ set shiftwidth=4
 set expandtab
 
 " undos
-set undodir="~/.vim/undodir"
+if !isdirectory($HOME."/.vim")
+    call mkdir($HOME."/.vim", "", 0770)
+endif
+if !isdirectory($HOME."/.vim/undo-dir")
+    call mkdir($HOME."/.vim/undo-dir", "", 0700)
+endif
+set undodir=~/.vim/undo-dir
 set undofile
 
 " map leader to Space
 let mapleader = " " 
+
+" clipboard
+set clipboard=unnamedplus
+set clipboard+=unnamed
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ui
@@ -112,6 +122,10 @@ map <leader>pc :lnext<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " misc keys
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" yank and paste from system clipboard
+map <leader>y :"+y <cr>
+map <leader>p :"+p <cr>p
 
 " open help with word under cursor 
 map <leader>oh :execute "help " . expand("<cword>")<CR>
