@@ -2,6 +2,11 @@
 
 The following documents some NixOS setup that wasn't automated.
 
+## Sops-nix
+
+Encrypted keys for various aspects of the config are stored in `./secrets/secrets.yaml` 
+to the required key for decryption must be placed at `~/.config/sops/age/keys.txt`.
+
 ## Wireguard Client
 
 Wireguard is nice for a home vpn. NixOS setus up all of the configurations for 
