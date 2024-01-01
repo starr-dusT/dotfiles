@@ -9,6 +9,7 @@
     ./share.nix
     ./rss.nix
     ./home-assistant
+    ./gitea.nix
   ];
 
   nix = {
@@ -121,6 +122,9 @@
       });
       "media.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:8096/"; 
+      });
+      "git.tstarr.us" = (SSL // {
+        locations."/".proxyPass = "http://localhost:3001/"; 
       });
       "vault.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:5000/"; 
