@@ -9,6 +9,7 @@
     ./share.nix
     ./rss.nix
     ./home-assistant
+    ./gitea.nix
   ];
 
   nix = {
@@ -25,6 +26,7 @@
 
   # Add non-free packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [ "openssl-1.1.1w" ];
   nixpkgs.overlays = import ../../lib/overlays.nix;
 
   # Use normal kernel
@@ -120,6 +122,9 @@
       });
       "media.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:8096/"; 
+      });
+      "git.tstarr.us" = (SSL // {
+        locations."/".proxyPass = "http://localhost:3001/"; 
       });
       "vault.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:5000/"; 

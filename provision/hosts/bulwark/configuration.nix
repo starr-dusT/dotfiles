@@ -19,6 +19,7 @@
 
   # Add non-free packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [ "electron-25.9.0" "openssl-1.1.1w" ];
   nixpkgs.overlays = import ../../lib/overlays.nix;
 
   # Hardware options
