@@ -52,6 +52,7 @@ in {
           { "toplevel_name" = "Bookmarks"; }
           { "name" = "Daily"; "children" = [
             { "url" = "https://rss.tstarr.us"; name = "Miniflux"; }
+            { "url" = "https://git.tstarr.us"; name = "Gitea"; }
             { "url" = "https://media.tstarr.us/web/index.html#!/home.html"; name = "Jellyfin"; }
             { "url" = "https://home.tstarr.us"; name = "Home Assistant"; }
             { "url" = "https://share.tstarr.us"; name = "Share (dufs)"; }
