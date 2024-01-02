@@ -1,4 +1,5 @@
-" designed for vim 8+ (and inspired by rwxrob) 
+" designed for vim 7+ (and inspired by rwxrob) 
+" tested with vim 7.4.629
 " https://github.com/starr-dusT/dotfiles
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -78,7 +79,7 @@ map <leader>e :Ex <cr> " open explorer
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " automatically update marks with helper function
-au CursorHold,CursorHoldI,CursorMoved,CursorMovedI,TextChanged,TextChangedP,CmdlineEnter,CmdlineLeave,CmdlineChanged * silent! call UpdateMarkSigns()
+au CursorHold,CursorHoldI,CursorMoved,CursorMovedI,TextChanged * silent! call UpdateMarkSigns()
 
 " allow only global marks
 noremap <silent> <expr> ' "'".toupper(nr2char(getchar()))
@@ -182,9 +183,11 @@ endfunction
 " Place sign with particular symbol at line
 " ChatGippity 
 "
-function! PlaceSign(id, symbol, prio, line_number)
-  call sign_define(a:symbol, {'text': a:symbol})
-  call sign_place(a:id, '', a:symbol, bufnr(''), {'lnum': a:line_number, 'priority': a:prio, 'text': a:symbol})
+function! PlaceSign(id, symbol, line_number)
+  let buff = bufnr('')
+  " For compatibility with vim7 can't use nice sign functions  
+  exe "sign define " . a:symbol . " text=" . a:symbol
+  exe "sign place " . a:id . " line=" . a:line_number . " name=" . a:symbol . " buffer=" . buff
 endfunction
 
 " Use signs to visualize marks and update for current buffer
@@ -198,14 +201,14 @@ function! UpdateMarkSigns()
     execute "sign unplace *"
 
     " get all marks
-    let lines = []
+    let lines = ""
     redir => lines 
-    silent marks
+    :silent marks
     redir END
 
-    let lines = split(lines, "\n")[1:]
-    for i in range(len(lines))
-        let line = lines[i]
+    let linesList = split(lines, "\n")[1:]
+    for i in range(len(linesList))
+        let line = linesList[i]
         let id = resvIDs[i]
 
         let splitLine = split(line)
@@ -220,7 +223,7 @@ function! UpdateMarkSigns()
 
         " If marks is in another file we don't need to display it
         if !IsValidFilename(file)
-            call PlaceSign(id, name, 99, row)
+            call PlaceSign(id, name, row)
         endif
     endfor
 endfunction
