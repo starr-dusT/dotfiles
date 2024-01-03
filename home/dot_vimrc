@@ -165,7 +165,7 @@ nnoremap <down> <C-x>
 " https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
 "
 function! Grep(...)
-	return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
+	return system(join([&grepprg] + [expand(join(a:000, ' '))], ' '))
 endfunction
 
 " Check if file is valid and exists
