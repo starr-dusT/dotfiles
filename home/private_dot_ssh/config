@@ -3,6 +3,5 @@ Host github.com
   IdentityFile /run/secrets/github/starr-dusT
 
 Host git.tstarr.us
-  Port 2222
   AddKeysToAgent yes
   IdentityFile /run/secrets/gitea/tstarr
