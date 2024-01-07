@@ -1,4 +1,4 @@
-{ config, lib, pkgs, user, ... }:
+{ config, lib, pkgs, user, inputs, ... }:
 
 let 
     cfg = config.modules.desktop.sway;
@@ -110,6 +110,7 @@ in {
       wrapperFeatures.gtk = true;
     };
     programs.hyprland = {
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
       enable = true;
       xwayland.enable = true;
     };
