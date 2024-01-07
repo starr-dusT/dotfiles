@@ -1,0 +1,63 @@
+$mod = SUPER
+$term = kitty
+$e = & hyprctl dispatch submap reset
+
+source = ~/.config/hypr/monitors.conf
+source = ~/.config/hypr/workspaces.conf
+source = ~/.config/hypr/keybinds.conf
+source = ~/.config/hypr/windows.conf
+source = ~/.config/hypr/start.conf
+
+env = XCURSOR_SIZE,24
+
+input {
+    kb_layout = us
+    kb_variant =
+    kb_model =
+    kb_options =
+    kb_rules =
+    follow_mouse = 1
+    touchpad {
+        natural_scroll = no
+    }
+    sensitivity = 0
+}
+
+group {
+    col.border_active = rgba({{ .themes.gruvbox.purple0 }}ff)
+    col.border_inactive  = rgba({{ .themes.gruvbox.purple1 }}ff)
+    groupbar {
+        enabled = false
+    }
+}
+
+general {
+    gaps_in = 2
+    gaps_out = 2
+    border_size = 2
+    col.active_border = rgba({{ .themes.gruvbox.yellow }}ff)
+    col.inactive_border = rgba({{ .themes.gruvbox.bg0 }}ff)
+    layout = master
+    allow_tearing = false
+}
+
+decoration {
+    rounding = 2
+}
+
+animations {
+    enabled = no # animations are bloat ;)
+}
+
+master {
+    new_is_master = false
+    mfact = 0.5
+}
+
+gestures {
+    workspace_swipe = off
+}
+
+misc {
+    force_default_wallpaper = 0
+}
