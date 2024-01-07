@@ -12,9 +12,10 @@
       flake = false;
     };
     sops-nix.url = "github:Mic92/sops-nix";
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, jovian-nixos, sops-nix, ... }:
+  outputs = inputs @ { self, nixpkgs, home-manager, jovian-nixos, sops-nix, hyprland, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -26,7 +27,7 @@
       nixosConfigurations = {
         kestrel = lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit user; };
+          specialArgs = { inherit user; inherit inputs; };
           modules = [
             ./modules
             ./hosts/kestrel/configuration.nix
@@ -48,7 +49,7 @@
 
         torus = lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit user; };
+          specialArgs = { inherit user; inherit inputs; };
           modules = [
             ./modules
             ./hosts/torus/configuration.nix
@@ -70,7 +71,7 @@
 
         bulwark = lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit user; inherit jovian-nixos; inherit home-manager; };
+          specialArgs = { inherit user; inherit inputs; inherit jovian-nixos; inherit home-manager; };
           modules = [
             ./modules
             ./hosts/bulwark/configuration.nix
