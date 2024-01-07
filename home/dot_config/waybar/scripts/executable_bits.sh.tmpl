@@ -5,12 +5,12 @@ bits=""
 
 # Gamemode bit 
 if [ "$(gamemoded -s)" != "gamemode is inactive" ]; then
-    bits+="<span color=\"{{ .themes.gruvbox.blue0 }}\">G</span>"
+    bits+="<span color=\"#{{ .themes.gruvbox.blue0 }}\">G</span>"
 fi
 
 # VPN bit
 if [ -f ~/.wg0 ]; then 
-    bits+="<span color=\"{{ .themes.gruvbox.purple0 }}\">V</span>"
+    bits+="<span color=\"#{{ .themes.gruvbox.purple0 }}\">V</span>"
 fi
 
 # Print bits if there are any

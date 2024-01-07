@@ -30,38 +30,38 @@
 	    "exec": "~/.config/waybar/scripts/bits.sh",
 	},
     "custom/disk": {
-	    "format": " 󰉉  <span color=\"{{ .themes.gruvbox.red }}\">{}</span>G ",
+	    "format": " 󰉉  <span color=\"#{{ .themes.gruvbox.red }}\">{}</span>G ",
 	    "interval": 30,
 	    "exec": "df -h --output=avail / | awk 'NR==2 {sub(/.$/, \"\", $1); print $1}'",
 	},
 	"cpu": {
-		"format": "  <span color=\"{{ .themes.gruvbox.red }}\">{usage}</span>%",
+		"format": "  <span color=\"#{{ .themes.gruvbox.red }}\">{usage}</span>%",
 		"tooltip": false
 	},
 	"memory": {
-		"format": "  <span color=\"{{ .themes.gruvbox.red }}\">{used:0.1f}</span>G"
+		"format": "  <span color=\"#{{ .themes.gruvbox.red }}\">{used:0.1f}</span>G"
 	},
     "network": {
         "format-wifi": "({signalStrength}%) ",
-        "format-ethernet": "<span color=\"{{ .themes.gruvbox.green }}\">{ifname}</span>",
+        "format-ethernet": "<span color=\"#{{ .themes.gruvbox.green }}\">{ifname}</span>",
         "tooltip-format": "{ifname} via {gwaddr}",
         "format-linked": "{ifname} (No IP) ?",
         "format-disconnected": "",
         "on-click": "nm-connection-editor"
     },
 	"custom/mouse": {
-		"format": " 󰍽 <span color=\"{{ .themes.gruvbox.red }}\">{}</span>% ",
+		"format": " 󰍽 <span color=\"#{{ .themes.gruvbox.red }}\">{}</span>% ",
 		"interval": 5,
 		"exec": "cat /sys/class/power_supply/hidpp_battery_[0-9]*/capacity | head -n 1",
 	},
 	"pulseaudio": {
-		"format": "{icon} <span color=\"{{ .themes.gruvbox.red }}\">{volume}</span>% {format_source}",
+		"format": "{icon} <span color=\"#{{ .themes.gruvbox.red }}\">{volume}</span>% {format_source}",
 		"format-muted": "󰖁 {format_source}",
-		"format-bluetooth": "{icon}  <span color=\"{{ .themes.gruvbox.red }}\">{volume}</span>% {format_source}",
+		"format-bluetooth": "{icon}  <span color=\"#{{ .themes.gruvbox.red }}\">{volume}</span>% {format_source}",
 		"format-bluetooth-muted": "󰖁  {format_source}",
         "tooltip": false,
 
-		"format-source": "  <span color=\"{{ .themes.gruvbox.red }}\">{volume}</span>%",
+		"format-source": "  <span color=\"#{{ .themes.gruvbox.red }}\">{volume}</span>%",
 		"format-source-muted": "",
 
 		"format-icons": {
