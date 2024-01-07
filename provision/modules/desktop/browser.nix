@@ -38,6 +38,7 @@ in {
         "ExtensionInstallForcelist" = [
           "ihennfdbghdiflogeancnalflhgmanop" # Gruvbox theme
           "fkeaekngjflipcockcnpobkpbbfbhmdn" # Copy as Markdown
+          "pcmpcfapbekmbjjkdalcgopdkipoggdi" # MarkDownload
           "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
           "icpgjfneehieebagbmdbhnlpiopdcmna" # New Tab Redirect
           "oahiolknhkbpcolgnpljehalnhblolkm" # Shorts Blocker
