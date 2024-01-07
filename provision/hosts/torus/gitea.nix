@@ -14,6 +14,7 @@
       DOMAIN = "git.tstarr.us";
       HTTP_PORT = 3001;
       ROOT_URL = "https://git.tstarr.us";
+      SSH_PORT = 2223;
     };
     #settings.actions = {
     #  ENABLED = true;
