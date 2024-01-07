@@ -1,3 +1,7 @@
 Host github.com
   AddKeysToAgent yes
   IdentityFile /run/secrets/github/starr-dusT
+
+Host git.tstarr.us
+  AddKeysToAgent yes
+  IdentityFile /run/secrets/gitea/tstarr

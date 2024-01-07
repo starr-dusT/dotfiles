@@ -13,6 +13,9 @@ in {
       # Github secrets
       secrets."github/starr-dusT" = { owner = "${user}"; };
 
+      # Gitea secrets
+      secrets."gitea/tstarr" = { owner = "${user}"; };
+
       # Wireguard secrets
       secrets."wireguard/kestrel" = { owner = "${user}"; };
       secrets."wireguard/bulwark" = { owner = "${user}"; };
