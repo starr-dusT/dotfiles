@@ -43,6 +43,11 @@ set scrolloff=8
 set smartindent
 set incsearch " hilight search matches while typing
 
+
+" maximize focused split vertically creating almost 'tabs' 
+let g:max_lock=0
+autocmd WinEnter * if !g:max_lock | call MaxSplit(&buftype) | endif
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " wildmenu
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -104,8 +109,8 @@ command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr Grep(<f-args>)
 " open quickfix
 augroup quickfix
 	autocmd!
-	autocmd QuickFixCmdPost cgetexpr cwindow
-	autocmd QuickFixCmdPost lgetexpr lwindow
+	autocmd QuickFixCmdPost cgetexpr bot cwindow
+	autocmd QuickFixCmdPost lgetexpr bot lwindow
 augroup END
 
 " grep into quickfix/location list
@@ -130,11 +135,6 @@ map <leader>p :"+p <cr>p
 
 " open help with word under cursor 
 map <leader>oh :execute "help " . expand("<cword>")<CR>
-
-" maximize current split
-map <C-w><C-w> <C-w><C-w> z99<cr> 
-map <C-w>s <C-w>s z99<cr> 
-map <C-w>q <C-w>q z99<cr> 
 
 " move between splits with hjkl
 map <leader>j <C-W>j
@@ -166,6 +166,26 @@ nnoremap <down> <C-x>
 " helpers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" maximize current vertical split (and handle quick/location list)
+" OG baby!
+"
+function! MaxSplit(b)
+    let g:max_lock=1 " prevent multiple autocmds at the same time
+    let curr_win = winnr()
+    if a:b !=# 'quickfix' && a:b !=# 'locationlist' 
+        exe "normal! z99\<CR>"
+        for i in range(winnr(), winnr('$'))
+            let b = getwinvar(i, '&buftype')
+            if b == 'quickfix' || b == 'locationlist' 
+                exe "normal! z10\<CR>"
+            endif
+            wincmd j
+        endfor
+        exe curr_win . "wincmd w"
+    endif
+    let g:max_lock=0
+endfunction
+
 " better grep wrapper 
 " https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
 "
@@ -196,6 +216,7 @@ function! PlaceSign(id, symbol, line_number)
 endfunction
 
 " Use signs to visualize marks and update for current buffer
+" OG baby!
 "
 function! UpdateMarkSigns()
     " Reserved unique IDs for marks in case we want to remove in future
