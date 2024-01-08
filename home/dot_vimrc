@@ -131,11 +131,16 @@ map <leader>p :"+p <cr>p
 " open help with word under cursor 
 map <leader>oh :execute "help " . expand("<cword>")<CR>
 
+" maximize current split
+map <C-w><C-w> <C-w><C-w> z99<cr> 
+map <C-w>s <C-w>s z99<cr> 
+map <C-w>q <C-w>q z99<cr> 
+
 " move between splits with hjkl
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+map <leader>j <C-W>j
+map <leader>k <C-W>k
+map <leader>h <C-W>h
+map <leader>l <C-W>l
 
 " find
 map <leader>ff :find *
