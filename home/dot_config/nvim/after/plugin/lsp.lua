@@ -6,11 +6,12 @@ lsp.ensure_installed({
   'tsserver',
   'pyright',
   'lua_ls',
+  'beancount',
+  'gopls'
 })
 
 -- Fix Undefined global 'vim'
 lsp.nvim_workspace()
-
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}

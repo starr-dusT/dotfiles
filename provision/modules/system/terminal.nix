@@ -37,6 +37,7 @@ in {
       # for neovim
         nodejs 
         ripgrep
+        cargo
 
       taskwarrior
       # for taskwarrior
