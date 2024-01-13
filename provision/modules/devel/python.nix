@@ -17,8 +17,8 @@ in {
 
     environment.systemPackages = with pkgs; [ 
       (python3.withPackages my-python-packages)
-      beancount 
       fava 
+      beancount
       nodePackages_latest.pyright
     ];
   };
