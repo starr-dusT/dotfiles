@@ -70,7 +70,6 @@ in {
           { "name" = "Homelab"; "children" = [
             { "url" = "http://localhost:8384"; name = "Syncthing"; }
             { "url" = "https://github.com/starr-dusT/dotfiles"; name = "Dotfiles"; }
-            { "url" = "https://vault.tstarr.us"; name = "Vault (dufs)"; }
             { "url" = "https://rssbridge.tstarr.us"; name = "RSSBridge"; }
           ]; }
           { "name" = "Nix"; "children" = [

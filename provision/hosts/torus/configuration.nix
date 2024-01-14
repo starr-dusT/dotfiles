@@ -5,7 +5,6 @@
     ./wireguard-server.nix
     ./samba-server.nix
     ./syncthing.nix
-    ./obsidian-vault.nix
     ./share.nix
     ./rss.nix
     ./home-assistant
@@ -125,13 +124,6 @@
       });
       "git.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:3001/"; 
-      });
-      "vault.tstarr.us" = (SSL // {
-        locations."/".proxyPass = "http://localhost:5000/"; 
-        extraConfig = ''
-          auth_pam  "Password Required";
-          auth_pam_service_name "nginx";        
-        '';
       });
       "share.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:5001/"; 
