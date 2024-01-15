@@ -2,7 +2,15 @@
 
 The following documents some NixOS setup that wasn't automated.
 
-## Sops-nix
+## Encryption Keys
+
+### Github SSH
+
+Keys for SSH aren't automatically placed with chezmoi `secret` since it complicated
+things to much. The key for github SSH must be transferred manually from Bitwarden
+or `/run/secrets/keys/github_personal` to `~/.ssh/keys/github_personal`.
+
+### Sops-nix
 
 Encrypted keys for various aspects of the config are stored in `./secrets/secrets.yaml` 
 to the required key for decryption must be placed at `~/.config/sops/age/keys.txt`.
