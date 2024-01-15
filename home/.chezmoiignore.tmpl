@@ -1,1 +1,32 @@
 .oh-my-zsh/cache/**
+
+{{ if eq .chezmoi.osRelease.variantID "container" }}
+bin/**
+.local/**
+.taskopenrc
+.taskrc
+.config/btrbk/**
+.config/crafted-emacs/**
+.config/herbstluftwm/**
+.config/hypr/**
+.config/i3/**
+.config/khal/**
+.config/khard/**
+.config/mako/**
+.config/mpd/**
+.config/ncmpcpp/**
+.config/picom/**
+.config/polybar/**
+.config/qtile/**
+.config/retroarch/**
+.config/rofi/**
+.config/scratch/**
+.config/stumpwm/**
+.config/sway/**
+.config/vifm/**
+.config/waybar/**
+.config/xmobar/**
+.config/xmonad/**
+.config/zk/**
+.chezmoiexternal.toml
+{{ end }}
