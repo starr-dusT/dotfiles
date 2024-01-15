@@ -13,7 +13,9 @@ RUN dnf install -y \
     python \
     python3 \
     python3-pip \
-    python3-tornado \ # for WebAgg matplotlib
+    python3-tornado \
+    cargo \
+    npm \
     gcc \
     gcc-c++ \
     make \
@@ -28,7 +30,6 @@ RUN dnf install -y \
 # user
 RUN dnf install -y \
     neovim
-
 
 ###############################################################################
 # general 
