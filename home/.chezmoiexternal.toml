@@ -19,24 +19,3 @@
     type = "git-repo"
     url = "https://github.com/tmux-plugins/tpm"
     refreshPeriod = "168h"
-
-[".task"]
-    type = "git-repo"
-    url = "git@github.com:starr-dusT/task.git"
-    refreshPeriod = "168h"
-
-### OLD ###
-#[".config/xmonad/xmonad"]
-#    type = "git-repo"
-#    url = "https://github.com/xmonad/xmonad"
-#    refreshPeriod = "168h"
-#
-#[".config/xmonad/xmonad-contrib"]
-#    type = "git-repo"
-#    url = "https://github.com/xmonad/xmonad-contrib"
-#    refreshPeriod = "168h"
-#
-#[".config/xmonad/xmobar"]
-#    type = "git-repo"
-#    url = "https://codeberg.org/xmobar/xmobar"
-#    refreshPeriod = "168h"
