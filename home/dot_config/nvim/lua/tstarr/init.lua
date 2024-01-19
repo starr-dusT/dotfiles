@@ -1,1 +1,1 @@
-require("tstarr.packer")
+require("tstarr.plugins")
