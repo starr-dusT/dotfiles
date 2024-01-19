@@ -1,58 +1,49 @@
-FROM fedora:latest
+# https://github.com/starr-dusT/dotfiles
+# Usage: docker build -t <image name> .
+#        docker run -d --name <image name> -p 8080:8080 -v .:/root/src -it <container name>
 
-ENV TERM xterm-256color
+ARG VARIANT="3.18.3"
 
-###############################################################################
-# install
-###############################################################################
+# Pull alpine container from IronBank (See readme to setup pulling from IronBank with Docker)
+FROM "alpine:latest"
+#FROM "registry1.dso.mil/ironbank/opensource/alpinelinux/alpine:${VARIANT}"
 
-# base
-RUN dnf install -y \
-    git \
-    git-lfs \
-    python \
-    python3 \
-    python3-pip \
-    python3-tornado \
-    cargo \
-    npm \
-    gcc \
-    gcc-c++ \
-    make \
-    openssl-devel \
-    libffi-devel \
-    redhat-rpm-config \
-    vim \
-    tmux \
-    hostname \
-    && dnf clean all
+##### BASE CONFIG #####
+ 
+# Install edge repo
+RUN echo https://dl-cdn.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories
+RUN apk --no-check-certificate update
 
-# user
-RUN dnf install -y \
-    neovim
+# Install Alpine packages for python
+RUN apk add --no-check-certificate --virtual .base-python \
+    python3 py3-pip ipython py3-matplotlib py3-psutil jupyter-notebook py3-tornado
 
-###############################################################################
-# general 
-###############################################################################
+# Install Alpine build dependices for pip installs
+RUN apk add --no-check-certificate --virtual .build-deps \
+    alpine-sdk cmake gfortran openblas-dev hdf5-dev \
+    python3-dev py3-numpy-dev jpeg-dev py3-qt5
 
-# add user
-RUN useradd -u 1000 -g 100 -ms /bin/bash dev \
-    && echo 'dev:pass' | chpasswd
-RUN usermod -aG wheel dev
+# Install pip packages for python
+RUN pip install \
+    --break-system-packages --trusted-host pypi.org --trusted-host files.pythonhosted.org \
+    ipykernel ipympl pandas numpy
 
-###############################################################################
-# user config
-###############################################################################
+# Install other useful packages
+RUN apk add --no-check-certificate --virtual .useful-packs \
+    bash tmux git stow openssh vim nano
 
-USER dev
-WORKDIR /home/dev
-
-RUN git clone --depth 1 https://github.com/wbthomason/packer.nvim \
-        ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+##### PERSONAL CONFIG #####
 
 # clone dotfiles
 RUN sh -c "$(curl -fsLS get.chezmoi.io)"
 ENV PATH="/home/dev/bin:${PATH}"
 RUN chezmoi init --apply https://github.com/starr-dusT/dotfiles
 
+# Install other useful packages
+RUN apk add --no-check-certificate --virtual .user-packs \
+    neovim cargo npm go
+# Install plugins in image
+RUN nvim --headless "+Lazy! sync" +qa
+
+WORKDIR /root
 CMD ["/bin/bash"]
