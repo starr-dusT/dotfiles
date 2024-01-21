@@ -20,6 +20,7 @@ in {
       dolphin-emu
       ppsspp
       mgba
+      ares
       sunshine
       moonlight-qt
       prismlauncher
