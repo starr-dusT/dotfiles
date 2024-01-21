@@ -16,10 +16,12 @@ in {
 
     environment.systemPackages = with pkgs; [ 
       steam
+      steamtinkerlaunch
       yuzu-early-access
       dolphin-emu
       ppsspp
       mgba
+      ares
       sunshine
       moonlight-qt
       prismlauncher
