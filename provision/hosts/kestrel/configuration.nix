@@ -26,6 +26,7 @@
 
   # Hardware options
   hardware.bluetooth.enable = true;
+  hardware.bluetooth.package = pkgs.bluez;
   hardware.sensor.iio.enable = true;
   hardware.opengl.enable = true;
   hardware.opengl.driSupport = true;
