@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-#
-sink=$(pactl list sinks | grep "Sink #" | head -n $1 | tail -n 1)
-card=$(pactl list sinks | grep "alsa.card_name" | head -n $1 | tail -n 1)
+
+cards=("HD-Audio Generic" "AudioQuest DragonFly Red v1.0")
+sink=$(pactl list sinks | grep -E "Sink #|alsa.card_name" | grep -B 1 "${cards[$1-1]}" | grep -v "${cards[$1-1]}")
 pactl set-default-sink $(echo $sink | cut -d "#" -f 2)
-notify-send "Active Sink: $(echo $card | cut -d "\"" -f 2)"
+notify-send "Active Sink: ${cards[$1-1]}"
