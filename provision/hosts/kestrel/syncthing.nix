@@ -34,6 +34,10 @@
         path = "/home/${user}/.config/ppsspp/PSP/PPSSPP_STATE";
         devices = [ "bulwark" ];
       };
+      "Ares Saves" = {
+        path = "/home/${user}/.local/share/ares/Saves";
+        devices = [ "bulwark" ];
+      };
     };
   };
 }

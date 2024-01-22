@@ -1,0 +1,363 @@
+Video
+  Driver: OpenGL 3.2
+  Monitor: 2: HDMI-A-1
+  Format: ARGB24
+  Exclusive: false
+  Blocking: false
+  Flush: false
+  Shader: None
+  Multiplier: 4
+  Output: Scale
+  AspectCorrection: true
+  AdaptiveSizing: true
+  AutoCentering: true
+  Luminance: 1.0
+  Saturation: 1.0
+  Gamma: 1.0
+  ColorBleed: false
+  ColorEmulation: true
+  InterframeBlending: true
+  Overscan: false
+  PixelAccuracy: false
+  Quality: HD
+  Supersampling: false
+  DisableVideoInterfaceProcessing: false
+  WeaveDeinterlacing: true
+Audio
+  Driver: PulseAudio
+  Device: Default
+  Frequency: 48000
+  Latency: 40
+  Exclusive: false
+  Blocking: true
+  Dynamic: false
+  Mute: false
+  Volume: 1.0
+  Balance: 0.0
+Input
+  Driver: udev
+  Defocus: Pause
+Boot
+  Fast: false
+  Debugger: false
+  Prefer: NTSC-U
+General
+  ShowStatusBar: true
+  Rewind: false
+  RunAhead: false
+  AutoSaveMemory: true
+Rewind
+  Length: 100
+  Frequency: 10
+Paths
+  Home
+  Saves
+  Screenshots
+  Debugging
+  ArcadeRoms
+  SuperFamicom
+    GameBoy
+    BSMemory
+    SufamiTurbo
+Recent
+  Game-1: Super Famicom;/home/tstarr/media/roms/snes/Final_Fantasy_VI_ROSE.sfc
+  Game-2
+  Game-3
+  Game-4
+  Game-5
+  Game-6
+  Game-7
+  Game-8
+  Game-9
+VirtualPad1
+  Pad.Up: 0xbc27ba1b054c09cc/1/1/Lo;;
+  Pad.Down: 0xbc27ba1b054c09cc/1/1/Hi;;
+  Pad.Left: 0xbc27ba1b054c09cc/1/0/Lo;;
+  Pad.Right: 0xbc27ba1b054c09cc/1/0/Hi;;
+  Select: 0xbc27ba1b054c09cc/3/8;;
+  Start: 0xbc27ba1b054c09cc/3/9;;
+  A..South: 0xbc27ba1b054c09cc/3/1;;
+  B..East: 0xbc27ba1b054c09cc/3/0;;
+  X..West: 0xbc27ba1b054c09cc/3/2;;
+  Y..North: 0xbc27ba1b054c09cc/3/3;;
+  L-Bumper: 0xbc27ba1b054c09cc/3/4;;
+  R-Bumper: 0xbc27ba1b054c09cc/3/5;;
+  L-Trigger: ;;
+  R-Trigger: ;;
+  L-Stick..Click: ;;
+  R-Stick..Click: ;;
+  L-Up: ;;
+  L-Down: ;;
+  L-Left: ;;
+  L-Right: ;;
+  R-Up: ;;
+  R-Down: ;;
+  R-Left: ;;
+  R-Right: ;;
+  Rumble: ;;
+VirtualMouse1
+  X: ;;
+  Y: ;;
+  Left: ;;
+  Middle: ;;
+  Right: ;;
+  Extra: ;;
+VirtualPad2
+  Pad.Up: ;;
+  Pad.Down: ;;
+  Pad.Left: ;;
+  Pad.Right: ;;
+  Select: ;;
+  Start: ;;
+  A..South: ;;
+  B..East: ;;
+  X..West: ;;
+  Y..North: ;;
+  L-Bumper: ;;
+  R-Bumper: ;;
+  L-Trigger: ;;
+  R-Trigger: ;;
+  L-Stick..Click: ;;
+  R-Stick..Click: ;;
+  L-Up: ;;
+  L-Down: ;;
+  L-Left: ;;
+  L-Right: ;;
+  R-Up: ;;
+  R-Down: ;;
+  R-Left: ;;
+  R-Right: ;;
+  Rumble: ;;
+VirtualMouse2
+  X: ;;
+  Y: ;;
+  Left: ;;
+  Middle: ;;
+  Right: ;;
+  Extra: ;;
+VirtualPad3
+  Pad.Up: ;;
+  Pad.Down: ;;
+  Pad.Left: ;;
+  Pad.Right: ;;
+  Select: ;;
+  Start: ;;
+  A..South: ;;
+  B..East: ;;
+  X..West: ;;
+  Y..North: ;;
+  L-Bumper: ;;
+  R-Bumper: ;;
+  L-Trigger: ;;
+  R-Trigger: ;;
+  L-Stick..Click: ;;
+  R-Stick..Click: ;;
+  L-Up: ;;
+  L-Down: ;;
+  L-Left: ;;
+  L-Right: ;;
+  R-Up: ;;
+  R-Down: ;;
+  R-Left: ;;
+  R-Right: ;;
+  Rumble: ;;
+VirtualMouse3
+  X: ;;
+  Y: ;;
+  Left: ;;
+  Middle: ;;
+  Right: ;;
+  Extra: ;;
+VirtualPad4
+  Pad.Up: ;;
+  Pad.Down: ;;
+  Pad.Left: ;;
+  Pad.Right: ;;
+  Select: ;;
+  Start: ;;
+  A..South: ;;
+  B..East: ;;
+  X..West: ;;
+  Y..North: ;;
+  L-Bumper: ;;
+  R-Bumper: ;;
+  L-Trigger: ;;
+  R-Trigger: ;;
+  L-Stick..Click: ;;
+  R-Stick..Click: ;;
+  L-Up: ;;
+  L-Down: ;;
+  L-Left: ;;
+  L-Right: ;;
+  R-Up: ;;
+  R-Down: ;;
+  R-Left: ;;
+  R-Right: ;;
+  Rumble: ;;
+VirtualMouse4
+  X: ;;
+  Y: ;;
+  Left: ;;
+  Middle: ;;
+  Right: ;;
+  Extra: ;;
+VirtualPad5
+  Pad.Up: ;;
+  Pad.Down: ;;
+  Pad.Left: ;;
+  Pad.Right: ;;
+  Select: ;;
+  Start: ;;
+  A..South: ;;
+  B..East: ;;
+  X..West: ;;
+  Y..North: ;;
+  L-Bumper: ;;
+  R-Bumper: ;;
+  L-Trigger: ;;
+  R-Trigger: ;;
+  L-Stick..Click: ;;
+  R-Stick..Click: ;;
+  L-Up: ;;
+  L-Down: ;;
+  L-Left: ;;
+  L-Right: ;;
+  R-Up: ;;
+  R-Down: ;;
+  R-Left: ;;
+  R-Right: ;;
+  Rumble: ;;
+VirtualMouse5
+  X: ;;
+  Y: ;;
+  Left: ;;
+  Middle: ;;
+  Right: ;;
+  Extra: ;;
+Hotkey
+  ToggleFullscreen: 0x1/0/11;;
+  ToggleMouseCapture: ;;
+  ToggleKeyboardCapture: ;;
+  FastForward: ;;
+  ToggleFastForward: ;;
+  Rewind: ;;
+  FrameAdvance: ;;
+  CaptureScreenshot: ;;
+  SaveState: ;;
+  LoadState: ;;
+  DecrementStateSlot: ;;
+  IncrementStateSlot: ;;
+  PauseEmulation: ;;
+  ResetSystem: ;;
+  ReloadCurrentGame: ;;
+  QuitEmulator: ;;
+Atari2600
+  Path
+WonderSwan
+  Path
+WonderSwanColor
+  Path
+PocketChallengeV2
+  Path
+ColecoVision
+  Path
+  Firmware
+    BIOS.World
+MyVision
+  Path
+MSX
+  Path
+  Firmware
+    BIOS.Japan
+MSX2
+  Path
+  Firmware
+    MAIN.Japan
+    SUB.Japan
+PCEngine
+  Path
+PCEngineCD
+  Path
+  Firmware
+    BIOS.US
+    BIOS.Japan
+SuperGrafx
+  Path
+SuperGrafxCD
+  Path
+  Firmware
+    BIOS.Japan
+Famicom
+  Path
+FamicomDiskSystem
+  Path
+  Firmware
+    BIOS.Japan
+SuperFamicom
+  Path: /home/tstarr/media/roms/snes/
+Nintendo64
+  Path
+Nintendo64DD
+  Path
+  Firmware
+    BIOS.Japan
+    BIOS.US
+    BIOS.DEV
+GameBoy
+  Path
+GameBoyColor
+  Path
+GameBoyAdvance
+  Path
+  Firmware
+    BIOS.World
+SG-1000
+  Path
+MasterSystem
+  Path
+  Firmware
+    BIOS.US
+    BIOS.Japan
+    BIOS.Europe
+GameGear
+  Path
+  Firmware
+    BIOS.World
+MegaDrive
+  Path
+Mega32X
+  Path
+MegaCD
+  Path
+  Firmware
+    BIOS.US
+    BIOS.Japan
+    BIOS.Europe
+MegaCD32X
+  Path
+NeoGeoAES
+  Path
+  Firmware
+    BIOS.World
+NeoGeoMVS
+  Path
+  Firmware
+    BIOS.World
+NeoGeoPocket
+  Path
+  Firmware
+    BIOS.World
+NeoGeoPocketColor
+  Path
+  Firmware
+    BIOS.World
+PlayStation
+  Path
+  Firmware
+    BIOS.US
+    BIOS.Japan
+    BIOS.Europe
+ZXSpectrum
+  Path
+ZXSpectrum128
+  Path
