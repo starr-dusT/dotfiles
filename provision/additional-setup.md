@@ -99,3 +99,13 @@ Set to `http://localhost:8080`.
 
 - Vimium config is saved in chezmoi. Open the vimium [plugin page](chrome-extension://dbepggeogbaibhgnhhndojpepiihcmeb/pages/options.html)
 and restore config from `~/.config/vimium-options.json`.
+
+## Steam
+
+Some games/emulators (in my case Ares) don't fullscreen nicely in window managers.
+In that case add something alongs the lines of the following 
+launch command to run them within gamescope.
+
+```bash
+gamescope -w 2560 -h 1440 -f %command%
+```
