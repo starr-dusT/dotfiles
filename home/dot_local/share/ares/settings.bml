@@ -51,9 +51,9 @@ Rewind
   Frequency: 10
 Paths
   Home
-  Saves
+  Saves: /home/tstarr/.local/share/ares/Saves/
   Screenshots
-  Debugging
+  Debugging: /home/tstarr/.local/ares/Debug
   ArcadeRoms
   SuperFamicom
     GameBoy
