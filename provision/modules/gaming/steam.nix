@@ -17,6 +17,7 @@ in {
     environment.systemPackages = with pkgs; [ 
       steam
       steamtinkerlaunch
+      gamescope
       yuzu-early-access
       dolphin-emu
       ppsspp
