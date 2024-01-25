@@ -102,7 +102,7 @@ map <leader>md :delmarks A-Z0-9 <cr>
 " grep
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set grepprg=grep\ -snH\ $* " use system grep
+set grepprg=grep\ --exclude-dir=\".git\"\ -snH\ $* " use system grep
 command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr Grep(<f-args>)
 command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr Grep(<f-args>)
 
