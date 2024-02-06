@@ -66,6 +66,7 @@ in {
          })
       )
     ] ++ [
+      inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
     ];
 
     # xdg-desktop-portal works by exposing a series of D-Bus interfaces
