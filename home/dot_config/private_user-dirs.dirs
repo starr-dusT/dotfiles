@@ -6,6 +6,7 @@
 # absolute path. No other format is supported.
 # 
 XDG_TMP_DIR="$HOME/tmp"
+XDG_SCREENSHOTS_DIR="$HOME/media/pictures/screenshots"
 #XDG_DESKTOP_DIR="$HOME/Desktop"
 #XDG_DOWNLOAD_DIR="$HOME/Downloads"
 #XDG_TEMPLATES_DIR="$HOME/Templates"
