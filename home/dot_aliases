@@ -50,3 +50,7 @@ alias gc="git commit"
 alias ga="git add ."
 alias gd="git diff"
 alias gl="git log"
+
+# dev
+alias dp="docker pull ghcr.io/starr-dust/dev-container:master"
+alias dr='docker run --rm --name $(date +%Y%m%d%k%M%S) -p 8082:8082 -v $(pwd):/root/src -it ghcr.io/starr-dust/dev-container:master'
