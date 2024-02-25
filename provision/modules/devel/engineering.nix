@@ -10,6 +10,7 @@ in {
 
     environment.systemPackages = with pkgs; [ 
       super-slicer 
+      freecad
       blender 
     ];
   };
