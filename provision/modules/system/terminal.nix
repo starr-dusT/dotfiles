@@ -14,6 +14,7 @@ in {
       chezmoi
       nix-init
       btop
+      cookcli
 
       rbw 
       # for rbw
