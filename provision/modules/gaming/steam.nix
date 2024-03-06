@@ -19,6 +19,7 @@ in {
       steamtinkerlaunch
       gamescope
       yuzu-archive
+      citra-archive
       dolphin-emu
       ppsspp
       mgba

@@ -44,10 +44,11 @@ stdenv.mkDerivation(finalAttrs: {
 
   src = fetchFromGitea {
     domain = "git.tstarr.us";
-    owner = "starr-dusT";
+    owner = "tstarr";
     repo = "yuzu-mainline";
     rev = "d3a974b64679229e77a3af921994dab82d092249";
     hash = "sha256-sn/CfaZkS3noDH9lmEtIES6Xc7aoZ5tbHo1AJc5nxac=";
+    fetchSubmodules = true;
   };
 
 

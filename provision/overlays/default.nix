@@ -8,4 +8,5 @@ final: prev: {
   cookcli = final.callPackage ../pkgs/cookcli.nix {};
   nx_tzdb = final.callPackage ../pkgs/nx_tzdb.nix {};
   yuzu-archive = final.libsForQt5.callPackage ../pkgs/yuzu-archive.nix {};
+  citra-archive = final.qt6Packages.callPackage ../pkgs/citra-archive.nix {};
 }
