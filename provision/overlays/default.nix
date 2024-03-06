@@ -6,4 +6,6 @@ final: prev: {
   advcpmv = final.callPackage ../pkgs/advcpmv.nix {};
   taskopen = final.callPackage ../pkgs/taskopen.nix {};
   cookcli = final.callPackage ../pkgs/cookcli.nix {};
+  nx_tzdb = final.callPackage ../pkgs/nx_tzdb.nix {};
+  yuzu-archive = final.libsForQt5.callPackage ../pkgs/yuzu-archive.nix {};
 }

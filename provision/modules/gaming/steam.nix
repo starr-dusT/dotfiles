@@ -18,7 +18,7 @@ in {
       steam
       steamtinkerlaunch
       gamescope
-      yuzu-early-access
+      yuzu-archive
       dolphin-emu
       ppsspp
       mgba
