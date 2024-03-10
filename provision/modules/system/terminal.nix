@@ -25,6 +25,7 @@ in {
         bash-completion
         tmux
         tmuxp
+        thefuck
 
       nnn
       # for nnn
