@@ -18,17 +18,6 @@ in {
       steam
       steamtinkerlaunch
       gamescope
-      yuzu-archive
-      citra-archive
-      dolphin-emu
-      ppsspp
-      mgba
-      ares
-      sunshine
-      moonlight-qt
-      prismlauncher
-      jdk17
     ];
   };
-
 }

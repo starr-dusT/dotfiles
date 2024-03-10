@@ -86,6 +86,8 @@
     };
     gaming = {
       steam.enable = true;
+      emulation.enable = true;
+      misc.enable = true;
     };
     services = {
       jellyfin.enable = false;
