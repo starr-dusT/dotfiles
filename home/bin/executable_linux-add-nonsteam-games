@@ -10,6 +10,7 @@ apps=(
     "/run/current-system/sw/bin/yuzu Yuzu Emulator"
     "/run/current-system/sw/bin/ppsspp PPSSPP Emulator"
     "/run/current-system/sw/bin/ares Ares Emulator"
+    "/run/current-system/sw/bin/citra-qt Citra Emulator"
 )
 
 for app in "${apps[@]}"
