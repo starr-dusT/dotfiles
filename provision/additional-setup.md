@@ -128,3 +128,8 @@ git clone https://<user>:<token>@git.tstarr.us/tstarr/vulcan.git
 Copy another `.obsidian` folder for the new host (i.e. `.obsidian-<host>`).
 
 Open vault folder in obsidian and change the `.obsidian` folder in settings.
+
+
+## Wifi on Shivan
+
+Connect to wifi network with: `nmcli device wifi connect <SSID> password <password>`.
