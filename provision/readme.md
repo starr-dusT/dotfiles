@@ -24,18 +24,16 @@ Set of configs files to setup NixOS.
    git clone https://github.com/starr-dusT/dotfiles ~/.local/share/chezmoi 
    ```
    
-   Move the installer created hardware.nix to dotfiles.
-   
-   Copy `.chezmoidata.yaml.example` to `.chezmoidata.yaml` and edit with desired 
-   settings then run the following commands:
+   Move the installer created hardware.nix to dotfiles. E.g. `provision/hosts/<host>/hardware.nix`.
    
    ```bash
-   nixos-update # Assuming hostname is same as flake name
+   cd ~/.local/share/chezmoi/provision
+   sudo nixos-rebuild switch --flake .#<host>
    ```
 
 Perform additional setup found in [additional-setup](additional-setup.md)
 
 ## Update
 
-`nixos-update` command is aliased assuming the flake is named the same at the
+`nixos-rebuild` command is aliased to `nu` assuming the flake is named the same at the
 hostname of the machine.
