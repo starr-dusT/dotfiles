@@ -2,9 +2,7 @@
 
 The following documents some NixOS setup that wasn't automated.
 
-## Window managers
-
-### Hyprland
+## Hyprland
 
 Detecting monitor configs is annoying and I don't feel like it is worth the time
 to figure out. After doing the first `chezmoi apply` you will need copy `monitors.conf.example`
@@ -19,7 +17,9 @@ Keys for SSH aren't automatically placed with chezmoi `secret` since it complica
 things to much. The key for github SSH must be transferred manually from Bitwarden
 or `/run/secrets/keys/github_personal` to `~/.ssh/keys/github_personal`.
 
-### Sops-nix Encrypted keys for various aspects of the config are stored in `./secrets/secrets.yaml` 
+### Sops-nix 
+
+Encrypted keys for various aspects of the config are stored in `./secrets/secrets.yaml` 
 to the required key for decryption must be placed at `~/.config/sops/age/keys.txt`.
 
 ## Wireguard Client
@@ -116,3 +116,15 @@ launch command to run them within gamescope.
 ```bash
 gamescope -w 2560 -h 1440 -f %command%
 ```
+
+## Obsidian Vault on New machine
+
+Clone `vulcan` vault from personal github.
+
+```bash
+git clone https://<user>:<token>@git.tstarr.us/tstarr/vulcan.git
+```
+
+Copy another `.obsidian` folder for the new host (i.e. `.obsidian-<host>`).
+
+Open vault folder in obsidian and change the `.obsidian` folder in settings.
