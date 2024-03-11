@@ -18,3 +18,4 @@ for information on initial installation.
 | <img src="./resources/img/kestrel.png" width="100"> | [Kestrel](./provision/hosts/kestrel/) | Primary desktop | Main machine that does it all gaming, programming, 3D modelling, etc. |
 | <img src="./resources/img/torus.png" width="100"> | [Torus](./provision/hosts/torus/) | Home server | Primary home server for storage, hosting machine backups, and running services like Jellyfin. |
 | <img src="./resources/img/bulwark.png" width="100"> | [Bulwark](./provision/hosts/bulwark/) | Steam Deck | NixOS based Steam Deck that can has my linux niceties and acts like a Steam Deck using the great [Jovian Nixos](https://github.com/Jovian-Experiments/Jovian-NixOS). |
+| <img src="./resources/img/shivan.png" width="100"> | [Shivan](./provision/hosts/shivan/) | Personal Laptop | Personal (and very slow) laptop for basic mobile work. |
