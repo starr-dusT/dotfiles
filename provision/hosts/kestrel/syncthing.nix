@@ -16,6 +16,7 @@
     settings.devices = {
       "bulwark" = { id = "ZGLQ725-OJSDNTE-MXYLIUD-XDB7REJ-2B2DVNU-PAFF6VC-MUUWRI6-4SNPWAK"; };
       "torus" = { id = "WCZYHD7-5Y33SSU-74JHAQR-V7LYMDM-SDG2NTN-DJ2VKF2-DUBBUE5-PU5CGQN"; };
+      "shivan" = { id = "KUSOQSH-RKLLA32-T3KAPQP-VNJISLL-QSQCGFZ-ZL7ZULE-MJC67DK-2U6G4Q7"; };
     };
     settings.folders = {
       "Gamecube Saves" = {
@@ -37,6 +38,10 @@
       "Ares Saves" = {
         path = "/home/${user}/.local/share/ares/Saves";
         devices = [ "bulwark" ];
+      };
+      "General Sync" = {
+        path = "/home/${user}/sync";
+        devices = [ "shivan" ];
       };
     };
   };

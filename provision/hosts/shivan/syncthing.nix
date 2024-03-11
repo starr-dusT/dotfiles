@@ -14,8 +14,13 @@
     overrideDevices = true;
     overrideFolders = true; 
     settings.devices = {
+      "kestrel" = { id = "KYEWTBL-GL343U7-OIM63LT-2IYGJAP-RCL545L-2KJOIY4-6352W6Y-DZRVGAL"; };
     };
     settings.folders = {
+      "General Sync" = {
+        path = "/home/${user}/sync";
+        devices = [ "kestrel" ];
+      };
     };
   };
 }

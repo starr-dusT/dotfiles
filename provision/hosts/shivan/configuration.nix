@@ -40,6 +40,7 @@
   networking.hostName = "shivan"; 
   networking.firewall.checkReversePath = "loose";
   networking.firewall.enable = false;
+  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
@@ -52,7 +53,6 @@
 
   # Enable docker 
   virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "btrfs";
 
   # Define user account.
   users.users.${user} = {

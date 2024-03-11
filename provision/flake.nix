@@ -51,6 +51,28 @@
           ];
         };
 
+        shivan = lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit user; inherit inputs; };
+          modules = [
+            ./modules
+            ./hosts/shivan/configuration.nix
+            ./hosts/shivan/hardware.nix
+            sops-nix.nixosModules.sops
+            home-manager.nixosModules.home-manager {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit user; };
+              home-manager.users.${user} = {
+                imports = [ 
+                  ./home-modules
+                  ./hosts/shivan/home-configuration.nix 
+                ];
+              };
+            }
+          ];
+        };
+
         torus = lib.nixosSystem {
           inherit system;
           specialArgs = { inherit user; inherit inputs; };
