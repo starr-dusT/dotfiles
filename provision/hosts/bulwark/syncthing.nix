@@ -32,10 +32,6 @@
         path = "/home/${user}/.config/ppsspp/PSP/PPSSPP_STATE";
         devices = [ "kestrel" ];
       };
-      "Ares Saves" = {
-        path = "/home/${user}/.local/share/ares/Saves";
-        devices = [ "kestrel" ];
-      };
     };
   };
 }

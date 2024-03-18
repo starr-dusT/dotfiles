@@ -11,7 +11,6 @@ in {
       dolphin-emu
       ppsspp
       mgba
-      ares
       (retroarch.override {
         cores = with libretro; [
           nestopia
