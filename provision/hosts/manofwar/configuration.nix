@@ -24,24 +24,22 @@
   nixpkgs.overlays = import ../../lib/overlays.nix;
 
   # Use zen kernel
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackages;
 
   # Hardware options
   hardware.bluetooth.enable = true;
   hardware.bluetooth.package = pkgs.bluez;
   hardware.sensor.iio.enable = true;
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport = true;
-  hardware.opengl.driSupport32Bit = true;
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.enable = false;
+  boot.loader.generic-extlinux-compatible.enable = true;
 
   # Set networking options
   networking.hostName = "manofwar"; 
   networking.firewall.checkReversePath = "loose";
   networking.firewall.enable = false;
+  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
