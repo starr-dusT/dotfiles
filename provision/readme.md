@@ -29,7 +29,10 @@ Set of configs files to setup NixOS.
    ```bash
    cd ~/.local/share/chezmoi/provision
    sudo nixos-rebuild switch --flake .#<host>
+   chezmoi init && chezmoi apply
    ```
+
+   Profit!
 
 Perform additional setup found in [additional-setup](additional-setup.md)
 
