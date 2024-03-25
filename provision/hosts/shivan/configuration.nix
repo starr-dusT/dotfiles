@@ -71,11 +71,9 @@
   
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
-      # One-off stable packages
+      # One-off packages
       distrobox
-  ] ++ [
-      # One-off unstable packages
-  ];
+  ]; 
 
   # Enable modules
   modules = {

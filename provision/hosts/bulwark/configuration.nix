@@ -65,11 +65,9 @@
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
-      # One-off stable packages
+      # One-off packages
       discord
       gamemode
-  ] ++ [
-      # One-off unstable packages
   ];
 
   # Enable modules

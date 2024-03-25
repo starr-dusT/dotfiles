@@ -73,8 +73,6 @@
   environment.systemPackages = with pkgs; [
       # One-off stable packages
       distrobox
-  ] ++ [
-      # One-off unstable packages
   ];
 
   # Enable modules
