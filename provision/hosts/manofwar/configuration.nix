@@ -39,6 +39,7 @@
   networking.hostName = "manofwar"; 
   networking.firewall.checkReversePath = "loose";
   networking.firewall.enable = false;
+  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
