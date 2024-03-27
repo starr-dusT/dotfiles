@@ -32,7 +32,7 @@ Set of configs files to setup NixOS.
    chezmoi init && chezmoi apply
    ```
 
-   Profit!
+3. Profit!
 
 Perform additional setup found in [additional-setup](additional-setup.md)
 
