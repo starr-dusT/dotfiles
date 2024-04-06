@@ -55,6 +55,7 @@ in {
       discord
       inkscape
       libreoffice-fresh
+      xournal
       mpv
       udiskie
       p7zip
