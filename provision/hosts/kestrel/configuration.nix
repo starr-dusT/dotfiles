@@ -78,7 +78,8 @@
   # Enable modules
   modules = {
     desktop = {
-      sway.enable = true;
+      sway.enable = false;
+      gnome.enable = true;
       browser.enable = true;
     };
     devel = {

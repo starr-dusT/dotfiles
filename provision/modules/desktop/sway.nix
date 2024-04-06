@@ -45,22 +45,10 @@ in {
       glib # gsettings
       dracula-theme # gtk theme
       gnome3.adwaita-icon-theme  # default gnome cursors
-      bc
-      fzf
-
-      # From home config
       networkmanagerapplet
       pcmanfm
-      gamemode
-      discord
-      inkscape
-      libreoffice-fresh
-      xournal
-      mpv
       udiskie
-      p7zip
       pavucontrol
-      borgbackup
       waybar
       (pkgs.waybar.overrideAttrs (oldAttrs: {
          mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
@@ -70,39 +58,11 @@ in {
       inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
     ];
 
-    # xdg-desktop-portal works by exposing a series of D-Bus interfaces
-    # known as portals under a well-known name
-    # (org.freedesktop.portal.Desktop) and object path
-    # (/org/freedesktop/portal/desktop).
-    # The portal interfaces include APIs for file access, opening URIs,
-    # printing and others.
-    services.dbus.enable = true;
     xdg = {
       portal = {
         enable = true;
         wlr.enable = true;
         extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-      };
-      mime = {
-        enable = true;
-        defaultApplications = {
-          "text/plain" = [ "nvim.desktop" ];
-          "inode/directory" = [ "pcmanfm.desktop" ];
-          "text/html" = [ "chromium-browser.desktop" ];
-          "x-scheme-handler/http" = [ "chromium-browser.desktop" ];
-          "x-scheme-handler/https" = [ "chromium-browser.desktop" ];
-          "x-scheme-handler/ftp" = [ "chromium-browser.desktop" ];
-          "x-scheme-handler/chrome" = [ "chromium-browser.desktop" ];
-          "x-scheme-handler/about" = [ "chromium-browser.desktop" ];
-          "x-scheme-handler/unknown" = [ "chromium-browser.desktop" ];
-          "application/x-extension-htm" = [ "chromium-browser.desktop" ];
-          "application/x-extension-html" = [ "chromium-browser.desktop" ];
-          "application/x-extension-shtml" = [ "chromium-browser.desktop" ];
-          "application/xhtml+xml" = [ "chromium-browser.desktop" ];
-          "application/x-extension-xhtml" = [ "chromium-browser.desktop" ];
-          "application/x-extension-xht" = [ "chromium-browser.desktop" ];
-          "application/pdf" = [ "chromium-browser.desktop" ];
-        };
       };
     };
 
