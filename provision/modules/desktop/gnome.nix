@@ -112,7 +112,7 @@ in {
         };
       } // generate_custom_keybindings {
         "terminal" = { binding = "<Super>Return"; command = "kgx"; name = "Open Terminal"; };
-        "browser" = { binding = "<Super><Control>b"; command = "google-chrome-stable"; name = "Open Browser"; };
+        "browser" = { binding = "<Super><Control>b"; command = "google-chrome-stable --simulate-outdated-no-au='Tue, 31 Dec 2099 23:59:59 GMT'"; name = "Open Browser"; };
       };
     };
   };
