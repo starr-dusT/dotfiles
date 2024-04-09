@@ -13,6 +13,7 @@
     mpv
     p7zip
     borgbackup
+    gimp
   ];
 
   # xdg-desktop-portal settings

@@ -43,8 +43,8 @@ in {
       dconf.settings = {
         "org/gnome/desktop/background" = {
           picture-options = "centered";
-          picture-uri = "file://${../../../resources/img/kestrel.png}";
-          picture-uri-dark = "file://${../../../resources/img/kestrel.png}";
+          picture-uri = "file://${../../../resources/img/wallpapers/gruvbox/kestrel.png}";
+          picture-uri-dark = "file://${../../../resources/img/wallpapers/gruvbox/kestrel.png}";
         };
         "org/gnome/shell" = {
           favorite-apps = [
