@@ -1,18 +1,28 @@
 { config, lib, pkgs, user, home-manager, ... }:
 
-let cfg = config.modules.desktop.gnome;
+let 
+  cfg = config.modules.desktop.gnome;
+  inherit (builtins) attrNames map;
+  inherit (lib.attrsets) mapAttrs' nameValuePair;
+  generate_custom_keybindings = binds:
+    {
+      "org/gnome/settings-daemon/plugins/media-keys" = {
+        custom-keybindings = map (name:
+          "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/${name}/")
+          (attrNames binds);
+      };
+    } // mapAttrs' (name:
+      nameValuePair
+      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/${name}")
+    binds;
 in {
 
   options.modules.desktop.gnome = with lib; {
     enable = lib.mkEnableOption "gnome";
-    #privateKeyFile = lib.mkOption { type = with types; str; };
-    #address = lib.mkOption { type = with types; listOf str; };
-    #publicKey = lib.mkOption { type = with types; str; };
-    #endpoint = lib.mkOption { type = with types; str; };
-    #autostart = lib.mkOption {
-    #  type = with types; bool;
-    #  default = false;
-    #};
+    wallpaper = lib.mkOption {
+      type = with types; str;
+      default = "file://${../../../resources/img/wallpapers/blank.png}";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -43,15 +53,15 @@ in {
       dconf.settings = {
         "org/gnome/desktop/background" = {
           picture-options = "centered";
-          picture-uri = "file://${../../../resources/img/wallpapers/gruvbox/kestrel.png}";
-          picture-uri-dark = "file://${../../../resources/img/wallpapers/gruvbox/kestrel.png}";
+          picture-uri = "${cfg.wallpaper}";
+          picture-uri-dark = "${cfg.wallpaper}";
         };
         "org/gnome/shell" = {
           favorite-apps = [
+            "google-chrome.desktop"
+            "org.gnome.Console.desktop"
             "steam.desktop"
             "discord.desktop"
-            "org.gnome.Console.desktop"
-            "google-chrome.desktop"
           ];
           disable-user-extensions = false;
           enabled-extensions = [
@@ -100,6 +110,9 @@ in {
           switch-windows-backward = ["<Shift><Super>Tab"]; # 
           minimize = [];
         };
+      } // generate_custom_keybindings {
+        "terminal" = { binding = "<Super>Return"; command = "kgx"; name = "Open Terminal"; };
+        "browser" = { binding = "<Super><Control>b"; command = "google-chrome-stable"; name = "Open Browser"; };
       };
     };
   };

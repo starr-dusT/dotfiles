@@ -79,7 +79,10 @@
   modules = {
     desktop = {
       sway.enable = false;
-      gnome.enable = true;
+      gnome = {
+        enable = true;
+        wallpaper = "file://${../../../resources/img/wallpapers/gruvbox/kestrel.png}";
+      };
       browser.enable = true;
     };
     devel = {
