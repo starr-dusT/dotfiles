@@ -18,7 +18,10 @@ in {
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       gnome.dconf-editor
+      gnome.gnome-tweaks
       gnomeExtensions.focus-changer
+      # TODO: Add back when fixed upstream
+      #gnomeExtensions.fullscreen-avoider
     ];
 
     # Enable wayland gnome
@@ -53,6 +56,8 @@ in {
           disable-user-extensions = false;
           enabled-extensions = [
             "focus-changer@heartmire"
+            "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
+            "fullscreen-avoider@noobsai.github.com"
           ];
         };
         "org/gnome/mutter" = {

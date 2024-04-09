@@ -133,3 +133,9 @@ Open vault folder in obsidian and change the `.obsidian` folder in settings.
 ## Wifi on Shivan
 
 Connect to wifi network with: `nmcli device wifi connect <SSID> password <password>`.
+
+## Gnome Extensions
+
+The following extensions don't work from nixpkgs easily. For now install manually:
+
+- [Fullscreen Avoider](https://extensions.gnome.org/extension/4362/fullscreen-avoider/)
