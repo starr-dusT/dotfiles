@@ -1,6 +1,6 @@
 { config, lib, pkgs, user, inputs, ... }:
 {
-  imports = [ ./browser.nix ./gnome.nix ./sway.nix ];
+  imports = [ ./keyd.nix ./browser.nix ./gnome.nix ./sway.nix ];
 
   environment.systemPackages = with pkgs; [
     bc
