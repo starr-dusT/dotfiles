@@ -34,6 +34,28 @@ in {
       #gnomeExtensions.fullscreen-avoider
     ];
 
+    environment.gnome.excludePackages = with pkgs.gnome; [
+      baobab          # disk usage analyzer
+      cheese          # photo booth
+      epiphany        # web browser
+      pkgs.gedit      # text editor
+      simple-scan     # document scanner
+      totem           # video player
+      yelp            # help viewer
+      evince          # document viewer
+      geary           # email client
+      seahorse        # password manager
+      pkgs.gnome-tour # tour app
+      pkgs.snapshot   # camera application
+
+      # these should be self explanatory
+      pkgs.gnome-connections
+      gnome-font-viewer 
+      gnome-logs 
+      gnome-maps 
+      gnome-music 
+    ];
+
     # Enable wayland gnome
     services.xserver = {
       enable = true;  
