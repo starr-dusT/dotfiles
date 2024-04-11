@@ -21,14 +21,5 @@ in {
       alsa.support32Bit = true;
       pulse.enable = true;
     };
-
-    services = {
-      gvfs.enable = true;
-      blueman.enable = true;
-      printing.enable = true;
-      printing.drivers = [ pkgs.hplip ];
-      avahi.enable = true;
-      avahi.nssmdns4 = true;
-    };
   };
 }

@@ -70,8 +70,20 @@ in {
     sound.enable = true;
     hardware.pulseaudio.enable = lib.mkForce false;
 
-    # GNOME settings through home
     home-manager.users.${user} = {
+      # Remove unwanted desktop entries
+      # Some are added to ~/.local/share/applications and must be removed manually there
+      # TODO: Use chezmoi to Hide these desktop files
+      xdg.desktopEntries.cups = { name = ""; exec = null; settings.Hidden = "true"; };
+      xdg.desktopEntries.writer = { name = ""; exec = null; settings.Hidden = "true"; };
+      xdg.desktopEntries.math = { name = ""; exec = null; settings.Hidden = "true"; };
+      xdg.desktopEntries.calc = { name = ""; exec = null; settings.Hidden = "true"; };
+      xdg.desktopEntries.draw = { name = ""; exec = null; settings.Hidden = "true"; };
+      xdg.desktopEntries.impress = { name = ""; exec = null; settings.Hidden = "true"; };
+      xdg.desktopEntries.base = { name = ""; exec = null; settings.Hidden = "true"; };
+      xdg.desktopEntries.xterm = { name = ""; exec = null; settings.Hidden = "true"; };
+
+      # GNOME settings through home
       dconf.settings = {
         "org/gnome/desktop/background" = {
           picture-options = "centered";
