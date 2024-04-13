@@ -110,6 +110,9 @@ in {
           overlay-key = "Super";
           workspaces-only-on-primary = true;
         };
+        "org/gnome/desktop/wm/preferences" = {
+          focus-mode = "sloppy";
+        };
         "org/gnome/shell/keybindings" = {
           switch-to-application-1 = [];
           switch-to-application-2 = [];
