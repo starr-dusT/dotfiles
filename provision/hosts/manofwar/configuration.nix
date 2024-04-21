@@ -56,10 +56,8 @@
     extraGroups = [ "dialout" "wheel" ]; # Enable ‘sudo’ for the user.
   };
   
-  # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
-      # One-off packages
-      libraspberrypi
+    libraspberrypi # Library providing access to Raspberry Pi hardware features and interfaces.
   ];
 
   # Enable modules

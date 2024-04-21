@@ -5,10 +5,10 @@
 let
   cfg = config.modules.devel.python;
   my-python-packages = ps: with ps; [
-    virtualenv
-    i3ipc
-    ipython
-    pip
+    virtualenv # Tool for creating isolated Python environments.
+    i3ipc # Python library for controlling i3 window manager via its IPC interface.
+    ipython # Interactive computing environment for Python.
+    pip # Package installer for Python.
   ];
   
 in {
@@ -17,9 +17,9 @@ in {
 
     environment.systemPackages = with pkgs; [ 
       (python3.withPackages my-python-packages)
-      fava 
-      beancount
-      nodePackages_latest.pyright
+      fava # Web interface for the double-entry bookkeeping software Beancount.
+      beancount # Double-entry bookkeeping software for tracking financial transactions.
+      nodePackages_latest.pyright # Latest version of the Pyright package, a static type checker for Python.
     ];
   };
 }

@@ -6,8 +6,8 @@ in {
   options.modules.desktop.browser.enable = lib.mkEnableOption "browser";
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      google-chrome
-      play-with-mpv
+      google-chrome # Web browser developed by Google.
+      play-with-mpv # Script for playing media files with MPV media player in a simple and efficient manner.
     ];
     programs.chromium = {
       enable = true;

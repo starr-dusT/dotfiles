@@ -69,10 +69,8 @@
     }];
   }];
   
-  # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
-      # One-off stable packages
-      distrobox
+      distrobox # Platform for creating and managing Linux distribution images.
   ];
 
   # Enable modules

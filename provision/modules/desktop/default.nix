@@ -3,18 +3,18 @@
   imports = [ ./keyd.nix ./browser.nix ./gnome.nix ./sway.nix ];
 
   environment.systemPackages = with pkgs; [
-    bc
-    fzf
-    gamemode
-    discord
-    inkscape
-    libreoffice-fresh
-    xournal
-    mpv
-    p7zip
-    borgbackup
-    gimp
-    wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
+    bc # Arbitrary-precision arithmetic language.
+    fzf # Command-line fuzzy finder for Unix-like operating systems.
+    gamemode # Optimizes system performance for gaming by adjusting system settings.
+    discord # Voice, video, and text communication platform for communities and friends.
+    inkscape # Vector graphics editor for creating illustrations, icons, logos, diagrams, and more.
+    libreoffice-fresh # Office suite compatible with Microsoft Office.
+    xournal # Note-taking and sketching application.
+    mpv # Media player for playing audio and video files.
+    p7zip # Command-line file archiver with high compression ratio.
+    borgbackup # Deduplicating backup program with optional compression and authenticated encryption.
+    gimp # GNU Image Manipulation Program for editing and composing raster images.
+    wl-clipboard # Command-line utility to access and manipulate clipboard content in a Wayland session.
   ];
 
   # xdg-desktop-portal settings

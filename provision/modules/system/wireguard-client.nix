@@ -18,7 +18,9 @@ in {
   config = lib.mkIf cfg.enable {
     # Create qr code for phones with:
     # qrencode -t ansiutf8 < myfile_here
-    environment.systemPackages = with pkgs; [ qrencode ];
+    environment.systemPackages = with pkgs; [ 
+      qrencode # Command-line utility for generating QR codes from text or data.
+    ];
     networking.firewall = {
       allowedUDPPorts = [ 51820 ];
     };

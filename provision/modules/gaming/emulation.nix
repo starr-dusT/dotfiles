@@ -6,17 +6,17 @@ in {
   config = lib.mkIf cfg.enable {
 
     environment.systemPackages = with pkgs; [ 
-      yuzu-archive
-      citra-archive
-      dolphin-emu
-      ppsspp
-      mgba
+      yuzu-archive # Nintendo Switch emulator.
+      citra-archive # Nintendo 3DS emulator.
+      dolphin-emu # GameCube and Wii emulator.
+      ppsspp # PSP emulator.
+      mgba # Game Boy Advance emulator.
       (retroarch.override {
         cores = with libretro; [
-          nestopia
-          snes9x
-          mgba
-          melonds
+          nestopia # Nintendo Entertainment System (NES) emulator.
+          snes9x # Super Nintendo Entertainment System (SNES) emulator.
+          mgba # Game Boy Advance emulator.
+          melonds # Nintendo DS emulator.
         ];
       })
     ];

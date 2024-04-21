@@ -27,34 +27,31 @@ in {
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      gnome.dconf-editor
-      gnome.gnome-tweaks
-      gnomeExtensions.focus-changer
-      evolution
-      # TODO: Add back when fixed upstream
-      #gnomeExtensions.fullscreen-avoider
+      gnome.dconf-editor # Graphical tool for editing settings stored in the dconf database of GNOME.
+      gnome.gnome-tweaks # Utility for customizing various aspects of the GNOME desktop environment.
+      gnomeExtensions.focus-changer # GNOME Shell extension for changing window focus behavior.
+      evolution # Personal information management application that provides email, calendar, and contact management features.
+      #gnomeExtensions.fullscreen-avoider # TODO: Add back when fixed upstream
     ];
 
     environment.gnome.excludePackages = with pkgs.gnome; [
-      baobab          # disk usage analyzer
-      cheese          # photo booth
-      epiphany        # web browser
-      pkgs.gedit      # text editor
-      simple-scan     # document scanner
-      totem           # video player
-      yelp            # help viewer
-      evince          # document viewer
-      geary           # email client
-      seahorse        # password manager
-      pkgs.gnome-tour # tour app
-      pkgs.snapshot   # camera application
-
-      # these should be self explanatory
-      pkgs.gnome-connections
-      gnome-font-viewer 
-      gnome-logs 
-      gnome-maps 
-      gnome-music 
+      baobab # Disk usage analyzer for the GNOME desktop environment.
+      cheese # Webcam application for taking photos and videos.
+      epiphany # Web browser for the GNOME desktop environment.
+      pkgs.gedit # Text editor for the GNOME desktop environment.
+      simple-scan # Simple scanning utility for scanning documents and images.
+      totem # Movie player for the GNOME desktop environment.
+      yelp # Help viewer application for the GNOME desktop environment.
+      evince # Document viewer for the GNOME desktop environment.
+      geary # Email client for the GNOME desktop environment.
+      seahorse # GNOME application for managing encryption keys and passwords.
+      pkgs.gnome-tour # Guided tour application for introducing users to GNOME desktop environment features.
+      pkgs.snapshot # Utility for taking and managing system snapshots in the GNOME desktop environment.
+      pkgs.gnome-connections # GNOME application for accessing remote machines and services.
+      gnome-font-viewer # Utility for previewing and managing fonts in the GNOME desktop environment.
+      gnome-logs # Log viewer application for GNOME.
+      gnome-maps # Map application for the GNOME desktop environment.
+      gnome-music # Music player and management application for GNOME.
     ];
 
     # Enable wayland gnome

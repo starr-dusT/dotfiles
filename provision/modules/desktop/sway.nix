@@ -28,33 +28,33 @@ in {
   config = lib.mkIf cfg.enable {
 
     environment.systemPackages = with pkgs; [
-      sway
-      swayidle
-      swaybg
-      sway-scratchpad
-      grim # screenshot functionality
-      mako # notification system developed by swaywm maintainer
-      libnotify
-      wdisplays # tool to configure displays
-      playerctl
-      wayland
-      xwayland
-      configure-gtk
-      xdg-utils # for opening default programs when clicking links
-      glib # gsettings
-      dracula-theme # gtk theme
-      gnome3.adwaita-icon-theme  # default gnome cursors
-      networkmanagerapplet
-      pcmanfm
-      udiskie
-      pavucontrol
-      waybar
+      sway # Tiling Wayland compositor and a drop-in replacement for the i3 window manager for X11.
+      swayidle # Idle manager for Wayland, executing actions when the system is idle.
+      swaybg # Wallpaper utility for Wayland, setting the background image.
+      sway-scratchpad # Helper tool for managing scratchpad windows in the Sway window manager.
+      grim # Screenshot utility for Wayland.
+      mako # Lightweight notification daemon for Wayland.
+      libnotify # Library for sending desktop notifications.
+      wdisplays # Utility for managing displays in a Wayland session.
+      playerctl # Command-line utility for controlling media players.
+      wayland # Protocol for a compositor to talk to its clients as well as a C library implementation of that protocol.
+      xwayland # X server running as a Wayland client.
+      configure-gtk # GTK-based utility for configuring various aspects of the desktop environment.
+      xdg-utils # Collection of tools for managing desktop environments based on the XDG specifications.
+      glib # Library providing various core functions for the GNOME project.
+      dracula-theme # Dark theme for various applications and environments.
+      gnome3.adwaita-icon-theme # Default icon theme for GNOME.
+      networkmanagerapplet # GNOME applet for NetworkManager.
+      pcmanfm # Lightweight file manager for X11.
+      udiskie # Removable disk automounter for udisks.
+      pavucontrol # GTK-based volume control utility for PulseAudio.
+      waybar # Highly customizable Wayland bar for Sway and Wlroots-based compositors.
       (pkgs.waybar.overrideAttrs (oldAttrs: {
          mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
          })
       )
     ] ++ [
-      inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
+      inputs.hyprland-contrib.packages.${pkgs.system}.grimblast # Hyprland version of Grimshot
     ];
 
     xdg = {

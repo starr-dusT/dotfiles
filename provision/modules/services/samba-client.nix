@@ -10,6 +10,8 @@ in {
     networking.firewall.allowedUDPPorts = [ 137 138 ];
 
     # To make SMB mounting easier on the command line
-    environment.systemPackages = with pkgs; [ cifs-utils ];
+    environment.systemPackages = with pkgs; [ 
+      cifs-utils # Utilities for mounting and managing CIFS (Common Internet File System) shares.
+    ];
   };
 }

@@ -15,9 +15,9 @@ in {
     hardware.steam-hardware.enable = true;
 
     environment.systemPackages = with pkgs; [ 
-      steam
-      steamtinkerlaunch
-      gamescope
+      steam # Digital distribution platform for purchasing and playing video games.
+      steamtinkerlaunch # Launcher and optimization tool for Steam games.
+      gamescope # Utility for running games using Valve's Steam Play compatibility layer with improved performance and compatibility.
     ];
   };
 }

@@ -73,13 +73,11 @@
     shell = pkgs.bash;
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
-    docker-compose
-    python3
-    zk
-    gollum
+    docker-compose # Tool for defining and running multi-container Docker applications.
+    python3 # Interpreted, high-level programming language known for its simplicity and versatility.
+    zk # Command-line tool for interacting with Apache ZooKeeper, a centralized service for distributed systems.
+    gollum # Wiki software that provides a simple, Git-based wiki engine.
   ];
 
   # Enable the OpenSSH daemon.

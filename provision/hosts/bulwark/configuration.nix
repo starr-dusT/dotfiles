@@ -63,11 +63,9 @@
     }];
   }];
 
-  # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
-      # One-off packages
-      discord
-      gamemode
+      discord # Voice, video, and text communication platform for communities and friends.
+      gamemode # Optimizes Linux system performance for gaming by adjusting system settings.
   ];
 
   # Enable modules

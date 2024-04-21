@@ -9,8 +9,8 @@ in {
     hardware.openrazer.users = ["tstarr"];
 
     environment.systemPackages = with pkgs; [
-        polychromatic
-        pulseaudio
+      polychromatic # Graphical utility for configuring RGB lighting effects on Razer peripherals.
+      pulseaudio # Sound server for Linux and other Unix-like operating systems.
     ];
 
     # rtkit is optional but recommended

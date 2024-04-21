@@ -3,7 +3,9 @@
   networking.firewall.allowedTCPPorts = [ 5001 ];
   networking.firewall.allowedUDPPorts = [ 5001 ];
 
-  environment.systemPackages = with pkgs; [ dufs ];
+  environment.systemPackages = with pkgs; [ 
+    dufs # Distinctive utility file server
+  ];
 
   systemd.services.share = {
     description = "Start dufs for quick sharing of files";
