@@ -30,6 +30,7 @@ in {
       gnome.dconf-editor
       gnome.gnome-tweaks
       gnomeExtensions.focus-changer
+      evolution
       # TODO: Add back when fixed upstream
       #gnomeExtensions.fullscreen-avoider
     ];
@@ -202,8 +203,11 @@ in {
           minimize = [];
         };
       } // generate_custom_keybindings {
-        "terminal" = { binding = "<Super>Return"; command = "kgx"; name = "Open Terminal"; };
+        "terminal" = { binding = "<Super><Control>Return"; command = "kgx"; name = "Open Terminal"; };
         "browser" = { binding = "<Super><Control>b"; command = "google-chrome-stable --simulate-outdated-no-au='Tue, 31 Dec 2099 23:59:59 GMT'"; name = "Open Browser"; };
+        "steam" = { binding = "<Super><Control>s"; command = "steam"; name = "Open Steam"; };
+        "discord" = { binding = "<Super><Control>d"; command = "discord"; name = "Open Discord"; };
+        "nautilus" = { binding = "<Super><Control>f"; command = "nautilus"; name = "Open File Manager"; };
       };
     };
   };
