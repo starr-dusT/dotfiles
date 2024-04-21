@@ -33,7 +33,6 @@ in {
       swaybg
       sway-scratchpad
       grim # screenshot functionality
-      wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
       mako # notification system developed by swaywm maintainer
       libnotify
       wdisplays # tool to configure displays

@@ -14,6 +14,7 @@
     p7zip
     borgbackup
     gimp
+    wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
   ];
 
   # xdg-desktop-portal settings
