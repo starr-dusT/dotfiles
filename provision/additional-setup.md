@@ -94,9 +94,9 @@ The applications can be run within the box with the following commands:
 cd ~/cq-editor && ./run.sh
 ```
 
-## Chromium
+## Chrome
 
-The vast majority of Chromium is setup with [browser.nix](./modules/desktop/browser.nix)
+The vast majority of Chrome is setup with [browser.nix](./modules/desktop/browser.nix)
 including installing plugins and various settings. However, setup for [vimium](https://chromewebstore.google.com/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb)
 and [New Tab Redirect](https://chromewebstore.google.com/detail/new-tab-redirect/icpgjfneehieebagbmdbhnlpiopdcmna)
 could not be fully automated.
@@ -106,6 +106,8 @@ Set to `http://localhost:8080`.
 
 - Vimium config is saved in chezmoi. Open the vimium [plugin page](chrome-extension://dbepggeogbaibhgnhhndojpepiihcmeb/pages/options.html)
 and restore config from `~/.config/vimium-options.json`.
+
+- Pin and re-arrange plugins as desired.
 
 ## Steam
 
