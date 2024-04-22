@@ -54,6 +54,7 @@ in {
       gnome-logs # Log viewer application for GNOME.
       gnome-maps # Map application for the GNOME desktop environment.
       gnome-music # Music player and management application for GNOME.
+      gnome-shell-extensions # Extensions for enhancing functionality and customization in the GNOME.
     ];
 
     # Enable wayland gnome
@@ -137,7 +138,6 @@ in {
             "focus-changer@heartmire"
             "fullscreen-to-empty-workspace@aiono.dev"
             "gnome-set-panel-monitor@tstarr.us"
-            "drive-menu@gnome-shell-extensions.gcampax.github.com"
             "maximize-lonely-window@MrShuster"
           ];
         };
