@@ -11,16 +11,6 @@ stdenv.mkDerivation {
     hash = "sha256-iHLd4TYgpTxwrPnfx80H+JGV8SpP1wrGgRPPnMyaUaA=";
   };
 
-  buildInputs = [
-    glib
-  ];
-
-  buildPhase = ''
-    runHook preBuild
-    make schemas
-    runHook postBuild
-  '';
-
   installPhase = ''
     runHook preInstall
     mkdir -p "$out/share/gnome-shell/extensions/gnome-set-panel-monitor@tstarr.us"

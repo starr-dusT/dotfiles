@@ -29,10 +29,11 @@ in {
     environment.systemPackages = with pkgs; [
       gnome.dconf-editor # Graphical tool for editing settings stored in the dconf database of GNOME.
       gnome.gnome-tweaks # Utility for customizing various aspects of the GNOME desktop environment.
-      gnomeExtensions.focus-changer # GNOME Shell extension for changing window focus behavior.
       evolution # Personal information management application that provides email, calendar, and contact management features.
+      gnomeExtensions.focus-changer # GNOME Shell extension for changing window focus behavior.
+      gnome-fullscreen-to-empty-workspace
       gnome-set-panel-monitor
-      #gnomeExtensions.fullscreen-avoider # TODO: Add back when fixed upstream
+      gnome-maximize-lonely-window
     ];
 
     environment.gnome.excludePackages = with pkgs.gnome; [
