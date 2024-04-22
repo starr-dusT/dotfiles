@@ -31,6 +31,7 @@ in {
       gnome.gnome-tweaks # Utility for customizing various aspects of the GNOME desktop environment.
       gnomeExtensions.focus-changer # GNOME Shell extension for changing window focus behavior.
       evolution # Personal information management application that provides email, calendar, and contact management features.
+      gnome-set-panel-monitor
       #gnomeExtensions.fullscreen-avoider # TODO: Add back when fixed upstream
     ];
 
