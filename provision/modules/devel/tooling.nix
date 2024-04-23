@@ -14,6 +14,8 @@ in {
       coreutils # Collection of basic file, shell, and text manipulation utilities.
       gnumake # GNU Make, a build automation tool.
       go # Programming language developed by Google, known for its simplicity and efficiency.
+      nixpkgs-lint
+      nixpkgs-fmt
     ];
   };
 }
