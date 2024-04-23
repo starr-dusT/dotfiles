@@ -51,28 +51,6 @@
           ];
         };
 
-        manofwar = lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit user; inherit inputs; };
-          modules = [
-            ./modules
-            ./hosts/manofwar/configuration.nix
-            ./hosts/manofwar/hardware.nix
-            sops-nix.nixosModules.sops
-            home-manager.nixosModules.home-manager {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit user; };
-              home-manager.users.${user} = {
-                imports = [ 
-                  ./home-modules
-                  ./hosts/manofwar/home-configuration.nix 
-                ];
-              };
-            }
-          ];
-        };
-
         shivan = lib.nixosSystem {
           inherit system;
           specialArgs = { inherit user; inherit inputs; };
