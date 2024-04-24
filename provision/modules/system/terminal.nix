@@ -38,6 +38,7 @@ in {
       taskwarrior-tui # Interactive terminal user interface for Taskwarrior.
       timewarrior # Command-line time tracking utility.
       ollama # Command-line tool for viewing and managing Open Location Codes.
+      docker-compose
     ];
   };
 }
