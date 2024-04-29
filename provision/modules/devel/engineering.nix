@@ -13,6 +13,7 @@ in {
       prusa-slicer # Slicing software optimized for Prusa 3D printers, offering user-friendly interface and settings.
       freecad # Open-source parametric 3D CAD modeler.
       blender # Open-source 3D creation suite for modeling, animation, rendering, and more.
+      openscad
     ];
   };
 }
