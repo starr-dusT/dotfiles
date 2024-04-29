@@ -149,11 +149,12 @@ in {
           center-new-windows = true;
           focus-change-on-pointer-rest = false;
           workspaces-only-on-primary = true;
-          dynamic-workspaces = true;
+          dynamic-workspaces = false;
         };
         "org/gnome/desktop/wm/preferences" = {
           auto-raise = false;
           raise-on-click = false;
+          num-workspaces = 10;
         };
         "org/gnome/shell/keybindings" = {
           switch-to-application-1 = [];
