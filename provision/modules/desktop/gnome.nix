@@ -131,7 +131,7 @@ in {
             "google-chrome.desktop"
             "org.gnome.Console.desktop"
             "steam.desktop"
-            "webcord.desktop"
+            "discord.desktop"
           ];
           disable-user-extensions = false;
           enabled-extensions = [
@@ -206,7 +206,7 @@ in {
         "terminal" = { binding = "<Super><Control>Return"; command = "kgx"; name = "Open Terminal"; };
         "browser" = { binding = "<Super><Control>b"; command = "google-chrome-stable --simulate-outdated-no-au='Tue, 31 Dec 2099 23:59:59 GMT'"; name = "Open Browser"; };
         "steam" = { binding = "<Super><Control>s"; command = "steam"; name = "Open Steam"; };
-        "webcord" = { binding = "<Super><Control>d"; command = "webcord"; name = "Open Webcord"; };
+        "discord" = { binding = "<Super><Control>d"; command = "discord"; name = "Open Discord"; };
         "nautilus" = { binding = "<Super><Control>f"; command = "nautilus"; name = "Open File Manager"; };
       };
     };
