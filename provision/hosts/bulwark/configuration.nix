@@ -76,7 +76,7 @@
       sway.enable = false;
       gnome = {
         enable = true;
-        wallpaper = "file://${../../../resources/img/wallpapers/gruvbox/kestrel.png}";
+        wallpaper = "file://${../../../resources/img/wallpapers/gruvbox/bulwark.png}";
       };
       browser.enable = true;
     };
