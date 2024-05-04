@@ -6,7 +6,7 @@
   ];
 
   jovian = {
-    steam.desktopSession = "gnome-xorg";
+    steam.desktopSession = "gnome";
     steam.enable = true;
     steam.autoStart = true; 
     steam.user = "${user}";
@@ -15,39 +15,11 @@
     };
   };
 
-  # Enable GNOME
-  services.xserver.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.displayManager.gdm.enable = false;
-
-  # Enable sound and handle conflict (https://github.com/Jovian-Experiments/Jovian-NixOS/issues/99)
-  sound.enable = true;
-  hardware.pulseaudio.enable = lib.mkForce false;
+  # Disable gdm (this is required for Jovian-NixOS)
+  services.xserver.displayManager.gdm.enable = lib.mkForce false;
 
   environment.systemPackages = with pkgs; [
     jupiter-dock-updater-bin # Binary package for updating firmware on Jupiter Dock, a hardware accessory for certain laptops.
     steamdeck-firmware # Firmware package for Valve's Steam Deck, a handheld gaming device.
   ];
-
-  # GNOME settings through home
-  home-manager.users.${user} = {
-    dconf.settings = {
-      "org/gnome/desktop/background" = {
-        picture-options = "centered";
-        picture-uri = "file://${../../../resources/img/bulwark.png}";
-        picture-uri-dark = "file://${../../../resources/img/bulwark.png}";
-      };
-      # Enable on-screen keyboard
-      "org/gnome/desktop/a11y/applications" = {
-        screen-keyboard-enabled = true;
-      };
-      "org/gnome/shell" = {
-        favorite-apps = [
-          "steam.desktop"
-          "org.gnome.Console.desktop"
-          "chromium-browser.desktop"
-        ];
-      };
-    };
-  };
 }
