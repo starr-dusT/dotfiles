@@ -8,7 +8,6 @@ final: prev: {
   cookcli = final.callPackage ../pkgs/cookcli.nix {};
   nx_tzdb = final.callPackage ../pkgs/nx_tzdb.nix {};
   yuzu-archive = final.libsForQt5.callPackage ../pkgs/yuzu-archive.nix {};
-  citra-archive = final.qt6Packages.callPackage ../pkgs/citra-archive.nix {};
   gnome-set-panel-monitor = final.callPackage ../pkgs/gnome-set-panel-monitor.nix {};
   gnome-maximize-lonely-window = final.callPackage ../pkgs/gnome-maximize-lonely-window.nix {};
   gnome-fullscreen-to-empty-workspace = final.callPackage ../pkgs/gnome-fullscreen-to-empty-workspace.nix {};
