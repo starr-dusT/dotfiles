@@ -48,6 +48,10 @@
     nerdfonts
   ];
 
+  # Enable docker 
+  virtualisation.docker.enable = true;
+  virtualisation.docker.storageDriver = "btrfs";
+
   # Define user account.
   users.users.${user} = {
     isNormalUser = true;
@@ -64,14 +68,16 @@
   }];
 
   environment.systemPackages = with pkgs; [
-      discord # Voice, video, and text communication platform for communities and friends.
-      gamemode # Optimizes Linux system performance for gaming by adjusting system settings.
   ];
 
   # Enable modules
   modules = {
     desktop = {
       sway.enable = false;
+      gnome = {
+        enable = true;
+        wallpaper = "file://${../../../resources/img/wallpapers/gruvbox/kestrel.png}";
+      };
       browser.enable = true;
     };
     devel = {
