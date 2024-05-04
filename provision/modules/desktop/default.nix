@@ -6,7 +6,7 @@
     bc # Arbitrary-precision arithmetic language.
     fzf # Command-line fuzzy finder for Unix-like operating systems.
     gamemode # Optimizes system performance for gaming by adjusting system settings.
-    webcord # Voice, video, and text communication platform for communities and friends.
+    discord # Voice, video, and text communication platform for communities and friends.
     inkscape # Vector graphics editor for creating illustrations, icons, logos, diagrams, and more.
     libreoffice-fresh # Office suite compatible with Microsoft Office.
     xournal # Note-taking and sketching application.
