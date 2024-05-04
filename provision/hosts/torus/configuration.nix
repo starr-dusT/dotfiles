@@ -123,6 +123,18 @@
       "git.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:3001/"; 
       });
+      "workspace.tstarr.us" = (SSL // {
+        locations."/".proxyPass = "http://localhost:5000/"; 
+      });
+      "code.tstarr.us" = (SSL // {
+        locations."/" = {
+          proxyPass = "http://localhost:8443/"; 
+          proxyWebsockets = true;
+        };
+      });
+      "plot.tstarr.us" = (SSL // {
+        locations."/".proxyPass = "http://localhost:8988/"; 
+      });
       "share.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:5001/"; 
         extraConfig = ''
