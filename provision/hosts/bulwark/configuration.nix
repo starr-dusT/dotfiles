@@ -48,14 +48,10 @@
     nerdfonts
   ];
 
-  # Enable docker 
-  virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "btrfs";
-
   # Define user account.
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [ "dialout" "wheel" "docker" "libvirtd" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "dialout" "wheel" ]; # Enable ‘sudo’ for the user.
   };
 
   # Password-less root
