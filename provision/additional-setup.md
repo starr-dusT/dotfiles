@@ -22,6 +22,14 @@ or `/run/secrets/keys/github_personal` to `~/.ssh/keys/github_personal`.
 Encrypted keys for various aspects of the config are stored in `./secrets/secrets.yaml` 
 to the required key for decryption must be placed at `~/.config/sops/age/keys.txt`.
 
+### NIPR email, Teams, etc.
+
+
+
+[Teams](https://dod.teams.microsoft.us)
+[Outlook](https://webmail.apps.mil/owa)
+[OneDrive](https://usaf-my.dps.mil)
+
 ## Wireguard Client
 
 Wireguard is nice for a home vpn. NixOS setus up all of the configurations for 

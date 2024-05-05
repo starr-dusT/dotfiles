@@ -39,6 +39,10 @@ in {
       timewarrior # Command-line time tracking utility.
       ollama # Command-line tool for viewing and managing Open Location Codes.
       docker-compose
+      opensc
+      pcsc-tools
+      firefox
+      pkcs11helper
     ];
   };
 }

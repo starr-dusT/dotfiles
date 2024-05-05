@@ -101,6 +101,7 @@
       virt-manager.enable = true;
     };
     system = {
+      nipr.enable = true;
       secrets.enable = true;
       ssh.enable = true;
       terminal.enable = true;

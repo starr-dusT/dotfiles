@@ -7,7 +7,6 @@ in {
 
     environment.systemPackages = with pkgs; [ 
       yuzu-archive # Nintendo Switch emulator.
-      citra-archive # Nintendo 3DS emulator.
       dolphin-emu # GameCube and Wii emulator.
       ppsspp # PSP emulator.
       mgba # Game Boy Advance emulator.
@@ -17,6 +16,7 @@ in {
           snes9x # Super Nintendo Entertainment System (SNES) emulator.
           mgba # Game Boy Advance emulator.
           melonds # Nintendo DS emulator.
+          citra # Nintendo 3DS emulator.
         ];
       })
     ];
