@@ -80,15 +80,6 @@
     gollum # Wiki software that provides a simple, Git-based wiki engine.
   ];
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  services.pcscd.enable = true;
-  programs.gnupg.agent = {
-     enable = true;
-     pinentryPackage = pkgs.pinentry-curses;
-     enableSSHSupport = true;
-  };
-
   security.acme = {
     acceptTerms = true;
     defaults.email = "starrtyler88@gmail.com";
@@ -122,6 +113,18 @@
       });
       "git.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:3001/"; 
+      });
+      "workspace.tstarr.us" = (SSL // {
+        locations."/".proxyPass = "http://localhost:5000/"; 
+      });
+      "code.tstarr.us" = (SSL // {
+        locations."/" = {
+          proxyPass = "http://localhost:8443/"; 
+          proxyWebsockets = true;
+        };
+      });
+      "plot.tstarr.us" = (SSL // {
+        locations."/".proxyPass = "http://localhost:8988/"; 
       });
       "share.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:5001/"; 
