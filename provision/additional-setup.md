@@ -24,7 +24,10 @@ to the required key for decryption must be placed at `~/.config/sops/age/keys.tx
 
 ### NIPR email, Teams, etc.
 
-
+- Run `pcscan` and make sure card reader shows up.
+- Run `pkcs11-register` to register cac.
+- Download certs (i.e. unclass-certificates_pkcs7_DoD.zip) and import into Firefox.
+- Use below links:
 
 [Teams](https://dod.teams.microsoft.us)
 [Outlook](https://webmail.apps.mil/owa)
