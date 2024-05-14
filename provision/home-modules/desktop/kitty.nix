@@ -12,6 +12,7 @@ in {
       settings = {
         disable_ligatures = "never";
         cursor_shape = "block";
+        linux_display_server = "x11";
       };
     };
   };
