@@ -129,7 +129,7 @@ in {
         "org/gnome/shell" = {
           favorite-apps = [
             "google-chrome.desktop"
-            "org.gnome.Console.desktop"
+            "kitty.desktop"
             "steam.desktop"
             "discord.desktop"
           ];
@@ -203,7 +203,7 @@ in {
           minimize = [];
         };
       } // generate_custom_keybindings {
-        "terminal" = { binding = "<Super><Control>Return"; command = "kgx"; name = "Open Terminal"; };
+        "terminal" = { binding = "<Super><Control>Return"; command = "kitty"; name = "Open Terminal"; };
         "browser" = { binding = "<Super><Control>b"; command = "google-chrome-stable --simulate-outdated-no-au='Tue, 31 Dec 2099 23:59:59 GMT'"; name = "Open Browser"; };
         "steam" = { binding = "<Super><Control>s"; command = "steam"; name = "Open Steam"; };
         "discord" = { binding = "<Super><Control>d"; command = "discord"; name = "Open Discord"; };
