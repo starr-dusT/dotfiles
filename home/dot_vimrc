@@ -29,7 +29,6 @@ let mapleader = " "
 
 " clipboard
 set clipboard=unnamedplus
-set clipboard+=unnamed
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ui
