@@ -9,6 +9,8 @@
     ./rss.nix
     ./home-assistant
     ./gitea.nix
+    ./radicale.nix
+    ./nextcloud.nix
   ];
 
   nix = {
@@ -107,6 +109,9 @@
     }; in {
       "rss.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:8087/"; 
+      });
+      "cal.tstarr.us" = (SSL // {
+        locations."/".proxyPass = "http://localhost:5232/"; 
       });
       "media.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:8096/"; 
