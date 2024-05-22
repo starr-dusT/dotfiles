@@ -13,9 +13,6 @@ in {
       # Keys
       secrets."keys/github_personal" = { owner = "${user}"; };
 
-      # Radicale users
-      secrets."radicale/users" = { owner = "radicale"; };
-
       # Nextcloud password
       secrets."nextcloud/password" = { owner = "nextcloud"; };
 
