@@ -5,10 +5,10 @@
     ./wireguard-server.nix
     ./samba-server.nix
     ./syncthing.nix
-    ./share.nix
     ./rss.nix
     ./home-assistant
     ./gitea.nix
+    ./nextcloud.nix
   ];
 
   nix = {
@@ -125,13 +125,6 @@
       });
       "plot.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:8988/"; 
-      });
-      "share.tstarr.us" = (SSL // {
-        locations."/".proxyPass = "http://localhost:5001/"; 
-        extraConfig = ''
-          auth_pam  "Password Required";
-          auth_pam_service_name "nginx";        
-        '';
       });
     };
   };

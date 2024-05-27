@@ -13,6 +13,9 @@ in {
       # Keys
       secrets."keys/github_personal" = { owner = "${user}"; };
 
+      # Nextcloud password
+      secrets."nextcloud/password" = { owner = "nextcloud"; };
+
       # Wireguard secrets
       secrets."wireguard/kestrel" = { owner = "${user}"; };
       secrets."wireguard/bulwark" = { owner = "${user}"; };

@@ -15,7 +15,10 @@ settings.
 
 Keys for SSH aren't automatically placed with chezmoi `secret` since it complicated
 things to much. The key for github SSH must be transferred manually from Bitwarden
-or `/run/secrets/keys/github_personal` to `~/.ssh/keys/github_personal`.
+or:
+
+- `/run/secrets/keys/github_personal` to `~/.ssh/keys/github_personal`.
+- `/run/secrets/radicale/users` to `~/.config/radicale/users`.
 
 ### Sops-nix 
 
