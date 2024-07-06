@@ -28,9 +28,7 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.package = pkgs.bluez;
   hardware.sensor.iio.enable = true;
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport = true;
-  hardware.opengl.driSupport32Bit = true;
+  hardware.graphics.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
