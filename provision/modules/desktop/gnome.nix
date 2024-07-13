@@ -122,7 +122,7 @@ in {
             color-scheme = "prefer-dark";
         };
         "org/gnome/desktop/background" = {
-          picture-options = "centered";
+          picture-options = "zoom";
           picture-uri = "${cfg.wallpaper}";
           picture-uri-dark = "${cfg.wallpaper}";
         };
