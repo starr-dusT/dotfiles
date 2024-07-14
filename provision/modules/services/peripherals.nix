@@ -7,6 +7,7 @@ in {
 
     environment.systemPackages = with pkgs; [
       pulseaudio # Sound server for Linux and other Unix-like operating systems.
+      pavucontrol # Simple GTK based mixer for the PulseAudio sound server
     ];
 
     # rtkit is optional but recommended
