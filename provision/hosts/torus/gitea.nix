@@ -18,17 +18,19 @@
   };
 
   sops.secrets = {
-    "tokens/gitea-runner" = {
+    "gitea-runner1" = {
       sopsFile = ../../secrets/secrets.yaml;
       owner = "gitea-runner";
     };
   };
   services.gitea-actions-runner.instances = {
-    native-runner = {
+    runner1 = {
       enable = true;
       url = "https://git.tstarr.us";
-      tokenFile = config.sops.secrets.gitea-runner.path;
-      name = "native-runner";
+#      tokenFile = config.sops.secrets."gitea-runner1".path;
+
+      token = "kZ8YMUInzUYkvFK7bia5191QzLPF2xh9dAtxDI8d";
+      name = "runner1";
       labels = [
         "native:host"
       ];
@@ -41,6 +43,8 @@
         gnused
         nodejs-18_x
         wget
+        gnutar
+        gzip
       ];
     };
   };
