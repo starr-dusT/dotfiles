@@ -27,8 +27,8 @@ in {
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      gnome.dconf-editor # Graphical tool for editing settings stored in the dconf database of GNOME.
-      gnome.gnome-tweaks # Utility for customizing various aspects of the GNOME desktop environment.
+      dconf-editor # Graphical tool for editing settings stored in the dconf database of GNOME.
+      gnome-tweaks # Utility for customizing various aspects of the GNOME desktop environment.
       evolution # Personal information management application that provides email, calendar, and contact management features.
       gnomeExtensions.focus-changer # GNOME Shell extension for changing window focus behavior.
       gnome-fullscreen-to-empty-workspace
@@ -36,7 +36,7 @@ in {
       gnome-maximize-lonely-window
     ];
 
-    environment.gnome.excludePackages = with pkgs.gnome; [
+    environment.gnome.excludePackages = with pkgs; [
       baobab # Disk usage analyzer for the GNOME desktop environment.
       cheese # Webcam application for taking photos and videos.
       epiphany # Web browser for the GNOME desktop environment.
@@ -47,14 +47,14 @@ in {
       evince # Document viewer for the GNOME desktop environment.
       geary # Email client for the GNOME desktop environment.
       seahorse # GNOME application for managing encryption keys and passwords.
-      pkgs.gnome-tour # Guided tour application for introducing users to GNOME desktop environment features.
-      pkgs.snapshot # Utility for taking and managing system snapshots in the GNOME desktop environment.
-      pkgs.gnome-connections # GNOME application for accessing remote machines and services.
+      gnome-tour # Guided tour application for introducing users to GNOME desktop environment features.
+      snapshot # Utility for taking and managing system snapshots in the GNOME desktop environment.
+      gnome-connections # GNOME application for accessing remote machines and services.
       gnome-font-viewer # Utility for previewing and managing fonts in the GNOME desktop environment.
-      gnome-logs # Log viewer application for GNOME.
-      gnome-maps # Map application for the GNOME desktop environment.
-      gnome-music # Music player and management application for GNOME.
-      gnome-shell-extensions # Extensions for enhancing functionality and customization in the GNOME.
+      gnome.gnome-logs # Log viewer application for GNOME.
+      gnome.gnome-maps # Map application for the GNOME desktop environment.
+      gnome.gnome-music # Music player and management application for GNOME.
+      gnome.gnome-shell-extensions # Extensions for enhancing functionality and customization in the GNOME.
     ];
 
     # Enable wayland gnome
@@ -122,7 +122,7 @@ in {
             color-scheme = "prefer-dark";
         };
         "org/gnome/desktop/background" = {
-          picture-options = "centered";
+          picture-options = "zoom";
           picture-uri = "${cfg.wallpaper}";
           picture-uri-dark = "${cfg.wallpaper}";
         };

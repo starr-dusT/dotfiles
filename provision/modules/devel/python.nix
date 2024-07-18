@@ -19,7 +19,7 @@ in {
       (python3.withPackages my-python-packages)
       fava # Web interface for the double-entry bookkeeping software Beancount.
       beancount # Double-entry bookkeeping software for tracking financial transactions.
-      nodePackages_latest.pyright # Latest version of the Pyright package, a static type checker for Python.
+      pyright # Latest version of the Pyright package, a static type checker for Python.
     ];
   };
 }

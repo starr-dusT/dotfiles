@@ -9,4 +9,5 @@ borg create \
     --exclude "$HOME/tmp" \
     --exclude "$HOME/sync" \
     --exclude "$HOME/media/roms" \
+    --exclude "$HOME/box" \
     "$HOME/mnt/engi/backup/borg-kestrel::kestrel-${datetime}" "$HOME"

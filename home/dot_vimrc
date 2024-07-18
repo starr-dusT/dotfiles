@@ -117,12 +117,21 @@ map <leader>fq :Grep -r<space>
 map <leader>fl :LGrep -r<space>
 
 " next/last location
-map <leader>nl :lnext<CR>
-map <leader>pl :lprev<CR>
+map <leader>ln :lnext<CR>
+map <leader>lp :lprev<CR>
 
 " next/last quickfix
-map <leader>nc :cnext<CR>
-map <leader>pc :cnext<CR>
+map <leader>cn :cnext<CR>
+map <leader>cp :cnext<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" notes 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+command! Ill call InsertLocationLink()
+
+" copy quick/location selection to clipboard
+nnoremap <Leader>nl :Ill<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " misc keys
@@ -251,4 +260,29 @@ function! UpdateMarkSigns()
             call PlaceSign(id, name, row)
         endif
     endfor
+endfunction
+
+" Create markdown link for current location list selection
+" OG baby!
+"
+function! InsertLocationLink()
+    let loc_idx = line('.') - 1
+    let loc_list = getloclist(0)
+    let link = bufname(l:loc_list[l:loc_idx].bufnr)
+    call setreg('l', link)
+    :lcl
+    let title = input("Link name: ")
+    let curr_path = substitute(expand('%:p:h'), finddir('.git/..', expand('%:p:h').';'), '', "g")
+    let nest_count = count(curr_path, "/")
+    let file_path = getreg('l')
+    if nest_count < 1
+        let file_path = join(['./', file_path], '')
+    else
+        while nest_count > 0
+            let file_path = join(['../', file_path], '')
+            let nest_count -= 1
+        endwhile
+    endif
+    let link = join(['[', title, '](', file_path, ')'], "")
+    exe "normal! a" . link . "\<Esc>"
 endfunction
