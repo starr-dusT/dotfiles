@@ -117,6 +117,12 @@
       "workspace.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:5000/"; 
       });
+      "lc.tstarr.us" = (SSL // {
+        locations."/" = {
+          proxyPass = "http://localhost:8065/"; 
+          proxyWebsockets = true;
+        };
+      });
       "code.tstarr.us" = (SSL // {
         locations."/" = {
           proxyPass = "http://localhost:8443/"; 
