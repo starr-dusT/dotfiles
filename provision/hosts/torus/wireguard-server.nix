@@ -14,6 +14,8 @@
     allowedUDPPorts = [ 53 51820 ];
   };
     
+  age.secrets."wireguard/torus".file = ../../age-secrets/wireguard/torus.age;
+
   networking.wg-quick.interfaces = {
     # "wg0" is the network interface name. You can name the interface arbitrarily.
     wg0 = {
@@ -22,7 +24,7 @@
       # The port that WireGuard listens to - recommended that this be changed from default
       listenPort = 51820;
       # Path to the server's private key
-      privateKeyFile = "/run/secrets/wireguard/torus";
+      privateKeyFile = "/run/agenix/wireguard/torus";
   
       # This allows the wireguard server to route your traffic to the internet and hence be like a VPN
       postUp = ''

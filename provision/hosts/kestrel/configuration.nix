@@ -71,6 +71,9 @@
       distrobox # Platform for creating and managing Linux distribution images.
   ];
 
+  # host secrets
+  age.secrets."wireguard/kestrel".file = ../../age-secrets/wireguard/kestrel.age;
+
   # Enable modules
   modules = {
     desktop = {

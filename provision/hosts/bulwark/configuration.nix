@@ -64,6 +64,9 @@
   environment.systemPackages = with pkgs; [
   ];
 
+  # host secrets
+  age.secrets."wireguard/bulwark".file = ../../age-secrets/wireguard/bulwark.age;
+
   # Enable modules
   modules = {
     desktop = {

@@ -15,11 +15,5 @@ in {
       owner = "${user}";
       group = "users";
     };
-
-    # wireguard secrets
-    age.secrets."wireguard/kestrel".file = ../../age-secrets/wireguard/kestrel.age;
-    #age.secrets."wireguard/bulwark".file = ../../age-secrets/wireguard/bulwark.age;
-    #age.secrets."wireguard/adjudicator".file = ../../age-secrets/wireguard/adjudicator.age;
-    #age.secrets."wireguard/torus".file = ../../age-secrets/wireguard/torus.age;
   };
 }
