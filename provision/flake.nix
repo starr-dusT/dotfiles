@@ -12,6 +12,7 @@
       flake = false;
     };
     sops-nix.url = "github:Mic92/sops-nix";
+    agenix.url = "github:ryantm/agenix";
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-contrib = {
         url = "github:hyprwm/contrib";
@@ -19,7 +20,7 @@
     };
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, jovian-nixos, sops-nix, hyprland, ... }:
+  outputs = inputs @ { self, nixpkgs, home-manager, jovian-nixos, sops-nix, agenix,hyprland, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -37,6 +38,7 @@
             ./hosts/kestrel/configuration.nix
             ./hosts/kestrel/hardware.nix
             sops-nix.nixosModules.sops
+            agenix.nixosModules.default
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
@@ -59,6 +61,7 @@
             ./hosts/shivan/configuration.nix
             ./hosts/shivan/hardware.nix
             sops-nix.nixosModules.sops
+            agenix.nixosModules.default
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
@@ -81,6 +84,7 @@
             ./hosts/torus/configuration.nix
             ./hosts/torus/hardware.nix
             sops-nix.nixosModules.sops
+            agenix.nixosModules.default
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
@@ -103,6 +107,7 @@
             ./hosts/bulwark/configuration.nix
             ./hosts/bulwark/hardware.nix
             sops-nix.nixosModules.sops
+            agenix.nixosModules.default
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
