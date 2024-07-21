@@ -34,6 +34,10 @@
   # Set kernel modules
   boot.kernelModules = [ "sg" ];
 
+  # Hardware options
+  hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -59,10 +63,6 @@
   virtualisation.docker.enableNvidia = true;
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  hardware.opengl = {
-    enable = true;
-    setLdLibraryPath = true;
-  };
 
   # Define user account.
   users.users.${user} = {
