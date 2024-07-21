@@ -10,6 +10,6 @@ in
 {
   "git/github_personal.age".publicKeys = users ++ systems;
   "wireguard/kestrel.age".publicKeys = users ++ systems;
-  "git/gitea-runner-1.age".publicKeys = [ torus tstarr_torus ];
-  "nextcloud/password.age".publicKeys = [ torus tstarr_torus ];
+  "git/gitea-runner-1.age".publicKeys = systems;
+  "nextcloud/password.age".publicKeys = systems;
 }
