@@ -4,6 +4,13 @@
     cron
   ];
   
+  # nextcloud secrets
+  age.secrets."nextcloud/password" = {
+    file = ../../age-secrets/nextcloud/password.age;
+    owner = "nextcloud";
+    group = "nextcloud";
+  };
+
   services = {
     nginx.virtualHosts = {
       "cloud.tstarr.us" = {
@@ -37,7 +44,7 @@
       config = {
         dbtype = "mysql";
         adminuser = "admin";
-        adminpassFile = "/run/secrets/nextcloud/password";
+        adminpassFile = "/run/agenix/nextcloud/password";
       };
     };
   };

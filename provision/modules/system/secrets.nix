@@ -8,31 +8,18 @@ in {
     environment.systemPackages = [
       inputs.agenix.packages.x86_64-linux.default 
     ];
-    
+   
+    # git secrets
     age.secrets."git/github_personal" = {
       file = ../../age-secrets/git/github_personal.age;
       owner = "${user}";
       group = "users";
     };
 
-    sops = let
-      ncHost = (if config.networking.hostName == "torus" then "nextcloud" else "${user}");
-    in {
-      defaultSopsFile = ../../secrets/secrets.yaml;
-      defaultSopsFormat = "yaml";
-      age.keyFile = "/home/${user}/.config/sops/age/keys.txt";
-
-      # Keys
-      secrets."keys/github_personal" = { owner = "${user}"; };
-
-      # Nextcloud password
-      secrets."nextcloud/password" = { owner = "${ncHost}"; };
-
-      # Wireguard secrets
-      secrets."wireguard/kestrel" = { owner = "${user}"; };
-      secrets."wireguard/bulwark" = { owner = "${user}"; };
-      secrets."wireguard/adjudicator" = { owner = "${user}"; };
-      secrets."wireguard/torus" = { owner = "${user}"; };
-    };
+    # wireguard secrets
+    age.secrets."wireguard/kestrel".file = ../../age-secrets/wireguard/kestrel.age;
+    #age.secrets."wireguard/bulwark".file = ../../age-secrets/wireguard/bulwark.age;
+    #age.secrets."wireguard/adjudicator".file = ../../age-secrets/wireguard/adjudicator.age;
+    #age.secrets."wireguard/torus".file = ../../age-secrets/wireguard/torus.age;
   };
 }

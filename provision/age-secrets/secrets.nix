@@ -7,4 +7,5 @@ let
 in
 {
   "git/github_personal.age".publicKeys = users ++ systems;
+  "wireguard/kestrel.age".publicKeys = users ++ systems;
 }
