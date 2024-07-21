@@ -17,19 +17,18 @@
     };
   };
 
-  sops.secrets = {
-    "gitea-runner1" = {
-      sopsFile = ../../secrets/secrets.yaml;
-      owner = "gitea-runner";
-    };
+  # gitea runner secrets
+  age.secrets."git/gitea-runner-1" = {
+    file = ../../age-secrets/git/gitea-runner-1.age;
+    owner = "gitea-runner";
+    group = "gitea-runner";
   };
+
   services.gitea-actions-runner.instances = {
     runner1 = {
       enable = true;
       url = "https://git.tstarr.us";
-#      tokenFile = config.sops.secrets."gitea-runner1".path;
-
-      token = "kZ8YMUInzUYkvFK7bia5191QzLPF2xh9dAtxDI8d";
+      tokenFile = "/run/agenix/git/gitea-runner-1";
       name = "runner1";
       labels = [
         "native:host"
