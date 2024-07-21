@@ -11,7 +11,7 @@ in {
    
     # git secrets
     age.secrets."git/github_personal" = {
-      file = ../../age-secrets/git/github_personal.age;
+      file = ../../secrets/git/github_personal.age;
       owner = "${user}";
       group = "users";
     };

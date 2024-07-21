@@ -65,7 +65,7 @@
   ];
 
   # host secrets
-  age.secrets."wireguard/bulwark".file = ../../age-secrets/wireguard/bulwark.age;
+  age.secrets."wireguard/bulwark".file = ../../secrets/wireguard/bulwark.age;
 
   # Enable modules
   modules = {

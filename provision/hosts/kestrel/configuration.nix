@@ -72,7 +72,7 @@
   ];
 
   # host secrets
-  age.secrets."wireguard/kestrel".file = ../../age-secrets/wireguard/kestrel.age;
+  age.secrets."wireguard/kestrel".file = ../../secrets/wireguard/kestrel.age;
 
   # Enable modules
   modules = {

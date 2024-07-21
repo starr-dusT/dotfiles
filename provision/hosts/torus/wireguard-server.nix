@@ -14,7 +14,7 @@
     allowedUDPPorts = [ 53 51820 ];
   };
     
-  age.secrets."wireguard/torus".file = ../../age-secrets/wireguard/torus.age;
+  age.secrets."wireguard/torus".file = ../../secrets/wireguard/torus.age;
 
   networking.wg-quick.interfaces = {
     # "wg0" is the network interface name. You can name the interface arbitrarily.

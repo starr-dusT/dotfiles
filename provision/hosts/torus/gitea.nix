@@ -19,7 +19,7 @@
 
   # gitea runner secrets
   age.secrets."git/gitea-runner-1" = {
-    file = ../../age-secrets/git/gitea-runner-1.age;
+    file = ../../secrets/git/gitea-runner-1.age;
     owner = "gitea-runner";
     group = "gitea-runner";
   };

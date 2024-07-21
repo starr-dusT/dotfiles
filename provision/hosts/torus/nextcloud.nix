@@ -6,7 +6,7 @@
   
   # nextcloud secrets
   age.secrets."nextcloud/password" = {
-    file = ../../age-secrets/nextcloud/password.age;
+    file = ../../secrets/nextcloud/password.age;
     owner = "nextcloud";
     group = "nextcloud";
   };
