@@ -4,59 +4,17 @@
     ./syncthing.nix
   ];
 
-  nix = {
-    package = pkgs.nixFlakes;
-    extraOptions = "experimental-features = nix-command flakes";
-
-    settings.auto-optimise-store = true;
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
-  };
-
-  # Add non-free packages
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.permittedInsecurePackages = [ "electron-25.9.0" "openssl-1.1.1w" ];
-  nixpkgs.overlays = import ../../lib/overlays.nix;
-
   # Use zen kernel
   boot.kernelPackages = pkgs.linuxPackages_zen;
-
-  # Hardware options
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.package = pkgs.bluez;
-  hardware.sensor.iio.enable = true;
-  hardware.graphics.enable = true;
-
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
 
   # Set networking options
   networking.hostName = "kestrel"; 
   networking.firewall.checkReversePath = "loose";
   networking.firewall.enable = false;
 
-  # Set your time zone.
-  time.timeZone = "America/Los_Angeles";
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  # Add fonts
-  fonts.packages = with pkgs; [
-    nerdfonts
-  ];
-
   # Enable docker 
   virtualisation.docker.enable = true;
   virtualisation.docker.storageDriver = "btrfs";
-
-  # Define user account.
-  users.users.${user} = {
-    isNormalUser = true;
-    extraGroups = [ "dialout" "wheel" "docker" "libvirtd" ]; # Enable ‘sudo’ for the user.
-  };
 
   # Password-less root
   security.sudo.extraRules = [{ 
@@ -71,10 +29,10 @@
       distrobox # Platform for creating and managing Linux distribution images.
   ];
 
-  # host secrets
+  # Secrets
   age.secrets."wireguard/kestrel".file = ../../secrets/wireguard/kestrel.age;
 
-  # System modules
+  # Modules 
   modules = {
     desktop = {
       sway.enable = false;
@@ -116,7 +74,6 @@
     };
   };
 
-  # Home manager modules
   home-manager.users.${user} = {
     modules = {
       desktop = {
@@ -124,7 +81,4 @@
       };
     };
   };
-
-  # Did you read the comment?
-  system.stateVersion = "23.11";
 }
