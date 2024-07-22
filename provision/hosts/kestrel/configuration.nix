@@ -74,7 +74,7 @@
   # host secrets
   age.secrets."wireguard/kestrel".file = ../../secrets/wireguard/kestrel.age;
 
-  # Enable modules
+  # System modules
   modules = {
     desktop = {
       sway.enable = false;
@@ -112,6 +112,15 @@
         address = [ "192.168.3.3/24" ];
         publicKey = "bd7bbZOngl/FTdBlnbIhgCLNf6yx5X8WjiRB7E1NEQQ=";
         endpoint = "66.218.43.87";
+      };
+    };
+  };
+
+  # Home manager modules
+  home-manager.users.${user} = {
+    modules = {
+      desktop = {
+        kitty.enable = true;
       };
     };
   };

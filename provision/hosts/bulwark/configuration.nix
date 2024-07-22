@@ -103,6 +103,15 @@
     };
   };
 
+  # Home manager modules
+  home-manager.users.${user} = {
+    modules = {
+      desktop = {
+        kitty.enable = true;
+      };
+    };
+  };
+
   # Did you read the comment?
   system.stateVersion = "23.11"; 
 }

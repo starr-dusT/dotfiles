@@ -33,9 +33,10 @@
         inherit system;
         specialArgs = { inherit user; inherit inputs; };
         modules = [
-          ./modules
+          ./hosts/default.nix
           ./hosts/kestrel/configuration.nix
           ./hosts/kestrel/hardware.nix
+          ./modules
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
@@ -44,7 +45,6 @@
             home-manager.users.${user} = {
               imports = [ 
                 ./home-modules
-                ./hosts/kestrel/home-configuration.nix 
               ];
             };
           }
@@ -55,9 +55,10 @@
         inherit system;
         specialArgs = { inherit user; inherit inputs; };
         modules = [
-          ./modules
+          ./hosts/default.nix
           ./hosts/shivan/configuration.nix
           ./hosts/shivan/hardware.nix
+          ./modules
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
@@ -66,7 +67,6 @@
             home-manager.users.${user} = {
               imports = [ 
                 ./home-modules
-                ./hosts/shivan/home-configuration.nix 
               ];
             };
           }
@@ -77,9 +77,10 @@
         inherit system;
         specialArgs = { inherit user; inherit inputs; };
         modules = [
-          ./modules
+          ./hosts/default.nix
           ./hosts/torus/configuration.nix
           ./hosts/torus/hardware.nix
+          ./modules
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
@@ -88,7 +89,6 @@
             home-manager.users.${user} = {
               imports = [ 
                 ./home-modules
-                ./hosts/torus/home-configuration.nix 
               ];
             };
           }
@@ -99,9 +99,10 @@
         inherit system;
         specialArgs = { inherit user; inherit inputs; inherit jovian-nixos; inherit home-manager; };
         modules = [
-          ./modules
+          ./hosts/default.nix
           ./hosts/bulwark/configuration.nix
           ./hosts/bulwark/hardware.nix
+          ./modules
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
@@ -110,7 +111,6 @@
             home-manager.users.${user} = {
               imports = [ 
                 ./home-modules
-                ./hosts/bulwark/home-configuration.nix 
               ];
             };
           }
