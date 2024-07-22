@@ -3,7 +3,7 @@
 
 # nixos
 alias nu="cd ~/.local/share/chezmoi/provision && \
-          sudo nixos-rebuild switch --flake .#$(hostname) && \
+          sudo nixos-rebuild switch --impure --flake .#$(hostname) && \
           cd -"
 # sway
 alias s='sway'
