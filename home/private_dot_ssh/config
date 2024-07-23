@@ -1,3 +1,0 @@
-Host github.com
-  AddKeysToAgent yes
-  IdentityFile /run/agenix/git/github_personal 
