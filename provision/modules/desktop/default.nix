@@ -12,7 +12,6 @@
     xournal # Note-taking and sketching application.
     mpv # Media player for playing audio and video files.
     p7zip # Command-line file archiver with high compression ratio.
-    borgbackup # Deduplicating backup program with optional compression and authenticated encryption.
     gimp # GNU Image Manipulation Program for editing and composing raster images.
     wl-clipboard # Command-line utility to access and manipulate clipboard content in a Wayland session.
   ];

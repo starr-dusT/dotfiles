@@ -5,7 +5,8 @@
     config.age.secrets."ssh/kestrel/id_ed25519.pub".path
   ];
 
+  services.borgmatic.enable = true;
   environment.systemPackages = with pkgs; [
-    restic # Fast and secure backup program
+    borgbackup # Deduplicating backup program 
   ];
 }
