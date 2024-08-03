@@ -10,6 +10,8 @@ let
 in
 {
   "git/github_personal.age".publicKeys = users ++ systems;
+  "emu/switch/prod.keys.age".publicKeys = users ++ systems;
+  "emu/switch/title.keys.age".publicKeys = users ++ systems;
   "wireguard/kestrel.age".publicKeys = users ++ systems;
   "wireguard/torus.age".publicKeys = systems;
   "wireguard/bulwark.age".publicKeys = systems;
@@ -17,7 +19,5 @@ in
   "nextcloud/password.age".publicKeys = systems;
   "ssh/kestrel/id_ed25519.age".publicKeys = [ tstarr_kestrel ] ++ systems;
   "ssh/kestrel/id_ed25519.pub.age".publicKeys = [ tstarr_kestrel ] ++ systems;
-  "emu/switch/prod.keys".publicKeys = users ++ systems;
-  "emu/switch/title.keys".publicKeys = users ++ systems;
 }
 
