@@ -57,6 +57,16 @@ in {
       gnome.gnome-shell-extensions # Extensions for enhancing functionality and customization in the GNOME.
     ];
 
+    # Valent for remote control
+    programs.kdeconnect = {
+      enable = true;
+      package = pkgs.valent;
+    };
+    networking.firewall = rec {
+      allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
+      allowedUDPPortRanges = allowedTCPPortRanges;
+    };
+
     # Enable wayland gnome
     services.xserver = {
       enable = true;  
