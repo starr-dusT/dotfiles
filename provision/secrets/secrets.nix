@@ -17,5 +17,7 @@ in
   "nextcloud/password.age".publicKeys = systems;
   "ssh/kestrel/id_ed25519.age".publicKeys = [ tstarr_kestrel ] ++ systems;
   "ssh/kestrel/id_ed25519.pub.age".publicKeys = [ tstarr_kestrel ] ++ systems;
+  "emu/switch/prod.keys".publicKeys = users ++ systems;
+  "emu/switch/title.keys".publicKeys = users ++ systems;
 }
 
