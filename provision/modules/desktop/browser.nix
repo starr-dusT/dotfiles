@@ -51,6 +51,7 @@ in {
         "ManagedBookmarks" = [
           { "toplevel_name" = "Bookmarks"; }
           { "name" = "Daily"; "children" = [
+            { "url" = "https://lc.tstarr.us"; name = "Chisme Mattermost"; }
             { "url" = "https://rss.tstarr.us"; name = "Miniflux"; }
             { "url" = "https://cloud.tstarr.us"; name = "Nextcloud"; }
             { "url" = "https://git.tstarr.us"; name = "Gitea"; }
