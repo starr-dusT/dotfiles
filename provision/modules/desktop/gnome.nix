@@ -31,6 +31,7 @@ in {
       gnome-tweaks # Utility for customizing various aspects of the GNOME desktop environment.
       evolution # Personal information management application that provides email, calendar, and contact management features.
       gnomeExtensions.focus-changer # GNOME Shell extension for changing window focus behavior.
+      gnomeExtensions.custom-hot-corners-extended # GNOME Shell extension for changing window focus behavior.
       gnome-fullscreen-to-empty-workspace
       gnome-set-panel-monitor
       gnome-maximize-lonely-window
@@ -149,6 +150,7 @@ in {
             "fullscreen-to-empty-workspace@aiono.dev"
             "gnome-set-panel-monitor@tstarr.us"
             "maximize-lonely-window@MrShuster"
+            "custom-hot-corners-extended@G-dH.github.com"
           ];
         };
         "org/gnome/shell/app-switcher" = {
@@ -211,6 +213,19 @@ in {
           switch-windows = ["<Super>Tab"];                 
           switch-windows-backward = ["<Shift><Super>Tab"]; 
           minimize = [];
+        };
+        # custom-hot-corners-extended configs
+        "org/gnome/shell/extensions/custom-hot-corners-extended/misc" = {
+            panel-menu-enable = false;
+        };
+        "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-1" = {
+            action = "toggle-overview";
+        };
+        "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-4" = {
+            action = "next-workspace";
+        };
+        "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-5" = {
+            action = "prev-workspace";
         };
       } // generate_custom_keybindings {
         "terminal" = { binding = "<Super><Control>Return"; command = "kitty"; name = "Open Terminal"; };
