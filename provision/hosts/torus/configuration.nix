@@ -29,9 +29,12 @@
   };
 
   # Enable virtualisation
-  virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "btrfs";
-  virtualisation.docker.enableNvidia = true;
+  virtualisation.docker = {
+    enable = true;
+    package = pkgs.docker_27;
+    storageDriver = "btrfs";
+    enableNvidia = true;
+  };
   services.xserver.videoDrivers = [ "nvidia" ];
 
   environment.systemPackages = with pkgs; [
