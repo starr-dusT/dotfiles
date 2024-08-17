@@ -78,10 +78,6 @@ in {
       desktopManager.gnome.enable = true; 
     };
 
-    # Enable sound and handle conflict (https://github.com/Jovian-Experiments/Jovian-NixOS/issues/99)
-    sound.enable = true;
-    hardware.pulseaudio.enable = lib.mkForce false;
-
     xdg.mime = {
       enable = true;
       defaultApplications = {    

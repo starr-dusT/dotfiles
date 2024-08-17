@@ -7,7 +7,6 @@ in {
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       google-chrome # Web browser developed by Google.
-      play-with-mpv # Script for playing media files with MPV media player in a simple and efficient manner.
     ];
     programs.chromium = {
       enable = true;
