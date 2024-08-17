@@ -22,7 +22,11 @@
         path = "/home/${user}/.local/share/dolphin-emu/GC";
         devices = [ "kestrel" ];
       };
-      "Switch Saves" = {
+      "Ryujinx Saves" = {
+        path = "/home/${user}/.config/Ryujinx/bis";
+        devices = [ "kestrel" ];
+      };
+      "Yuzu Saves" = {
         path = "/home/${user}/.local/share/yuzu/nand/user/save/0000000000000000/705C6CE0127692D598F92E68B640D644";
         devices = [ "kestrel" ];
       };
