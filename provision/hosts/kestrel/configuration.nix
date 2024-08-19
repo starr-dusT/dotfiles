@@ -4,8 +4,8 @@
     ./syncthing.nix
   ];
 
-  # Use zen kernel
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  # Use performance governor for sweet gaming performance!
+  powerManagement.cpuFreqGovernor = "performance";
 
   # Set networking options
   networking.hostName = "kestrel"; 
