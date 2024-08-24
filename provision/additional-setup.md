@@ -2,13 +2,6 @@
 
 The following documents some NixOS setup that wasn't automated.
 
-## Hyprland
-
-Detecting monitor configs is annoying and I don't feel like it is worth the time
-to figure out. After doing the first `chezmoi apply` you will need copy `monitors.conf.example`
-in the hyprland config folder to `monitors.conf` and edit for correct monitor 
-settings.
-
 ## Encryption Keys
 
 ### Github SSH
@@ -19,11 +12,6 @@ or:
 
 - `/run/secrets/keys/github_personal` to `~/.ssh/keys/github_personal`.
 - `/run/secrets/radicale/users` to `~/.config/radicale/users`.
-
-### Sops-nix 
-
-Encrypted keys for various aspects of the config are stored in `./secrets/secrets.yaml` 
-to the required key for decryption must be placed at `~/.config/sops/age/keys.txt`.
 
 ### NIPR email, Teams, etc.
 
@@ -74,40 +62,6 @@ machine. Current git-annex stores I have are:
 
 - `roms` - `~/mnt/engi/media/roms` from `torus`.
 
-## Cadquery and Simplify3d
-
-Cadquery and Simplify3d don't play nice with non-FHS filesystems (and Simplify3d
-is proprietary). I run these programs within distrobox. Some notes about using
-distrobox for these programs.
-
-If arch-box isn't created, create it and apply chezmoi dot files to secondary
-home directory:
-
-```bash
-distrobox create --image archlinux --name arch-box --home ~/box/arch
-chezmoi apply -D ~/home/arch
-```
-
-Then enter the box and run script to install cadquery and dependencies for 
-Simplify3d:
-
-```bash
-distrobox enter arch-box
-cd && ./bin/arch-install-cad
-```
-
-As the script suggest then download and install Simplify3d from the script on the
-[website](https://www.simplify3d.com/).
-
-The applications can be run within the box with the following commands:
-
-```bash
-# Simplify3d
-/opt/Simplify3D-5.1.2/LaunchScript.sh
-# CQ-editor
-cd ~/cq-editor && ./run.sh
-```
-
 ## Chrome
 
 The vast majority of Chrome is setup with [browser.nix](./modules/desktop/browser.nix)
@@ -122,16 +76,6 @@ Set to `http://localhost:8080`.
 and restore config from `~/.config/vimium-options.json`.
 
 - Pin and re-arrange plugins as desired.
-
-## Steam
-
-Some games/emulators (in my case Ares) don't fullscreen nicely in window managers.
-In that case add something alongs the lines of the following 
-launch command to run them within gamescope.
-
-```bash
-gamescope -w 2560 -h 1440 -f %command%
-```
 
 ## Obsidian Vault on New machine
 
@@ -149,9 +93,3 @@ Open vault folder in obsidian and change the `.obsidian` folder in settings.
 ## Wifi on Shivan
 
 Connect to wifi network with: `nmcli device wifi connect <SSID> password <password>`.
-
-## Gnome Extensions
-
-The following extensions don't work from nixpkgs easily. For now install manually:
-
-- [Fullscreen Avoider](https://extensions.gnome.org/extension/4362/fullscreen-avoider/)
