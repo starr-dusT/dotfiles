@@ -34,6 +34,7 @@ in {
       gnomeExtensions.custom-hot-corners-extended # GNOME Shell extension for changing window focus behavior.
       gnome-fullscreen-to-empty-workspace
       gnome-set-panel-monitor
+      gnome-randr
     ];
 
     environment.gnome.excludePackages = with pkgs; [
