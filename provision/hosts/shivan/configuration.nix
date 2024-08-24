@@ -15,15 +15,6 @@
   # Enable docker 
   virtualisation.docker.enable = true;
   virtualisation.docker.storageDriver = "btrfs";
-
-  # Password-less root
-  security.sudo.extraRules = [{ 
-    users = [ "${user}" ];
-    commands = [{ 
-      command = "ALL" ;
-      options= [ "NOPASSWD" ];
-    }];
-  }];
   
   environment.systemPackages = with pkgs; [
     distrobox # Platform for creating and managing Linux distribution images.

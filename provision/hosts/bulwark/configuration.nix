@@ -10,15 +10,6 @@
   networking.firewall.checkReversePath = "loose";
   networking.firewall.enable = false;
 
-  # Password-less root
-  security.sudo.extraRules = [{ 
-    users = [ "${user}" ];
-    commands = [{ 
-      command = "ALL" ;
-      options= [ "NOPASSWD" ];
-    }];
-  }];
-
   environment.systemPackages = with pkgs; [
   ];
 
