@@ -1,6 +1,6 @@
 { config, lib, pkgs, user, inputs, ... }:
 {
-  imports = [ ./keyd.nix ./browser.nix ./gnome.nix ./sway.nix ];
+  imports = [ ./keyd.nix ./browser.nix ./gnome.nix ];
 
   environment.systemPackages = with pkgs; [
     bc # Arbitrary-precision arithmetic language.
@@ -13,7 +13,6 @@
     mpv # Media player for playing audio and video files.
     p7zip # Command-line file archiver with high compression ratio.
     gimp # GNU Image Manipulation Program for editing and composing raster images.
-    wl-clipboard # Command-line utility to access and manipulate clipboard content in a Wayland session.
   ];
 
   # xdg-desktop-portal settings

@@ -1,15 +1,3 @@
-[".themes/dracula"]
-    type = "archive"
-    url = "https://github.com/dracula/gtk/archive/master.zip"
-    exact = true
-    stripComponents = 1
-    refreshPeriod = "168h"
-
-[".config/alacritty/themes"]
-    type = "git-repo"
-    url = "https://github.com/alacritty/alacritty-theme"
-    refreshPeriod = "168h"
-
 [".tmux/plugins/tpm"]
     type = "git-repo"
     url = "https://github.com/tmux-plugins/tpm"

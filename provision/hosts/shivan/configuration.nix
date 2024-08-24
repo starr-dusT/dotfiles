@@ -4,8 +4,8 @@
     ./syncthing.nix
   ];
 
-  # Use zen kernel
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  # Use performance governor for sweet gaming performance!
+  powerManagement.cpuFreqGovernor = "performance";
 
   # Set networking options
   networking.hostName = "shivan"; 
@@ -14,6 +14,7 @@
 
   # Enable docker 
   virtualisation.docker.enable = true;
+  virtualisation.docker.storageDriver = "btrfs";
 
   # Password-less root
   security.sudo.extraRules = [{ 
@@ -31,7 +32,11 @@
   # Modules
   modules = {
     desktop = {
-      sway.enable = true;
+      gnome = {
+        enable = true;
+        # TODO: Add Shivan wallpaper
+        wallpaper = "file://${../../../resources/img/wallpapers/gruvbox/bulwark.png}";
+      };
       browser.enable = true;
     };
     devel = {
@@ -52,6 +57,7 @@
       virt-manager.enable = false;
     };
     system = {
+      nipr = true;
       secrets.enable = true;
       ssh.enable = true;
       terminal.enable = true;

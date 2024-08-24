@@ -28,7 +28,6 @@
   # Modules
   modules = {
     desktop = {
-      sway.enable = false;
       gnome = {
         enable = true;
         wallpaper = "file://${../../../resources/img/wallpapers/gruvbox/bulwark.png}";
