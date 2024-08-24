@@ -34,7 +34,6 @@ in {
       gnomeExtensions.custom-hot-corners-extended # GNOME Shell extension for changing window focus behavior.
       gnome-fullscreen-to-empty-workspace
       gnome-set-panel-monitor
-      gnome-maximize-lonely-window
     ];
 
     environment.gnome.excludePackages = with pkgs; [
@@ -148,7 +147,6 @@ in {
             "focus-changer@heartmire"
             "fullscreen-to-empty-workspace@aiono.dev"
             "gnome-set-panel-monitor@tstarr.us"
-            "maximize-lonely-window@MrShuster"
             "custom-hot-corners-extended@G-dH.github.com"
           ];
         };
