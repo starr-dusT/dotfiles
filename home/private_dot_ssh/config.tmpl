@@ -10,3 +10,12 @@ Host bulwark
   AddKeysToAgent yes
   IdentityFile /run/agenix/ssh/kestrel/id_ed25519 
 {{- end }}
+{{ if eq .chezmoi.hostname "torus" }}
+Host kestrel
+  AddKeysToAgent yes
+  IdentityFile /run/agenix/ssh/torus/id_ed25519 
+
+Host bulwark 
+  AddKeysToAgent yes
+  IdentityFile /run/agenix/ssh/torus/id_ed25519 
+{{- end }}

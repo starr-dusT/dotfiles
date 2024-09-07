@@ -27,6 +27,16 @@ in {
       owner = "${user}";
       group = "users";
     };
+    age.secrets."ssh/torus/id_ed25519" = {
+      file = ../../secrets/ssh/torus/id_ed25519.age;
+      owner = "${user}";
+      group = "users";
+    };
+    age.secrets."ssh/torus/id_ed25519.pub" = {
+      file = ../../secrets/ssh/torus/id_ed25519.pub.age;
+      owner = "${user}";
+      group = "users";
+    };
 
     # emu secrets
     age.secrets."emu/switch/prod.keys" = {
