@@ -7,8 +7,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "onsah";
     repo = "fullscreen-to-new-workspace";
-    rev = "8237de39f420307c0c08b72a0d9af042c03440ed";
-    hash = "sha256-pdRReQDHDu3nWvMGhPryU6++pT7ohB8KPvxFwDSsFaw=";
+    rev = "26014b6f8d569891381ab2ebc75c74a51d2454df";
+    hash = "sha256-S9mvODQqOBCmA+L1TBJm/c1v5Y+qVKuFpQf799LEwcI=";
   };
 
   installPhase = ''

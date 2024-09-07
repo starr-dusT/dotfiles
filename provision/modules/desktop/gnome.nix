@@ -181,6 +181,12 @@ in {
         "org/gnome/settings-daemon/plugins/media-keys" = {
           screensaver = [];    
         };
+        "org/gnome/settings-daemon/plugins/power" = {
+          sleep-inactive-ac-type = "suspend";
+          sleep-inactive-battery-type = "suspend";
+          sleep-inactive-ac-timeout = 2700;
+          sleep-inactive-battery-timeout = 2700;
+        };
         "org/gnome/desktop/wm/keybindings" = {
           switch-to-workspace-1 = ["<Super>1"];            
           switch-to-workspace-2 = ["<Super>2"];            

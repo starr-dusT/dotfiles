@@ -13,7 +13,6 @@ in {
       pciutils # Utilities for inspecting and manipulating devices connected to the PCI bus.
       chezmoi # Manages your dotfiles across multiple machines, ensuring consistency and version control.
       btop # Terminal-based resource monitor, providing an interactive view of system resources.
-      cookcli # Command-line tool for managing Cook, a job scheduling system.
       nix-search-cli # Command-line utility for searching the Nix package repository.
       rbw # Command-line interface to the Bitwarden password manager.
       pinentry-curses # Simple curses-based passphrase entry dialog for GnuPG.
