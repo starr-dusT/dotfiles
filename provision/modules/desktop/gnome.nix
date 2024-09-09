@@ -215,6 +215,7 @@ in {
           toggle-fullscreen = [ "<Super>f" ];              
           toggle-maximized = [ "<Super>t" ];               
           raise-or-lower = [ "<Super>s" ];                 
+          move-to-center = [ "<Alt><Super>c" ];
           switch-windows = ["<Super>Tab"];                 
           switch-windows-backward = ["<Shift><Super>Tab"]; 
           minimize = [];
