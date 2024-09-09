@@ -52,10 +52,10 @@ in {
       snapshot # Utility for taking and managing system snapshots in the GNOME desktop environment.
       gnome-connections # GNOME application for accessing remote machines and services.
       gnome-font-viewer # Utility for previewing and managing fonts in the GNOME desktop environment.
-      gnome.gnome-logs # Log viewer application for GNOME.
-      gnome.gnome-maps # Map application for the GNOME desktop environment.
-      gnome.gnome-music # Music player and management application for GNOME.
-      gnome.gnome-shell-extensions # Extensions for enhancing functionality and customization in the GNOME.
+      gnome-logs # Log viewer application for GNOME.
+      gnome-maps # Map application for the GNOME desktop environment.
+      gnome-music # Music player and management application for GNOME.
+      gnome-shell-extensions # Extensions for enhancing functionality and customization in the GNOME.
     ];
 
     # Valent for remote control
