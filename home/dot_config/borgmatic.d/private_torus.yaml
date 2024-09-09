@@ -1,0 +1,21 @@
+source_directories:
+    - .
+
+exclude_patterns:
+    - 'code-server/config/*'
+    - 'code-server/workspace/*'
+    - 'immich/library/*'
+
+archive_name_format: 'apps-{now}'
+repositories:
+    #- path: ssh://user@backupserver/./sourcehostname.borg
+    #  label: backupserver
+    - path: /engi/backup/borg/borg-apps
+      label: local
+
+    
+keep_daily: 7
+keep_weekly: 4
+keep_monthly: 6
+
+encryption_passphrase: "***REMOVED***"

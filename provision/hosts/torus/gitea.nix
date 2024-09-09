@@ -1,23 +1,47 @@
 { config, lib, pkgs, user, ... }:
-{
+let
+  stateDir = "/var/lib/gitea";
+  dumpFolder = "/engi/backup/dumps/gitea";
+  domain = "git.tstarr.us";
+in {
+
+  # Main gitea service
+  systemd.tmpfiles.rules = [
+    "d ${dumpFolder} 0775 gitea gitea -"
+  ];
+
+  environment.systemPackages = [
+    (pkgs.writeScriptBin "backup-dump-gitea" ''
+      #!/bin/sh
+      cd ${dumpFolder}
+      [ -e gitea-dump.zip ] && rm gitea-dump.zip
+      exec ${pkgs.gitea}/bin/gitea dump --type zip -c ${stateDir}/custom/conf/app.ini --file "gitea-dump.zip"
+    '')
+  ];
+
   services.gitea = {
     enable = true;
     lfs.enable = true;
-    dump = {
-      enable = true;
-      interval = "23:05";
+    stateDir = "${stateDir}";
+    customDir = "${stateDir}/custom"; 
+    settings.server = {
+      DOMAIN = "${domain}";
+      HTTP_PORT = 3001;
+      ROOT_URL = "https://${domain}";
     };
     settings.service = {
         DISABLE_REGISTRATION = true;
     };
-    settings.server = {
-      DOMAIN = "git.tstarr.us";
-      HTTP_PORT = 3001;
-      ROOT_URL = "https://git.tstarr.us";
-    };
   };
 
-  # gitea runner secrets
+  # Gitea runners
+  users.users.gitea-runner = {
+    createHome = false;
+    isSystemUser = true;
+    group = "gitea-runner";
+  };
+  users.groups.gitea-runner = {};
+
   age.secrets."git/gitea-runner-1" = {
     file = ../../secrets/git/gitea-runner-1.age;
     owner = "gitea-runner";
@@ -27,7 +51,7 @@
   services.gitea-actions-runner.instances = {
     runner1 = {
       enable = true;
-      url = "https://git.tstarr.us";
+      url = "https://${domain}";
       tokenFile = "/run/agenix/git/gitea-runner-1";
       name = "runner1";
       labels = [
@@ -47,10 +71,4 @@
       ];
     };
   };
-  users.users.gitea-runner = {
-    createHome = false;
-    isSystemUser = true;
-    group = "gitea-runner";
-  };
-  users.groups.gitea-runner = {};
 }
