@@ -33,9 +33,10 @@
     enable = true;
     package = pkgs.docker_27;
     storageDriver = "btrfs";
-    enableNvidia = true;
   };
-  services.xserver.videoDrivers = [ "nvidia" ];
+
+  services.xserver.videoDrivers = ["nvidia"];
+  hardware.nvidia.open = false;
 
   environment.systemPackages = with pkgs; [
   ];
