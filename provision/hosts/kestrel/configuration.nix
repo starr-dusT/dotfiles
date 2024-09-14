@@ -12,6 +12,15 @@
   networking.firewall.checkReversePath = "loose";
   networking.firewall.enable = false;
 
+  # Nvidia options
+  services.xserver.videoDrivers = ["nvidia"];
+  hardware.nvidia = {
+    modesetting.enable = true;
+    open = true;
+    powerManagement.enable = true;
+    nvidiaSettings = true;
+  };
+
   # Enable docker 
   virtualisation.docker.enable = true;
   virtualisation.docker.storageDriver = "btrfs";
