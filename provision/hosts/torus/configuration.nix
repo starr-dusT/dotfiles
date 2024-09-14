@@ -23,7 +23,6 @@
   networking.firewall.checkReversePath = "loose";
   networking.firewall.allowedTCPPorts = [ 80 443 ];
   networking.firewall.allowedUDPPorts = [ 80 443 ];
-  networking.nameservers = [ "8.8.8.8" "8.8.4.4" ];
   boot.kernel.sysctl = {
     "net.ipv4.conf.all.forwarding" = true; # Needed for wireguard-server
   };
@@ -38,8 +37,6 @@
   services.xserver.videoDrivers = [ "nvidia" ];
 
   environment.systemPackages = with pkgs; [
-    docker-compose # Tool for defining and running multi-container Docker applications.
-    python3 # Interpreted, high-level programming language known for its simplicity and versatility.
   ];
 
   security.acme = {
