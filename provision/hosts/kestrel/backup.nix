@@ -15,6 +15,16 @@
     owner = "${user}";
     group = "users";
   };
+  age.secrets."borg/rsync/id_rsa" = {
+    file = ../../secrets/borg/rsync/id_rsa.age;
+    owner = "${user}";
+    group = "users";
+  };
+  age.secrets."borg/rsync/id_rsa.pub" = {
+    file = ../../secrets/borg/rsync/id_rsa.pub.age;
+    owner = "${user}";
+    group = "users";
+  };
 
   # Password-less logins for backup
   users.users."${user}".openssh.authorizedKeys.keyFiles = [
@@ -26,6 +36,10 @@
     Host torus 
       AddKeysToAgent yes
       IdentityFile /run/agenix/ssh/kestrel/id_ed25519 
+
+    Host fm2120.rsync.net
+      AddKeysToAgent yes
+      IdentityFile /run/agenix/borg/rsync/id_rsa
   '';
 
   systemd.tmpfiles.rules = [

@@ -183,7 +183,7 @@ in {
           screensaver = [];    
         };
         "org/gnome/settings-daemon/plugins/power" = {
-          sleep-inactive-ac-type = "suspend";
+          sleep-inactive-ac-type = "blank";
           sleep-inactive-battery-type = "suspend";
           sleep-inactive-ac-timeout = 2700;
           sleep-inactive-battery-timeout = 2700;
