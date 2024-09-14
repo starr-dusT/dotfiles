@@ -21,5 +21,6 @@ in
   "ssh/kestrel/id_ed25519.pub.age".publicKeys = users ++ systems;
   "ssh/torus/id_ed25519.age".publicKeys = [ tstarr_torus ] ++ systems;
   "ssh/torus/id_ed25519.pub.age".publicKeys = users ++ systems;
+  "borg/torus/password.age".publicKeys = [ tstarr_torus ] ++ systems;
 }
 

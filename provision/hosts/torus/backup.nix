@@ -15,6 +15,11 @@
     owner = "${user}";
     group = "users";
   };
+  age.secrets."borg/torus/password" = {
+    file = ../../secrets/borg/torus/password.age;
+    owner = "${user}";
+    group = "users";
+  };
 
   # Password-less login for user
   users.users."${user}".openssh.authorizedKeys.keyFiles = [
