@@ -3,6 +3,7 @@
   services.borgmatic.enable = true;
   environment.systemPackages = with pkgs; [
     borgbackup # Deduplicating backup program 
+    tree
     (pkgs.writeScriptBin "stop-docker-containers" ''
       #!/bin/sh
       [ -e /tmp/docker_images ] && rm /tmp/docker_images
