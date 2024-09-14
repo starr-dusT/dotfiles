@@ -1,4 +1,4 @@
-{ config, pkgs, user, lib, ... }:
+{ config, pkgs, user, lib, inputs, ... }:
 {
   nix = {
     package = pkgs.nixFlakes;
@@ -46,6 +46,7 @@
   
   environment.systemPackages = with pkgs; [
     cowsay # A program which generates ASCII pictures of a cow with a message
+    inputs.agenix.packages.x86_64-linux.default 
   ];
 
   # Did you read the comment?

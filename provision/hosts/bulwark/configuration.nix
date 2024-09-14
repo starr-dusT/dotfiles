@@ -46,7 +46,6 @@
       nipr.enable = true;
       ssh.enable = true;
       terminal.enable = true;
-      secrets.enable = true;
       wireguard-client.enable = false;
     };
   };

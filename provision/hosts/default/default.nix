@@ -1,4 +1,4 @@
 { ... }:
 { 
-  imports = [ ./backup.nix ./configuration.nix ./home-configuration.nix ];
+  imports = [ ./git.nix ./backup.nix ./configuration.nix ./home-configuration.nix ];
 }
