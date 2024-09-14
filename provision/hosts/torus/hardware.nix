@@ -20,7 +20,7 @@
     };
 
   fileSystems."/engi" =
-    { device = "/dev/disk/by-uuid/89227565-1b54-41ec-adef-cd4ddd8565c5";
+    { device = "/dev/disk/by-uuid/535012d6-71c2-40e3-85a5-71bb2e971ad0";
       fsType = "btrfs";
     };
 
