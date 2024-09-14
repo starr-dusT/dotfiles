@@ -6,9 +6,6 @@ in {
   config = lib.mkIf cfg.enable {
 
     environment.systemPackages = with pkgs; [
-      git # Version control system for tracking changes in source code during software development.
-      git-annex # Manages files with git, without checking the file contents into git.
-      lazygit # Terminal-based GUI for git, making it easier to use and visualize git repositories.
       killall # Command-line utility to terminate processes by name.
       pciutils # Utilities for inspecting and manipulating devices connected to the PCI bus.
       chezmoi # Manages your dotfiles across multiple machines, ensuring consistency and version control.

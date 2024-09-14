@@ -21,5 +21,16 @@ in {
         ];
       })
     ];
+
+    age.secrets."emu/switch/prod.keys" = {
+      file = ../../secrets/emu/switch/prod.keys.age;
+      owner = "${user}";
+      group = "users";
+    };
+    age.secrets."emu/switch/title.keys" = {
+      file = ../../secrets/emu/switch/title.keys.age;
+      owner = "${user}";
+      group = "users";
+    };
   };
 }

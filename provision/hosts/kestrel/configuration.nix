@@ -61,7 +61,6 @@
     };
     system = {
       nipr.enable = true;
-      secrets.enable = true;
       ssh.enable = true;
       terminal.enable = true;
       wireguard-client = {
