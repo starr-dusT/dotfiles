@@ -1,6 +1,10 @@
 Host github.com
   AddKeysToAgent yes
   IdentityFile /run/agenix/git/github_personal 
+
+Host fm2120.rsync.net
+  AddKeysToAgent yes
+  IdentityFile /run/agenix/borg/rsync/id_rsa
 {{ if eq .chezmoi.hostname "kestrel" }}
 Host torus
   AddKeysToAgent yes

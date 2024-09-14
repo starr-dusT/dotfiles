@@ -22,5 +22,7 @@ in
   "ssh/torus/id_ed25519.age".publicKeys = [ tstarr_torus ] ++ systems;
   "ssh/torus/id_ed25519.pub.age".publicKeys = users ++ systems;
   "borg/torus/password.age".publicKeys = [ tstarr_torus ] ++ systems;
+  "borg/rsync/id_rsa.age".publicKeys = users ++ systems;
+  "borg/rsync/id_rsa.pub.age".publicKeys = users ++ systems;
 }
 
