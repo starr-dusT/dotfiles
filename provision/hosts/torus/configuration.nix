@@ -9,6 +9,7 @@
     ./home-assistant
     ./gitea.nix
     ./nextcloud.nix
+    ./backup.nix
   ];
 
   # Use normal kernel
