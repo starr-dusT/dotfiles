@@ -2,6 +2,7 @@
 {
   imports = [ 
     ./syncthing.nix
+    ./backup.nix
   ];
 
   # Use performance governor for sweet gaming performance!
