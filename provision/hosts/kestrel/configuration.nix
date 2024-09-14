@@ -2,6 +2,7 @@
 {
   imports = [ 
     ./syncthing.nix
+    ./backup.nix
   ];
 
   # Use performance governor for sweet gaming performance!
@@ -11,6 +12,15 @@
   networking.hostName = "kestrel"; 
   networking.firewall.checkReversePath = "loose";
   networking.firewall.enable = false;
+
+  # Nvidia options
+  services.xserver.videoDrivers = ["nvidia"];
+  hardware.nvidia = {
+    modesetting.enable = true;
+    open = true;
+    powerManagement.enable = true;
+    nvidiaSettings = true;
+  };
 
   # Enable docker 
   virtualisation.docker.enable = true;

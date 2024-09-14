@@ -19,6 +19,7 @@ in {
     environment.systemPackages = with pkgs; [ 
       steamtinkerlaunch # Launcher and optimization tool for Steam games.
       gamescope # Utility for running games using Valve's Steam Play compatibility layer with improved performance and compatibility.
+      mangohud
     ];
   };
 }

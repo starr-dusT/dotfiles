@@ -25,22 +25,12 @@ in {
       advcpmv # Advanced version of the Unix utilities cp and mv.
       unzip # Command-line utility for extracting files from ZIP archives.
       trash-cli # Command-line interface to the freedesktop.org Trash.
-      catimg # Display images in the terminal using ASCII characters.
       vim # Text editor that is highly configurable and widely used, especially in the Unix environment.
       neovim # Fork of Vim aiming to improve extensibility and usability.
       nodejs # JavaScript runtime built on Chrome's V8 JavaScript engine.
       ripgrep # Line-oriented search tool that recursively searches directories for a regex pattern.
       cargo # Package manager and build system for Rust.
-      taskwarrior # Command-line task management tool.
-      taskopen # Open Taskwarrior tasks in a text editor.
-      taskwarrior-tui # Interactive terminal user interface for Taskwarrior.
-      timewarrior # Command-line time tracking utility.
-      ollama # Command-line tool for viewing and managing Open Location Codes.
       docker-compose
-      opensc
-      pcsc-tools
-      firefox
-      pkcs11helper
     ];
   };
 }
