@@ -1,0 +1,15 @@
+source_directories:
+    - "/home/tstarr"
+
+exclude_patterns:
+    - "/home/tstarr/.?*"
+    - "/home/tstarr/mnt"
+    - "/home/tstarr/tmp"
+    - "/home/tstarr/sync"
+    - "/home/tstarr/media/roms"
+    - "/home/tstarr/box"
+    - "/home/tstarr/Downloads"
+
+archive_name_format: 'kestrel.borg-{now}'
+
+<<: !include common.yaml

@@ -1,0 +1,5 @@
+repositories:
+  - path: ssh://tstarr@torus//engi/store/kestrel.borg
+    label: torus
+
+<<: !include kestrel_common.yaml
