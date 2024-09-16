@@ -57,3 +57,6 @@ alias dr='docker run --rm --name $(date +%Y%m%d%k%M%S) -p 8082:8082 -v $(pwd):/r
 
 # applications
 alias google-chrome-stable="google-chrome-stable --simulate-outdated-no-au='Tue, 31 Dec 2099 23:59:59 GMT'"
+
+# rsync
+alias rsync.net="ssh fm2120@fm2120.rsync.net"
