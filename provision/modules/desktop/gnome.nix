@@ -142,7 +142,7 @@ in {
             "google-chrome.desktop"
             "kitty.desktop"
             "steam.desktop"
-            "discord.desktop"
+            "vesktop.desktop"
           ];
           disable-user-extensions = false;
           enabled-extensions = [
@@ -237,7 +237,7 @@ in {
         "terminal" = { binding = "<Super><Control>Return"; command = "kitty"; name = "Open Terminal"; };
         "browser" = { binding = "<Super><Control>b"; command = "google-chrome-stable --simulate-outdated-no-au='Tue, 31 Dec 2099 23:59:59 GMT'"; name = "Open Browser"; };
         "steam" = { binding = "<Super><Control>s"; command = "steam"; name = "Open Steam"; };
-        "discord" = { binding = "<Super><Control>d"; command = "discord"; name = "Open Discord"; };
+        "vesktop" = { binding = "<Super><Control>d"; command = "vesktop"; name = "Open Vesktop"; };
         "nautilus" = { binding = "<Super><Control>f"; command = "nautilus"; name = "Open File Manager"; };
       };
     };
