@@ -65,6 +65,7 @@ in {
           { "name" = "Games"; "children" = [
             { "url" = "https://www.protondb.com/"; name = "ProtonDB"; }
             { "url" = "https://vimm.net/"; name = "Vimm's Lair: Preserving the Classics"; }
+            { "url" = "https://www.dotabuff.com/"; name = "DOTABUFF"; }
           ]; }
           { "name" = "Homelab"; "children" = [
             { "url" = "http://localhost:8384"; name = "Syncthing"; }
