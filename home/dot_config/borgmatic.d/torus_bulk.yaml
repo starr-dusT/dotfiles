@@ -1,0 +1,11 @@
+source_directories:
+    - /engi/backup # Static files and service dumps
+    #- /home/tstarr/Sync # Syncthing files
+    
+before_backup:
+  - "tree /engi > /engi/backup/tree.txt"
+  - sudo -u gitea backup-dump-gitea
+
+archive_name_format: 'torus_bulk.borg-{now}'
+
+<<: !include torus_common.yaml

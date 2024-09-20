@@ -1,15 +1,7 @@
-source_directories:
-    - "/home/tstarr"
-
-exclude_patterns:
-    - "/home/tstarr/.?*"
-    - "/home/tstarr/mnt"
-    - "/home/tstarr/tmp"
-    - "/home/tstarr/sync"
-    - "/home/tstarr/media/roms"
-    - "/home/tstarr/box"
-    - "/home/tstarr/Downloads"
-
-archive_name_format: 'kestrel.borg-{now}'
+repositories:
+  - path: ssh://tstarr@torus//engi/store/kestrel.borg
+    label: torus
+  - path: ssh://fm2120@fm2120.rsync.net//data2/home/fm2120/store/kestrel.borg
+    label: rsync
 
 <<: !include common.yaml
