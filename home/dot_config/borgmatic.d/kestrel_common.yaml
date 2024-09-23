@@ -1,3 +1,4 @@
+compression: zstd,22
 repositories:
   - path: ssh://tstarr@torus//engi/store/kestrel.borg
     label: torus

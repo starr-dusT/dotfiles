@@ -1,0 +1,8 @@
+source_directories:
+    - /engi/media
+
+archive_name_format: 'torus_media.borg-{now}'
+
+compression: lz4
+
+<<: !include torus_common.yaml

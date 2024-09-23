@@ -3,7 +3,6 @@ keep_weekly: 4
 keep_monthly: 6
 
 encryption_passcommand: cat /run/agenix/borg/torus/password 
-compression: zstd,22
 checks:
   - name: repository
   - name: spot

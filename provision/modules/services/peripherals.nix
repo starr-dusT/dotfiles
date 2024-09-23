@@ -11,6 +11,7 @@ in {
       pavucontrol # Simple GTK based mixer for the PulseAudio sound server
       libimobiledevice # Library to support iPhone, iPod Touch and iPad devices on Linux
       ifuse # fuse filesystem implementation to access the contents of iOS devices
+      usbtop
     ];
 
     security.rtkit.enable = true;

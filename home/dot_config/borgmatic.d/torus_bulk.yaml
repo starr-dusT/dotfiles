@@ -8,4 +8,6 @@ before_backup:
 
 archive_name_format: 'torus_bulk.borg-{now}'
 
+compression: zstd,22
+
 <<: !include torus_common.yaml
