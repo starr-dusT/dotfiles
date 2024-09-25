@@ -1,0 +1,6 @@
+!#/usr/bin/env bash
+
+tmux rename-window edit
+tmux new-window -n term
+tmux select-window -t 1
+exec "$EDITOR"

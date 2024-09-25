@@ -5,8 +5,18 @@
 alias nu="cd ~/.local/share/chezmoi/provision && \
           sudo nixos-rebuild switch --impure --flake .#$(hostname) && \
           cd -"
-# sway
-alias s='sway'
+
+# sesh
+function s() {
+  {
+    exec </dev/tty
+    exec <&1
+    local session
+    session=$(sesh list -i | fzf --ansi --height 40% --reverse --border-label ' sesh ' --border --prompt '⚡  ')
+    [[ -z "$session" ]] && return
+    sesh connect $session
+  }
+}
 
 # hyprland
 alias h='Hyprland'

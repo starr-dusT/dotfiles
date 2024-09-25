@@ -27,6 +27,8 @@ in {
       ripgrep # Line-oriented search tool that recursively searches directories for a regex pattern.
       cargo # Package manager and build system for Rust.
       docker-compose
+      sesh
+      zoxide
     ];
   };
 }
