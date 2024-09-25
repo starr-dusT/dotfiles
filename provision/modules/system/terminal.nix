@@ -16,7 +16,6 @@ in {
       bash # GNU Bourne-Again SHell, a command language interpreter for Unix-like operating systems.
       bash-completion # Provides programmable completion for the bash shell.
       tmux # Terminal multiplexer, allowing multiple terminal sessions within a single window.
-      tmuxp # Manages tmux sessions through simple, declarative configuration files.
       thefuck # Corrects errors in previous console commands.
       nnn # Terminal file manager with a focus on performance and ease of use.
       advcpmv # Advanced version of the Unix utilities cp and mv.

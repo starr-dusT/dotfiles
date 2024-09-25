@@ -1,9 +1,0 @@
-# tmuxp config for general dev 
-
-session_name: dev
-windows:
-  - window_name: editor
-    panes:
-      - shell_command:
-          - nvim
-  - window_name: term

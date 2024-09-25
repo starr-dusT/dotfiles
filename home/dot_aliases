@@ -11,9 +11,6 @@ alias s='sway'
 # hyprland
 alias h='Hyprland'
 
-# tmuxp
-alias t='linux-tmuxp-launcher'
-
 alias tw='linux-toggle-vpn'
 
 # chezmoi
