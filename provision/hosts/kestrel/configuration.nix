@@ -27,7 +27,6 @@
   virtualisation.docker.storageDriver = "btrfs";
   
   environment.systemPackages = with pkgs; [
-      distrobox # Platform for creating and managing Linux distribution images.
   ];
 
   # Secrets
