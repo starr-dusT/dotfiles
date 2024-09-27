@@ -2,7 +2,6 @@
 {
   imports = [ 
     ./git.nix
-    ./backup.nix
     ./home-default.nix
   ];
 
