@@ -4,38 +4,35 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     agenix.url = "github:ryantm/agenix";
-    home-manager = {
-      url = github:nix-community/home-manager;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    jovian-nixos = {
-      url = "git+https://github.com/Jovian-Experiments/Jovian-NixOS?ref=development";
-      flake = false;
-    };
+    home-manager.url = github:nix-community/home-manager;
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    jovian-nixos.url = "git+https://github.com/Jovian-Experiments/Jovian-NixOS?ref=development";
+    jovian-nixos.flake = false;
   };
 
   outputs = inputs @ { self, nixpkgs, home-manager, jovian-nixos, agenix, ... }:
   let
     system = "x86_64-linux";
     user = "tstarr";
+    lib = nixpkgs.lib;
   in {
-    nixosConfigurations = ( 
-      import ./hosts/kestrel {
-        inherit (nixpkgs) lib;
+    nixosConfigurations = {
+      kestrel = lib.nixosSystem (import ./hosts/kestrel {
+        inherit lib;
         inherit system user inputs agenix home-manager;
-      }
-      import ./hosts/shivan {
-        inherit (nixpkgs) lib;
+      });
+      shivan = lib.nixosSystem (import ./hosts/shivan {
+        inherit lib;
         inherit system user inputs agenix home-manager;
-      }
-      import ./hosts/torus {
-        inherit (nixpkgs) lib;
+      });
+      torus = lib.nixosSystem (import ./hosts/torus {
+        inherit lib;
         inherit system user inputs agenix home-manager;
-      }
-      import ./hosts/bulwark {
-        inherit (nixpkgs) lib;
+      });
+      bulwark = lib.nixosSystem (import ./hosts/bulwark {
+        inherit lib;
         inherit system user inputs agenix home-manager jovian-nixos;
-      }
-    ); 
+      });
+    }; 
   };
 }
