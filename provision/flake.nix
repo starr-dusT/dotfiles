@@ -12,14 +12,9 @@
       url = "git+https://github.com/Jovian-Experiments/Jovian-NixOS?ref=development";
       flake = false;
     };
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland-contrib = {
-        url = "github:hyprwm/contrib";
-        inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, jovian-nixos, agenix, hyprland, ... }:
+  outputs = inputs @ { self, nixpkgs, home-manager, jovian-nixos, agenix, ... }:
   let
     system = "x86_64-linux";
     user = "tstarr";
