@@ -8,9 +8,11 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     jovian-nixos.url = "git+https://github.com/Jovian-Experiments/Jovian-NixOS?ref=development";
     jovian-nixos.flake = false;
+    nixos-wsl.url = "github:nix-community/NixOS-WSL";
+    nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, jovian-nixos, agenix, ... }:
+  outputs = inputs @ { self, nixpkgs, home-manager, jovian-nixos, agenix, nixos-wsl, ... }:
   let
     system = "x86_64-linux";
     user = "tstarr";
@@ -32,6 +34,10 @@
       bulwark = lib.nixosSystem (import ./hosts/bulwark {
         inherit lib;
         inherit system user inputs agenix home-manager jovian-nixos;
+      });
+      wsl = lib.nixosSystem (import ./hosts/wsl {
+        inherit lib;
+        inherit system user inputs agenix home-manager nixos-wsl;
       });
     }; 
   };
