@@ -3,10 +3,10 @@
   inherit system;
   specialArgs = { inherit user inputs; };
   modules = [
-    ../default
-    ../../modules
+    ../default/physical/configuration.nix
     ./configuration.nix
     ./hardware.nix
+    ../../modules
     agenix.nixosModules.default
     home-manager.nixosModules.home-manager {
       home-manager.useGlobalPkgs = true;
