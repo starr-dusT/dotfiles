@@ -3,8 +3,9 @@
   inherit system;
   specialArgs = { inherit user inputs; };
   modules = [
-    ../default/physical/configuration.nix
-    ./configuration.nix
+    ../default # shared by all configs
+    ../default/physical/configuration.nix # shared by physical machines
+    ./configuration.nix # bulwark specific
     ./hardware.nix
     ../../modules
     agenix.nixosModules.default
