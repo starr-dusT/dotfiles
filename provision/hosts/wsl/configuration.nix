@@ -41,6 +41,7 @@ in
   systemd.enableEmergencyMode = false;
 
   environment.systemPackages = with pkgs; [
+    firefox
   ];
 
   # Modules 
