@@ -4,6 +4,10 @@ let cfg = config.modules.desktop.kitty;
 in {
   options.modules.desktop.kitty.enable = lib.mkEnableOption "kitty";
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [
+      nerdfonts
+    ];
+
     programs.kitty = {
       enable = true;
       theme = "Gruvbox Dark";
