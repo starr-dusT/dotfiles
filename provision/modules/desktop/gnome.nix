@@ -115,8 +115,6 @@ in {
 
     home-manager.users.${user} = {
       # Remove unwanted desktop entries
-      # Some are added to ~/.local/share/applications and must be removed manually there
-      # TODO: Use chezmoi to Hide these desktop files
       xdg.desktopEntries.cups = { name = ""; exec = null; settings.Hidden = "true"; };
       xdg.desktopEntries.writer = { name = ""; exec = null; settings.Hidden = "true"; };
       xdg.desktopEntries.math = { name = ""; exec = null; settings.Hidden = "true"; };
