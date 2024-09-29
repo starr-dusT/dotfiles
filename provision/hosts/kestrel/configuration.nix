@@ -52,8 +52,10 @@
       emulation.enable = true;
       misc.enable = true;
     };
+    programs = {
+      kitty.enable = true;
+    };
     services = {
-      jellyfin.enable = false;
       peripherals.enable = true;
       samba-client.enable = true;
       virt-manager.enable = true;
@@ -68,14 +70,6 @@
         address = [ "192.168.3.3/24" ];
         publicKey = "bd7bbZOngl/FTdBlnbIhgCLNf6yx5X8WjiRB7E1NEQQ=";
         endpoint = "66.218.43.87";
-      };
-    };
-  };
-
-  home-manager.users.${user} = {
-    modules = {
-      desktop = {
-        kitty.enable = true;
       };
     };
   };
