@@ -18,7 +18,10 @@ in {
     # Optionally apply chezmoi dotfiles with home-manager activation
     home-manager.users.${user} = lib.mkIf cfg.apply {
       home.activation.chezmoi = home-manager.lib.hm.dag.entryAfter [ "installPackages" ] ''
+        _saved_path=$PATH
+        PATH="${pkgs.git}/bin:$PATH"
         run ${pkgs.chezmoi}/bin/chezmoi apply --force
+        PATH=$_saved_path
       '';
     };
   };
