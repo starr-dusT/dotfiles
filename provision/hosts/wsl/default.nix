@@ -1,7 +1,7 @@
 { lib, system, user, inputs, agenix, home-manager, nixos-wsl, ... }:
 {
   inherit system;
-  specialArgs = { inherit user inputs nixos-wsl home-manger; };
+  specialArgs = { inherit user inputs nixos-wsl home-manager; };
   modules = [
     ../default          # shared by all configs
     ./configuration.nix # wsl specific

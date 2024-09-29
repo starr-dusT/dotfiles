@@ -5,6 +5,9 @@
 alias nu="cd ~/.local/share/chezmoi/provision && \
           sudo nixos-rebuild switch --impure --flake .#$(hostname) && \
           cd -"
+alias nb="cd ~/.local/share/chezmoi/provision && \
+          sudo nix run .#nixosConfigurations.wsl.config.system.build.tarballBuilder && \
+          cd -"
 
 # sesh
 function s() {
