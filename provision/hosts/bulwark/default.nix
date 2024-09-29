@@ -1,7 +1,7 @@
 { lib, system, user, inputs, agenix, home-manager, jovian-nixos, ... }:
 {
   inherit system;
-  specialArgs = { inherit user inputs home-manger; };
+  specialArgs = { inherit user inputs home-manager jovian-nixos; };
   modules = [
     ../default                            # shared by all configs
     ../default/physical/configuration.nix # shared by physical machines
