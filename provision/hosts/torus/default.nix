@@ -1,11 +1,11 @@
 { lib, system, user, inputs, agenix, home-manager, ... }:
 {
   inherit system;
-  specialArgs = { inherit user inputs; };
+  specialArgs = { inherit user inputs home-manager; };
   modules = [
-    ../default # shared by all configs
+    ../default                            # shared by all configs
     ../default/physical/configuration.nix # shared by physical machines
-    ./configuration.nix # torus specific
+    ./configuration.nix                   # torus specific
     ./hardware.nix
     ../../modules
     agenix.nixosModules.default
@@ -13,11 +13,6 @@
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.extraSpecialArgs = { inherit user; };
-      home-manager.users.${user} = {
-        imports = [ 
-          ../../home-modules
-        ];
-      };
     }
   ];
 }

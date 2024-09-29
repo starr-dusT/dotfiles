@@ -1,11 +1,11 @@
 { lib, system, user, inputs, agenix, home-manager, jovian-nixos, ... }:
 {
   inherit system;
-  specialArgs = { inherit user inputs jovian-nixos; };
+  specialArgs = { inherit user inputs home-manager jovian-nixos; };
   modules = [
-    ../default # shared by all configs
+    ../default                            # shared by all configs
     ../default/physical/configuration.nix # shared by physical machines
-    ./configuration.nix # bulwark specific
+    ./configuration.nix                   # bulwark specific
     ./hardware.nix
     ../../modules
     agenix.nixosModules.default
@@ -13,11 +13,6 @@
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.extraSpecialArgs = { inherit user; };
-      home-manager.users.${user} = {
-        imports = [ 
-          ../../home-modules
-        ];
-      };
     }
   ];
 }

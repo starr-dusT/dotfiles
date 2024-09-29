@@ -104,12 +104,4 @@
       ssh.enable = true;
     };
   };
-
-  home-manager.users.${user} = {
-    modules = {
-      desktop = {
-        kitty.enable = false;
-      };
-    };
-  };
 }

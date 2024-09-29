@@ -35,13 +35,10 @@
       python.enable = true;
       tooling.enable = true;
     };
-    gaming = {
-      steam.enable = false;
-      emulation.enable = false;
-      misc.enable = false;
+    programs = {
+      kitty.enable = true;
     };
     services = {
-      jellyfin.enable = false;
       peripherals.enable = true;
       samba-client.enable = true;
       virt-manager.enable = false;
@@ -50,15 +47,6 @@
       nipr = true;
       ssh.enable = true;
       terminal.enable = true;
-      wireguard-client.enable = false;
-    };
-  };
-
-  home-manager.users.${user} = {
-    modules = {
-      desktop = {
-        kitty.enable = true;
-      };
     };
   };
 }
