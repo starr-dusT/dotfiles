@@ -96,6 +96,12 @@
     devel = {
       tooling.enable = true;
     };
+    programs = {
+      chezmoi = {
+        enable = true;
+        apply = true;
+      };
+    };
     services = {
       jellyfin.enable = true;
     };

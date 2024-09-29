@@ -50,6 +50,12 @@ in
       python.enable = true;
       tooling.enable = true;
     };
+    programs = {
+      chezmoi = {
+        enable = true;
+        apply = true;
+      };
+    };
     system = {
       ssh.enable = true;
       terminal.enable = true;
