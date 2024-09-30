@@ -2,18 +2,7 @@
 
 The following documents some NixOS setup that wasn't automated.
 
-## Encryption Keys
-
-### Github SSH
-
-Keys for SSH aren't automatically placed with chezmoi `secret` since it complicated
-things to much. The key for github SSH must be transferred manually from Bitwarden
-or:
-
-- `/run/secrets/keys/github_personal` to `~/.ssh/keys/github_personal`.
-- `/run/secrets/radicale/users` to `~/.config/radicale/users`.
-
-### NIPR email, Teams, etc.
+## NIPR email, Teams, etc.
 
 - Run `pcscan` and make sure card reader shows up.
 - Run `pkcs11-register` to register cac.
@@ -88,8 +77,3 @@ git clone https://<user>:<token>@git.tstarr.us/tstarr/vulcan.git
 Copy another `.obsidian` folder for the new host (i.e. `.obsidian-<host>`).
 
 Open vault folder in obsidian and change the `.obsidian` folder in settings.
-
-
-## Wifi on Shivan
-
-Connect to wifi network with: `nmcli device wifi connect <SSID> password <password>`.
