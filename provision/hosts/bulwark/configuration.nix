@@ -19,11 +19,14 @@
   # Modules
   modules = {
     desktop = {
+      browser = {
+        chrome.enable = true;
+        firefox.enable = true;
+      };
       gnome = {
         enable = true;
         wallpaper = "file://${../../../resources/img/wallpapers/gruvbox/bulwark.png}";
       };
-      browser.enable = true;
     };
     devel = {
       notes.enable = true;
@@ -40,7 +43,6 @@
       samba-client.enable = true;
     };
     system = {
-      nipr.enable = true;
       ssh.enable = true;
       terminal.enable = true;
     };

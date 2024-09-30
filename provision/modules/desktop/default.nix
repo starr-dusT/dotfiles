@@ -1,6 +1,6 @@
 { config, lib, pkgs, user, inputs, ... }:
 {
-  imports = [ ./keyd.nix ./browser.nix ./gnome.nix ];
+  imports = [ ./browser ./keyd.nix ./gnome.nix ];
 
   environment.systemPackages = with pkgs; [
     bc # Arbitrary-precision arithmetic language.

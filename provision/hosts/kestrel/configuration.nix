@@ -35,11 +35,14 @@
   # Modules 
   modules = {
     desktop = {
+      browser = {
+        chrome.enable = true;
+        firefox.enable = true;
+      };
       gnome = {
         enable = true;
         wallpaper = "file://${../../../resources/img/wallpapers/gruvbox/kestrel.png}";
       };
-      browser.enable = true;
     };
     devel = {
       engineering.enable = true;
@@ -63,7 +66,6 @@
     };
     system = {
       backup.enable = true;
-      nipr.enable = true;
       ssh.enable = true;
       terminal.enable = true;
       wireguard-client = {

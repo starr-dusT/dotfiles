@@ -22,12 +22,15 @@
   # Modules
   modules = {
     desktop = {
+      browser = {
+        chrome.enable = true;
+        firefox.enable = true;
+      };
       gnome = {
         enable = true;
         # TODO: Add Shivan wallpaper
         wallpaper = "file://${../../../resources/img/wallpapers/gruvbox/bulwark.png}";
       };
-      browser.enable = true;
     };
     devel = {
       engineering.enable = true;
@@ -45,7 +48,6 @@
       virt-manager.enable = false;
     };
     system = {
-      nipr = true;
       ssh.enable = true;
       terminal.enable = true;
     };
