@@ -10,6 +10,7 @@
     ./gitea.nix
     ./nextcloud.nix
     ./backup.nix
+    ./jellyfin.nix
   ];
 
   # Use normal kernel
@@ -98,9 +99,6 @@
     };
     programs = {
       chezmoi.apply = true;
-    };
-    services = {
-      jellyfin.enable = true;
     };
     system = {
       backup.enable = true;
