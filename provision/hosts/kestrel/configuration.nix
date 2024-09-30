@@ -48,9 +48,9 @@
       tooling.enable = true;
     };
     gaming = {
-      steam.enable = true;
       emulation.enable = true;
-      misc.enable = true;
+      minecraft.enable = true;
+      steam.enable = true;
     };
     programs = {
       kitty.enable = true;

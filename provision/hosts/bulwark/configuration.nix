@@ -29,9 +29,8 @@
       notes.enable = true;
     };
     gaming = {
-      steam.enable = true;
       emulation.enable = true;
-      misc.enable = true;
+      steam.enable = true;
     };
     programs = {
       kitty.enable = true;
