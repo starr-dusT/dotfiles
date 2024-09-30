@@ -1,8 +1,8 @@
 { config, lib, pkgs, user, ... }:
 
-let cfg = config.modules.desktop.browser.firefox;
+let cfg = config.modules.desktop.browser;
 in {
-  options.modules.desktop.browser.firefox.enable = lib.mkEnableOption "firefox";
+  options.modules.desktop.browser.enable = lib.mkEnableOption "browser";
   config = lib.mkIf cfg.enable {
     # Install applications for CAC
     environment.systemPackages = with pkgs; [
@@ -15,7 +15,7 @@ in {
       programs.firefox = {
         enable = true;
         profiles.default = {
-          bookmarks = import ./firefox-bookmarks.nix;
+          bookmarks = import ./bookmarks/firefox.nix;
           isDefault = true;
           name = "default";
           settings = {

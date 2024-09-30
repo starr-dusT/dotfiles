@@ -22,10 +22,7 @@
   # Modules
   modules = {
     desktop = {
-      browser = {
-        chrome.enable = true;
-        firefox.enable = true;
-      };
+      browser.enable = true;
       gnome = {
         enable = true;
         # TODO: Add Shivan wallpaper

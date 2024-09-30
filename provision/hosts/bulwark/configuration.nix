@@ -19,10 +19,7 @@
   # Modules
   modules = {
     desktop = {
-      browser = {
-        chrome.enable = true;
-        firefox.enable = true;
-      };
+      browser.enable = true;
       gnome = {
         enable = true;
         wallpaper = "file://${../../../resources/img/wallpapers/gruvbox/bulwark.png}";
