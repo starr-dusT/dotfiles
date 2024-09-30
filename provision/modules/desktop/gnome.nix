@@ -139,6 +139,7 @@ in {
           favorite-apps = [
             "google-chrome.desktop"
             "kitty.desktop"
+            "org.gnome.Nautilus.desktop"
             "steam.desktop"
             "vesktop.desktop"
           ];
