@@ -53,11 +53,8 @@
       steam.enable = true;
     };
     programs = {
+      chezmoi.apply = true;
       kitty.enable = true;
-      chezmoi = {
-        enable = true;
-        apply = true;
-      };
     };
     services = {
       peripherals.enable = true;

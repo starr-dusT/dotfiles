@@ -8,7 +8,6 @@ in {
     environment.systemPackages = with pkgs; [
       killall # Command-line utility to terminate processes by name.
       pciutils # Utilities for inspecting and manipulating devices connected to the PCI bus.
-      chezmoi # Manages your dotfiles across multiple machines, ensuring consistency and version control.
       btop # Terminal-based resource monitor, providing an interactive view of system resources.
       nix-search-cli # Command-line utility for searching the Nix package repository.
       rbw # Command-line interface to the Bitwarden password manager.

@@ -97,10 +97,7 @@
       tooling.enable = true;
     };
     programs = {
-      chezmoi = {
-        enable = true;
-        apply = true;
-      };
+      chezmoi.apply = true;
     };
     services = {
       jellyfin.enable = true;

@@ -51,10 +51,7 @@ in
       tooling.enable = true;
     };
     programs = {
-      chezmoi = {
-        enable = true;
-        apply = true;
-      };
+      chezmoi.apply = true;
     };
     system = {
       ssh.enable = true;

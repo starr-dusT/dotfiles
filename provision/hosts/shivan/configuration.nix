@@ -37,10 +37,7 @@
     };
     programs = {
       kitty.enable = true;
-      chezmoi = {
-        enable = true;
-        apply = true;
-      };
+      chezmoi.apply = true;
     };
     services = {
       peripherals.enable = true;
