@@ -65,6 +65,7 @@
       virt-manager.enable = true;
     };
     system = {
+      backup.enable = true;
       nipr.enable = true;
       ssh.enable = true;
       terminal.enable = true;

@@ -106,6 +106,7 @@
       jellyfin.enable = true;
     };
     system = {
+      backup.enable = true;
       terminal.enable = true;
       ssh.enable = true;
     };

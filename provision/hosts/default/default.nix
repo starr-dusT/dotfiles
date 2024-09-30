@@ -1,10 +1,5 @@
 { config, pkgs, user, lib, inputs, ... }:
 {
-  imports = [ 
-    ./git.nix
-    ./home-default.nix
-  ];
-
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = "experimental-features = nix-command flakes";
@@ -30,4 +25,19 @@
 
   # Did you read the comment?
   system.stateVersion = "23.11";
+
+  home-manager.users.${user} = {
+    home.username = "${user}";
+    home.homeDirectory = "/home/${user}";
+    programs.home-manager.enable = true;
+
+    programs.direnv = {
+      enable = true;
+      enableBashIntegration = true;
+      nix-direnv.enable = true;
+    };
+
+    # Did you read the comment?
+    home.stateVersion = "23.11";
+  };
 }
