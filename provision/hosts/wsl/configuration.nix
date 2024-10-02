@@ -42,7 +42,18 @@ in
 
   environment.systemPackages = with pkgs; [
     firefox
+    wget
   ];
+
+  security.pki.certificateFiles = [
+    ./nipr.crt
+  ];
+  environment.variables = {
+    "NIX_SSL_CERT_FILE" = ./nipr.crt;
+  };
+  security.sudo.extraConfig = ''
+    Defaults env_keep += "NIX_SSL_CERT_FILE"
+  '';
 
   # Modules 
   modules = {
