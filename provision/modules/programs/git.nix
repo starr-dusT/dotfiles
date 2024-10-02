@@ -7,6 +7,10 @@ in {
       type = with types; bool;
       default = true;
     };
+    keys = lib.mkOption {
+      type = with types; bool;
+      default = true;
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -16,7 +20,7 @@ in {
       lazygit # Terminal-based GUI for git, making it easier to use and visualize git repositories.
     ];
 
-    age.secrets."git/github_personal" = {
+    age.secrets."git/github_personal" = lib.mkIf cfg.keys {
       file = ../../secrets/git/github_personal.age;
       owner = "${user}";
       group = "users";

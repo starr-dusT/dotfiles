@@ -45,15 +45,10 @@ in
     wget
   ];
 
+  # Add DoD CA certs to trusted source
   security.pki.certificateFiles = [
     ./nipr.crt
   ];
-  environment.variables = {
-    "NIX_SSL_CERT_FILE" = ./nipr.crt;
-  };
-  security.sudo.extraConfig = ''
-    Defaults env_keep += "NIX_SSL_CERT_FILE"
-  '';
 
   # Modules 
   modules = {
@@ -63,9 +58,9 @@ in
     };
     programs = {
       chezmoi.apply = true;
+      git.keys = false;
     };
     system = {
-      ssh.enable = true;
       terminal.enable = true;
     };
   };
