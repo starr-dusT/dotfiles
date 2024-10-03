@@ -7,7 +7,7 @@ in {
 
     environment.systemPackages = with pkgs; [ 
       yuzu-archive # Nintendo Switch emulator.
-      ryujinx # Nintendo Switch emulator written in C#.
+      ryujinx-archive # Nintendo Switch emulator written in C#.
       dolphin-emu # GameCube and Wii emulator.
       ppsspp # PSP emulator.
       mgba # Game Boy Advance emulator.

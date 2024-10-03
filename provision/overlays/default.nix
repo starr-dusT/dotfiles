@@ -7,4 +7,5 @@ final: prev: {
   yuzu-archive = final.libsForQt5.callPackage ../pkgs/yuzu-archive.nix {};
   gnome-set-panel-monitor = final.callPackage ../pkgs/gnome-set-panel-monitor.nix {};
   gnome-fullscreen-to-empty-workspace = final.callPackage ../pkgs/gnome-fullscreen-to-empty-workspace.nix {};
+  ryujinx-archive = final.callPackage ../pkgs/ryujinx-archive/default.nix {};
 }

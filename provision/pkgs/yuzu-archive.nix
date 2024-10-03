@@ -51,7 +51,6 @@ stdenv.mkDerivation(finalAttrs: {
     fetchSubmodules = true;
   };
 
-
   nativeBuildInputs = [
     cmake
     glslang
