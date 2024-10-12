@@ -7,7 +7,7 @@ in {
 
     
     environment.systemPackages = with pkgs; [ 
-      ryujinx-archive # Nintendo Switch emulator written in C#.
+      ryujinx # Nintendo Switch emulator written in C#.
       sudachi # Nintendo Switch emulator written in C++.
       dolphin-emu # GameCube and Wii emulator.
       ppsspp # PSP emulator.
