@@ -4,8 +4,8 @@
 final: prev: {
   advcpmv = final.callPackage ../pkgs/advcpmv.nix {};
   nx_tzdb = final.callPackage ../pkgs/nx_tzdb.nix {};
-  yuzu-archive = final.libsForQt5.callPackage ../pkgs/yuzu-archive.nix {};
+  sudachi = final.kdePackages.callPackage ../pkgs/sudachi.nix {};
   gnome-set-panel-monitor = final.callPackage ../pkgs/gnome-set-panel-monitor.nix {};
   gnome-fullscreen-to-empty-workspace = final.callPackage ../pkgs/gnome-fullscreen-to-empty-workspace.nix {};
-  ryujinx-archive = final.callPackage ../pkgs/ryujinx-archive/default.nix {};
+  ryujinx = final.callPackage ../pkgs/ryujinx/default.nix {};
 }

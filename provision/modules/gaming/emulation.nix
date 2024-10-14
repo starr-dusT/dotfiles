@@ -5,9 +5,10 @@ in {
   options.modules.gaming.emulation.enable = lib.mkEnableOption "emulation";
   config = lib.mkIf cfg.enable {
 
+    
     environment.systemPackages = with pkgs; [ 
-      yuzu-archive # Nintendo Switch emulator.
-      ryujinx-archive # Nintendo Switch emulator written in C#.
+      ryujinx # Nintendo Switch emulator written in C#.
+      sudachi # Nintendo Switch emulator written in C++.
       dolphin-emu # GameCube and Wii emulator.
       ppsspp # PSP emulator.
       mgba # Game Boy Advance emulator.

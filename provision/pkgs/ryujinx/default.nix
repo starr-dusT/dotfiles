@@ -25,7 +25,7 @@
 }:
 
 buildDotnetModule rec {
-  pname = "ryujinx-archive";
+  pname = "ryujinx";
   version = "1.1.1401"; 
 
   src = fetchFromGitea {
