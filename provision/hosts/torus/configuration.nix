@@ -70,6 +70,9 @@
       });
       "git.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:3001/"; 
+        extraConfig = ''
+          client_max_body_size 3000m;
+        '';
       });
       "workspace.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:5000/"; 
