@@ -16,9 +16,11 @@
     { "url" = "https://www.icloud.com/"; name = "iCloud"; }
   ]; }
   { "name" = "Games"; "children" = [
-    { "url" = "https://www.protondb.com/"; name = "ProtonDB"; }
-    { "url" = "https://vimm.net/"; name = "Vimm's Lair: Preserving the Classics"; }
     { "url" = "https://www.dotabuff.com/"; name = "DOTABUFF"; }
+    { "url" = "https://myrient.erista.me/"; name = "Myrient"; }
+    { "url" = "https://www.protondb.com/"; name = "ProtonDB"; }
+    { "url" = "https://r-roms.github.io/"; name = "Roms Megathread"; }
+    { "url" = "https://vimm.net/"; name = "Vimm's Lair: Preserving the Classics"; }
   ]; }
   { "name" = "Homelab"; "children" = [
     { "url" = "http://localhost:8384"; name = "Syncthing"; }
