@@ -32,6 +32,7 @@ in {
       evolution # Personal information management application that provides email, calendar, and contact management features.
       gnomeExtensions.focus-changer # GNOME Shell extension for changing window focus behavior.
       gnomeExtensions.custom-hot-corners-extended # GNOME Shell extension for changing window focus behavior.
+      gnomeExtensions.alphabetical-app-grid
       gnome-fullscreen-to-empty-workspace
       gnome-set-panel-monitor
       gnome-randr
@@ -149,6 +150,7 @@ in {
             "fullscreen-to-empty-workspace@aiono.dev"
             "gnome-set-panel-monitor@tstarr.us"
             "custom-hot-corners-extended@G-dH.github.com"
+            "AlphabeticalAppGrid@stuarthayhurst"
           ];
         };
         "org/gnome/shell/app-switcher" = {
