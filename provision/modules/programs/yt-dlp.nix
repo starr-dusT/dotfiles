@@ -15,10 +15,9 @@ in {
       (pkgs.writeScriptBin "ytd_audio" ''
         #!/usr/bin/env bash
         linux-mount-engi
-        yt-dlp -f "bestaudio/best" \
-            --embed-metadata --embed-thumbnail \
-            -ciw -o "%(title)s.%(ext)s" \
-            -v --extract-audio "$1" 
+        yt-dlp -x \
+        -ciw -o "%(title)s.%(ext)s" \
+        --embed-thumbnail -S acodec:m4a "$1"
       '')
     ];
   };
