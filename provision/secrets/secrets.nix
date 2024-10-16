@@ -6,7 +6,8 @@ let
 
   tstarr_kestrel = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINr2BUUToMswbAbxZMXarl2pQEomM+jADyZbEK31VGu/";
   tstarr_torus = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKhxsVgd8DH8c0zckjMUxSJrTimU709JLCgDGBMFoNxQ";
-  users = [ tstarr_kestrel tstarr_torus ];
+  tstarr_osprey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGQEjr+yK4zdnV9kBUMo9fopsJbvF+TfQlVQexBCwuwB";
+  users = [ tstarr_kestrel tstarr_torus tstarr_osprey ];
 in
 {
   "git/github_personal.age".publicKeys = users ++ systems;
