@@ -5,7 +5,7 @@
   modules = [
     ../default                            # shared by all configs
     ../default/physical/configuration.nix # shared by physical machines
-    ./configuration.nix                   # kestrel specific
+    ./configuration.nix                   # osprey specific
     ./hardware.nix
     ../../modules
     agenix.nixosModules.default

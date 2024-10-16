@@ -39,6 +39,10 @@
         inherit lib;
         inherit system user inputs agenix home-manager nixos-wsl;
       });
+      osprey = lib.nixosSystem (import ./hosts/osprey {
+        inherit lib;
+        inherit system user inputs agenix home-manager;
+      });
     }; 
   };
 }
