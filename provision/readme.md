@@ -1,40 +1,34 @@
-# Provision Nixos
+# Provision NixOS
 > \*NixOS was a mistake.\*
 
 Set of configs files to setup NixOS.
 
-## Usage
+## Install
 
-1. Install NixOS with this [guide](https://nixos.wiki/wiki/NixOS_Installation_Guide). Use the following paritions and btrfs subvolumes:
+1. Download and install [NixOS](https://nixos.org/download/) with current GNOME ISO.
 
-   | Name    | Type  | Mount Point | Size         |
-   |---------|-------|-------------|--------------|
-   | EFI     | vfat  | /boot       | 512MB        |
-   | root    | btrfs | /           | rest of disk |
-   | home    | btrfs | /home       | subvol       |
-   | nix     | btrfs | /nix        | subvol       |
-   | persist | btrfs | /persist    | subvol       |
-   | log     | btrfs | /var/log    | subvol       |
-
-2. Run the following commands:
+2. Boot into installed system and run the following commands:
 
 ```bash
-nix-shell -p vim git
+nix-shell -p vim git neovim
 git clone https://github.com/starr-dusT/dotfiles ~/.local/share/chezmoi 
 ```
    
-Move the installer created hardware.nix to dotfiles. E.g. `provision/hosts/<host>/hardware.nix`.
+3. Copy existing configuration files from another host and modify as needed. Make sure to move the installer created configuration-hardware.nix to dotfiles (e.g. `provision/hosts/<host>/hardware.nix`).
    
+4. If required move agenix keypairs to `~/.ssh/keys/{age,age.pub}`. A new keypair may be required and agenix files will need to be rekeyed on another system.
+
+5. Rebuild the system and initialize chezmoi dotfiles to save America:
+
 ```bash
-cd ~/.local/share/chezmoi/provision
 sudo nixos-rebuild switch --flake .#<host>
 chezmoi init && chezmoi apply
 ```
 
-3. Profit!
+6. Profit!
 
 Perform additional setup found in [additional-setup](additional-setup.md)
 
 ## Update
 
-`nixos-rebuild` command is aliased to `nu` assuming the flake is named the same at the hostname of the machine.
+`nixos-rebuild` command is aliased to `nu` assuming the machine's flake output is named the same at the hostname of the machine.
