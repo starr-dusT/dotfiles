@@ -11,6 +11,9 @@
     };
   };
 
+  # Add user age key to identity path
+  age.identityPaths = [ "/home/${user}/.ssh/keys/age" ];
+
   # Add non-free packages
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = import ../../lib/overlays.nix;
