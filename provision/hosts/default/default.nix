@@ -12,7 +12,11 @@
   };
 
   # Add user age key to identity path
-  age.identityPaths = [ "/home/${user}/.ssh/keys/age" ];
+  age.identityPaths = [ 
+    "/home/${user}/.ssh/keys/age"
+    "/etc/ssh/ssh_host_ed25519_key"
+    "/etc/ssh/ssh_host_rsa_key"
+  ];
 
   # Add non-free packages
   nixpkgs.config.allowUnfree = true;
