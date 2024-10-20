@@ -9,4 +9,5 @@ final: prev: {
   gnome-fullscreen-to-empty-workspace = final.callPackage ../pkgs/gnome-fullscreen-to-empty-workspace.nix {};
   ryujinx = final.callPackage ../pkgs/ryujinx/default.nix {};
   pySVS = final.callPackage ../pkgs/pySVS.nix {};
+  ftw = final.callPackage ../pkgs/ftw.nix {};
 }

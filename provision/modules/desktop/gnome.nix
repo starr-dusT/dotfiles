@@ -36,6 +36,7 @@ in {
       gnome-fullscreen-to-empty-workspace
       gnome-set-panel-monitor
       gnome-randr
+      ftw
     ];
 
     environment.gnome.excludePackages = with pkgs; [
