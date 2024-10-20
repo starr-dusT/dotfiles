@@ -54,7 +54,8 @@ stdenv.mkDerivation (finalAttrs: {
   
   src = fetchzip {
     url = "https://github.com/emuplace/sudachi.emuplace.app/releases/download/v1.0.11/latest.zip";
-    hash = "sha256-aQ1cNFG6JCNrMz4N9uv6QRidjNwvyJqGunhwhJpvv4s=";
+    hash = "sha256-HNNND8g9JyvrMjQxHq4udUtskGkqaISpq0TnzE2rb/U=";
+    stripRoot = false;
   };
 
   nativeBuildInputs = [
