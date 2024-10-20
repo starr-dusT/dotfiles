@@ -36,10 +36,7 @@
   modules = {
     desktop = {
       browser.enable = true;
-      gnome = {
-        enable = true;
-        wallpaper = "file://${../../../resources/img/wallpapers/gruvbox/kestrel.png}";
-      };
+      gnome.enable = true;
     };
     devel = {
       engineering.enable = true;

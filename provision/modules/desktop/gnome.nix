@@ -19,10 +19,6 @@ in {
 
   options.modules.desktop.gnome = with lib; {
     enable = lib.mkEnableOption "gnome";
-    wallpaper = lib.mkOption {
-      type = with types; str;
-      default = "file://${../../../resources/img/wallpapers/blank.png}";
-    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -134,8 +130,6 @@ in {
         };
         "org/gnome/desktop/background" = {
           picture-options = "zoom";
-          picture-uri = "${cfg.wallpaper}";
-          picture-uri-dark = "${cfg.wallpaper}";
         };
         "org/gnome/shell" = {
           favorite-apps = [

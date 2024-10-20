@@ -21,10 +21,7 @@
   modules = {
     desktop = {
       browser.enable = true;
-      gnome = {
-        enable = true;
-        wallpaper = "file://${../../../resources/img/wallpapers/gruvbox/osprey.png}";
-      };
+      gnome.enable = true;
     };
     devel = {
       python.enable = true;

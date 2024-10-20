@@ -23,11 +23,7 @@
   modules = {
     desktop = {
       browser.enable = true;
-      gnome = {
-        enable = true;
-        # TODO: Add Shivan wallpaper
-        wallpaper = "file://${../../../resources/img/wallpapers/gruvbox/bulwark.png}";
-      };
+      gnome.enable = true;
     };
     devel = {
       engineering.enable = true;
