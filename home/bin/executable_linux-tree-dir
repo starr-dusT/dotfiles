@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# Check if the directory is provided
+if [ -z "$1" ]; then
+  echo "Usage: $0 <directory>"
+  exit 1
+fi
+
+# Function to print the tree with SHA256 sums
+print_tree_with_md5() {
+  local dir="$1"
+  
+  # Use find to recursively list files, and calculate md5sum for each file
+  find "$dir" -type f | while read -r file; do
+    md5=$(md5sum "$file" | awk '{print $1}')
+    echo "$file - $md5"
+  done
+}
+
+# Call the function with the provided directory
+print_tree_with_md5 "$1"
+

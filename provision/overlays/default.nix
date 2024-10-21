@@ -8,4 +8,6 @@ final: prev: {
   gnome-set-panel-monitor = final.callPackage ../pkgs/gnome-set-panel-monitor.nix {};
   gnome-fullscreen-to-empty-workspace = final.callPackage ../pkgs/gnome-fullscreen-to-empty-workspace.nix {};
   ryujinx = final.callPackage ../pkgs/ryujinx/default.nix {};
+  pySVS = final.callPackage ../pkgs/pySVS.nix {};
+  ftw = final.callPackage ../pkgs/ftw.nix {};
 }
