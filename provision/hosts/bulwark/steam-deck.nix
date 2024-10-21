@@ -8,8 +8,12 @@
     steam.desktopSession = "gnome";
     steam.enable = true;
     steam.user = "${user}";
+    steam.autoStart = true;
     devices.steamdeck.enable = true;
+    devices.steamdeck.autoUpdate = true;
   };
+    
+  services.xserver.displayManager.gdm.enable = lib.mkForce false;
 
   environment.systemPackages = with pkgs; [
     jupiter-dock-updater-bin # Binary package for updating firmware on Jupiter Dock, a hardware accessory for certain laptops.
