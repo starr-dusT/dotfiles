@@ -59,7 +59,7 @@
         }
         {
           # Osprey 
-          publicKey = "xOn/GB4iK27f8oTrITodNNPIk6I4l34Fsde6i97aFR0=";
+          publicKey = "mhOhkQMF4IxvJbd2FweGlwo7HCNCXupMxlnt1QQFyHg=";
           allowedIPs = [ "192.168.3.5/32" ];
         }
         # More peers can be added here.
