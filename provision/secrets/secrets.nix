@@ -16,6 +16,7 @@ in
   "wireguard/kestrel.age".publicKeys = users ++ systems;
   "wireguard/torus.age".publicKeys = systems;
   "wireguard/bulwark.age".publicKeys = systems;
+  "wireguard/osprey.age".publicKeys = [ tstarr_osprey ] ++ systems;
   "git/gitea-runner-1.age".publicKeys = systems;
   "nextcloud/password.age".publicKeys = systems;
   "ssh/kestrel/id_ed25519.age".publicKeys = [ tstarr_kestrel ] ++ systems;
