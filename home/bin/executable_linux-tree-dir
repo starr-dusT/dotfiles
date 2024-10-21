@@ -7,16 +7,16 @@ if [ -z "$1" ]; then
 fi
 
 # Function to print the tree with SHA256 sums
-print_tree_with_sha256() {
+print_tree_with_md5() {
   local dir="$1"
   
-  # Use find to recursively list files, and calculate sha256sum for each file
+  # Use find to recursively list files, and calculate md5sum for each file
   find "$dir" -type f | while read -r file; do
-    sha256=$(sha256sum "$file" | awk '{print $1}')
-    echo "$file - $sha256"
+    md5=$(md5sum "$file" | awk '{print $1}')
+    echo "$file - $md5"
   done
 }
 
 # Call the function with the provided directory
-print_tree_with_sha256 "$1"
+print_tree_with_md5 "$1"
 
