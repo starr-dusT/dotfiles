@@ -12,9 +12,19 @@
   networking.firewall.enable = false;
 
   # Enable docker 
-  virtualisation.docker.enable = true;
+  virtualisation.containers.enable = true;
+  virtualisation = {
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };
   
   environment.systemPackages = with pkgs; [
+    docker-compose
+    podman-tui
+    dive
   ];
 
   # Modules 
