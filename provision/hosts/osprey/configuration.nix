@@ -13,7 +13,6 @@
 
   # Enable docker 
   virtualisation.containers.enable = true;
-  virtualisation.docker.enable = true;
   virtualisation = {
     podman = {
       enable = true;
