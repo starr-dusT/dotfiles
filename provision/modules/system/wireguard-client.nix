@@ -5,7 +5,7 @@ let cfg = config.modules.system.wireguard-client;
 in {
   options.modules.system.wireguard-client = with lib; {
     enable = lib.mkEnableOption "wireguard-client";
-    privateKeyFile = lib.mkOption { type = with types; str; };
+    host = lib.mkOption { type = with types; str; };
     address = lib.mkOption { type = with types; listOf str; };
     publicKey = lib.mkOption { type = with types; str; };
     endpoint = lib.mkOption { type = with types; str; };
@@ -24,11 +24,13 @@ in {
     networking.firewall = {
       allowedUDPPorts = [ 51820 ];
     };
+    # deploy needed secrets
+    age.secrets."wireguard/${cfg.host}".file = ../../secrets/wireguard/${cfg.host}.age;
     networking.wg-quick.interfaces = {
       wg0 = {
         address = cfg.address;
         listenPort = 51820; 
-        privateKeyFile = cfg.privateKeyFile;
+        privateKeyFile = "/run/agenix/wireguard/${cfg.host}";
         autostart = cfg.autostart;
         peers = [{
             publicKey = cfg.publicKey;

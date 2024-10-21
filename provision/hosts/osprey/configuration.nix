@@ -51,8 +51,8 @@
       terminal.enable = true;
       wireguard-client = {
         enable = true;
-        privateKeyFile = "/run/agenix/wireguard/osprey";
-        address = [ "192.168.3.3/24" ];
+        host = "osprey";
+        address = [ "192.168.3.5/24" ];
         publicKey = "bd7bbZOngl/FTdBlnbIhgCLNf6yx5X8WjiRB7E1NEQQ=";
         endpoint = "66.218.43.87";
       };
