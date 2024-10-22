@@ -57,6 +57,11 @@
           publicKey = "CDoy/XI8FRQV/ySHigLWG2tpWVw8hgEZXRQCEE3qYHQ=";
           allowedIPs = [ "192.168.3.4/32" ];
         }
+        {
+          # Osprey 
+          publicKey = "mhOhkQMF4IxvJbd2FweGlwo7HCNCXupMxlnt1QQFyHg=";
+          allowedIPs = [ "192.168.3.5/32" ];
+        }
         # More peers can be added here.
       ];
     };
