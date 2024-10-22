@@ -4,7 +4,7 @@
 final: prev: {
   advcpmv = final.callPackage ../pkgs/advcpmv.nix {};
   nx_tzdb = final.callPackage ../pkgs/nx_tzdb.nix {};
-  sudachi = final.kdePackages.callPackage ../pkgs/sudachi.nix {};
+  sudachi = final.qt6.callPackage ../pkgs/sudachi/default.nix {};
   yuzu = final.libsForQt5.callPackage ../pkgs/yuzu.nix {};
   gnome-set-panel-monitor = final.callPackage ../pkgs/gnome-set-panel-monitor.nix {};
   gnome-fullscreen-to-empty-workspace = final.callPackage ../pkgs/gnome-fullscreen-to-empty-workspace.nix {};

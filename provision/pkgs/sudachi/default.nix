@@ -30,14 +30,15 @@
   catch2_3,
   vulkan-loader,
   vulkan-headers,
+  SDL2,
 }:
 
 let
   # Derived from externals/nx_tzdb/CMakeLists.txt
   nx_tzdb = fetchzip {
     url = "https://github.com/lat9nq/tzdb_to_nx/releases/download/221202/221202.zip";
-    stripRoot = false;
     hash = "sha256-YOIElcKTiclem05trZsA3YJReozu/ex7jJAKD6nAMwc=";
+    stripRoot = false;
   };
   suyu = fetchFromGitea {
     domain = "git.suyu.dev";
@@ -58,6 +59,8 @@ stdenv.mkDerivation (finalAttrs: {
     stripRoot = false;
   };
 
+  patches = [ ./sdl2_fix.patch ];
+
   nativeBuildInputs = [
     cmake
     glslang
@@ -71,6 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
     boost
     fmt
     lz4
+    SDL2
     nlohmann_json
     qtbase
     qtmultimedia
@@ -120,9 +124,8 @@ stdenv.mkDerivation (finalAttrs: {
     # so "off" means "use system"
     "-DSUDACHI_USE_EXTERNAL_VULKAN_HEADERS=OFF"
 
-    # Disable SDL2 audio
-    # Sudachi seems to have a bug that ignores SUDACHI_USE_EXTERNAL_SDL2 flag
-    "-DENABLE_SDL2=OFF"
+    # Disable SDL2
+    # SDL flags are broken somehow in 1.0.11 and fix is hacked in with a patch
 
     # don't use system ffmpeg, sudachi uses internal APIs
     "-DSUDACHI_USE_BUNDLED_FFMPEG=ON"
