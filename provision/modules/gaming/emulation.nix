@@ -7,8 +7,9 @@ in {
 
     
     environment.systemPackages = with pkgs; [ 
-      ryujinx # Nintendo Switch emulator written in C#.
+      ryujinx # Fuck Nintendo!
       sudachi # Nintendo Switch emulator written in C++.
+      yuzu # Fuck Nintendo!
       dolphin-emu # GameCube and Wii emulator.
       ppsspp # PSP emulator.
       mgba # Game Boy Advance emulator.
@@ -18,7 +19,7 @@ in {
           snes9x # Super Nintendo Entertainment System (SNES) emulator.
           mgba # Game Boy Advance emulator.
           melonds # Nintendo DS emulator.
-          citra # Nintendo 3DS emulator.
+          citra # Fuck Nintendo!
         ];
       })
     ];

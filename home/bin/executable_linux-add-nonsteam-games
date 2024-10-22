@@ -11,6 +11,7 @@ apps=(
     "/run/current-system/sw/bin/ppsspp PPSSPP Emulator"
     "/run/current-system/sw/bin/retroarch Retroarch Emulator"
     "/run/current-system/sw/bin/ryujinx Ryujinx Emulator"
+    "/run/current-system/sw/bin/yuzu Yuzu Emulator"
 )
 
 for app in "${apps[@]}"
