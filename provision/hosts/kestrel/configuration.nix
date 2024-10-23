@@ -1,7 +1,6 @@
 { config, pkgs, user, lib, ... }:
 {
   imports = [ 
-    ./syncthing.nix
     ./backup.nix
   ];
 
@@ -57,6 +56,13 @@
       peripherals.enable = true;
       samba-client.enable = true;
       virt-manager.enable = true;
+      syncthing = {
+        enable = true;
+        keyPath = ../../secrets/syncthing/kestrel/key.pem.age;
+        certPath = ../../secrets/syncthing/kestrel/cert.pem.age;
+        devices = {};
+        folders = {};
+      };
     };
     system = {
       backup.enable = true;

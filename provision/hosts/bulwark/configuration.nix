@@ -2,7 +2,6 @@
 {
  imports = [
     ./steam-deck.nix
-    ./syncthing.nix
   ];
 
   # Set networking options
@@ -35,6 +34,15 @@
     };
     services = {
       samba-client.enable = true;
+      syncthing = {
+        enable = true;
+        keyPath = ../../secrets/syncthing/bulwark/key.pem.age;
+        certPath = ../../secrets/syncthing/bulwark/cert.pem.age;
+        devices = {
+          "kestrel" = { id = "5WWL4FE-ARZ4FHP-J33HQCH-CZKEXLN-2RAY4KW-PDI754F-3HVPZYI-VC3ESAF"; };
+        };
+        folders = {};
+      };
     };
     system = {
       ssh.enable = true;
