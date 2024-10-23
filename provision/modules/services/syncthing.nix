@@ -22,14 +22,6 @@ in {
         A set of devices and associated IDs.
       '';
     };
-    folders = mkOption {
-      type = types.attrs;
-      default = {}; 
-      description = ''
-        A set of folders, each defined by a set of attributes like
-        path, devices, and other configuration options.
-      '';
-    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -62,7 +54,6 @@ in {
       key = "/run/agenix/syncthing/key.pem";
       cert = "/run/agenix/syncthing/cert.pem";
       settings.devices = cfg.devices;
-      settings.folders = cfg.folders;
     };
   };
 }
