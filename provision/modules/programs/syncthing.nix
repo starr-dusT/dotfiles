@@ -5,7 +5,7 @@ in {
   options.modules.services.syncthing = with lib; {
     enable = lib.mkOption {
       type = types.bool;
-      default = true;
+      default = false;
     };
     keyPath = mkOption {
       type = types.path;

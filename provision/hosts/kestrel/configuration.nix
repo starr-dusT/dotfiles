@@ -51,11 +51,6 @@
     programs = {
       chezmoi.apply = true;
       kitty.enable = true;
-    };
-    services = {
-      peripherals.enable = true;
-      samba-client.enable = true;
-      virt-manager.enable = true;
       syncthing = {
         enable = true;
         keyPath = ../../secrets/syncthing/kestrel/key.pem.age;
@@ -64,6 +59,11 @@
           "bulwark" = { id = "YKPOWTQ-XMXG3SD-XKLPVEC-H4SO345-2ZZQK65-EBISRED-ISKCFMQ-T74P6Q5"; };
         };
       };
+    };
+    services = {
+      peripherals.enable = true;
+      samba-client.enable = true;
+      virt-manager.enable = true;
     };
     system = {
       backup.enable = true;

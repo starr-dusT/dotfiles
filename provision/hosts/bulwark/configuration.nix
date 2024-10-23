@@ -31,9 +31,6 @@
     programs = {
       chezmoi.apply = true;
       kitty.enable = true;
-    };
-    services = {
-      samba-client.enable = true;
       syncthing = {
         enable = true;
         keyPath = ../../secrets/syncthing/bulwark/key.pem.age;
@@ -42,6 +39,9 @@
           "kestrel" = { id = "5WWL4FE-ARZ4FHP-J33HQCH-CZKEXLN-2RAY4KW-PDI754F-3HVPZYI-VC3ESAF"; };
         };
       };
+    };
+    services = {
+      samba-client.enable = true;
     };
     system = {
       ssh.enable = true;
