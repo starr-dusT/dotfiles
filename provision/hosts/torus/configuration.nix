@@ -4,7 +4,6 @@
     ../../modules 
     ./wireguard-server.nix
     ./samba-server.nix
-    ./syncthing.nix
     ./rss.nix
     ./home-assistant
     ./gitea.nix
