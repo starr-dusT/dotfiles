@@ -49,8 +49,6 @@ in {
       dataDir = "/home/${user}/.local/share/syncthing";
       configDir = "/home/${user}/.config/syncthing";
       guiAddress = "0.0.0.0:8384";
-      overrideDevices = true;
-      overrideFolders = true; 
       key = "/run/agenix/syncthing/key.pem";
       cert = "/run/agenix/syncthing/cert.pem";
       settings.devices = cfg.devices;
