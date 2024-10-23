@@ -1,7 +1,6 @@
 { config, pkgs, user, lib, ... }:
 {
   imports = [ 
-    ./syncthing.nix
   ];
 
   # Use performance governor for sweet gaming performance!
