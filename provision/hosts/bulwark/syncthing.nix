@@ -38,6 +38,10 @@
         path = "/home/${user}/.config/ppsspp/PSP/PPSSPP_STATE";
         devices = [ "kestrel" ];
       };
+      "Roms Saves" = {
+        path = "/home/${user}/media/roms/saves";
+        devices = [ "kestrel" ];
+      };
     };
   };
 }

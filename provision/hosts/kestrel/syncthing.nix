@@ -45,6 +45,10 @@
         path = "/home/${user}/sync";
         devices = [ "shivan" ];
       };
+      "Rom Saves" = {
+        path = "/home/${user}/media/roms/saves";
+        devices = [ "bulwark" ];
+      };
     };
   };
 }
