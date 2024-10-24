@@ -1,8 +1,8 @@
 { config, lib, pkgs, user, ... }:
 
-let cfg = config.modules.services.syncthing;
+let cfg = config.modules.programs.syncthing;
 in {
-  options.modules.services.syncthing = with lib; {
+  options.modules.programs.syncthing = with lib; {
     enable = lib.mkOption {
       type = types.bool;
       default = false;
