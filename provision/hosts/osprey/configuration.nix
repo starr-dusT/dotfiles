@@ -25,6 +25,7 @@
     docker-compose
     podman-tui
     dive
+    appgate-sdp
   ];
 
   # Modules 
