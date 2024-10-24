@@ -1,8 +1,8 @@
 { config, lib, pkgs, user, ... }:
 
-let cfg = config.modules.services.syncthing;
+let cfg = config.modules.programs.syncthing;
 in {
-  options.modules.services.syncthing = with lib; {
+  options.modules.programs.syncthing = with lib; {
     enable = lib.mkOption {
       type = types.bool;
       default = false;
@@ -51,6 +51,7 @@ in {
       guiAddress = "0.0.0.0:8384";
       key = "/run/agenix/syncthing/key.pem";
       cert = "/run/agenix/syncthing/cert.pem";
+      overrideFolders = false; # don't delete user add folders
       settings.devices = cfg.devices;
     };
   };
