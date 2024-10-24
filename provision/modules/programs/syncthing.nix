@@ -51,6 +51,7 @@ in {
       guiAddress = "0.0.0.0:8384";
       key = "/run/agenix/syncthing/key.pem";
       cert = "/run/agenix/syncthing/cert.pem";
+      overrideFolders = false; # don't delete user add folders
       settings.devices = cfg.devices;
     };
   };
