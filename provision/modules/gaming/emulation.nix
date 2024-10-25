@@ -4,8 +4,6 @@ let cfg = config.modules.gaming.emulation;
 in {
   options.modules.gaming.emulation.enable = lib.mkEnableOption "emulation";
   config = lib.mkIf cfg.enable {
-
-    
     environment.systemPackages = with pkgs; [ 
       ryujinx # Fuck Nintendo!
       sudachi # Nintendo Switch emulator written in C++.
@@ -24,6 +22,7 @@ in {
       })
     ];
 
+    # Provide dumped keys for switch emulation
     age.secrets."emu/switch/prod.keys" = {
       file = ../../secrets/emu/switch/prod.keys.age;
       owner = "${user}";

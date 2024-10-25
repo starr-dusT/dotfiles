@@ -1,4 +1,8 @@
 { ... }:
 {
-  imports = [ ./emulation.nix ./minecraft.nix ./steam.nix ];
+  imports = [ 
+    ./emulation.nix
+    ./minecraft.nix
+    ./steam.nix
+  ];
 }
