@@ -1,4 +1,4 @@
 { ... }:
 {
-  imports = [ ./notes.nix ./tooling.nix ./engineering.nix ];
+  imports = [ ./notes.nix ./engineering.nix ];
 }

@@ -96,9 +96,6 @@
 
   # Modules
   modules = {
-    devel = {
-      tooling.enable = true;
-    };
     programs = {
       chezmoi.apply = true;
     };

@@ -27,7 +27,6 @@
     devel = {
       engineering.enable = true;
       notes.enable = true;
-      tooling.enable = true;
     };
     programs = {
       kitty.enable = true;

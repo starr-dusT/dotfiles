@@ -1,0 +1,1 @@
+- Add Nix formatting and linting that works with neovim.

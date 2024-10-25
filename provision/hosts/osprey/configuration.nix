@@ -34,9 +34,6 @@
       enable = true;
       gnome.enable = true;
     };
-    devel = {
-      tooling.enable = true;
-    };
     programs = {
       chezmoi.apply = true;
       kitty.enable = true;

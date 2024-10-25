@@ -52,9 +52,6 @@ in
 
   # Modules 
   modules = {
-    devel = {
-      tooling.enable = true;
-    };
     programs = {
       chezmoi.apply = true;
       git.keys = false;

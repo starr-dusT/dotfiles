@@ -40,7 +40,6 @@
     devel = {
       engineering.enable = true;
       notes.enable = true;
-      tooling.enable = true;
     };
     gaming = {
       emulation.enable = true;
