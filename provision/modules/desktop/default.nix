@@ -3,6 +3,7 @@
 let cfg = config.modules.desktop;
 in {
   imports = [ 
+    ./kde-connect.nix
     ./keyd.nix
     ./gnome.nix 
   ];
@@ -22,7 +23,6 @@ in {
       gimp # GNU Image Manipulation Program for editing and composing raster images.
     ];
 
-    # xdg-desktop-portal settings
     services.dbus.enable = true;
     xdg.mime = {
       enable = true;

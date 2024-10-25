@@ -17,56 +17,42 @@ let
     binds;
 in {
 
-  options.modules.desktop.gnome = with lib; {
-    enable = lib.mkEnableOption "gnome";
-  };
-
+  options.modules.desktop.gnome.enable = lib.mkEnableOption "gnome";
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      dconf-editor # Graphical tool for editing settings stored in the dconf database of GNOME.
-      gnome-tweaks # Utility for customizing various aspects of the GNOME desktop environment.
-      evolution # Personal information management application that provides email, calendar, and contact management features.
-      gnomeExtensions.focus-changer # GNOME Shell extension for changing window focus behavior.
-      gnomeExtensions.custom-hot-corners-extended # GNOME Shell extension for changing window focus behavior.
-      gnomeExtensions.alphabetical-app-grid
-      gnome-fullscreen-to-empty-workspace
-      gnome-set-panel-monitor
-      gnome-randr
-      ftw
+      dconf-editor # Graphical tool for editing settings stored in the dconf database of GNOME
+      gnome-tweaks # Utility for customizing various aspects of the GNOME desktop environment
+      evolution # Personal information management application that provides email, calendar, and contact management features
+      gnomeExtensions.focus-changer # GNOME Shell extension for changing window focus behavior
+      gnomeExtensions.custom-hot-corners-extended # GNOME Shell extension for changing window focus behavior
+      gnomeExtensions.alphabetical-app-grid # Alphabetically order the app grid and folders
+      gnome-fullscreen-to-empty-workspace # New, maximized and fullscreen windows will be moved to empty workspaces
+      gnome-set-panel-monitor # Set monitor for panel to appear on
+      gnome-randr # Xrandr-like CLI for configuring displays on GNOME/Wayland
+      ftw # Build custom ftl wallpapers in a complicated way for no reason
     ];
 
     environment.gnome.excludePackages = with pkgs; [
-      baobab # Disk usage analyzer for the GNOME desktop environment.
-      cheese # Webcam application for taking photos and videos.
-      epiphany # Web browser for the GNOME desktop environment.
-      pkgs.gedit # Text editor for the GNOME desktop environment.
-      simple-scan # Simple scanning utility for scanning documents and images.
-      totem # Movie player for the GNOME desktop environment.
-      yelp # Help viewer application for the GNOME desktop environment.
-      evince # Document viewer for the GNOME desktop environment.
-      geary # Email client for the GNOME desktop environment.
-      seahorse # GNOME application for managing encryption keys and passwords.
-      gnome-tour # Guided tour application for introducing users to GNOME desktop environment features.
-      snapshot # Utility for taking and managing system snapshots in the GNOME desktop environment.
-      gnome-connections # GNOME application for accessing remote machines and services.
-      gnome-font-viewer # Utility for previewing and managing fonts in the GNOME desktop environment.
-      gnome-logs # Log viewer application for GNOME.
-      gnome-maps # Map application for the GNOME desktop environment.
-      gnome-music # Music player and management application for GNOME.
-      gnome-shell-extensions # Extensions for enhancing functionality and customization in the GNOME.
+      baobab # Disk usage analyzer for the GNOME desktop environment
+      cheese # Webcam application for taking photos and videos
+      epiphany # Web browser for the GNOME desktop environment
+      gedit # Text editor for the GNOME desktop environment
+      simple-scan # Simple scanning utility for scanning documents and images
+      totem # Movie player for the GNOME desktop environment
+      yelp # Help viewer application for the GNOME desktop environment
+      evince # Document viewer for the GNOME desktop environment
+      geary # Email client for the GNOME desktop environment
+      seahorse # GNOME application for managing encryption keys and passwords
+      gnome-tour # Guided tour application for introducing users to GNOME desktop environment features
+      snapshot # Utility for taking and managing system snapshots in the GNOME desktop environment
+      gnome-connections # GNOME application for accessing remote machines and services
+      gnome-font-viewer # Utility for previewing and managing fonts in the GNOME desktop environment
+      gnome-logs # Log viewer application for GNOME
+      gnome-maps # Map application for the GNOME desktop environment
+      gnome-music # Music player and management application for GNOME
+      gnome-shell-extensions # Extensions for enhancing functionality and customization in the GNOME
     ];
 
-    # Valent for remote control
-    programs.kdeconnect = {
-      enable = true;
-      package = pkgs.valent;
-    };
-    networking.firewall = rec {
-      allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
-      allowedUDPPortRanges = allowedTCPPortRanges;
-    };
-
-    # Enable wayland gnome
     services.xserver = {
       enable = true;  
       displayManager.gdm = {
@@ -83,8 +69,6 @@ in {
       enable = true;
       defaultApplications = {    
         "text/plain" = "org.gnome.TextEditor.desktop";
-
-        # Images
         "image/bmp" = "org.gnome.Loupe.desktop";
         "image/gif" = "org.gnome.Loupe.desktop";
         "image/jpg" = "org.gnome.Loupe.desktop";
@@ -101,9 +85,7 @@ in {
         "image/x-portable-bitmap" = "org.gnome.Loupe.desktop";
         "image/x-portable-graymap" = "org.gnome.Loupe.desktop";
         "image/x-portable-pixmap" = "org.gnome.Loupe.desktop";
-        "image/x-xbitmap" = "org.gnome.Loupe.desktop";
-        "image/x-xpixmap" = "org.gnome.Loupe.desktop";
-        "image/x-pcx" = "org.gnome.Loupe.desktop";
+        "image/x-xbitmap" = "org.gnome.Loupe.desktop"; "image/x-xpixmap" = "org.gnome.Loupe.desktop"; "image/x-pcx" = "org.gnome.Loupe.desktop";
         "image/svg+xml" = "org.gnome.Loupe.desktop";
         "image/svg+xml-compressed" = "org.gnome.Loupe.desktop";
         "image/vnd.wap.wbmp" = "org.gnome.Loupe.desktop";

@@ -1,9 +1,7 @@
 { config, lib, pkgs, user, inputs, ... }:
-let
-  cfg = config.modules.desktop.gnome;
+
+let cfg = config.modules.desktop.gnome;
 in {
-  # Only launch for Gnome
-  # TODO: if using with other WMs/DEs revise this.
   config = lib.mkIf cfg.enable {
     services.keyd = {
       enable = true;
