@@ -36,4 +36,10 @@
     { "url" = "https://old.reddit.com/r/nixos/"; name = "nixos-reddit"; }
     { "url" = "https://nixos.wiki/"; name = "nixos-wiki"; }
   ]; }
+  { "name" = "Work"; "children" = [
+    { url = "https://webmail.apps.mil/owa"; name = "WebMail";}
+    { url = "https://dod.teams.microsoft.us/"; name = "Teams";}
+    { url = "https://usaf-my.dps.mil/"; name = "OneDrive";}
+  ]; }
+
 ]
