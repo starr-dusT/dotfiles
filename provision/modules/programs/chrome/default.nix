@@ -1,9 +1,16 @@
 { config, lib, pkgs, user, ... }:
 
-let cfg = config.modules.desktop.browser;
+let cfg1 = config.modules.desktop;
+    cfg2 = config.modules.programs.chrome;
 in {
-  # Enable option declared in firefox.nix
-  config = lib.mkIf cfg.enable {
+  options.modules.programs.chrome = with lib; {
+    enable = lib.mkOption {
+      type = types.bool;
+      default = true;
+    };
+  };
+
+  config = lib.mkIf (cfg1.enable && cfg2.enable) {
     environment.systemPackages = with pkgs; [
       google-chrome # Web browser developed by Google.
     ];
@@ -46,7 +53,7 @@ in {
         # Setup bookmarks
         "BookmarkBarEnabled" = true;
         "ShowAppsShortcutInBookmarkBar" = false;
-        "ManagedBookmarks" = import ./bookmarks/chrome.nix; 
+        "ManagedBookmarks" = import ./bookmarks.nix; 
       };
     };
 

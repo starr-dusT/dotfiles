@@ -31,7 +31,7 @@
   # Modules 
   modules = {
     desktop = {
-      browser.enable = true;
+      enable = true;
       gnome.enable = true;
     };
     devel = {

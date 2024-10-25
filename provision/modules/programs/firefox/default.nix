@@ -1,10 +1,17 @@
 { config, lib, pkgs, user, ... }:
 
-let cfg = config.modules.desktop.browser;
+let cfg1 = config.modules.desktop;
+    cfg2 = config.modules.programs.firefox;
 in {
-  options.modules.desktop.browser.enable = lib.mkEnableOption "browser";
-  config = lib.mkIf cfg.enable {
-    # Install applications for CAC
+  options.modules.programs.firefox = with lib; {
+    enable = lib.mkOption {
+      type = types.bool;
+      default = true;
+    };
+  };
+
+  config = lib.mkIf (cfg1.enable && cfg2.enable) {
+    # Applications for CAC usage
     environment.systemPackages = with pkgs; [
       opensc
       pcsc-tools
@@ -15,7 +22,7 @@ in {
       programs.firefox = {
         enable = true;
         profiles.default = {
-          bookmarks = import ./bookmarks/firefox.nix;
+          bookmarks = import ./bookmarks.nix;
           isDefault = true;
           name = "default";
           settings = {
