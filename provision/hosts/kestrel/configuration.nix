@@ -40,7 +40,6 @@
     devel = {
       engineering.enable = true;
       notes.enable = true;
-      python.enable = true;
       tooling.enable = true;
     };
     gaming = {
@@ -49,6 +48,7 @@
       steam.enable = true;
     };
     programs = {
+      beancount.enable = true;
       chezmoi.apply = true;
       kitty.enable = true;
       syncthing = {

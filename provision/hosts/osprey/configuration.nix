@@ -35,7 +35,6 @@
       gnome.enable = true;
     };
     devel = {
-      python.enable = true;
       tooling.enable = true;
     };
     programs = {

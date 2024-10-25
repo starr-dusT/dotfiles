@@ -53,7 +53,6 @@ in
   # Modules 
   modules = {
     devel = {
-      python.enable = true;
       tooling.enable = true;
     };
     programs = {

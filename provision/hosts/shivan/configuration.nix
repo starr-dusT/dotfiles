@@ -27,7 +27,6 @@
     devel = {
       engineering.enable = true;
       notes.enable = true;
-      python.enable = true;
       tooling.enable = true;
     };
     programs = {

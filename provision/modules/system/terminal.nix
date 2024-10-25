@@ -21,7 +21,6 @@ in {
       unzip # Command-line utility for extracting files from ZIP archives.
       trash-cli # Command-line interface to the freedesktop.org Trash.
       vim # Text editor that is highly configurable and widely used, especially in the Unix environment.
-      neovim # Fork of Vim aiming to improve extensibility and usability.
       nodejs # JavaScript runtime built on Chrome's V8 JavaScript engine.
       ripgrep # Line-oriented search tool that recursively searches directories for a regex pattern.
       cargo # Package manager and build system for Rust.
