@@ -8,8 +8,6 @@ in
 {
   "git/github_personal.age".publicKeys = systems;
   "git/gitea-runner-1.age".publicKeys = systems;
-  "emu/switch/prod.keys.age".publicKeys = systems;
-  "emu/switch/title.keys.age".publicKeys = systems;
   "wireguard/kestrel.age".publicKeys = systems;
   "wireguard/torus.age".publicKeys = systems;
   "wireguard/bulwark.age".publicKeys = systems;
