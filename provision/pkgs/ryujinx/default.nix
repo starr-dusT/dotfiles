@@ -1,7 +1,7 @@
 { lib
 , buildDotnetModule
 , dotnetCorePackages
-, fetchFromGitea
+, fetchFromGitHub
 , libX11
 , libgdiplus
 , ffmpeg
@@ -26,14 +26,13 @@
 
 buildDotnetModule rec {
   pname = "ryujinx";
-  version = "1.1.1401"; 
+  version = "3513"; # commit number
 
-  src = fetchFromGitea {
-    domain = "git.tstarr.us";
-    owner = "tstarr";
-    repo = "ryujinx";
-    rev = "5dbba07e33e83c9047dcbb701c9655edbbe89086";
-    hash = "sha256-UeJ3KE5e5H9crqroAxjmxYTf/Z4cbj41a6/1HW2nLcA=";
+  src = fetchFromGitHub {
+    owner = "GreemDev";
+    repo = "Ryujinx";
+    rev = "6be88380433e04ea8898645ffc0111e1a31eafb1";
+    hash = "sha256-t0qqshf2x+wogHtoxj9bthU03h29wvhrFCTUw8C2DDo=";
   };
 
   enableParallelBuilding = false;
