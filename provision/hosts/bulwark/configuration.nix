@@ -42,10 +42,7 @@
     };
     services = {
       samba-client.enable = true;
-    };
-    system = {
       ssh.enable = true;
-      terminal.enable = true;
     };
   };
 }

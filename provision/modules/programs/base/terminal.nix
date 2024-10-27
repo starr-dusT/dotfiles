@@ -1,10 +1,15 @@
 { config, lib, pkgs, user, ... }:
 
-let cfg = config.modules.system.terminal;
+let cfg = config.modules.programs.base.terminal;
 in {
-  options.modules.system.terminal.enable = lib.mkEnableOption "terminal";
-  config = lib.mkIf cfg.enable {
+  options.modules.programs.base.terminal = with lib; {
+    enable = lib.mkOption {
+      type = with types; bool;
+      default = true;
+    };
+  };
 
+  config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       killall # Command-line utility to terminate processes by name.
       pciutils # Utilities for inspecting and manipulating devices connected to the PCI bus.

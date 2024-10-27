@@ -49,6 +49,7 @@
     };
     programs = {
       beancount.enable = true;
+      borg.enable = true;
       chezmoi.apply = true;
       kitty.enable = true;
       virt-manager.enable = true;
@@ -63,11 +64,7 @@
     };
     services = {
       samba-client.enable = true;
-    };
-    system = {
-      backup.enable = true;
       ssh.enable = true;
-      terminal.enable = true;
     };
   };
 }
