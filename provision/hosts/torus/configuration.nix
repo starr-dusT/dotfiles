@@ -98,10 +98,9 @@
   modules = {
     programs = {
       chezmoi.apply = true;
+      borg.enable = true;
     };
-    system = {
-      backup.enable = true;
-      terminal.enable = true;
+    services = {
       ssh.enable = true;
     };
   };
