@@ -53,6 +53,10 @@
       chezmoi.apply = true;
       kitty.enable = true;
       virt-manager.enable = true;
+    };
+    services = {
+      samba-client.enable = true;
+      ssh.enable = true;
       syncthing = {
         enable = true;
         keyPath = ../../secrets/syncthing/kestrel/key.pem.age;
@@ -61,10 +65,6 @@
           "bulwark" = { id = "YKPOWTQ-XMXG3SD-XKLPVEC-H4SO345-2ZZQK65-EBISRED-ISKCFMQ-T74P6Q5"; };
         };
       };
-    };
-    services = {
-      samba-client.enable = true;
-      ssh.enable = true;
     };
   };
 }
