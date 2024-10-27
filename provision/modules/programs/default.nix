@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    ./base/terminal.nix
+    ./base-terminal.nix
     ./beancount.nix
     ./borg.nix
     ./chrome

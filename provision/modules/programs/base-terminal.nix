@@ -1,8 +1,8 @@
 { config, lib, pkgs, user, ... }:
 
-let cfg = config.modules.programs.base.terminal;
+let cfg = config.modules.programs.base-terminal;
 in {
-  options.modules.programs.base.terminal = with lib; {
+  options.modules.programs.base-terminal = with lib; {
     enable = lib.mkOption {
       type = with types; bool;
       default = true;
