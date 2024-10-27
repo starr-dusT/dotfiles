@@ -36,6 +36,7 @@
     desktop = {
       enable = true;
       gnome.enable = true;
+      peripherals.enable = true;
     };
     devel = {
       engineering.enable = true;
@@ -50,6 +51,7 @@
       beancount.enable = true;
       chezmoi.apply = true;
       kitty.enable = true;
+      virt-manager.enable = true;
       syncthing = {
         enable = true;
         keyPath = ../../secrets/syncthing/kestrel/key.pem.age;
@@ -60,9 +62,7 @@
       };
     };
     services = {
-      peripherals.enable = true;
       samba-client.enable = true;
-      virt-manager.enable = true;
     };
     system = {
       backup.enable = true;

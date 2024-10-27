@@ -23,6 +23,7 @@
     desktop = {
       enable = true;
       gnome.enable = true;
+      peripherals.enable = true;
     };
     devel = {
       engineering.enable = true;
@@ -31,11 +32,10 @@
     programs = {
       kitty.enable = true;
       chezmoi.apply = true;
+      virt-manager.enable = false;
     };
     services = {
-      peripherals.enable = true;
       samba-client.enable = true;
-      virt-manager.enable = false;
     };
     system = {
       ssh.enable = true;

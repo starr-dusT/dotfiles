@@ -9,6 +9,7 @@
     ./kitty.nix
     ./nvim.nix
     ./syncthing.nix
+    ./virt-manager.nix
     ./yt-dlp.nix
   ];
 }

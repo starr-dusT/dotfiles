@@ -6,6 +6,7 @@ in {
     ./kde-connect.nix
     ./keyd.nix
     ./gnome.nix 
+    ./peripherals.nix
   ];
 
   options.modules.desktop.enable = lib.mkEnableOption "desktop";

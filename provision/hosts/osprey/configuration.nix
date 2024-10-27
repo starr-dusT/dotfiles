@@ -33,15 +33,15 @@
     desktop = {
       enable = true;
       gnome.enable = true;
+      peripherals.enable = true;
     };
     programs = {
       chezmoi.apply = true;
       kitty.enable = true;
+      virt-manager.enable = true;
     };
     services = {
-      peripherals.enable = true;
       samba-client.enable = true;
-      virt-manager.enable = true;
     };
     system = {
       ssh.enable = true;
