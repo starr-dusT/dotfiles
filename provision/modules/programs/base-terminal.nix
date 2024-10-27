@@ -29,9 +29,10 @@ in {
       nodejs # JavaScript runtime built on Chrome's V8 JavaScript engine.
       ripgrep # Line-oriented search tool that recursively searches directories for a regex pattern.
       cargo # Package manager and build system for Rust.
-      docker-compose
-      sesh
-      zoxide
+      docker-compose # Docker CLI plugin to define and run multi-container applications with Docker.
+      sesh # Smart session manager for the terminal.
+      zoxide # Fast cd command that learns your habits.
+      fzf # Command-line fuzzy finder for Unix-like operating systems.
     ];
   };
 }
