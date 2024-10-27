@@ -5,9 +5,9 @@ in {
   options.modules.gaming.steam.enable = lib.mkEnableOption "steam";
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ 
-      steamtinkerlaunch # Launcher and optimization tool for Steam games.
       gamescope # Utility for running games using Valve's Steam Play compatibility layer with improved performance and compatibility.
       mangohud # Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/GPU load and more.
+      steamtinkerlaunch # Launcher and optimization tool for Steam games.
     ];
 
     hardware.graphics.enable = true; # this fixes the "glXChooseVisual failed" bug, context: https://github.com/NixOS/nixpkgs/issues/47932
