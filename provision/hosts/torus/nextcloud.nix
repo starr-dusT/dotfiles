@@ -1,7 +1,24 @@
 { config, lib, pkgs, user, ... }:
-{
+let
+  dumpFolder = "/engi/backup/dumps/nextcloud";
+  domain = "cloud.tstarr.us";
+in {
   environment.systemPackages = with pkgs; [
     cron
+    zip
+    rsync
+    (pkgs.writeScriptBin "dump-nextcloud" ''
+      #!/bin/sh
+      cd ${dumpFolder}
+      [ -e nextcloud-sql ] && rm nextcloud-sql 
+      nextcloud-occ maintenance:mode --on
+      mysqldump --single-transaction nextcloud > ${dumpFolder}/nextcloud-sql
+      nextcloud-occ maintenance:mode --off
+    '')
+  ];
+
+  systemd.tmpfiles.rules = [
+    "d ${dumpFolder} 0775 nextcloud nextcloud -"
   ];
   
   # nextcloud secrets
@@ -13,7 +30,7 @@
 
   services = {
     nginx.virtualHosts = {
-      "cloud.tstarr.us" = {
+      "${domain}" = {
         forceSSL = true;
         enableACME = true;
       };
@@ -21,7 +38,7 @@
 
     nextcloud = {
       enable = true;
-      hostName = "cloud.tstarr.us";
+      hostName = "${domain}";
 
        # Need to manually increment with every major upgrade.
       package = pkgs.nextcloud29;

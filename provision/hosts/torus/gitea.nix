@@ -11,7 +11,7 @@ in {
   ];
 
   environment.systemPackages = [
-    (pkgs.writeScriptBin "backup-dump-gitea" ''
+    (pkgs.writeScriptBin "dump-gitea" ''
       #!/bin/sh
       cd ${dumpFolder}
       [ -e gitea-dump.zip ] && rm gitea-dump.zip
