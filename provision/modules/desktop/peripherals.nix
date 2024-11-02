@@ -1,8 +1,7 @@
 { config, lib, pkgs, user, ... }:
 
-let cfg = config.modules.desktop.peripherals;
+let cfg = config.modules.desktop;
 in {
-  options.modules.desktop.peripherals.enable = lib.mkEnableOption "peripherals";
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       libimobiledevice # Library to support iPhone, iPod Touch and iPad devices on Linux
