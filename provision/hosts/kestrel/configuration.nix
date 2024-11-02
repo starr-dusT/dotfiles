@@ -36,7 +36,6 @@
     desktop = {
       enable = true;
       gnome.enable = true;
-      peripherals.enable = true;
     };
     devel = {
       engineering.enable = true;
