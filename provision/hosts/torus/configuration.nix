@@ -102,6 +102,15 @@
     };
     services = {
       ssh.enable = true;
+      syncthing = {
+        enable = true;
+        keyPath = ../../secrets/syncthing/torus/key.pem.age;
+        certPath = ../../secrets/syncthing/torus/cert.pem.age;
+        devices = {
+          "bulwark" = { id = "YKPOWTQ-XMXG3SD-XKLPVEC-H4SO345-2ZZQK65-EBISRED-ISKCFMQ-T74P6Q5"; };
+          "kestrel" = { id = "5WWL4FE-ARZ4FHP-J33HQCH-CZKEXLN-2RAY4KW-PDI754F-3HVPZYI-VC3ESAF"; };
+        };
+      };
     };
   };
 }
