@@ -6,6 +6,7 @@ before_backup:
   - "tree /engi > /engi/backup/tree.txt"
   - sudo -u gitea dump-gitea
   - sudo -u nextcloud dump-nextcloud
+  - sudo -u miniflux dump-miniflux
   - nextcloud-occ maintenance:mode --on
 
 after_backup:

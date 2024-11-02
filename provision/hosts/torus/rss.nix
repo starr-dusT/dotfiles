@@ -1,8 +1,22 @@
 { config, lib, pkgs, user, ... }:
 let
   domain = "rssbridge.tstarr.us";
+  dumpFolder = "/engi/backup/dumps/miniflux";
 in 
 {
+  systemd.tmpfiles.rules = [
+    "d ${dumpFolder} 0775 miniflux miniflux -"
+  ];
+
+  environment.systemPackages = [
+    (pkgs.writeScriptBin "dump-miniflux" ''
+      #!/bin/sh
+      cd ${dumpFolder}
+      [ -e miniflux-sql ] && rm miniflux-sql
+      pg_dump miniflux > ${dumpFolder}/miniflux-sql
+    '')
+  ];
+
   services.postgresql = {
     enable = true;
     authentication = pkgs.lib.mkOverride 10 ''
