@@ -1,7 +1,7 @@
 final: prev: {
   advcpmv = final.callPackage ../pkgs/advcpmv.nix {};
   ftw = final.callPackage ../pkgs/ftw.nix {};
-  gnome-fullscreen-to-empty-workspace = final.callPackage ../pkgs/gnome-fullscreen-to-empty-workspace.nix {};
+  gnome-fullscreen-to-empty-workspace = final.callPackage ../pkgs/gnome-fullscreen-to-empty-workspace/default.nix {};
   gnome-set-panel-monitor = final.callPackage ../pkgs/gnome-set-panel-monitor.nix {};
   nx_tzdb = final.callPackage ../pkgs/nx_tzdb.nix {};
   pySVS = final.callPackage ../pkgs/pySVS.nix {};

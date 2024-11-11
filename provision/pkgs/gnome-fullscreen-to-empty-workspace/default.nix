@@ -11,6 +11,10 @@ stdenv.mkDerivation {
     hash = "sha256-S9mvODQqOBCmA+L1TBJm/c1v5Y+qVKuFpQf799LEwcI=";
   };
 
+  patches = [
+    ./version.patch
+  ];
+
   installPhase = ''
     runHook preInstall
     mkdir -p "$out/share/gnome-shell/extensions/fullscreen-to-empty-workspace@aiono.dev"
