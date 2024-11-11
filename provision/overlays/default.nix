@@ -7,5 +7,5 @@ final: prev: {
   pySVS = final.callPackage ../pkgs/pySVS.nix {};
   ryujinx = final.callPackage ../pkgs/ryujinx/default.nix {};
   sudachi = final.qt6.callPackage ../pkgs/sudachi/default.nix {};
-  yuzu = final.libsForQt5.callPackage ../pkgs/yuzu.nix {};
+  yuzu = final.libsForQt5.callPackage ../pkgs/yuzu/default.nix {};
 }

@@ -7,7 +7,7 @@ in {
     environment.systemPackages = with pkgs; [ 
       ryujinx # Fuck Nintendo!
       sudachi # Nintendo Switch emulator written in C++.
-      yuzu # Fuck Nintendo!
+      #yuzu # Fuck Nintendo!
       dolphin-emu # GameCube and Wii emulator.
       ppsspp # PSP emulator.
       mgba # Game Boy Advance emulator.
