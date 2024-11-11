@@ -11,7 +11,7 @@ in {
 
       programs.kitty = {
         enable = true;
-        themeFile = "GruvboxMaterialDarkHard";
+        themeFile = "gruvbox-dark";
         font.name = "JetBrainsMono Nerd Font";
         shellIntegration.mode = "no-cursor";
         settings = {

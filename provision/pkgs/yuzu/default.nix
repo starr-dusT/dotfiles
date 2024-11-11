@@ -63,7 +63,7 @@ stdenv.mkDerivation(finalAttrs: {
   };
 
   patches = [ 
-    ./sdl2_fix.patch 
+    ./remove_agx.patch 
   ];
 
   nativeBuildInputs = [
