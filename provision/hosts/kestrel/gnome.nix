@@ -16,7 +16,7 @@
         "center-active" = false;
         "left-active" = false;
         "right-active" = true;
-        "right-commands-json" = ''{"commands":[{"isActive":true,"command":"pySVS 54:B7:E5:57:1A:7B --volume=A | grep -oP \"(?<=VOLUME': )-?\\d+\" | xargs -I{} echo \"󰓃 {}dB\"","interval":20,"uuid":"732cd6de-ff5f-46a7-b8bb-51d1c621cc60"}]}'';
+        "right-commands-json" = ''{"commands":[{"isActive":true,"command":"echo \"󰓃 $(cat /tmp/svs)dB\"","interval":10,"uuid":"732cd6de-ff5f-46a7-b8bb-51d1c621cc60"}]}'';
       };
     };
   };
