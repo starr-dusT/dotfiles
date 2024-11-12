@@ -25,6 +25,8 @@
     docker-compose
     podman-tui
     dive
+    uhd
+    gnuradio
   ];
 
   # Modules 
@@ -32,7 +34,6 @@
     desktop = {
       enable = true;
       gnome.enable = true;
-      peripherals.enable = true;
     };
     programs = {
       appgate-sdp.enable = true;
@@ -42,10 +43,7 @@
     };
     services = {
       samba-client.enable = true;
-    };
-    system = {
       ssh.enable = true;
-      terminal.enable = true;
     };
   };
 }
