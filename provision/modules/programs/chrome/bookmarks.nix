@@ -1,5 +1,3 @@
-# Chrome bookmarks
-
 [
   { "toplevel_name" = "Bookmarks"; }
   { "name" = "Daily"; "children" = [

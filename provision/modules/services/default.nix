@@ -1,4 +1,8 @@
 { ... }:
 {
-  imports = [ ./peripherals.nix ./samba-client.nix ./virt-manager.nix ];
+  imports = [
+    ./samba-client.nix 
+    ./ssh.nix
+    ./syncthing.nix
+  ];
 }

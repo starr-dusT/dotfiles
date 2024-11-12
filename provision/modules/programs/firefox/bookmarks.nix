@@ -1,5 +1,3 @@
-# Firefox bookmarks
-
 [
   { name = "Managed Bookmarks"; toolbar = true; bookmarks = [
     { name = "Bookmarks"; bookmarks = [

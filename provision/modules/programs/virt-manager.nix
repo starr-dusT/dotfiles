@@ -1,13 +1,13 @@
 { config, lib, pkgs, ... }:
 
-let cfg = config.modules.services.virt-manager;
+let cfg = config.modules.programs.virt-manager;
 in {
-  options.modules.services.virt-manager.enable = lib.mkEnableOption "virt-manager";
+  options.modules.programs.virt-manager.enable = lib.mkEnableOption "virt-manager";
   config = lib.mkIf cfg.enable {
-    virtualisation.libvirtd.enable = true;
-    programs.dconf.enable = true;
     environment.systemPackages = with pkgs; [ 
       virt-manager # Desktop application for managing virtual machines through libvirt.
     ];
+    virtualisation.libvirtd.enable = true;
+    programs.dconf.enable = true;
   };
 }

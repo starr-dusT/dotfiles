@@ -11,13 +11,6 @@ in {
   };
 
   config = lib.mkIf (cfg1.enable && cfg2.enable) {
-    # Applications for CAC usage
-    environment.systemPackages = with pkgs; [
-      opensc
-      pcsc-tools
-      pkcs11helper
-    ];
-
     home-manager.users.${user} = {
       programs.firefox = {
         enable = true;

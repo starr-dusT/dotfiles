@@ -59,7 +59,10 @@ stdenv.mkDerivation (finalAttrs: {
     stripRoot = false;
   };
 
-  patches = [ ./sdl2_fix.patch ];
+  patches = [ 
+    ./remove_agx.patch
+    ./sdl2_fix.patch 
+  ];
 
   nativeBuildInputs = [
     cmake
@@ -143,13 +146,7 @@ stdenv.mkDerivation (finalAttrs: {
   # making the build fail, as that path does not exist
   dontFixCmake = true;
 
-  preConfigure = ''
-    # see https://github.com/NixOS/nixpkgs/issues/114044, setting this through cmakeFlags does not work.
-    cmakeFlagsArray+=(
-      "-DTITLE_BAR_FORMAT_IDLE=${finalAttrs.pname} | ${finalAttrs.version} (nixpkgs) {}"
-      "-DTITLE_BAR_FORMAT_RUNNING=${finalAttrs.pname} | ${finalAttrs.version} (nixpkgs) | {}"
-    )
-
+  prePatch = ''
     # Copy suyu externals
     rm -R externals/
     cp -R ${suyu}/externals .
@@ -157,6 +154,14 @@ stdenv.mkDerivation (finalAttrs: {
     # replace "SUYU" with "SUDACHI" in externals cmake args
     chmod u+rw -R externals/
     grep -rl SUYU | xargs sed -i 's/SUYU/SUDACHI/g'
+  '';
+
+  preConfigure = ''
+    # see https://github.com/NixOS/nixpkgs/issues/114044, setting this through cmakeFlags does not work.
+    cmakeFlagsArray+=(
+      "-DTITLE_BAR_FORMAT_IDLE=${finalAttrs.pname} | ${finalAttrs.version} (nixpkgs) {}"
+      "-DTITLE_BAR_FORMAT_RUNNING=${finalAttrs.pname} | ${finalAttrs.version} (nixpkgs) | {}"
+    )
 
     # provide pre-downloaded tz data
     mkdir -p build/externals/nx_tzdb

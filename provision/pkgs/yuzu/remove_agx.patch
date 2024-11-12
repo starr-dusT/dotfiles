@@ -1,0 +1,16 @@
+Submodule externals/Vulkan-Utility-Libraries contains modified content
+diff --git a/externals/Vulkan-Utility-Libraries/include/vulkan/vk_enum_string_helper.h b/externals/Vulkan-Utility-Libraries/include/vulkan/vk_enum_string_helper.h
+index 9d2af46..bb490ac 100644
+--- a/externals/Vulkan-Utility-Libraries/include/vulkan/vk_enum_string_helper.h
++++ b/externals/Vulkan-Utility-Libraries/include/vulkan/vk_enum_string_helper.h
+@@ -3478,8 +3478,8 @@ static inline const char* string_VkDriverId(VkDriverId input_value) {
+             return "VK_DRIVER_ID_MESA_NVK";
+         case VK_DRIVER_ID_IMAGINATION_OPEN_SOURCE_MESA:
+             return "VK_DRIVER_ID_IMAGINATION_OPEN_SOURCE_MESA";
+-        case VK_DRIVER_ID_MESA_AGXV:
+-            return "VK_DRIVER_ID_MESA_AGXV";
++        //case VK_DRIVER_ID_MESA_AGXV:
++        //    return "VK_DRIVER_ID_MESA_AGXV";
+         default:
+             return "Unhandled VkDriverId";
+     }

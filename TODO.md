@@ -1,2 +1,0 @@
-- Add Nix formatting and linting that works with neovim.
-- Change system to configs and migrate files to programs, desktop, or services as appropriate. configs will include optional system configuration that don't require additional programs installed (aliases for example)

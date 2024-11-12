@@ -1,10 +1,15 @@
 { config, lib, pkgs, user, ... }:
 
-let cfg = config.modules.system.terminal;
+let cfg = config.modules.programs.base-terminal;
 in {
-  options.modules.system.terminal.enable = lib.mkEnableOption "terminal";
-  config = lib.mkIf cfg.enable {
+  options.modules.programs.base-terminal = with lib; {
+    enable = lib.mkOption {
+      type = with types; bool;
+      default = true;
+    };
+  };
 
+  config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       killall # Command-line utility to terminate processes by name.
       pciutils # Utilities for inspecting and manipulating devices connected to the PCI bus.
@@ -24,9 +29,10 @@ in {
       nodejs # JavaScript runtime built on Chrome's V8 JavaScript engine.
       ripgrep # Line-oriented search tool that recursively searches directories for a regex pattern.
       cargo # Package manager and build system for Rust.
-      docker-compose
-      sesh
-      zoxide
+      docker-compose # Docker CLI plugin to define and run multi-container applications with Docker.
+      sesh # Smart session manager for the terminal.
+      zoxide # Fast cd command that learns your habits.
+      fzf # Command-line fuzzy finder for Unix-like operating systems.
     ];
   };
 }

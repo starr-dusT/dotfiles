@@ -6,13 +6,13 @@ in {
     ./kde-connect.nix
     ./keyd.nix
     ./gnome.nix 
+    ./peripherals.nix
   ];
 
   options.modules.desktop.enable = lib.mkEnableOption "desktop";
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       bc # Arbitrary-precision arithmetic language.
-      fzf # Command-line fuzzy finder for Unix-like operating systems.
       gamemode # Optimizes system performance for gaming by adjusting system settings.
       vesktop # Voice, video, and text communication platform for communities and friends.
       inkscape # Vector graphics editor for creating illustrations, icons, logos, diagrams, and more.

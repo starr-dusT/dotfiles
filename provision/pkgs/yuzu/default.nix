@@ -37,6 +37,17 @@
 , gnutar
 , nx_tzdb
 }:
+
+let
+  suyu = fetchFromGitea {
+    domain = "git.suyu.dev";
+    owner = "suyu";
+    repo = "suyu";
+    rev = "ee365bad9501c73ff49936e72ec91cd9c3ce5c24";
+    hash = "sha256-vw9VcSbCaG4MS0PL/fJ73CDALLbd3n0CBT7gkyp5hRc=";
+    fetchSubmodules = true;
+  };
+in 
 stdenv.mkDerivation(finalAttrs: {
   
   pname = "yuzu";
@@ -50,6 +61,10 @@ stdenv.mkDerivation(finalAttrs: {
     hash = "sha256-sn/CfaZkS3noDH9lmEtIES6Xc7aoZ5tbHo1AJc5nxac=";
     fetchSubmodules = true;
   };
+
+  patches = [ 
+    ./remove_agx.patch 
+  ];
 
   nativeBuildInputs = [
     cmake
@@ -143,6 +158,17 @@ stdenv.mkDerivation(finalAttrs: {
   qtWrapperArgs = [
     "--prefix LD_LIBRARY_PATH : ${vulkan-loader}/lib"
   ];
+
+  prePatch = ''
+    # Copy suyu externals
+    rm -R externals/
+    cp -R ${suyu}/externals .
+
+    # replace "SUYU" with "YUZU" in externals cmake args
+    chmod u+rw -R externals/
+    grep -rl SUYU | xargs sed -i 's/SUYU/YUZU/g'
+
+  '';
 
   preConfigure = ''
     # see https://github.com/NixOS/nixpkgs/issues/114044, setting this through cmakeFlags does not work.

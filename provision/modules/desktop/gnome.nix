@@ -196,6 +196,7 @@ in {
           move-to-center = [ "<Alt><Super>c" ];
           switch-windows = ["<Super>Tab"];                 
           switch-windows-backward = ["<Shift><Super>Tab"]; 
+          panel-run-dialog = ["<Super>r"];
           minimize = [];
         };
         # custom-hot-corners-extended configs

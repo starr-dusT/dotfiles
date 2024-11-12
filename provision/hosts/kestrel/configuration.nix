@@ -2,6 +2,7 @@
 {
   imports = [ 
     ./backup.nix
+    ./gnome.nix
   ];
 
   # Use performance governor for sweet gaming performance!
@@ -48,26 +49,23 @@
     };
     programs = {
       beancount.enable = true;
+      borg.enable = true;
       chezmoi.apply = true;
       kitty.enable = true;
+      virt-manager.enable = true;
+    };
+    services = {
+      samba-client.enable = true;
+      ssh.enable = true;
       syncthing = {
         enable = true;
         keyPath = ../../secrets/syncthing/kestrel/key.pem.age;
         certPath = ../../secrets/syncthing/kestrel/cert.pem.age;
         devices = {
           "bulwark" = { id = "YKPOWTQ-XMXG3SD-XKLPVEC-H4SO345-2ZZQK65-EBISRED-ISKCFMQ-T74P6Q5"; };
+          "torus" = { id = "ZVABUCA-3SA5QKR-OZSCIS5-RDAHR2V-D4R4NFK-ZBYOKDP-6HQUG2M-BNL3DAO"; };
         };
       };
-    };
-    services = {
-      peripherals.enable = true;
-      samba-client.enable = true;
-      virt-manager.enable = true;
-    };
-    system = {
-      backup.enable = true;
-      ssh.enable = true;
-      terminal.enable = true;
     };
   };
 }
