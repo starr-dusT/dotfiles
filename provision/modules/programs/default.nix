@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ./appgate-sdp.nix
     ./beancount.nix
     ./chrome
     ./firefox

@@ -25,7 +25,6 @@
     docker-compose
     podman-tui
     dive
-    appgate-sdp
   ];
 
   # Modules 
@@ -37,6 +36,7 @@
     programs = {
       chezmoi.apply = true;
       kitty.enable = true;
+      appgate-sdp.enable = true;
     };
     services = {
       peripherals.enable = true;
