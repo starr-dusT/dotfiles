@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ./appgate-sdp.nix
     ./base-terminal.nix
     ./beancount.nix
     ./borg.nix
