@@ -6,7 +6,7 @@ in {
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       borgbackup # Deduplicating backup program 
-      tree
+      tree # Command to produce a depth indented directory listing
       (pkgs.writeScriptBin "stop-docker-containers" ''
         #!/bin/sh
         [ -e /tmp/docker_images ] && rm /tmp/docker_images

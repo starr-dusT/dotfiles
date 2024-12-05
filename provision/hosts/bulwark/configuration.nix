@@ -9,9 +9,6 @@
   networking.firewall.checkReversePath = "loose";
   networking.firewall.enable = false;
 
-  environment.systemPackages = with pkgs; [
-  ];
-
   # Secrets
   age.secrets."wireguard/bulwark".file = ../../secrets/wireguard/bulwark.age;
 

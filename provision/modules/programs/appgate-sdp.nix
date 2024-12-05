@@ -29,8 +29,7 @@ in {
     services.dbus.packages = [ pkgs.appgate-sdp ];
     systemd = {
       packages = [ pkgs.appgate-sdp ];
-      # https://github.com/NixOS/nixpkgs/issues/81138
-      services.appgatedriver.wantedBy =  [ "multi-user.target" ];
+      services.appgatedriver.wantedBy =  [ "multi-user.target" ]; # https://github.com/NixOS/nixpkgs/issues/81138
     };
   };
 }

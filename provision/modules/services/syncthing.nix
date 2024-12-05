@@ -26,7 +26,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      syncthing # File sync program for multiple devices in real-time.
+      syncthing # File sync program for multiple devices in real-time
     ];
 
     networking.firewall.allowedTCPPorts = [ 8384 22000 ];
@@ -51,7 +51,7 @@ in {
       guiAddress = "0.0.0.0:8384";
       key = "/run/agenix/syncthing/key.pem";
       cert = "/run/agenix/syncthing/cert.pem";
-      overrideFolders = false; # don't delete user add folders
+      overrideFolders = false; # don't delete user added folders
       settings.devices = cfg.devices;
     };
   };

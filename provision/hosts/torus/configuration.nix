@@ -1,7 +1,6 @@
 { config, pkgs, user, lib, ... }:
 {
   imports = [ 
-    ../../modules 
     ./wireguard-server.nix
     ./samba-server.nix
     ./rss.nix
@@ -37,9 +36,6 @@
 
   services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia.open = false;
-
-  environment.systemPackages = with pkgs; [
-  ];
 
   security.acme = {
     acceptTerms = true;

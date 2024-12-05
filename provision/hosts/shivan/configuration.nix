@@ -1,8 +1,5 @@
 { config, pkgs, user, lib, ... }:
 {
-  imports = [ 
-  ];
-
   # Use performance governor for sweet gaming performance!
   powerManagement.cpuFreqGovernor = "performance";
 
@@ -15,9 +12,6 @@
   virtualisation.docker.enable = true;
   virtualisation.docker.storageDriver = "btrfs";
   
-  environment.systemPackages = with pkgs; [
-  ]; 
-
   # Modules
   modules = {
     desktop = {

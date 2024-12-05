@@ -5,8 +5,8 @@ in {
   options.modules.gaming.minecraft.enable = lib.mkEnableOption "minecraft";
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ 
-      jdk17 # Java Development Kit (JDK) version 17.
-      prismlauncher # Launcher for Prism, a web application framework.
+      jdk17 # Java Development Kit (JDK) version 17
+      prismlauncher # Launcher for Prism, a web application framework
     ];
   };
 }

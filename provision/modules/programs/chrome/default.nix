@@ -12,7 +12,7 @@ in {
 
   config = lib.mkIf (cfg1.enable && cfg2.enable) {
     environment.systemPackages = with pkgs; [
-      google-chrome # Web browser developed by Google.
+      google-chrome # Web browser developed by Google
     ];
 
     programs.chromium = {

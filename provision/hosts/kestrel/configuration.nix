@@ -26,9 +26,6 @@
   virtualisation.docker.enable = true;
   virtualisation.docker.storageDriver = "btrfs";
   
-  environment.systemPackages = with pkgs; [
-  ];
-
   # Secrets
   age.secrets."wireguard/kestrel".file = ../../secrets/wireguard/kestrel.age;
 

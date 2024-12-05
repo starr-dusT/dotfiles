@@ -15,9 +15,8 @@ in {
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ 
-      chezmoi 
+      chezmoi # Manage your dotfiles across multiple machines, securely
     ];
-    # Optionally apply chezmoi dotfiles with home-manager activation
     home-manager.users.${user} = lib.mkIf cfg.apply {
       home.activation.chezmoi = home-manager.lib.hm.dag.entryAfter [ "installPackages" ] ''
         _saved_path=$PATH

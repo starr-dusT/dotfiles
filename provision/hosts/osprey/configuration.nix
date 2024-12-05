@@ -1,8 +1,5 @@
 { config, pkgs, user, lib, ... }:
 {
-  imports = [ 
-  ];
-
   # Use performance governor for sweet gaming performance!
   powerManagement.cpuFreqGovernor = "performance";
 

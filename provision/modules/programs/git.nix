@@ -15,9 +15,9 @@ in {
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      git # Version control system for tracking changes in source code during software development.
-      git-annex # Manages files with git, without checking the file contents into git.
-      lazygit # Terminal-based GUI for git, making it easier to use and visualize git repositories.
+      git # Version control system for tracking changes in source code during software development
+      git-annex # Manages files with git, without checking the file contents into git
+      lazygit # Terminal-based GUI for git, making it easier to use and visualize git repositories
     ];
 
     age.secrets."git/github_personal" = lib.mkIf cfg.keys {

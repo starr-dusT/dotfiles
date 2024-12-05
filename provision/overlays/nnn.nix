@@ -1,3 +1,3 @@
 self: super: {
-    nnn = super.nnn.override { withNerdIcons = true; };
+  nnn = super.nnn.override { withNerdIcons = true; };
 }

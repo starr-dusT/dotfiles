@@ -11,7 +11,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      yt-dlp
+      yt-dlp # Command-line tool to download videos
       (pkgs.writeScriptBin "ytd_audio" ''
         #!/usr/bin/env bash
         yt-dlp -x \

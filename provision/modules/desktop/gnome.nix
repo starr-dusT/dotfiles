@@ -214,7 +214,7 @@ in {
         };
       } // generate_custom_keybindings {
         "terminal" = { binding = "<Super><Control>Return"; command = "kitty"; name = "Open Terminal"; };
-        "browser" = { binding = "<Super><Control>b"; command = "google-chrome-stable --simulate-outdated-no-au='Tue, 31 Dec 2099 23:59:59 GMT'"; name = "Open Browser"; };
+        "browser" = { binding = "<Super><Control>b"; command = "google-chrome-stable"; name = "Open Browser"; };
         "steam" = { binding = "<Super><Control>s"; command = "steam"; name = "Open Steam"; };
         "vesktop" = { binding = "<Super><Control>d"; command = "vesktop"; name = "Open Vesktop"; };
         "nautilus" = { binding = "<Super><Control>f"; command = "nautilus"; name = "Open File Manager"; };
