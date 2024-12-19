@@ -1,4 +1,4 @@
-{ lib, specialArgs, system, user, inputs, agenix, home-manager, nixos-wsl, ... }:
+{ lib, specialArgs, system, inputs, agenix, home-manager, nixos-wsl, ... }:
 let
     user = specialArgs.user; 
 in { 

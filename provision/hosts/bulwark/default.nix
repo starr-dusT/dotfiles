@@ -1,4 +1,4 @@
-{ lib, specialArgs, system, user, inputs, agenix, home-manager, jovian-nixos, ... }:
+{ lib, specialArgs, system, inputs, agenix, home-manager, jovian-nixos, ... }:
 let
     user = specialArgs.user; 
 in { 
