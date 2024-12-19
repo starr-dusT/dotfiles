@@ -15,34 +15,17 @@
   outputs = inputs @ { self, nixpkgs, home-manager, jovian-nixos, agenix, nixos-wsl, ... }:
   let
     system = "x86_64-linux";
-    user = "tstarr";
+    hosts = builtins.fromJSON (builtins.readFile ./hosts.json);
     lib = nixpkgs.lib;
   in {
-    nixosConfigurations = {
-      kestrel = lib.nixosSystem (import ./hosts/kestrel {
+    nixosConfigurations = lib.mapAttrs (hostname: hostConfig:
+      lib.nixosSystem (import ./hosts/${hostname} {
         inherit lib;
-        inherit system user inputs agenix home-manager;
-      });
-      shivan = lib.nixosSystem (import ./hosts/shivan {
-        inherit lib;
-        inherit system user inputs agenix home-manager;
-      });
-      torus = lib.nixosSystem (import ./hosts/torus {
-        inherit lib;
-        inherit system user inputs agenix home-manager;
-      });
-      bulwark = lib.nixosSystem (import ./hosts/bulwark {
-        inherit lib;
-        inherit system user inputs agenix home-manager jovian-nixos;
-      });
-      wsl = lib.nixosSystem (import ./hosts/wsl {
-        inherit lib;
-        inherit system user inputs agenix home-manager nixos-wsl;
-      });
-      osprey = lib.nixosSystem (import ./hosts/osprey {
-        inherit lib;
-        inherit system user inputs agenix home-manager;
-      });
-    }; 
+        inherit system inputs agenix home-manager jovian-nixos nixos-wsl;
+        specialArgs = {
+          user = hostConfig.user;
+        };
+      })
+    ) hosts;
   };
 }

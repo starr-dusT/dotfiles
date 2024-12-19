@@ -1,0 +1,20 @@
+{
+  "kestrel": {
+    "user": "tstarr"
+  },
+  "shivan": {
+    "user": "tstarr"
+  },
+  "torus": {
+    "user": "tstarr"
+  },
+  "bulwark": {
+    "user": "test"
+  },
+  "osprey": {
+    "user": "tstarr"
+  },
+  "wsl": {
+    "user": "user"
+  }
+}

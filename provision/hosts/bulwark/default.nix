@@ -1,5 +1,7 @@
-{ lib, system, user, inputs, agenix, home-manager, jovian-nixos, ... }:
-{
+{ lib, specialArgs, system, user, inputs, agenix, home-manager, jovian-nixos, ... }:
+let
+    user = specialArgs.user; 
+in { 
   inherit system;
   specialArgs = { inherit user inputs home-manager jovian-nixos; };
   modules = [

@@ -1,5 +1,7 @@
-{ lib, system, user, inputs, agenix, home-manager, ... }:
-{
+{ lib, specialArgs, system, user, inputs, agenix, home-manager, ... }:
+let
+    user = specialArgs.user; 
+in { 
   inherit system;
   specialArgs = { inherit user inputs home-manager; };
   modules = [
