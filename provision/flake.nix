@@ -19,7 +19,7 @@
     lib = nixpkgs.lib;
   in {
     nixosConfigurations = lib.mapAttrs (hostname: hostConfig:
-      lib.nixosSystem (import ./hosts/${hostname} {
+      lib.nixosSystem (import ./hosts/${hostConfig.role} {
         inherit lib;
         inherit system inputs agenix home-manager jovian-nixos nixos-wsl;
         specialArgs = {
