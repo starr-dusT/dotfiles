@@ -22,5 +22,9 @@
   "wsl": {
     "role": "wsl",
     "user": "user"
+  },
+  "htpc-bako": {
+    "role": "htpc",
+    "user": "starr"
   }
 }
