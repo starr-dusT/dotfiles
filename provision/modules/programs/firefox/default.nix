@@ -14,6 +14,13 @@ in {
     home-manager.users.${user} = {
       programs.firefox = {
         enable = true;
+        policies = {
+          SecurityDevices = {
+            Add = {
+              "NIPR" = "${pkgs.opensc}/lib/opensc-pkcs11.so";
+            };
+          };
+        };
         profiles.default = {
           bookmarks = import ./bookmarks.nix;
           isDefault = true;
