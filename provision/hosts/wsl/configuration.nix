@@ -1,4 +1,4 @@
-{ config, pkgs, user, lib, inputs, nixos-wsl, ... }:
+{ config, pkgs, user, lib, inputs, nixos-wsl, hostname, ... }:
 let
   defaultUser = user;
 in 
@@ -15,7 +15,7 @@ in
   };
 
   # Set networking options
-  networking.hostName = "wsl"; 
+  networking.hostName = "${hostname}"; 
   networking.firewall.checkReversePath = "loose";
   networking.firewall.enable = false;
 

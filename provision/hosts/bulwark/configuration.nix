@@ -1,11 +1,11 @@
-{ config, lib, pkgs, user, ... }:
+{ config, lib, pkgs, user, hostname, ... }:
 {
  imports = [
     ./steam-deck.nix
   ];
 
   # Set networking options
-  networking.hostName = "bulwark"; 
+  networking.hostName = "${hostname}"; 
   networking.firewall.checkReversePath = "loose";
   networking.firewall.enable = false;
 

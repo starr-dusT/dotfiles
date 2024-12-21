@@ -24,6 +24,7 @@
         inherit system inputs agenix home-manager jovian-nixos nixos-wsl;
         specialArgs = {
           user = hostConfig.user;
+          hostname = "${hostname}";
         };
       })
     ) hosts;

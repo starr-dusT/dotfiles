@@ -1,10 +1,10 @@
-{ config, pkgs, user, lib, ... }:
+{ config, pkgs, user, lib, hostname, ... }:
 {
   # Use performance governor for sweet gaming performance!
   powerManagement.cpuFreqGovernor = "performance";
 
   # Set networking options
-  networking.hostName = "osprey"; 
+  networking.hostName = "${hostname}"; 
   networking.firewall.checkReversePath = false;
   networking.firewall.enable = false;
 

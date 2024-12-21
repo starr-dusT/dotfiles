@@ -1,6 +1,7 @@
 { lib, specialArgs, system, inputs, agenix, home-manager, jovian-nixos, ... }:
 let
     user = specialArgs.user; 
+    hostname = specialArgs.hostname;
 in { 
   inherit system;
   specialArgs = { inherit user inputs home-manager jovian-nixos; };

@@ -1,10 +1,10 @@
-{ config, pkgs, user, lib, ... }:
+{ config, pkgs, user, lib, hostname, ... }:
 {
   # Use performance governor for sweet gaming performance!
   powerManagement.cpuFreqGovernor = "performance";
 
   # Set networking options
-  networking.hostName = "shivan"; 
+  networking.hostName = "${hostname}"; 
   networking.firewall.checkReversePath = "loose";
   networking.firewall.enable = false;
 
