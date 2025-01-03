@@ -5,6 +5,8 @@ exclude_patterns:
     - '**/code-server/config/**'
     - '**/code-server/workspace/**'
     - '**/immich/library/**'
+    - '**/immich/postgres/**'
+    - '**/dufs/**'
 
 before_backup:
   - stop-docker-containers
