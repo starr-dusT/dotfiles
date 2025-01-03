@@ -14,16 +14,17 @@ nix-shell -p vim git neovim
 git clone https://github.com/starr-dusT/dotfiles ~/.local/share/chezmoi 
 ```
    
-3. Copy existing configuration files from another host and modify as needed. Make sure to move the installer created configuration-hardware.nix to dotfiles (e.g. `provision/hosts/<host>/hardware.nix`).
+3. Copy existing configuration files from another host and modify as needed. For most configs, move the installer created `configuration-hardware.nix` to dotfiles (e.g. `provision/hosts/<host>/hardware.nix`); however, role-based installs like `htpc` and `wsl` either do not require a `hardware.nix` file or the flake imports `hardware-configuration.nix` from `/etc/nixos`.
    
 4. If required move agenix keypairs to `~/.ssh/keys/{age,age.pub}`. A new keypair may be required and agenix files will need to be rekeyed on another system.
 
 5. Rebuild the system and initialize chezmoi dotfiles to save America:
 
 ```bash
-sudo nixos-rebuild switch --flake .#<host>
+sudo nixos-rebuild switch --impure --flake .#<host>
 chezmoi init && chezmoi apply
 ```
+*Note:* if the `chezmoi.apply` option is enabled in `configuration.nix` the dotfiles should deploy automatically. The chezmoi commands then are not necessary.
 
 6. Profit!
 

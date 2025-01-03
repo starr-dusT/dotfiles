@@ -8,9 +8,9 @@ in {
   modules = [
     ../default                            # shared by all configs
     ../default/physical/configuration.nix # shared by physical machines
-    ./configuration.nix                   # kestrel specific
-    ./hardware.nix
+    ./configuration.nix                   # htpc specific
     ../../modules
+    /etc/nixos/hardware-configuration.nix
     agenix.nixosModules.default
     home-manager.nixosModules.home-manager {
       home-manager.useGlobalPkgs = true;

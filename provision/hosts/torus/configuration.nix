@@ -1,4 +1,4 @@
-{ config, pkgs, user, lib, ... }:
+{ config, pkgs, user, lib, hostname, ... }:
 {
   imports = [ 
     ./wireguard-server.nix
@@ -18,7 +18,7 @@
   boot.kernelModules = [ "sg" ];
 
   # Set networking options
-  networking.hostName = "torus"; 
+  networking.hostName = "${hostname}"; 
   networking.firewall.enable = true;
   networking.firewall.checkReversePath = "loose";
   networking.firewall.allowedTCPPorts = [ 80 443 ];

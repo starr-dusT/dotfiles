@@ -1,4 +1,4 @@
-{ config, pkgs, user, lib, ... }:
+{ config, pkgs, user, lib, hostname, ... }:
 {
   imports = [ 
     ./backup.nix
@@ -9,7 +9,7 @@
   powerManagement.cpuFreqGovernor = "performance";
 
   # Set networking options
-  networking.hostName = "kestrel"; 
+  networking.hostName = "${hostname}"; 
   networking.firewall.checkReversePath = "loose";
   networking.firewall.enable = false;
 

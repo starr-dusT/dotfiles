@@ -1,5 +1,8 @@
-{ lib, system, user, inputs, agenix, home-manager, nixos-wsl, ... }:
-{
+{ lib, specialArgs, system, inputs, agenix, home-manager, nixos-wsl, ... }:
+let
+    user = specialArgs.user; 
+    hostname = specialArgs.hostname;
+in { 
   inherit system;
   specialArgs = { inherit user inputs nixos-wsl home-manager; };
   modules = [

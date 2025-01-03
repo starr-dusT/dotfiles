@@ -8,32 +8,19 @@
   networking.firewall.checkReversePath = "loose";
   networking.firewall.enable = false;
 
-  # Enable docker 
-  virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "btrfs";
-  
-  # Modules
+  # Modules 
   modules = {
     desktop = {
       enable = true;
       gnome.enable = true;
-      peripherals.enable = true;
-    };
-    devel = {
-      engineering.enable = true;
-      notes.enable = true;
     };
     programs = {
-      kitty.enable = true;
       chezmoi.apply = true;
-      virt-manager.enable = false;
+      kitty.enable = true;
     };
     services = {
       samba-client.enable = true;
-    };
-    system = {
       ssh.enable = true;
-      terminal.enable = true;
     };
   };
 }
