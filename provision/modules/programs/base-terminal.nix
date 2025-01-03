@@ -33,6 +33,7 @@ in {
       sesh # Smart session manager for the terminal
       zoxide # Fast cd command that learns your habits
       fzf # Command-line fuzzy finder for Unix-like operating systems
+      distrobox # Use any linux distribution inside your terminal
     ];
   };
 }
