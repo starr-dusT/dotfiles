@@ -23,7 +23,6 @@ in {
       dconf-editor # Graphical tool for editing settings stored in the dconf database of GNOME
       gnome-tweaks # Utility for customizing various aspects of the GNOME desktop environment
       evolution # Personal information management application that provides email, calendar, and contact management features
-      gnomeExtensions.focus-changer # GNOME Shell extension for changing window focus behavior
       gnomeExtensions.custom-hot-corners-extended # GNOME Shell extension for changing window focus behavior
       gnomeExtensions.alphabetical-app-grid # Alphabetically order the app grid and folders
       gnome-fullscreen-to-empty-workspace # New, maximized and fullscreen windows will be moved to empty workspaces
@@ -141,8 +140,6 @@ in {
           dynamic-workspaces = false;
         };
         "org/gnome/desktop/wm/preferences" = {
-          auto-raise = false;
-          raise-on-click = false;
           num-workspaces = 10;
         };
         "org/gnome/shell/keybindings" = {
@@ -190,15 +187,13 @@ in {
           move-to-monitor-left = ["<Shift><Super>h"];      
           move-to-monitor-right = ["<Shift><Super>l"];     
           close = ["<Super>d"];                            
-          toggle-fullscreen = [ "<Super>f" ];              
-          toggle-maximized = [ "<Super>t" ];               
-          raise-or-lower = [ "<Super>s" ];                 
-          move-to-center = [ "<Alt><Super>c" ];
-          cycle-windows = ["<Super>Tab"];                 
-          cycle-windows-backward = ["<Shift><Super>Tab"]; 
+          toggle-fullscreen = ["<Super>f"];              
+          toggle-maximized = ["<Super>t"];               
+          cycle-windows = ["<Super>Tab" "<Super>k"];                 
+          cycle-windows-backward = ["<Shift><Super>Tab" "<Super>j"]; 
+          panel-run-dialog = ["<Super>r"];
           switch-applications = [];                 
           switch-applications-backward = []; 
-          panel-run-dialog = ["<Super>r"];
           minimize = [];
         };
         # custom-hot-corners-extended configs
