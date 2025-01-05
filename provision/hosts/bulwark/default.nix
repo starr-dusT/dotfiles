@@ -4,7 +4,7 @@ let
     hostname = specialArgs.hostname;
 in { 
   inherit system;
-  specialArgs = { inherit user inputs home-manager jovian-nixos; };
+  specialArgs = { inherit user hostname inputs home-manager jovian-nixos; };
   modules = [
     ../default                            # shared by all configs
     ../default/physical/configuration.nix # shared by physical machines
