@@ -194,8 +194,10 @@ in {
           toggle-maximized = [ "<Super>t" ];               
           raise-or-lower = [ "<Super>s" ];                 
           move-to-center = [ "<Alt><Super>c" ];
-          switch-windows = ["<Super>Tab"];                 
-          switch-windows-backward = ["<Shift><Super>Tab"]; 
+          cycle-windows = ["<Super>Tab"];                 
+          cycle-windows-backward = ["<Shift><Super>Tab"]; 
+          switch-applications = [];                 
+          switch-applications-backward = []; 
           panel-run-dialog = ["<Super>r"];
           minimize = [];
         };
