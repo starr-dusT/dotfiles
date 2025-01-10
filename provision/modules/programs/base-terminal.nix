@@ -34,6 +34,7 @@ in {
       zoxide # Fast cd command that learns your habits
       fzf # Command-line fuzzy finder for Unix-like operating systems
       distrobox # Use any linux distribution inside your terminal
+      just # Hand way to save and run project-specific commands
     ];
   };
 }
