@@ -3,6 +3,7 @@ final: prev: {
   ftw = final.callPackage ../pkgs/ftw.nix {};
   gnome-fullscreen-to-empty-workspace = final.callPackage ../pkgs/gnome-fullscreen-to-empty-workspace/default.nix {};
   gnome-set-panel-monitor = final.callPackage ../pkgs/gnome-set-panel-monitor.nix {};
+  stacks-in-gnome = final.callPackage ../pkgs/stacks-in-gnome.nix {};
   nx_tzdb = final.callPackage ../pkgs/nx_tzdb.nix {};
   pySVS = final.callPackage ../pkgs/pySVS.nix {};
   ryujinx = final.callPackage ../pkgs/ryujinx/default.nix {};

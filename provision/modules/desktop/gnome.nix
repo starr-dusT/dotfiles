@@ -27,6 +27,7 @@ in {
       gnomeExtensions.alphabetical-app-grid # Alphabetically order the app grid and folders
       gnome-fullscreen-to-empty-workspace # New, maximized and fullscreen windows will be moved to empty workspaces
       gnome-set-panel-monitor # Set monitor for panel to appear on
+      stacks-in-gnome # TBD
       gnome-randr # Xrandr-like CLI for configuring displays on GNOME/Wayland
       ftw # Build custom ftl wallpapers in a complicated way for no reason
     ];
@@ -127,6 +128,7 @@ in {
             "gnome-set-panel-monitor@tstarr.us"
             "custom-hot-corners-extended@G-dH.github.com"
             "AlphabeticalAppGrid@stuarthayhurst"
+            "stacks-in-gnome@tstarr.us"
           ];
         };
         "org/gnome/shell/app-switcher" = {
