@@ -12,7 +12,6 @@ in {
             capslock = "overload(meta, esc)";
             leftalt = "layer(alt)";
             f1 = "oneshot(open)";
-            meta = "layer(meta)";
           };
           open = {
             enter = "C-M-enter"; # terminal
@@ -26,12 +25,6 @@ in {
             j = "down";
             k = "up";
             l = "right";
-          };
-          meta = {
-            h = "M-left";
-            j = "M-down";
-            k = "M-up";
-            l = "M-right";
           };
         };
       };

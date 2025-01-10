@@ -189,8 +189,8 @@ in {
           close = ["<Super>d"];                            
           toggle-fullscreen = ["<Super>f"];              
           toggle-maximized = ["<Super>t"];               
-          cycle-windows = ["<Super>Tab" "<Super>k"];                 
-          cycle-windows-backward = ["<Shift><Super>Tab" "<Super>j"]; 
+          cycle-windows = ["<Super>Tab"];                 
+          cycle-windows-backward = ["<Shift><Super>Tab"]; 
           panel-run-dialog = ["<Super>r"];
           switch-applications = [];                 
           switch-applications-backward = []; 
