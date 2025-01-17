@@ -45,7 +45,6 @@ in {
           "pcmpcfapbekmbjjkdalcgopdkipoggdi" # MarkDownload
           "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
           "icpgjfneehieebagbmdbhnlpiopdcmna" # New Tab Redirect
-          "oahiolknhkbpcolgnpljehalnhblolkm" # Shorts Blocker
           "hkgfoiooedgoejojocmhlaklaeopbecg" # Picture-in-Picture (by Google)
           "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium
         ];
