@@ -12,7 +12,7 @@ in {
     ];
 
     hardware.graphics.enable = true; # https://github.com/NixOS/nixpkgs/issues/47932
-    hardware.pulseaudio.support32Bit = config.hardware.pulseaudio.enable;
+    services.pulseaudio.support32Bit = config.hardware.pulseaudio.enable;
     hardware.steam-hardware.enable = true;
 
     programs.steam = {

@@ -25,7 +25,6 @@ in {
       evolution # Personal information management application that provides email, calendar, and contact management features
       gnomeExtensions.custom-hot-corners-extended # GNOME Shell extension for changing window focus behavior
       gnomeExtensions.alphabetical-app-grid # Alphabetically order the app grid and folders
-      gnome-fullscreen-to-empty-workspace # New, maximized and fullscreen windows will be moved to empty workspaces
       gnome-set-panel-monitor # Set monitor for panel to appear on
       stacks-in-gnome # TBD
       gnome-randr # Xrandr-like CLI for configuring displays on GNOME/Wayland
@@ -63,7 +62,7 @@ in {
     };
 
     # Enable sound and handle conflict (https://github.com/Jovian-Experiments/Jovian-NixOS/issues/99)
-    hardware.pulseaudio.enable = lib.mkForce false;
+    services.pulseaudio.enable = lib.mkForce false;
 
     xdg.mime = {
       enable = true;
@@ -124,7 +123,6 @@ in {
           disable-user-extensions = false;
           enabled-extensions = [
             "focus-changer@heartmire"
-            "fullscreen-to-empty-workspace@aiono.dev"
             "gnome-set-panel-monitor@tstarr.us"
             "custom-hot-corners-extended@G-dH.github.com"
             "AlphabeticalAppGrid@stuarthayhurst"
