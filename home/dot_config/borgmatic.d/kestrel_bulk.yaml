@@ -9,6 +9,8 @@ exclude_patterns:
     - "/home/tstarr/media/roms"
     - "/home/tstarr/box"
     - "/home/tstarr/Downloads"
+    - "/home/tstarr/devel/gitea"
+    - "/home/tstarr/devel/archive"
 
 archive_name_format: 'kestrel_bulk.borg-{now}'
 
