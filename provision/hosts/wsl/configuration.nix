@@ -47,7 +47,12 @@ in
 
   # Add DoD CA certs to trusted source
   security.pki.certificateFiles = [
-    ./nipr.crt
+    ./certs/DoDRootCA3.crt
+    ./certs/DoDRootCA4.crt
+    ./certs/DoDRootCA5.crt
+    ./certs/DoDRootCA6.crt
+    ./certs/DoDInteroperabilityRootCA2.crt
+    ./certs/USDoDCCEBInteroperabilityRootCA2.crt
   ];
 
   # Modules 
