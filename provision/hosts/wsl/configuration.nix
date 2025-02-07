@@ -61,8 +61,5 @@ in
       chezmoi.apply = true;
       git.keys = false;
     };
-    system = {
-      terminal.enable = true;
-    };
   };
 }
