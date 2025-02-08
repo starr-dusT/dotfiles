@@ -18,6 +18,7 @@ in {
       mgba # Game Boy Advance emulator
       rpcs3 # PS3 emulator/debugger
       retroarchWithCores # frontend for emulators and specific cores
+      openmw # Open-source open-world RPG game engine that supports playing Morrowind
     ];
   };
 }
