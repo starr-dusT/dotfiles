@@ -10,7 +10,7 @@ alias nb="cd ~/.local/share/chezmoi/provision && \
           cd -"
 
 # sesh
-function s() {
+function b() {
   {
     exec </dev/tty
     exec <&1
