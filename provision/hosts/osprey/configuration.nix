@@ -32,6 +32,9 @@
       enable = true;
       gnome.enable = true;
     };
+    devel = {
+      engineering.enable = true;
+    };
     programs = {
       appgate-sdp.enable = true;
       chezmoi.apply = true;
