@@ -9,11 +9,6 @@ in {
       freecad # Open-source parametric 3D CAD modeler
       openscad # Open-source script-only based modeller
       prusa-slicer # Slicing software optimized for Prusa 3D printers, offering user-friendly interface and settings
-      sdrangel
-      rtl-sdr
-      readsb
     ];
-    hardware.rtl-sdr.enable = true;
-    users.users.${user}.extraGroups = [ "plugdev" ];
   };
 }
