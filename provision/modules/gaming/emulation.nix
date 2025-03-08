@@ -12,7 +12,7 @@ in {
   options.modules.gaming.emulation.enable = lib.mkEnableOption "emulation";
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ 
-      ryujinx # Fuck Nintendo
+      ryubing
       dolphin-emu # GameCube and Wii emulator
       ppsspp # PSP emulator
       mgba # Game Boy Advance emulator
