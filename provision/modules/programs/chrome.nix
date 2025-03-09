@@ -42,15 +42,18 @@ in {
         "ExtensionInstallForcelist" = [
           "ihennfdbghdiflogeancnalflhgmanop" # Gruvbox theme
           "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
-          "icpgjfneehieebagbmdbhnlpiopdcmna" # New Tab Redirect
           "hkgfoiooedgoejojocmhlaklaeopbecg" # Picture-in-Picture (by Google)
           "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium
           "beakmhbijpdhipnjhnclmhgjlddhidpe" # Linkding
+          "icpgjfneehieebagbmdbhnlpiopdcmna" # New Tab Redirect
         ];
 
         # Setup bookmarks
         "BookmarkBarEnabled" = false;
         "ShowAppsShortcutInBookmarkBar" = false;
+        "HomepageLocation" = "https://link.tstarr.us";
+        "HomepageIsNewTabPage" = false;
+        "ShowHomeButton" = true;
       };
     };
   };
