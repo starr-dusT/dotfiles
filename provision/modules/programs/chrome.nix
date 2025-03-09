@@ -41,16 +41,15 @@ in {
         # Install extensions
         "ExtensionInstallForcelist" = [
           "ihennfdbghdiflogeancnalflhgmanop" # Gruvbox theme
-          "fkeaekngjflipcockcnpobkpbbfbhmdn" # Copy as Markdown
-          "pcmpcfapbekmbjjkdalcgopdkipoggdi" # MarkDownload
           "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
           "icpgjfneehieebagbmdbhnlpiopdcmna" # New Tab Redirect
           "hkgfoiooedgoejojocmhlaklaeopbecg" # Picture-in-Picture (by Google)
           "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium
+          "beakmhbijpdhipnjhnclmhgjlddhidpe" # Linkding
         ];
 
         # Setup bookmarks
-        "BookmarkBarEnabled" = true;
+        "BookmarkBarEnabled" = false;
         "ShowAppsShortcutInBookmarkBar" = false;
       };
     };
