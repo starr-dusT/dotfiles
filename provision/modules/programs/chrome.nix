@@ -52,16 +52,7 @@ in {
         # Setup bookmarks
         "BookmarkBarEnabled" = true;
         "ShowAppsShortcutInBookmarkBar" = false;
-        "ManagedBookmarks" = import ./bookmarks.nix; 
       };
-    };
-
-    # Host blank webpage for default new-tab
-    networking.firewall.allowedTCPPorts = [ 8080 ];
-    services.static-web-server = {
-      enable = true;
-      listen = "[::]:8080";
-      root = ../../../../resources/blank;
     };
   };
 }

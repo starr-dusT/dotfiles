@@ -5,8 +5,8 @@
     ./base-terminal.nix
     ./beancount.nix
     ./borg.nix
-    ./chrome
-    ./firefox
+    ./chrome.nix
+    ./firefox.nix
     ./git.nix 
     ./chezmoi.nix 
     ./kitty.nix

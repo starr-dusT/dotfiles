@@ -22,7 +22,6 @@ in {
           };
         };
         profiles.default = {
-          bookmarks = import ./bookmarks.nix;
           isDefault = true;
           name = "default";
           settings = {
