@@ -17,7 +17,6 @@
     vim # Text editor that is highly configurable and widely used, especially in the Unix environment
     ripgrep # Line-oriented search tool that recursively searches directories for a regex pattern
     sesh # Smart session manager for the terminal
-    zoxide # Fast cd command that learns your habits
     fzf # Command-line fuzzy finder for Unix-like operating systems
   ];
 }

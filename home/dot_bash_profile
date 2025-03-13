@@ -16,15 +16,6 @@ shopt -s histappend;
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell;
 
-# Setup thefuck
-eval "$(thefuck --alias)"
-
-# Setup direnv
-eval "$(direnv hook bash)"
-
-# Setup zoxide
-eval "$(zoxide init bash)"
-
 # Enable some Bash 4 features when possible:
 # * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
 # * Recursive globbing, e.g. `echo **/*.txt`
