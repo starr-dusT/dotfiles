@@ -58,7 +58,6 @@ in
   # Modules 
   modules = {
     programs = {
-      chezmoi.apply = true;
       git.keys = false;
     };
   };

@@ -48,7 +48,6 @@
     };
     programs = {
       borg.enable = true;
-      chezmoi.apply = true;
       kitty.enable = true;
       virt-manager.enable = true;
     };

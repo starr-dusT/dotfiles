@@ -93,7 +93,6 @@
   # Modules
   modules = {
     programs = {
-      chezmoi.apply = true;
       borg.enable = true;
     };
     services = {

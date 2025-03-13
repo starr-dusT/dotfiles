@@ -26,7 +26,6 @@
     };
     programs = {
       kitty.enable = true;
-      chezmoi.apply = true;
       virt-manager.enable = false;
     };
     services = {

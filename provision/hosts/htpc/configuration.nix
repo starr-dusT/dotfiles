@@ -15,7 +15,6 @@
       gnome.enable = true;
     };
     programs = {
-      chezmoi.apply = true;
       kitty.enable = true;
     };
     services = {
