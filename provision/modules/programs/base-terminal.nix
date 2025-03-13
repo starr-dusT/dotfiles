@@ -20,21 +20,15 @@ in {
       bash # GNU Bourne-Again SHell, a command language interpreter for Unix-like operating systems
       bash-completion # Provides programmable completion for the bash shell
       tmux # Terminal multiplexer, allowing multiple terminal sessions within a single window
-      thefuck # Corrects errors in previous console commands
       nnn # Terminal file manager with a focus on performance and ease of use
       advcpmv # Advanced version of the Unix utilities cp and mv
       unzip # Command-line utility for extracting files from ZIP archives
       trash-cli # Command-line interface to the freedesktop.org Trash
       vim # Text editor that is highly configurable and widely used, especially in the Unix environment
-      nodejs # JavaScript runtime built on Chrome's V8 JavaScript engine
       ripgrep # Line-oriented search tool that recursively searches directories for a regex pattern
-      cargo # Package manager and build system for Rust
-      docker-compose # Docker CLI plugin to define and run multi-container applications with Docker
       sesh # Smart session manager for the terminal
       zoxide # Fast cd command that learns your habits
       fzf # Command-line fuzzy finder for Unix-like operating systems
-      distrobox # Use any linux distribution inside your terminal
-      just # Hand way to save and run project-specific commands
     ];
   };
 }

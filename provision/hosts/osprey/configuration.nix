@@ -34,6 +34,7 @@
     };
     devel = {
       engineering.enable = true;
+      programming.enable = true;
     };
     programs = {
       appgate-sdp.enable = true;
