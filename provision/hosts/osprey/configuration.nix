@@ -38,7 +38,6 @@
     };
     programs = {
       appgate-sdp.enable = true;
-      kitty.enable = true;
       virt-manager.enable = true;
     };
     services = {

@@ -9,6 +9,7 @@ in {
     ./peripherals.nix
     ../programs/chrome.nix
     ../programs/firefox.nix
+    ../programs/kitty.nix
   ];
 
   options.modules.desktop.enable = lib.mkEnableOption "desktop";

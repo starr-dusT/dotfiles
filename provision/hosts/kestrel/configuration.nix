@@ -47,7 +47,6 @@
       pc.enable = true;
     };
     programs = {
-      kitty.enable = true;
       virt-manager.enable = true;
     };
     services = {

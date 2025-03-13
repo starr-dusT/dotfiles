@@ -25,9 +25,6 @@
       emulation.enable = true;
       pc.enable = true;
     };
-    programs = {
-      kitty.enable = true;
-    };
     services = {
       samba-client.enable = true;
       ssh.enable = true;

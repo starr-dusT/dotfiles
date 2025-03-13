@@ -25,7 +25,6 @@
       programming.enable = true;
     };
     programs = {
-      kitty.enable = true;
       virt-manager.enable = false;
     };
     services = {

@@ -1,8 +1,7 @@
 { config, lib, pkgs, user, inputs, home-manager, ... }:
 
-let cfg = config.modules.programs.kitty;
+let cfg = config.modules.desktop;
 in {
-  options.modules.programs.kitty.enable = lib.mkEnableOption "kitty";
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {
       home.packages = with pkgs; [
