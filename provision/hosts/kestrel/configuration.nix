@@ -47,7 +47,6 @@
       pc.enable = true;
     };
     programs = {
-      borg.enable = true;
       kitty.enable = true;
       virt-manager.enable = true;
     };

@@ -92,9 +92,6 @@
 
   # Modules
   modules = {
-    programs = {
-      borg.enable = true;
-    };
     services = {
       ssh.enable = true;
       syncthing = {
