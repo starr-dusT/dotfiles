@@ -10,12 +10,11 @@
     unzip # Command-line utility for extracting files from ZIP archives
     vim # Text editor that is highly configurable and widely used, especially in the Unix environment
 
-    rbw # Command-line interface to the Bitwarden password manager
-    trash-cli # Command-line interface to the freedesktop.org Trash
-    ripgrep # Line-oriented search tool that recursively searches directories for a regex pattern
     sesh # Smart session manager for the terminal
+    ripgrep # Line-oriented search tool that recursively searches directories for a regex pattern
     fzf # Command-line fuzzy finder for Unix-like operating systems
     nix-search-cli # Command-line utility for searching the Nix package repository
+    trash-cli # Command-line interface to the freedesktop.org Trash
 
     btop # Terminal-based resource monitor, providing an interactive view of system resources
     nnn # Terminal file manager with a focus on performance and ease of use
