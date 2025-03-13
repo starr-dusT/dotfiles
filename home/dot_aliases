@@ -18,19 +18,5 @@ alias cc="cd ~/.local/share/chezmoi"
 alias ca="chezmoi apply"
 alias ce='chezmoi edit'
 
-# trashcli
-alias tp='trash-put'
-alias te='trash-empty'
-alias tl='trash-list'
-alias tre='trash-restore'
-alias trm='trash-rm'
-
-# git
-alias gs="git status"
-alias gc="git commit"
-alias ga="git add ."
-alias gd="git diff"
-alias gl="git log"
-
 # rsync
 alias rsync.net="ssh fm2120@fm2120.rsync.net"
