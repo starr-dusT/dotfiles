@@ -6,7 +6,6 @@
     ./borg.nix
     ./chrome.nix
     ./firefox.nix
-    ./git.nix 
     ./chezmoi.nix 
     ./kitty.nix
     ./nvim.nix
