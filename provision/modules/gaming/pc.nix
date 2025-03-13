@@ -1,8 +1,8 @@
 { config, lib, pkgs, user, ... }:
 
-let cfg = config.modules.gaming.steam;
+let cfg = config.modules.gaming.pc;
 in {
-  options.modules.gaming.steam.enable = lib.mkEnableOption "steam";
+  options.modules.gaming.pc.enable = lib.mkEnableOption "pc";
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ 
       gamescope # Utility for running games using Valve's Steam Play compatibility layer with improved performance and compatibility

@@ -23,7 +23,7 @@
     };
     gaming = {
       emulation.enable = true;
-      steam.enable = true;
+      pc.enable = true;
     };
     programs = {
       chezmoi.apply = true;

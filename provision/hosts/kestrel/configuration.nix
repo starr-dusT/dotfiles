@@ -42,7 +42,7 @@
     gaming = {
       emulation.enable = true;
       minecraft.enable = true;
-      steam.enable = true;
+      pc.enable = true;
     };
     programs = {
       beancount.enable = true;
