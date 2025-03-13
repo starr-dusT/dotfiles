@@ -2,7 +2,6 @@
 {
   imports = [
     ./appgate-sdp.nix
-    ./beancount.nix
     ./borg.nix
     ./chrome.nix
     ./firefox.nix

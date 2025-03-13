@@ -31,6 +31,7 @@
 
   # Modules 
   modules = {
+    extra.enable = true;
     desktop = {
       enable = true;
       gnome.enable = true;
@@ -46,7 +47,6 @@
       pc.enable = true;
     };
     programs = {
-      beancount.enable = true;
       borg.enable = true;
       chezmoi.apply = true;
       kitty.enable = true;
