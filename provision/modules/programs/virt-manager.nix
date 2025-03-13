@@ -7,6 +7,7 @@ in {
     environment.systemPackages = with pkgs; [ 
       virt-manager # Desktop application for managing virtual machines through libvirt
     ];
+    
     virtualisation.libvirtd.enable = true;
     programs.dconf.enable = true;
   };
