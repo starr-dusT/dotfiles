@@ -9,6 +9,7 @@ in {
     ];
     
     virtualisation.libvirtd.enable = true;
+    virtualisation.libvirtd.qemu.swtpm.enable = true;
     programs.dconf.enable = true;
   };
 }
