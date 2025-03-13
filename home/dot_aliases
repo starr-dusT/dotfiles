@@ -1,14 +1,6 @@
 #!/usr/bin/env bash
 # https://github.com/starr-dusT/dotfiles
 
-# nixos
-alias nu="cd ~/.local/share/chezmoi/provision && \
-          sudo nixos-rebuild switch --impure --flake .#$(hostname) && \
-          cd -"
-alias nb="cd ~/.local/share/chezmoi/provision && \
-          sudo nix run .#nixosConfigurations.wsl.config.system.build.tarballBuilder && \
-          cd -"
-
 # sesh
 function b() {
   {

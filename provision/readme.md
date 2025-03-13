@@ -32,4 +32,4 @@ Perform additional setup found in [additional-setup](additional-setup.md)
 
 ## Update
 
-`nixos-rebuild` command is aliased to `nu` assuming the machine's flake output is named the same at the hostname of the machine.
+`nixos-rebuild` command is built into the `justfile` with this folder, assuming the machine's flake output is named the same at the hostname of the machine.
