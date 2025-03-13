@@ -10,6 +10,7 @@
 
   # Modules 
   modules = {
+    extra.enable = true;
     desktop = {
       enable = true;
       gnome.enable = true;
