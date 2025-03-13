@@ -33,10 +33,6 @@ alias tl='trash-list'
 alias tre='trash-restore'
 alias trm='trash-rm'
 
-# cp and mv with progress
-alias cp="cpg -g"
-alias mv="mvg -g"
-
 # git
 alias gs="git status"
 alias gc="git commit"

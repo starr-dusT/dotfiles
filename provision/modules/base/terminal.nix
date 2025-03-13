@@ -11,7 +11,6 @@
     vim # Text editor that is highly configurable and widely used, especially in the Unix environment
 
     rbw # Command-line interface to the Bitwarden password manager
-    advcpmv # Advanced version of the Unix utilities cp and mv
     trash-cli # Command-line interface to the freedesktop.org Trash
     ripgrep # Line-oriented search tool that recursively searches directories for a regex pattern
     sesh # Smart session manager for the terminal
