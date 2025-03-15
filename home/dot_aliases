@@ -13,6 +13,11 @@ function b() {
   }
 }
 
+# git
+alias ga="git add ."
+alias gd="git diff"
+alias gs="git status"
+
 # chezmoi
 alias cc="cd ~/.local/share/chezmoi"
 alias ca="chezmoi apply"
