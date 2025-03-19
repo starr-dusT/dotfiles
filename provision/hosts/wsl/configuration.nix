@@ -57,8 +57,10 @@ in
 
   # Modules 
   modules = {
+    devel.programming.enable = true;
     programs = {
       git.keys = false;
     };
+    services.ssh.enable = true;
   };
 }
