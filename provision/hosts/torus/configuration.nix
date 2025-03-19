@@ -92,7 +92,7 @@
 
   # Modules
   modules = {
-    extra.enable = true;
+    base-plus.enable = true;
     services = {
       ssh.enable = true;
       syncthing = {

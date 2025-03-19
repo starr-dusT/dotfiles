@@ -1,6 +1,6 @@
 { config, pkgs, user, lib, ... }:
 
-let cfg = config.modules.extra;
+let cfg = config.modules.base-plus;
 in {
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
