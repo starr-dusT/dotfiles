@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-engi_path="$HOME/mnt/engi"
+engi_path="/mnt/engi"
 
 if mountpoint -q "$engi_path"; then
     echo "engi already mounted"
     exit 0
 else
-    sudo mount -t cifs -o rw,uid=$(id -u $(whoami)),gid=$(id -g $(whoami)),vers=3.0,credentials=/home/tstarr/.smb //torus/private ~/mnt/engi 2>/dev/null
+    sudo mount -t cifs -o rw,uid=$(id -u $(whoami)),gid=$(id -g $(whoami)),vers=3.0,credentials=/home/tstarr/.smb //torus/private "$engi_path" 2>/dev/null
 fi
 
 # Check drive mounted correctly
