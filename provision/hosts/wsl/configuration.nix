@@ -46,6 +46,7 @@ in
   environment.systemPackages = with pkgs; [
     firefox
     wget
+    openssl
   ];
 
   # Add DoD CA certs to trusted source
