@@ -47,6 +47,7 @@ in
 
   # Add DoD CA certs to trusted source
   security.pki.certificateFiles = [
+    ./certs/DoDWCFInterCA1.crt
     ./certs/DoDRootCA3.crt
     ./certs/DoDRootCA4.crt
     ./certs/DoDRootCA5.crt
