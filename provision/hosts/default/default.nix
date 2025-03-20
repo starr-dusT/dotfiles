@@ -30,6 +30,13 @@
     inputs.agenix.packages.x86_64-linux.default 
   ];
 
+  # Define user account.
+  users.users.${user} = {
+    isNormalUser = true;
+    extraGroups = [ "dialout" "wheel" "docker" "libvirtd" ];
+    shell = pkgs.bash;
+  };
+
   # Did you read the comment?
   system.stateVersion = "23.11";
 
