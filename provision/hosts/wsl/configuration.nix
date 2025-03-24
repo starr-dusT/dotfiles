@@ -40,24 +40,32 @@ in
   # Don't allow emergency mode, because we don't have a console.
   systemd.enableEmergencyMode = false;
 
+  # Enable docker 
+  virtualisation.docker.enable = true;
+
   environment.systemPackages = with pkgs; [
     firefox
     wget
+    openssl
   ];
 
   # Add DoD CA certs to trusted source
   security.pki.certificateFiles = [
-    ./nipr.crt
+    ./certs/DoDWCFInterCA1.crt
+    ./certs/DoDRootCA3.crt
+    ./certs/DoDRootCA4.crt
+    ./certs/DoDRootCA5.crt
+    ./certs/DoDRootCA6.crt
+    ./certs/DoDInteroperabilityRootCA2.crt
+    ./certs/USDoDCCEBInteroperabilityRootCA2.crt
   ];
 
   # Modules 
   modules = {
+    devel.programming.enable = true;
     programs = {
-      chezmoi.apply = true;
       git.keys = false;
     };
-    system = {
-      terminal.enable = true;
-    };
+    services.ssh.enable = true;
   };
 }

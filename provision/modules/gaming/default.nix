@@ -3,6 +3,6 @@
   imports = [ 
     ./emulation.nix
     ./minecraft.nix
-    ./steam.nix
+    ./pc.nix
   ];
 }

@@ -10,13 +10,10 @@
 
   # Modules 
   modules = {
+    base-plus.enable = true;
     desktop = {
       enable = true;
       gnome.enable = true;
-    };
-    programs = {
-      chezmoi.apply = true;
-      kitty.enable = true;
     };
     services = {
       samba-client.enable = true;

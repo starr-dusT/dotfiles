@@ -1,16 +1,8 @@
 #!/usr/bin/env bash
 # https://github.com/starr-dusT/dotfiles
 
-# nixos
-alias nu="cd ~/.local/share/chezmoi/provision && \
-          sudo nixos-rebuild switch --impure --flake .#$(hostname) && \
-          cd -"
-alias nb="cd ~/.local/share/chezmoi/provision && \
-          sudo nix run .#nixosConfigurations.wsl.config.system.build.tarballBuilder && \
-          cd -"
-
 # sesh
-function s() {
+function b() {
   {
     exec </dev/tty
     exec <&1
@@ -21,52 +13,15 @@ function s() {
   }
 }
 
-# hyprland
-alias h='Hyprland'
-
-alias tw='linux-toggle-vpn'
+# git
+alias ga="git add ."
+alias gd="git diff"
+alias gs="git status"
 
 # chezmoi
 alias cc="cd ~/.local/share/chezmoi"
-alias cdr="chezmoi apply --verbose --dry-run"
 alias ca="chezmoi apply"
 alias ce='chezmoi edit'
-
-# trashcli
-alias tp='trash-put'
-alias te='trash-empty'
-alias tl='trash-list'
-alias tre='trash-restore'
-alias trm='trash-rm'
-alias rofi='wayland-rofi'
-
-# zk
-alias cz="cd ~/documents/zet"
-
-# nnn 
-
-# Open nnn at location you closed it
-n() {
-    nnn -r -e $(cat ~/.nnn_last)
-    echo "$(pwd)" > ~/.nnn_last
-}
-
-alias cp="cpg -g"
-alias mv="mvg -g"
-
-# git
-alias gs="git status"
-alias gc="git commit"
-alias ga="git add ."
-alias gd="git diff"
-alias gl="git log"
-
-# dev
-alias dp="docker pull ghcr.io/starr-dust/dev-container:master"
-alias dr='docker run --rm --name $(date +%Y%m%d%k%M%S) -p 8082:8082 -v $(pwd):/root/src -it ghcr.io/starr-dust/dev-container:master'
-
-# applications
-alias google-chrome-stable="google-chrome-stable --simulate-outdated-no-au='Tue, 31 Dec 2099 23:59:59 GMT'"
 
 # rsync
 alias rsync.net="ssh fm2120@fm2120.rsync.net"

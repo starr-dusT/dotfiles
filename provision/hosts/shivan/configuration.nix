@@ -14,6 +14,7 @@
   
   # Modules
   modules = {
+    base-plus.enable = true;
     desktop = {
       enable = true;
       gnome.enable = true;
@@ -22,10 +23,9 @@
     devel = {
       engineering.enable = true;
       notes.enable = true;
+      programming.enable = true;
     };
     programs = {
-      kitty.enable = true;
-      chezmoi.apply = true;
       virt-manager.enable = false;
     };
     services = {

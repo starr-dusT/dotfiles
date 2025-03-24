@@ -4,7 +4,7 @@ let
     hostname = specialArgs.hostname;
 in { 
   inherit system;
-  specialArgs = { inherit user inputs nixos-wsl home-manager; };
+  specialArgs = { inherit user hostname inputs nixos-wsl home-manager; };
   modules = [
     ../default          # shared by all configs
     ./configuration.nix # wsl specific

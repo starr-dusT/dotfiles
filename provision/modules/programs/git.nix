@@ -3,17 +3,13 @@
 let cfg = config.modules.programs.git;
 in {
   options.modules.programs.git = with lib; {
-    enable = lib.mkOption {
-      type = with types; bool;
-      default = true;
-    };
     keys = lib.mkOption {
       type = with types; bool;
       default = true;
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = {
     environment.systemPackages = with pkgs; [
       git # Version control system for tracking changes in source code during software development
       git-annex # Manages files with git, without checking the file contents into git

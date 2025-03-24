@@ -1,7 +1,6 @@
 { config, lib, pkgs, user, ... }:
 
-let cfg1 = config.modules.desktop;
-    cfg2 = config.modules.programs.firefox;
+let cfg = config.modules.programs.firefox;
 in {
   options.modules.programs.firefox = with lib; {
     enable = lib.mkOption {
@@ -10,7 +9,7 @@ in {
     };
   };
 
-  config = lib.mkIf (cfg1.enable && cfg2.enable) {
+  config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {
       programs.firefox = {
         enable = true;
@@ -22,7 +21,6 @@ in {
           };
         };
         profiles.default = {
-          bookmarks = import ./bookmarks.nix;
           isDefault = true;
           name = "default";
           settings = {

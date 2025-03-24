@@ -95,10 +95,7 @@
 
   # Modules
   modules = {
-    programs = {
-      chezmoi.apply = true;
-      borg.enable = true;
-    };
+    base-plus.enable = true;
     services = {
       ssh.enable = true;
       syncthing = {

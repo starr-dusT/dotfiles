@@ -21,7 +21,7 @@
   },
   "wsl": {
     "role": "wsl",
-    "user": "user"
+    "user": "dev"
   },
   "htpc-bako": {
     "role": "htpc",

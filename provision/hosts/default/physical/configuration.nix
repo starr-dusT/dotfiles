@@ -6,13 +6,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Define user account.
-  users.users.${user} = {
-    isNormalUser = true;
-    extraGroups = [ "dialout" "wheel" "docker" "libvirtd" ];
-    shell = pkgs.bash;
-  };
-
   home-manager.users.${user} = {
     programs.vscode = {
       enable = true;

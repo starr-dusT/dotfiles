@@ -1,8 +1,7 @@
 { config, pkgs, user, lib, ... }:
 
-let cfg = config.modules.programs.borg;
+let cfg = config.modules.base-plus;
 in {
-  options.modules.programs.borg.enable = lib.mkEnableOption "borg";
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       borgbackup # Deduplicating backup program 
@@ -21,6 +20,7 @@ in {
         rm /tmp/docker_images
       '')
     ];
+
     services.borgmatic.enable = true;
   };
 }

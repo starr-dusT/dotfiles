@@ -63,6 +63,7 @@ in {
 
     # Enable sound and handle conflict (https://github.com/Jovian-Experiments/Jovian-NixOS/issues/99)
     services.pulseaudio.enable = lib.mkForce false;
+    services.gvfs.enable = true;
 
     xdg.mime = {
       enable = true;

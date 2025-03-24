@@ -16,6 +16,7 @@
   # Nvidia options
   services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
     modesetting.enable = true;
     open = true;
     powerManagement.enable = true;
@@ -31,6 +32,7 @@
 
   # Modules 
   modules = {
+    base-plus.enable = true;
     desktop = {
       enable = true;
       gnome.enable = true;
@@ -38,17 +40,14 @@
     devel = {
       engineering.enable = true;
       notes.enable = true;
+      programming.enable = true;
     };
     gaming = {
       emulation.enable = true;
       minecraft.enable = true;
-      steam.enable = true;
+      pc.enable = true;
     };
     programs = {
-      beancount.enable = true;
-      borg.enable = true;
-      chezmoi.apply = true;
-      kitty.enable = true;
       virt-manager.enable = true;
     };
     services = {

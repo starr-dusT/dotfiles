@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [ 
+    ./base
     ./desktop 
     ./devel 
     ./gaming 

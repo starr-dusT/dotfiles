@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 # https://github.com/starr-dusT/dotfiles
 
-# Add `~/bin` to the `$PATH`
-export PATH="$HOME/bin:$PATH";
-
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then 
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"; 
 fi

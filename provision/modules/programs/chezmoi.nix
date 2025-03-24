@@ -3,20 +3,17 @@
 let cfg = config.modules.programs.chezmoi;
 in {
   options.modules.programs.chezmoi = with lib; {
-    enable = lib.mkOption {
+    apply = lib.mkOption {
       type = with types; bool;
       default = true;
     };
-    apply = lib.mkOption {
-      type = with types; bool;
-      default = false;
-    };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = {
     environment.systemPackages = with pkgs; [ 
       chezmoi # Manage your dotfiles across multiple machines, securely
     ];
+
     home-manager.users.${user} = lib.mkIf cfg.apply {
       home.activation.chezmoi = home-manager.lib.hm.dag.entryAfter [ "installPackages" ] ''
         _saved_path=$PATH

@@ -14,6 +14,7 @@
 
   # Modules
   modules = {
+    extra.enable = true;
     desktop = {
       enable = true;
       gnome.enable = true;
@@ -23,11 +24,7 @@
     };
     gaming = {
       emulation.enable = true;
-      steam.enable = true;
-    };
-    programs = {
-      chezmoi.apply = true;
-      kitty.enable = true;
+      pc.enable = true;
     };
     services = {
       samba-client.enable = true;

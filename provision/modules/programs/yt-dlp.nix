@@ -1,14 +1,7 @@
 { config, lib, pkgs, user, ... }:
 
-let cfg = config.modules.programs.yt-dlp;
+let cfg = config.modules.base-plus;
 in {
-  options.modules.programs.yt-dlp = with lib; {
-    enable = lib.mkOption {
-      type = with types; bool;
-      default = true;
-    };
-  };
-
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       yt-dlp # Command-line tool to download videos
