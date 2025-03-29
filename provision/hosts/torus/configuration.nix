@@ -51,6 +51,7 @@
     recommendedOptimisation = true;
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
+    clientMaxBodySize = "200M";
     additionalModules = [ pkgs.nginxModules.pam ];
     virtualHosts = let
     SSL = { 
@@ -82,6 +83,7 @@
         locations."/" = {
           proxyPass = "http://localhost:8443/"; 
           proxyWebsockets = true;
+
         };
       });
       "plot.tstarr.us" = (SSL // {
