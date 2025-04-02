@@ -26,7 +26,6 @@ in {
       gnomeExtensions.custom-hot-corners-extended # GNOME Shell extension for changing window focus behavior
       gnomeExtensions.alphabetical-app-grid # Alphabetically order the app grid and folders
       gnome-set-panel-monitor # Set monitor for panel to appear on
-      stacks-in-gnome # TBD
       gnome-randr # Xrandr-like CLI for configuring displays on GNOME/Wayland
       ftw # Build custom ftl wallpapers in a complicated way for no reason
     ];
