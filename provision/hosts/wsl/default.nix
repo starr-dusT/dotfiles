@@ -6,8 +6,7 @@ in {
   inherit system;
   specialArgs = { inherit user hostname inputs nixos-wsl home-manager; };
   modules = [
-    ../default          # shared by all configs
-    ./configuration.nix # wsl specific
+    ./configuration.nix
     ../../modules
     agenix.nixosModules.default
     home-manager.nixosModules.home-manager {
