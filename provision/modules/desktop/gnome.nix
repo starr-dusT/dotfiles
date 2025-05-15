@@ -118,7 +118,7 @@ in {
             "kitty.desktop"
             "org.gnome.Nautilus.desktop"
             "steam.desktop"
-            "vesktop.desktop"
+            "discord.desktop"
           ];
           disable-user-extensions = false;
           enabled-extensions = [
@@ -213,7 +213,7 @@ in {
         "terminal" = { binding = "<Super><Control>Return"; command = "kitty"; name = "Open Terminal"; };
         "browser" = { binding = "<Super><Control>b"; command = "google-chrome-stable"; name = "Open Browser"; };
         "steam" = { binding = "<Super><Control>s"; command = "steam"; name = "Open Steam"; };
-        "vesktop" = { binding = "<Super><Control>d"; command = "vesktop"; name = "Open Vesktop"; };
+        "discord" = { binding = "<Super><Control>d"; command = "discord"; name = "Open Discord"; };
         "nautilus" = { binding = "<Super><Control>f"; command = "nautilus"; name = "Open File Manager"; };
       };
     };

@@ -17,7 +17,7 @@ in {
     environment.systemPackages = with pkgs; [
       bc # Arbitrary-precision arithmetic language
       gamemode # Optimizes system performance for gaming by adjusting system settings
-      vesktop # Voice, video, and text communication platform for communities and friends
+      discord # Voice, video, and text communication platform for communities and friends
       inkscape # Vector graphics editor for creating illustrations, icons, logos, diagrams, and more
       libreoffice-fresh # Office suite compatible with Microsoft Office
       mpv # Media player for playing audio and video files
