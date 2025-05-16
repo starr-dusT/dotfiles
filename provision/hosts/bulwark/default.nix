@@ -6,9 +6,7 @@ in {
   inherit system;
   specialArgs = { inherit user hostname inputs home-manager jovian-nixos; };
   modules = [
-    ../default                            # shared by all configs
-    ../default/physical/configuration.nix # shared by physical machines
-    ./configuration.nix                   # bulwark specific
+    ./configuration.nix
     ./hardware.nix
     ../../modules
     agenix.nixosModules.default

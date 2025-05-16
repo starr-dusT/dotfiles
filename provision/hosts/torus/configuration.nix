@@ -95,6 +95,7 @@
   # Modules
   modules = {
     base-plus.enable = true;
+    physical.enable = true;
     services = {
       ssh.enable = true;
       syncthing = {

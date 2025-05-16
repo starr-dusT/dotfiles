@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation {
   pname = "gnome-set-panel-monitor";
-  version = "git-2024-08-28";
+  version = "git-2025-04-01";
 
   src = fetchFromGitHub {
     owner = "starr-dusT";
     repo = "gnome-set-panel-monitor";
-    rev = "89204ab29a4872c201f8185cee758384be073a73";
-    hash = "sha256-MJVUjvrEe5b38MkRPt96NOH3cz1FzjoQWTPNtRFRVck=";
+    rev = "9afeb755297c467a3236d07b58ff9feae04ba13d";
+    hash = "sha256-EDR7qsiTQag0NytrokCPTUEygvAXfOP9bGT1W+hVkZY=";
   };
 
   installPhase = ''

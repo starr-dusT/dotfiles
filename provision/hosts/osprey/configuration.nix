@@ -29,6 +29,7 @@
   # Modules 
   modules = {
     base-plus.enable = true;
+    physical.enable = true;
     desktop = {
       enable = true;
       gnome.enable = true;
