@@ -89,9 +89,6 @@
       "plot.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:8988/"; 
       });
-      "link.tstarr.us" = (SSL // {
-        locations."/".proxyPass = "http://localhost:9090/"; 
-      });
     };
   };
 
