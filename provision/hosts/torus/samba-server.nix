@@ -15,7 +15,7 @@
       };
     };
 
-    shares = {
+    settings = {
       private = {
         "path" = "/engi";
         browseable = "yes";
