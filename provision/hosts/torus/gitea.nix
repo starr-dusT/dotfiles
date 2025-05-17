@@ -64,7 +64,6 @@ in {
         gawk
         gitMinimal
         gnused
-        nodejs-18_x
         wget
         gnutar
         gzip
