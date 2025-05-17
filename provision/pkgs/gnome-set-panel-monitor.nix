@@ -7,8 +7,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "starr-dusT";
     repo = "gnome-set-panel-monitor";
-    rev = "9afeb755297c467a3236d07b58ff9feae04ba13d";
-    hash = "sha256-EDR7qsiTQag0NytrokCPTUEygvAXfOP9bGT1W+hVkZY=";
+    rev = "da8ab68ab93c056fbef7f8efa0016973918ba26c";
+    hash = "sha256-4ZZqaqvBwS7jVrYdwApd5yStqQYyLWn6F4wdO5v8eMA=";
   };
 
   installPhase = ''

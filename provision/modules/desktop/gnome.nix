@@ -107,6 +107,7 @@ in {
       dconf.settings = {
         "org/gnome/desktop/interface" = {
             color-scheme = "prefer-dark";
+            accent-color = "orange";
             enable-animations = false;
         };
         "org/gnome/desktop/background" = {
@@ -138,6 +139,7 @@ in {
           focus-change-on-pointer-rest = false;
           workspaces-only-on-primary = true;
           dynamic-workspaces = false;
+          experimental-features = ["scale-monitor-framebuffer" "xwayland-native-scaling"];
         };
         "org/gnome/desktop/wm/preferences" = {
           num-workspaces = 10;
