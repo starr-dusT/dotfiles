@@ -61,6 +61,9 @@
       "rss.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:8087/"; 
       });
+      "link.tstarr.us" = (SSL // {
+        locations."/".proxyPass = "http://localhost:9090/"; 
+      });
       "media.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:8096/"; 
       });
@@ -69,9 +72,6 @@
         extraConfig = ''
           client_max_body_size 3000m;
         '';
-      });
-      "workspace.tstarr.us" = (SSL // {
-        locations."/".proxyPass = "http://localhost:5000/"; 
       });
       "lc.tstarr.us" = (SSL // {
         locations."/" = {
@@ -86,8 +86,11 @@
 
         };
       });
-      "plot.tstarr.us" = (SSL // {
-        locations."/".proxyPass = "http://localhost:8988/"; 
+      "inv.tstarr.us" = (SSL // {
+        locations."/".proxyPass = "http://localhost:3000/"; 
+      });
+      "comp.tstarr.us" = (SSL // {
+        locations."/".proxyPass = "http://localhost:8282/"; 
       });
     };
   };
