@@ -86,12 +86,6 @@
 
         };
       });
-      "inv.tstarr.us" = (SSL // {
-        locations."/".proxyPass = "http://localhost:3000/"; 
-      });
-      "comp.tstarr.us" = (SSL // {
-        locations."/".proxyPass = "http://localhost:8282/"; 
-      });
     };
   };
 
