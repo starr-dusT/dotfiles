@@ -19,7 +19,6 @@ in
   "borg/torus/password.age".publicKeys = systems;
   "borg/rsync/id_rsa.age".publicKeys = systems;
   "borg/rsync/id_rsa.pub.age".publicKeys = systems;
-  "nextcloud/password.age".publicKeys = systems;
   "syncthing/kestrel/key.pem.age".publicKeys = systems;
   "syncthing/kestrel/cert.pem.age".publicKeys = systems;
   "syncthing/bulwark/key.pem.age".publicKeys = systems;

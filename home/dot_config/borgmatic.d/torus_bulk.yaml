@@ -1,18 +1,14 @@
 source_directories:
     - /engi/backup # Static files and service dumps
-    - /var/lib/nextcloud # nextcloud files (besides sql dump)
     - /home/tstarr/sync # Syncthing backups
     
 before_backup:
   - "tree /engi > /engi/backup/tree.txt"
   - sudo -u gitea dump-gitea
-  - sudo -u nextcloud dump-nextcloud
   - sudo -u miniflux dump-miniflux
-  - nextcloud-occ maintenance:mode --on
 
 after_backup:
   - restore-docker-containers
-  - nextcloud-occ maintenance:mode --off
 
 archive_name_format: 'torus_bulk.borg-{now}'
 
