@@ -6,7 +6,6 @@
     ./rss.nix
     ./home-assistant
     ./gitea.nix
-    ./nextcloud.nix
     ./backup.nix
     ./jellyfin.nix
   ];
@@ -73,17 +72,28 @@
           client_max_body_size 3000m;
         '';
       });
+      "cloud.tstarr.us" = (SSL // {
+        locations."/".proxyPass = "http://localhost:8080/"; 
+        extraConfig = ''
+          client_max_body_size 3000m;
+        '';
+      });
       "lc.tstarr.us" = (SSL // {
         locations."/" = {
           proxyPass = "http://localhost:8065/"; 
           proxyWebsockets = true;
         };
       });
-      "code.tstarr.us" = (SSL // {
+      "codeA.tstarr.us" = (SSL // {
         locations."/" = {
-          proxyPass = "http://localhost:8443/"; 
+          proxyPass = "http://localhost:3000/"; 
           proxyWebsockets = true;
-
+        };
+      });
+      "codeB.tstarr.us" = (SSL // {
+        locations."/" = {
+          proxyPass = "http://localhost:3002/"; 
+          proxyWebsockets = true;
         };
       });
     };
