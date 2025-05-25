@@ -10,9 +10,10 @@
     jovian-nixos.flake = false;
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.6.0";
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, jovian-nixos, agenix, nixos-wsl, ... }:
+  outputs = inputs @ { self, nixpkgs, home-manager, jovian-nixos, agenix, nixos-wsl, nix-flatpak, ... }:
   let
     system = "x86_64-linux";
     hosts = builtins.fromJSON (builtins.readFile ./hosts.json);
@@ -21,7 +22,7 @@
     nixosConfigurations = lib.mapAttrs (hostname: hostConfig:
       lib.nixosSystem (import ./hosts/${hostConfig.role} {
         inherit lib;
-        inherit system inputs agenix home-manager jovian-nixos nixos-wsl;
+        inherit system inputs agenix home-manager jovian-nixos nixos-wsl nix-flatpak;
         specialArgs = {
           user = hostConfig.user;
           hostname = "${hostname}";
