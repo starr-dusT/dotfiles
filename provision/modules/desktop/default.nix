@@ -25,6 +25,7 @@ in {
       gimp # GNU Image Manipulation Program for editing and composing raster images
     ];
 
+    services.flatpak.enable = true;
     services.dbus.enable = true;
     xdg.mime = {
       enable = true;

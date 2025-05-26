@@ -8,7 +8,4 @@ in {
     ../../programs/yt-dlp.nix
   ];
   options.modules.base-plus.enable = lib.mkEnableOption "base-plus";
-  config = lib.mkIf cfg.enable {
-    services.flatpak.enable = true;
-  };
 }
