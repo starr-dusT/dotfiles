@@ -7,11 +7,6 @@ The following documents some NixOS setup that wasn't automated.
 - Run `pcscan` and make sure card reader shows up.
 - Run `pkcs11-register` to register cac.
 - Download certs (i.e. unclass-certificates_pkcs7_DoD.zip) and import into Firefox.
-- Use below links:
-
-[Teams](https://dod.teams.microsoft.us)
-[Outlook](https://webmail.apps.mil/owa)
-[OneDrive](https://usaf-my.dps.mil)
 
 ## Wireguard Client
 
@@ -59,7 +54,7 @@ and [New Tab Redirect](https://chromewebstore.google.com/detail/new-tab-redirect
 could not be fully automated.
 
 - Upon launch New Tab Redirect should prompt to set the new tab page. 
-Set to `http://localhost:8080`.
+Set to `https://link.tstarr.us/bookmarks?q=%23daily`.
 
 - Vimium config is saved in chezmoi. Open the vimium [plugin page](chrome-extension://dbepggeogbaibhgnhhndojpepiihcmeb/pages/options.html)
 and restore config from `~/.config/vimium-options.json`.
