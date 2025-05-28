@@ -6,7 +6,7 @@
     ../programs/git.nix
     ../programs/nvim.nix
     ./physical.nix
-    ./plus
+    ./plus.nix
   ];
 
   # base nix options
