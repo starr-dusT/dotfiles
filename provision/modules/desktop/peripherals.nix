@@ -6,9 +6,6 @@ in {
     environment.systemPackages = with pkgs; [
       libimobiledevice # Library to support iPhone, iPod Touch and iPad devices on Linux
       ifuse # Fuse filesystem implementation to access the contents of iOS devices
-      opensc # Open source smart card tools and middleware
-      pcsc-tools # Tools are used to test a PC/SC drivers
-      pkcs11helper # Library that simplifies the interaction with PKCS#11
       pySVS # Control SVS subwoofers from the command-line
       (pkgs.writeScriptBin "sv" ''
         #!/bin/sh

@@ -51,13 +51,13 @@ in
 
   # Add DoD CA certs to trusted source
   security.pki.certificateFiles = [
-    ./certs/DoDWCFInterCA1.crt
-    ./certs/DoDRootCA3.crt
-    ./certs/DoDRootCA4.crt
-    ./certs/DoDRootCA5.crt
-    ./certs/DoDRootCA6.crt
-    ./certs/DoDInteroperabilityRootCA2.crt
-    ./certs/USDoDCCEBInteroperabilityRootCA2.crt
+    ../../../resources/dod_certs/DoDWCFInterCA1.crt
+    ../../../resources/dod_certs/DoDRootCA3.crt
+    ../../../resources/dod_certs/DoDRootCA4.crt
+    ../../../resources/dod_certs/DoDRootCA5.crt
+    ../../../resources/dod_certs/DoDRootCA6.crt
+    ../../../resources/dod_certs/DoDInteroperabilityRootCA2.crt
+    ../../../resources/dod_certs/USDoDCCEBInteroperabilityRootCA2.crt
   ];
 
   # Modules 
