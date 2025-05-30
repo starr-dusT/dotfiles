@@ -10,6 +10,7 @@ in {
   ];
 
   options.modules.desktop.enable = lib.mkEnableOption "desktop";
+
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       bc # Arbitrary-precision arithmetic language

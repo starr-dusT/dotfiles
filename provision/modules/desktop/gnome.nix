@@ -16,8 +16,8 @@ let
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/${name}")
     binds;
 in {
-
   options.modules.desktop.gnome.enable = lib.mkEnableOption "gnome";
+
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       dconf-editor # Graphical tool for editing settings stored in the dconf database of GNOME

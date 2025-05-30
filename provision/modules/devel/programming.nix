@@ -3,6 +3,7 @@
 let cfg = config.modules.devel.programming;
 in {
   options.modules.devel.programming.enable = lib.mkEnableOption "programming";
+
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       nodejs # JavaScript runtime built on Chrome's V8 JavaScript engine

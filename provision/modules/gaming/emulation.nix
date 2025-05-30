@@ -10,6 +10,7 @@ let cfg = config.modules.gaming.emulation;
     ]));
 in {
   options.modules.gaming.emulation.enable = lib.mkEnableOption "emulation";
+
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ 
       ryubing
