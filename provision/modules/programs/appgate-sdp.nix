@@ -3,6 +3,7 @@
 let cfg = config.modules.programs.appgate-sdp;
 in {
   options.modules.programs.appgate-sdp.enable = lib.mkEnableOption "appgate-sdp";
+
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       appgate-sdp

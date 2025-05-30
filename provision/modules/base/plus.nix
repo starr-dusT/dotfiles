@@ -7,5 +7,16 @@ in {
     ../programs/borg.nix
     ../programs/yt-dlp.nix
   ];
+
   options.modules.base-plus.enable = lib.mkEnableOption "base-plus";
+
+  config = {
+    modules = {
+        programs = {
+          borg.enable = true;
+          beancount.enable = true;
+          yt-dlp.enable = true;
+      };
+    };
+  };
 }

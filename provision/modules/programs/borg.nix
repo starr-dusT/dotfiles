@@ -1,7 +1,9 @@
 { config, pkgs, user, lib, ... }:
 
-let cfg = config.modules.base-plus;
+let cfg = config.modules.programs.borg;
 in {
+  options.modules.programs.borg.enable = lib.mkEnableOption "borg";
+
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       borgbackup # Deduplicating backup program 

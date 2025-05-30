@@ -2,12 +2,7 @@
 
 let cfg = config.modules.programs.firefox;
 in {
-  options.modules.programs.firefox = with lib; {
-    enable = lib.mkOption {
-      type = types.bool;
-      default = true;
-    };
-  };
+  options.modules.programs.firefox.enable = lib.mkEnableOption "firefox";
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [

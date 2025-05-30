@@ -1,26 +1,15 @@
 { config, lib, pkgs, user, home-manager, ... }:
+{
+  environment.systemPackages = with pkgs; [ 
+    chezmoi # Manage your dotfiles across multiple machines, securely
+  ];
 
-let cfg = config.modules.programs.chezmoi;
-in {
-  options.modules.programs.chezmoi = with lib; {
-    apply = lib.mkOption {
-      type = with types; bool;
-      default = true;
-    };
-  };
-
-  config = {
-    environment.systemPackages = with pkgs; [ 
-      chezmoi # Manage your dotfiles across multiple machines, securely
-    ];
-
-    home-manager.users.${user} = lib.mkIf cfg.apply {
-      home.activation.chezmoi = home-manager.lib.hm.dag.entryAfter [ "installPackages" ] ''
-        _saved_path=$PATH
-        PATH="${pkgs.git}/bin:$PATH"
-        run ${pkgs.chezmoi}/bin/chezmoi apply --force
-        PATH=$_saved_path
-      '';
-    };
+  home-manager.users.${user} = {
+    home.activation.chezmoi = home-manager.lib.hm.dag.entryAfter [ "installPackages" ] ''
+      _saved_path=$PATH
+      PATH="${pkgs.git}/bin:$PATH"
+      run ${pkgs.chezmoi}/bin/chezmoi apply --force
+      PATH=$_saved_path
+    '';
   };
 }

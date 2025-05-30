@@ -7,9 +7,6 @@ in {
     ./keyd.nix
     ./gnome.nix 
     ./peripherals.nix
-    ../programs/chrome.nix
-    ../programs/firefox.nix
-    ../programs/kitty.nix
   ];
 
   options.modules.desktop.enable = lib.mkEnableOption "desktop";
@@ -45,6 +42,14 @@ in {
         "application/x-extension-xhtml" = [ "google-chrome.desktop" ];
         "application/x-extension-xht" = [ "google-chrome.desktop" ];
         "application/pdf" = [ "google-chrome.desktop" ]; };
+    };
+
+    modules = {
+      programs = {
+        chrome.enable = true;
+        firefox.enable = true;
+        kitty.enable = true;
+      };
     };
   };
 }

@@ -2,12 +2,7 @@
 
 let cfg = config.modules.programs.chrome;
 in {
-  options.modules.programs.chrome = with lib; {
-    enable = lib.mkOption {
-      type = types.bool;
-      default = true;
-    };
-  };
+  options.modules.programs.chrome.enable = lib.mkEnableOption "chrome";
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
