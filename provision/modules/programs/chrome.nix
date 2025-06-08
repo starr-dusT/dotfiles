@@ -6,7 +6,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      google-chrome # Web browser developed by Google
+      (chromium.override { enableWideVine = true; }) # Web browser developed by Google
     ];
 
     programs.chromium = {

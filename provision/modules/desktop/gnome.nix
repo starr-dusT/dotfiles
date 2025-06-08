@@ -51,8 +51,7 @@ in {
       gnome-shell-extensions # Extensions for enhancing functionality and customization in the GNOME
     ];
 
-    services.xserver = {
-      enable = true;  
+    services = {
       displayManager.gdm = {
         enable = true;  
         wayland = true; 
@@ -115,7 +114,7 @@ in {
         };
         "org/gnome/shell" = {
           favorite-apps = [
-            "google-chrome.desktop"
+            "chromium.desktop"
             "kitty.desktop"
             "org.gnome.Nautilus.desktop"
             "obsidian.desktop"
