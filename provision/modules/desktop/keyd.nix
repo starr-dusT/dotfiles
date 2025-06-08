@@ -12,13 +12,22 @@ in {
             capslock = "overload(meta, esc)";
             leftalt = "layer(alt)";
             f1 = "oneshot(open)";
+            f2 = "oneshot(util)";
           };
-          open = {
-            enter = "C-M-enter"; # terminal
-            b = "C-M-b";         # browser
-            s = "C-M-s";         # steam
-            d = "C-M-d";         # discord
-            f = "C-M-f";         # nautilus
+          open = { # open applications on gnome bar
+            q = "C-M-1";
+            w = "C-M-2";
+            e = "C-M-3";
+            r = "C-M-4";
+            t = "C-M-5";
+            y = "C-M-6";
+            u = "C-M-7";
+            i = "C-M-8";
+            o = "C-M-9";
+          };
+          util = {
+            b = "C-M-b";
+            t = "C-M-t";
           };
           alt = {
             h = "left";

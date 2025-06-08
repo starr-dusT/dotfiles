@@ -118,6 +118,7 @@ in {
             "google-chrome.desktop"
             "kitty.desktop"
             "org.gnome.Nautilus.desktop"
+            "obsidian.desktop"
             "steam.desktop"
             "discord.desktop"
           ];
@@ -212,11 +213,8 @@ in {
             action = "prev-workspace";
         };
       } // generate_custom_keybindings {
-        "terminal" = { binding = "<Super><Control>Return"; command = "kitty"; name = "Open Terminal"; };
-        "browser" = { binding = "<Super><Control>b"; command = "google-chrome-stable"; name = "Open Browser"; };
-        "steam" = { binding = "<Super><Control>s"; command = "steam"; name = "Open Steam"; };
-        "discord" = { binding = "<Super><Control>d"; command = "discord"; name = "Open Discord"; };
-        "nautilus" = { binding = "<Super><Control>f"; command = "nautilus"; name = "Open File Manager"; };
+        "Bass" = { binding = "<Super><Control>b"; command = "sv -9"; name = "Set Subwoofer to -9dB"; };
+        "Treble" = { binding = "<Super><Control>t"; command = "sv -20"; name = "Set Subwoofer to -20dB"; };
       };
     };
   };
