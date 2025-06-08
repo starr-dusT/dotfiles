@@ -215,6 +215,8 @@ in {
       } // generate_custom_keybindings {
         "Bass" = { binding = "<Super><Control>b"; command = "sv -9"; name = "Set Subwoofer to -9dB"; };
         "Treble" = { binding = "<Super><Control>t"; command = "sv -20"; name = "Set Subwoofer to -20dB"; };
+        "Living" = { binding = "<Super><Control>l"; command = "ss Dragon"; name = "Set Audio to Living Room"; };
+        "Desk" = { binding = "<Super><Control>d"; command = "ss Starship"; name = "Set Audio to Desk"; };
       };
     };
   };

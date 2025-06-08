@@ -26,8 +26,10 @@ in {
             o = "C-M-9";
           };
           util = {
-            b = "C-M-b";
-            t = "C-M-t";
+            b = "C-M-b"; # Set subwoofer to -9dB
+            t = "C-M-t"; # Set subwoofer to -20dB
+            l = "C-M-l"; # Set audio source to living room speakers
+            d = "C-M-d"; # Set audio source to desk speakers/headphones
           };
           alt = {
             h = "left";

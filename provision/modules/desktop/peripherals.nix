@@ -15,6 +15,11 @@ in {
         #!/bin/sh
         pySVS 54:B7:E5:57:1A:7B --volume=A | grep -oP "(?<=VOLUME': )-?\\d+" > /tmp/svs
       '')
+      (pkgs.writeScriptBin "ss" ''
+        #!/bin/sh
+        sink=$(wpctl status | awk '/Audio/{flag=1} /Video/{flag=0} flag' | awk '/Sinks:/{flag=1; next} /Sources:/{flag=0} flag' | grep -E "$1" | awk '{for(i=1;i<=NF;i++) if ($i ~ /^[0-9]+\.$/) { print int($i); exit }}')
+        wpctl set-default "$sink"
+      '')
     ];
     services.usbmuxd.enable = true; # for iOS mounting as storage
   };
