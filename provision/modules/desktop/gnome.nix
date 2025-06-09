@@ -114,7 +114,7 @@ in {
         };
         "org/gnome/shell" = {
           favorite-apps = [
-            "chromium.desktop"
+            "chromium-browser.desktop"
             "kitty.desktop"
             "org.gnome.Nautilus.desktop"
             "obsidian.desktop"
