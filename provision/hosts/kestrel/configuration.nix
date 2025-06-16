@@ -21,10 +21,6 @@
     powerManagement.enable = true;
     nvidiaSettings = true;
   };
-
-  # Enable docker 
-  virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "btrfs";
   
   # Secrets
   age.secrets."wireguard/kestrel".file = ../../secrets/wireguard/kestrel.age;
@@ -48,6 +44,10 @@
       pc.enable = true;
     };
     programs = {
+      docker = {
+        enable = true;
+        storageDriver = "btrfs";
+      };
       virt-manager.enable = true;
     };
     services = {

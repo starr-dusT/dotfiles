@@ -6,10 +6,6 @@
   # Set networking options
   networking.firewall.checkReversePath = "loose";
   networking.firewall.enable = false;
-
-  # Enable docker 
-  virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "btrfs";
   
   # Modules
   modules = {
@@ -26,6 +22,10 @@
       programming.enable = true;
     };
     programs = {
+      docker = {
+        enable = true;
+        storageDriver = "btrfs";
+      };
       virt-manager.enable = false;
     };
     services = {
