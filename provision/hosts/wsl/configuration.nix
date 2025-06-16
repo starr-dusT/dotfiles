@@ -39,9 +39,6 @@ in
   # Don't allow emergency mode, because we don't have a console.
   systemd.enableEmergencyMode = false;
 
-  # Enable docker 
-  virtualisation.docker.enable = true;
-
   environment.systemPackages = with pkgs; [
     firefox
     wget
@@ -63,6 +60,7 @@ in
   modules = {
     devel.programming.enable = true;
     programs = {
+      docker.enable = true;
       git.keys = false;
     };
     services.ssh.enable = true;

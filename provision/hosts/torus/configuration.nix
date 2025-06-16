@@ -25,6 +25,7 @@
     "net.ipv4.conf.all.forwarding" = true; # Needed for wireguard-server
   };
 
+  # TODO: Update to docker from modules and ensure docker containers still work
   # Enable virtualisation
   virtualisation.docker = {
     enable = true;
