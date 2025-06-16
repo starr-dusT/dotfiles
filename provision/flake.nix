@@ -20,13 +20,25 @@
     lib = nixpkgs.lib;
   in {
     nixosConfigurations = lib.mapAttrs (hostname: hostConfig:
-      lib.nixosSystem (import ./hosts/${hostConfig.role} {
-        inherit lib;
-        inherit system inputs agenix home-manager jovian-nixos nixos-wsl nix-flatpak;
+      lib.nixosSystem ({
         specialArgs = {
+          inherit lib system inputs agenix home-manager jovian-nixos nixos-wsl nix-flatpak;
           user = hostConfig.user;
           hostname = "${hostname}";
         };
+        modules = [
+          ./hosts/${hostConfig.role}/configuration.nix
+          ./modules
+          agenix.nixosModules.default
+          nix-flatpak.nixosModules.nix-flatpak
+          home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { user = hostConfig.user; };
+          }
+        ] ++ (if "${hostConfig.role}" == "htpc" then [/etc/nixos/hardware-configuration.nix]
+              else if "${hostConfig.role}" == "wsl" then []
+              else [./hosts/${hostConfig.role}/hardware.nix]);
       })
     ) hosts;
   };
