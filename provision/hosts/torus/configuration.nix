@@ -17,7 +17,6 @@
   boot.kernelModules = [ "sg" ];
 
   # Set networking options
-  networking.hostName = "${hostname}"; 
   networking.firewall.enable = true;
   networking.firewall.checkReversePath = "loose";
   networking.firewall.allowedTCPPorts = [ 80 443 ];

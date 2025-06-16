@@ -4,7 +4,6 @@
   powerManagement.cpuFreqGovernor = "performance";
 
   # Set networking options
-  networking.hostName = "${hostname}"; 
   networking.firewall.checkReversePath = "loose";
   networking.firewall.enable = false;
 

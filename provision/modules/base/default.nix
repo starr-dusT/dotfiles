@@ -1,4 +1,4 @@
-{ config, lib, inputs, pkgs, user, home-manager, ... }:
+{ config, lib, inputs, pkgs, user, home-manager, hostname, ... }:
 {
   imports = [
     ./terminal.nix
@@ -17,6 +17,9 @@
       options = "--delete-older-than 7d";
     };
   };
+
+  # Set networking options
+  networking.hostName = "${hostname}"; 
 
   # Add user age key to identity path
   age.identityPaths = [ 
