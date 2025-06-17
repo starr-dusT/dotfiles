@@ -25,14 +25,6 @@
     "net.ipv4.conf.all.forwarding" = true; # Needed for wireguard-server
   };
 
-  # TODO: Update to docker from modules and ensure docker containers still work
-  # Enable virtualisation
-  virtualisation.docker = {
-    enable = true;
-    package = pkgs.docker_27;
-    storageDriver = "btrfs";
-  };
-
   services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia.open = false;
 
@@ -82,7 +74,7 @@
         locations."/" = {
           proxyPass = "http://localhost:8065/"; 
           proxyWebsockets = true;
-        };
+        }; 
       });
       "codeA.tstarr.us" = (SSL // {
         locations."/" = {
@@ -103,6 +95,12 @@
   modules = {
     base-plus.enable = true;
     physical.enable = true;
+    programs = {
+      docker = {
+        enable = true;
+        storageDriver = "btrfs";
+      };
+    };
     services = {
       ssh.enable = true;
       syncthing = {
