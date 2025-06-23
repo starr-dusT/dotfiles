@@ -1,5 +1,9 @@
 { config, pkgs, user, lib, hostname, ... }:
 {
+  imports = [ 
+    ../kestrel/gnome.nix
+  ];
+
   # Use performance governor for sweet gaming performance!
   powerManagement.cpuFreqGovernor = "performance";
 
