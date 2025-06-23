@@ -6,7 +6,6 @@ The following documents some NixOS setup that wasn't automated.
 
 - Run `pcscan` and make sure card reader shows up.
 - Run `pkcs11-register` to register cac.
-- Download certs (i.e. unclass-certificates_pkcs7_DoD.zip) and import into Firefox.
 
 ## Wireguard Client
 

@@ -14,7 +14,7 @@ nix-shell -p vim git neovim
 git clone https://github.com/starr-dusT/dotfiles ~/.local/share/chezmoi 
 ```
    
-3. Copy existing configuration files from another host and modify as needed. For most configs, move the installer created `configuration-hardware.nix` to dotfiles (e.g. `provision/hosts/<host>/hardware.nix`); however, role-based installs like `htpc` and `wsl` either do not require a `hardware.nix` file or the flake imports `hardware-configuration.nix` from `/etc/nixos`.
+3. Copy existing configuration files from another host and modify as needed. For most configs, move the installer created `configuration-hardware.nix` to dotfiles (e.g. `provision/hosts/<host>/hardware.nix`).
    
 4. If required move agenix keypairs to `~/.ssh/keys/{age,age.pub}`. A new keypair may be required and agenix files will need to be rekeyed on another system.
 
