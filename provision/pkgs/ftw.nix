@@ -7,8 +7,8 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "starr-dusT";
     repo = "ftw";
-    rev = "4a4ed10d3913028e2d97e9ab079401b8e948e088";
-    sha256 = "sha256-Gxt895JQAopfdQ0XawKnZP06Wy4KJQhsbH4Aa8+ZSS4=";
+    rev = "567125b8db098ade1c792fa3dafd9f099273f804";
+    sha256 = "sha256-6gOYyGWNJRRCylmSVrwwNTQMHmVrV8SQ0muXeqzVLTY=";
   };
 
   format = "pyproject";

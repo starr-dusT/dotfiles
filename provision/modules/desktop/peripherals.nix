@@ -9,11 +9,11 @@ in {
       pySVS # Control SVS subwoofers from the command-line
       (pkgs.writeScriptBin "sv" ''
         #!/bin/sh
-        pySVS 54:B7:E5:57:1A:7B --volume="$1" && echo "$1" > /tmp/svs
-      '')
-      (pkgs.writeScriptBin "svv" ''
-        #!/bin/sh
-        pySVS 54:B7:E5:57:1A:7B --volume=A | grep -oP "(?<=VOLUME': )-?\\d+" > /tmp/svs
+        if [ "$(hostname)" == "stormwalker" ]; then
+          pySVS 54:B7:E5:57:1A:7B -b hci1 --volume="$1" ; echo "$1" > /tmp/svs
+        else
+          pySVS 54:B7:E5:57:1A:7B --volume="$1" ; echo "$1" > /tmp/svs
+        fi
       '')
       (pkgs.writeScriptBin "ss" ''
         #!/bin/sh

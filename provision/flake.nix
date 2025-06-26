@@ -27,7 +27,7 @@
           hostname = "${hostname}";
         };
         modules = [
-          ./hosts/${hostConfig.role}/configuration.nix
+          ./hosts/${hostname}/configuration.nix
           ./modules
           agenix.nixosModules.default
           nix-flatpak.nixosModules.nix-flatpak
@@ -36,9 +36,8 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = { user = hostConfig.user; };
           }
-        ] ++ (if "${hostConfig.role}" == "htpc" then [/etc/nixos/hardware-configuration.nix]
-              else if "${hostConfig.role}" == "wsl" then []
-              else [./hosts/${hostConfig.role}/hardware.nix]);
+        ] ++ (if "${hostname}" == "wsl" then []
+              else [./hosts/${hostname}/hardware.nix]);
       })
     ) hosts;
   };
