@@ -1,6 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages }:
+{ lib, stdenv, fetchFromGitHub, python312Packages }:
 
-python3Packages.buildPythonApplication rec {
+python312Packages.buildPythonApplication rec {
   pname = "ftw";
   version = "0.0.1";
 
@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
 
   format = "pyproject";
 
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = with python312Packages; [
     numpy
     wand
     setuptools
