@@ -5,7 +5,7 @@
     ./automations.nix
   ];
 
-  environment.systemPackages = [ pkgs.python312Packages.pyvizio ];
+  environment.systemPackages = [ pkgs.python3Packages.pyvizio ];
 
   networking.firewall.allowedTCPPorts = [ 8123 ];
   networking.firewall.allowedUDPPorts = [ 8123 ];
