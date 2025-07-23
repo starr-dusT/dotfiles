@@ -36,15 +36,15 @@
       };
       shell_command = {
         # Vizio TV controls
-        living_room_tv_power_on = "${pkgs.python312Packages.pyvizio}/bin/pyvizio --ip=192.168.1.167 --auth=Zt93u2t4sq power on";
-        living_room_tv_power_off = "${pkgs.python312Packages.pyvizio}/bin/pyvizio --ip=192.168.1.167 --auth=Zt93u2t4sq power off";
-        living_room_tv_hdmi1 = "${pkgs.python312Packages.pyvizio}/bin/pyvizio --ip=192.168.1.167 --auth=Zt93u2t4sq input hdmi1";
-        living_room_tv_hdmi2 = "${pkgs.python312Packages.pyvizio}/bin/pyvizio --ip=192.168.1.167 --auth=Zt93u2t4sq input hdmi2";
+        living_room_tv_power_on = "${pkgs.python312Packages.pyvizio}/bin/pyvizio --ip=192.168.1.168 --auth=Zt93u2t4sq power on";
+        living_room_tv_power_off = "${pkgs.python312Packages.pyvizio}/bin/pyvizio --ip=192.168.1.168 --auth=Zt93u2t4sq power off";
+        living_room_tv_hdmi1 = "${pkgs.python312Packages.pyvizio}/bin/pyvizio --ip=192.168.1.168 --auth=Zt93u2t4sq input hdmi1";
+        living_room_tv_hdmi2 = "${pkgs.python312Packages.pyvizio}/bin/pyvizio --ip=192.168.1.168 --auth=Zt93u2t4sq input hdmi2";
 
         # Switch video and audio for Kestrel and Stormwalker
-        kestrel_monitor_bedroom = "${pkgs.docker}/bin/docker run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@192.168.1.86 '/nix/store/vyy44qr75xi0h4in06hfrd9cvyqd2q5y-mutter-48.2/bin/gdctl set --logical-monitor --primary --monitor DP-2 --mode 2560x1440@143.912 --scale 1 --logical-monitor --monitor DP-1 --mode 2560x1440@143.973 --scale 1 --left-of DP-2'";
+        kestrel_monitor_bedroom = "${pkgs.docker}/bin/docker run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@192.168.1.86 '${pkgs.mutter}/bin/gdctl set --logical-monitor --primary --monitor DP-2 --mode 2560x1440@143.912 --scale 1 --logical-monitor --monitor DP-1 --mode 2560x1440@143.973 --scale 1 --left-of DP-2'";
         kestrel_audio_bedroom = "${pkgs.docker}/bin/docker run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@192.168.1.86 'ss Starship'";
-        kestrel_monitor_living = "${pkgs.docker}/bin/docker run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@192.168.1.86 '/nix/store/vyy44qr75xi0h4in06hfrd9cvyqd2q5y-mutter-48.2/bin/gdctl set --logical-monitor --primary --monitor HDMI-1 --mode 2560x1440@59.951 --scale 1.5'";
+        kestrel_monitor_living = "${pkgs.docker}/bin/docker run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@192.168.1.86 '${pkgs.mutter}/bin/gdctl set --logical-monitor --primary --monitor HDMI-1 --mode 2560x1440@59.951 --scale 1.5'";
         kestrel_audio_living = "${pkgs.docker}/bin/docker run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@192.168.1.86 'ss Dragon'";
       };
     };
