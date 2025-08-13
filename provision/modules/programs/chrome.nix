@@ -45,7 +45,7 @@ in {
         # Setup bookmarks
         "BookmarkBarEnabled" = false;
         "ShowAppsShortcutInBookmarkBar" = false;
-        "HomepageLocation" = "https://link.tstarr.us";
+        "HomepageLocation" = "https://glance.tstarr.us";
         "HomepageIsNewTabPage" = false;
         "ShowHomeButton" = true;
       };
