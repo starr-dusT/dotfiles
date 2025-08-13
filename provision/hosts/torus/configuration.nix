@@ -52,11 +52,17 @@
       "rss.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:8087/"; 
       });
+      "glance.tstarr.us" = (SSL // {
+        locations."/".proxyPass = "http://localhost:8888/"; 
+      });
       "link.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:9090/"; 
       });
       "media.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:8096/"; 
+      });
+      "2fa.tstarr.us" = (SSL // {
+        locations."/".proxyPass = "http://localhost:8100/"; 
       });
       "git.tstarr.us" = (SSL // {
         locations."/".proxyPass = "http://localhost:3001/"; 
