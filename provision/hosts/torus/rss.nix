@@ -25,9 +25,6 @@ in
     '';
   };
 
-  networking.firewall.allowedTCPPorts = [ 8087 ];
-  networking.firewall.allowedUDPPorts = [ 8087 ];
-
   services.miniflux = {
     enable = true;
     config = {
@@ -46,10 +43,5 @@ in
     enable = true;
     config.system.enabled_bridges = [ "*" ];
     virtualHost = "${domain}";
-  };
-
-  services.nginx.virtualHosts.${domain} = {
-    forceSSL = true;
-    enableACME = true;
   };
 }

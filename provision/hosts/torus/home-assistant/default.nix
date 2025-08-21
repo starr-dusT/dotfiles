@@ -7,9 +7,6 @@
 
   environment.systemPackages = [ pkgs.python3Packages.pyvizio ];
 
-  networking.firewall.allowedTCPPorts = [ 8123 ];
-  networking.firewall.allowedUDPPorts = [ 8123 ];
-
   users.users.hass = {
     extraGroups = [ "docker" ];
   };
@@ -48,22 +45,5 @@
         kestrel_audio_living = "${pkgs.docker}/bin/docker run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@192.168.1.86 'ss Dragon'";
       };
     };
-  };
-
-  services.nginx.virtualHosts."home.tstarr.us" = {
-    forceSSL = true;
-    enableACME = true;
-    extraConfig = ''
-      proxy_buffering off;
-    '';
-    locations."/".extraConfig = ''
-      proxy_pass http://localhost:8123;
-      proxy_set_header Host $host;
-      proxy_redirect http:// https://;
-      proxy_http_version 1.1;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection $connection_upgrade;
-    '';
   };
 }
