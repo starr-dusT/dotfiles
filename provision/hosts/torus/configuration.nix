@@ -1,6 +1,7 @@
 { config, pkgs, user, lib, hostname, ... }:
 {
   imports = [ 
+    ./cloudflared.nix
     ./wireguard-server.nix
     ./samba-server.nix
     ./rss.nix
