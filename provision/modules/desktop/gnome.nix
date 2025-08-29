@@ -28,6 +28,7 @@ in {
       gnome-set-panel-monitor # Set monitor for panel to appear on
       gnome-randr # Xrandr-like CLI for configuring displays on GNOME/Wayland
       ftw # Build custom ftl wallpapers in a complicated way for no reason
+      pulseaudio
     ];
 
     environment.gnome.excludePackages = with pkgs; [
@@ -78,6 +79,12 @@ in {
     services.displayManager.autoLogin.enable = false;
     services.getty.autologinUser = null;
 
+    services.pipewire = {
+      enable = true; # if not already enabled
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
 
     xdg.mime = {
       enable = true;
