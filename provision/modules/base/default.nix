@@ -44,7 +44,7 @@
   # define user account.
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [ "dialout" "wheel" "docker" "libvirtd" ];
+    extraGroups = [ "audio" "dialout" "wheel" "docker" "libvirtd" ];
     shell = pkgs.bash;
   };
 
