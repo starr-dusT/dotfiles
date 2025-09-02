@@ -22,10 +22,7 @@
       programming.enable = true;
     };
     programs = {
-      docker = {
-        enable = true;
-        storageDriver = "btrfs";
-      };
+      docker.enable = true;
       virt-manager.enable = false;
     };
     services = {

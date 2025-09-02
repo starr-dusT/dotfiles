@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, user, ... }:
 
 let cfg = config.modules.programs.virt-manager;
 in {
@@ -12,5 +12,9 @@ in {
     virtualisation.libvirtd.enable = true;
     virtualisation.libvirtd.qemu.swtpm.enable = true;
     programs.dconf.enable = true;
+
+    users.users.${user} = {
+      extraGroups = [ "libvirtd" ];
+    };
   };
 }
