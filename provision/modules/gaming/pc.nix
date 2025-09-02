@@ -11,10 +11,6 @@ in {
       heroic # Native GOG Launcher
     ];
 
-    hardware.graphics.enable = true; # https://github.com/NixOS/nixpkgs/issues/47932
-    services.pulseaudio.support32Bit = config.hardware.pulseaudio.enable;
-    hardware.steam-hardware.enable = true;
-
     programs.steam = {
        enable = true;
        package = with pkgs; steam.override { extraPkgs = pkgs: [ attr ]; }; # https://github.com/NixOS/nixpkgs/issues/236561
