@@ -32,7 +32,10 @@
     base-plus.enable = true;
     physical.enable = true;
     programs = {
-      docker.enable = true;
+      docker ={ 
+        enable = true;
+        storageDriver = "btrfs";
+      };
     };
     services = {
       ssh.enable = true;
