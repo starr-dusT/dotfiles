@@ -3,6 +3,7 @@
 let cfg = config.modules.desktop;
 in {
   imports = [ 
+    ./flatpak.nix
     ./kde-connect.nix
     ./keyd.nix
     ./gnome.nix 
