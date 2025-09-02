@@ -2,7 +2,7 @@
 
 The following documents some NixOS setup that wasn't automated.
 
-## NIPR email, Teams, etc.
+## NIPR email, Teams, etc. in Firefox
 
 - Run `pcscan` and make sure card reader shows up.
 - Run `pkcs11-register` to register cac.
@@ -47,27 +47,23 @@ machine. Current git-annex stores I have are:
 
 ## Chrome
 
-The vast majority of Chrome is setup with [browser.nix](./modules/desktop/browser.nix)
+The vast majority of Chrome is setup with [chrome.nix](./modules/programs/chrome.nix)
 including installing plugins and various settings. However, setup for [vimium](https://chromewebstore.google.com/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb)
 and [New Tab Redirect](https://chromewebstore.google.com/detail/new-tab-redirect/icpgjfneehieebagbmdbhnlpiopdcmna)
 could not be fully automated.
 
 - Upon launch New Tab Redirect should prompt to set the new tab page. 
-Set to `https://link.tstarr.us/bookmarks?q=%23daily`.
+Set to `https://glance.tstarr.us`.
 
 - Vimium config is saved in chezmoi. Open the vimium [plugin page](chrome-extension://dbepggeogbaibhgnhhndojpepiihcmeb/pages/options.html)
 and restore config from `~/.config/vimium-options.json`.
 
 - Pin and re-arrange plugins as desired.
 
-## Obsidian Vault on New machine
+## Obsidian Vault on New Machine
 
 Clone `vulcan` vault from personal github.
 
 ```bash
 git clone https://<user>:<token>@git.tstarr.us/tstarr/vulcan.git
 ```
-
-Copy another `.obsidian` folder for the new host (i.e. `.obsidian-<host>`).
-
-Open vault folder in obsidian and change the `.obsidian` folder in settings.

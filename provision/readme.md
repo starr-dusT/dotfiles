@@ -1,5 +1,5 @@
 # Provision NixOS
-> \*NixOS was a mistake.\*
+> NixOS was a mistake.
 
 Set of configs files to setup NixOS.
 

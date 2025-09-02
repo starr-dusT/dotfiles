@@ -1,2 +1,0 @@
-# Nesario
-> Mom's HTPC
