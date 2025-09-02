@@ -48,6 +48,7 @@
       virt-manager.enable = true;
     };
     services = {
+      gnome-remote-desktop.enable = true;
       samba-client.enable = true;
       ssh.enable = true;
       syncthing = {

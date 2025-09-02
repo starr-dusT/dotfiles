@@ -28,7 +28,6 @@ in {
       gnome-set-panel-monitor # Set monitor for panel to appear on
       gnome-randr # Xrandr-like CLI for configuring displays on GNOME/Wayland
       ftw # Build custom ftl wallpapers in a complicated way for no reason
-      pulseaudio
     ];
 
     environment.gnome.excludePackages = with pkgs; [
@@ -53,37 +52,12 @@ in {
     ];
 
     services = {
+      gvfs.enable = true;
       displayManager.gdm = {
         enable = true;  
         wayland = true; 
       };
       desktopManager.gnome.enable = true; 
-    };
-
-    # Enable sound and handle conflict (https://github.com/Jovian-Experiments/Jovian-NixOS/issues/99)
-    services.pulseaudio.enable = lib.mkForce false;
-    services.gvfs.enable = true;
-
-     # Enable the GNOME RDP components
-    services.gnome.gnome-remote-desktop.enable = true;
-    
-    # Ensure the service starts automatically at boot so the settings panel appears
-    systemd.services.gnome-remote-desktop = {
-      wantedBy = [ "graphical.target" ];
-    };
-    
-    # Open the default RDP port (3389)
-    networking.firewall.allowedTCPPorts = [ 3389 ];
-    
-    # Disable autologin to avoid session conflicts
-    services.displayManager.autoLogin.enable = false;
-    services.getty.autologinUser = null;
-
-    services.pipewire = {
-      enable = true; # if not already enabled
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
     };
 
     xdg.mime = {
