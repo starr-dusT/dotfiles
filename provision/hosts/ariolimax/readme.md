@@ -1,2 +1,0 @@
-# Ariolimax
-> WSL image
