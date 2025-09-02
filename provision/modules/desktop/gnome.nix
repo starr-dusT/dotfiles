@@ -28,6 +28,14 @@ in {
       gnome-set-panel-monitor # Set monitor for panel to appear on
       gnome-randr # Xrandr-like CLI for configuring displays on GNOME/Wayland
       ftw # Build custom ftl wallpapers in a complicated way for no reason
+      (pkgs.writeScriptBin "smk" ''
+        #!/bin/sh
+        ${pkgs.mutter}/bin/gdctl set --logical-monitor --primary --monitor DP-2 --mode 2560x1440@143.912 --scale 1 --logical-monitor --monitor DP-1 --mode 2560x1440@143.973 --scale 1 --left-of DP-2;
+      '')
+      (pkgs.writeScriptBin "sms" ''
+        #!/bin/sh
+        ${pkgs.mutter}/bin/gdctl set --logical-monitor --primary --monitor HDMI-1 --mode 2560x1440@59.951 --scale 1.5
+      '')
     ];
 
     environment.gnome.excludePackages = with pkgs; [
@@ -211,8 +219,10 @@ in {
       } // generate_custom_keybindings {
         "Bass" = { binding = "<Super><Control>b"; command = "sv -9"; name = "Set Subwoofer to -9dB"; };
         "Treble" = { binding = "<Super><Control>t"; command = "sv -20"; name = "Set Subwoofer to -20dB"; };
-        "Living" = { binding = "<Super><Control>l"; command = "ss Dragon"; name = "Set Audio to Living Room"; };
-        "Desk" = { binding = "<Super><Control>d"; command = "ss Starship"; name = "Set Audio to Desk"; };
+        "Living Audio" = { binding = "<Super><Control>l"; command = "ss Dragon"; name = "Kestrel Audio in Living Room"; };
+        "Desk Audio" = { binding = "<Super><Control>d"; command = "ss Starship"; name = "Kestrel Audio at Desk"; };
+        "Desk Display" = { binding = "<Super><Control>k"; command = "smk"; name = "Kestrel in Living Room"; };
+        "Living Display" = { binding = "<Super><Control>s"; command = "sms"; name = "Stormwalker in Living Room"; };
       };
     };
   };
