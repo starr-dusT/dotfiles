@@ -21,5 +21,6 @@
     btop # Terminal-based resource monitor, providing an interactive view of system resources
     nnn # Terminal file manager with a focus on performance and ease of use
     dysk # A linux utility listing your filesystems
+    wl-clipboard # Command-line copy/paste utilities for Wayland
   ];
 }

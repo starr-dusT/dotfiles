@@ -2,7 +2,8 @@ let
   kestrel = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM2iE16XVkriD0x6GhnqmvGDA1qNBibvHVIi5xY+c7Iu";
   torus = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN71z5g6QyCn5Go0Wm+NOSF4f22xOOCvtIA3IM4KzSpG";
   stormwalker = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHvAGrh01zvH8dbj8NdrNxkRcQ/pRt27WjK6uHNNoG4n";
-  systems = [ kestrel torus stormwalker ];
+  shivan = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMo2VKfITJn+noaGhah1O7JvH0oRl11YbZprwdISKtMe";
+  systems = [ kestrel torus shivan stormwalker ];
 in
 {
   "cloudflared/tstarr.json.age".publicKeys = systems;
