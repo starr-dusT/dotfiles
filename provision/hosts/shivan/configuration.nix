@@ -14,7 +14,6 @@
     desktop = {
       enable = true;
       gnome.enable = true;
-      peripherals.enable = true;
     };
     devel = {
       engineering.enable = true;
@@ -22,18 +21,11 @@
       programming.enable = true;
     };
     programs = {
-      docker ={ 
-        enable = true;
-        storageDriver = "btrfs";
-      };
       virt-manager.enable = false;
     };
     services = {
       samba-client.enable = true;
-    };
-    system = {
       ssh.enable = true;
-      terminal.enable = true;
     };
   };
 }
