@@ -14,17 +14,28 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
     "ellisonleao/gruvbox.nvim",
-    'norcalli/nvim-colorizer.lua',
-    'alker0/chezmoi.vim',
-    'nathangrigg/vim-beancount',
-    'nvim-lua/plenary.nvim',
-    "mickael-menu/zk-nvim",
-    "nvim-treesitter/nvim-treesitter-context",
+    "norcalli/nvim-colorizer.lua",
+    {
+      "neovim/nvim-lspconfig",
+      lazy = false,
+      dependencies = {
+        { "ms-jpq/coq_nvim", branch = "coq" },
+        { "ms-jpq/coq.artifacts", branch = "artifacts" },
+        { 'ms-jpq/coq.thirdparty', branch = "3p" }
+      },
+      init = function()
+        vim.g.coq_settings = {
+            auto_start = "shut-up",
+        }
+      end,
+      config = function()
+        -- Your LSP settings here
+      end,
+    }
 }
 
 local opts = {}
 require("lazy").setup(plugins, opts)
 
 -- External
-require("zk").setup()
 require("colorizer").setup()
