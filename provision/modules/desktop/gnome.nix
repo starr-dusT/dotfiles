@@ -21,12 +21,10 @@ in {
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       dconf-editor # Graphical tool for editing settings stored in the dconf database of GNOME
-      gnome-tweaks # Utility for customizing various aspects of the GNOME desktop environment
       evolution # Personal information management application that provides email, calendar, and contact management features
       gnomeExtensions.custom-hot-corners-extended # GNOME Shell extension for changing window focus behavior
       gnomeExtensions.alphabetical-app-grid # Alphabetically order the app grid and folders
       gnome-set-panel-monitor # Set monitor for panel to appear on
-      gnome-randr # Xrandr-like CLI for configuring displays on GNOME/Wayland
       ftw # Build custom ftl wallpapers in a complicated way for no reason
       (pkgs.writeScriptBin "smk" ''
         #!/bin/sh
@@ -96,23 +94,65 @@ in {
       };
     };
 
-    home-manager.users.${user} = {
+    home-manager.users.${user} = {lib, ...}: {
       # Remove unwanted desktop entries
       xdg.desktopEntries.cups = { name = ""; exec = null; settings.Hidden = "true"; };
-      xdg.desktopEntries.writer = { name = ""; exec = null; settings.Hidden = "true"; };
       xdg.desktopEntries.math = { name = ""; exec = null; settings.Hidden = "true"; };
       xdg.desktopEntries.calc = { name = ""; exec = null; settings.Hidden = "true"; };
       xdg.desktopEntries.draw = { name = ""; exec = null; settings.Hidden = "true"; };
-      xdg.desktopEntries.impress = { name = ""; exec = null; settings.Hidden = "true"; };
       xdg.desktopEntries.base = { name = ""; exec = null; settings.Hidden = "true"; };
       xdg.desktopEntries.xterm = { name = ""; exec = null; settings.Hidden = "true"; };
+      xdg.desktopEntries.writer = { name = ""; exec = null; settings.Hidden = "true"; };
+      xdg.desktopEntries.impress = { name = ""; exec = null; settings.Hidden = "true"; };
 
-      # GNOME settings through home
-      dconf.settings = {
+      dconf.settings = let 
+        inherit (lib.hm.gvariant) mkTuple mkUint32 mkVariant mkDictionaryEntry;
+        bakersfield = (mkVariant (mkTuple [
+          (mkUint32 2)
+          (mkVariant (mkTuple [
+            "Bakersfield"          
+            "KBFL"                
+            true                 
+            [ (mkTuple [ (0.61843317782088048) (-2.0779308356004798) ]) ]
+            [ (mkTuple [ (0.61738041266937005) (-2.0772684133361778) ]) ]
+          ]))
+        ]));
+        tehran = (mkVariant (mkTuple [
+          (mkUint32 2)
+            (mkVariant (mkTuple [
+            "Tehran"
+            "OIII"
+            true
+            [ (mkTuple [ (0.62279164893554573) (0.8962265708990883) ]) ]
+            [ (mkTuple [ (0.62316980942457534) (0.89747622664351612) ]) ]
+          ]))
+        ]));
+        moscow = (mkVariant (mkTuple [
+          (mkUint32 2)
+            (mkVariant (mkTuple [
+            "Moscow"
+            "UUWW"
+            true
+            [ (mkTuple [ (0.97127572873484425) (0.65042604039431762) ]) ]
+            [ (mkTuple [ (0.97305983920281813) (0.65651530216830811) ]) ]
+          ]))
+        ]));
+        beijing = (mkVariant (mkTuple [
+          (mkUint32 2)
+            (mkVariant (mkTuple [
+            "Beijing"
+            "ZBAA"
+            true
+            [ (mkTuple [ (0.69696814214530467) (2.0295270260429752) ]) ]
+            [ (mkTuple [ (0.69689057971334611) (2.0313596217575696) ]) ]
+          ]))
+        ]));
+      in {
+        # Settings for gnome and default applications
         "org/gnome/desktop/interface" = {
-            color-scheme = "prefer-dark";
-            accent-color = "orange";
-            enable-animations = false;
+          color-scheme = "prefer-dark";
+          accent-color = "orange";
+          enable-animations = false;
         };
         "org/gnome/desktop/background" = {
           picture-options = "zoom";
@@ -132,7 +172,6 @@ in {
             "gnome-set-panel-monitor@tstarr.us"
             "custom-hot-corners-extended@G-dH.github.com"
             "AlphabeticalAppGrid@stuarthayhurst"
-            "stacks-in-gnome@tstarr.us"
           ];
         };
         "org/gnome/shell/app-switcher" = {
@@ -203,7 +242,27 @@ in {
           switch-applications-backward = []; 
           minimize = [];
         };
-        # custom-hot-corners-extended configs
+        "org/gnome/nautilus/preferences" = {
+          "default-folder-viewer" = "list-view";
+        };
+        "org/gnome/Weather" = {
+          locations = [ bakersfield ];
+        };
+        "org/gnome/shell/weather" = {
+          locations = [ bakersfield ];
+        };
+        "org/gnome/shell/world-clocks" = {
+          locations = [ tehran moscow beijing ];
+        };
+        "org/gnome/clocks" = {
+          world-clocks = [
+            ([(lib.hm.gvariant.mkDictionaryEntry ["location" tehran])])
+            ([(lib.hm.gvariant.mkDictionaryEntry ["location" moscow])])
+            ([(lib.hm.gvariant.mkDictionaryEntry ["location" beijing])])
+          ];
+        };
+
+        # Custom-hot-corners-extended configs
         "org/gnome/shell/extensions/custom-hot-corners-extended/misc" = {
             panel-menu-enable = false;
         };
