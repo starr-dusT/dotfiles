@@ -55,9 +55,6 @@ could not be fully automated.
 - Upon launch New Tab Redirect should prompt to set the new tab page. 
 Set to `https://glance.tstarr.us`.
 
-- Vimium config is saved in chezmoi. Open the vimium [plugin page](chrome-extension://dbepggeogbaibhgnhhndojpepiihcmeb/pages/options.html)
-and restore config from `~/.config/vimium-options.json`.
-
 - Pin and re-arrange plugins as desired.
 
 ## Obsidian Vault on New Machine

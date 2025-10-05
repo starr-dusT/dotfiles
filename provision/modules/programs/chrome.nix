@@ -37,7 +37,6 @@ in {
           "ihennfdbghdiflogeancnalflhgmanop" # Gruvbox theme
           "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
           "hkgfoiooedgoejojocmhlaklaeopbecg" # Picture-in-Picture (by Google)
-          "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium
           "beakmhbijpdhipnjhnclmhgjlddhidpe" # Linkding
           "icpgjfneehieebagbmdbhnlpiopdcmna" # New Tab Redirect
         ];
