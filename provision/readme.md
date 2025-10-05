@@ -1,24 +1,27 @@
-# Provision NixOS
-> NixOS was a mistake.
+# NixOS
 
-Set of configs files to setup NixOS.
+Set of configs files to provision NixOS.
 
 ## Install
 
-1. Download and install [NixOS](https://nixos.org/download/) with current GNOME ISO.
+1. Download current Gnome ISO from [NixOS website](https://nixos.org/download/).
 
-2. Boot into installed system and run the following commands:
+2. Partition drives and perform initial installation with minimal changes to `/etc/nixos/configuration.nix`. See [this](https://nixos.wiki/wiki/Btrfs) for a suggestions on a BTRFS partition layout and install commands. 
+
+4. Boot into installed system.
+
+5. Add new machine's `/etc/ssh/ssh_host_ed25519.pub` to `secrets.nix` and rekey the secrets on an existing machine.
+
+6. Clone dotfiles:
 
 ```bash
 nix-shell -p vim git neovim
 git clone https://github.com/starr-dusT/dotfiles ~/.local/share/chezmoi 
 ```
    
-3. Copy existing configuration files from another host and modify as needed. For most configs, move the installer created `configuration-hardware.nix` to dotfiles (e.g. `provision/hosts/<host>/hardware.nix`).
-   
-4. If required move agenix keypairs to `~/.ssh/keys/{age,age.pub}`. A new keypair may be required and agenix files will need to be rekeyed on another system.
+7. Move the installer created `configuration-hardware.nix` to dotfiles (e.g. `provision/hosts/<host>/hardware.nix`).
 
-5. Rebuild the system and initialize chezmoi dotfiles to save America:
+6. Rebuild the system and initialize chezmoi dotfiles to save America:
 
 ```bash
 sudo nixos-rebuild switch --impure --flake .#<host>
@@ -26,10 +29,10 @@ chezmoi init && chezmoi apply
 ```
 *Note:* if the `chezmoi.apply` option is enabled in `configuration.nix` the dotfiles should deploy automatically. The chezmoi commands then are not necessary.
 
-6. Profit!
+7. Profit!
 
 Perform additional setup found in [additional-setup](additional-setup.md)
 
 ## Update
 
-`nixos-rebuild` command is built into the `justfile` with this folder, assuming the machine's flake output is named the same at the hostname of the machine.
+`nixos-rebuild` command is built into the `justfile` with this folder, assuming the machine's flake output is named the same at the `hostname` of the machin.
