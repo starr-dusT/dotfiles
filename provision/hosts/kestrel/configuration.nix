@@ -59,7 +59,6 @@
         keyPath = ../../secrets/syncthing/kestrel/key.pem.age;
         certPath = ../../secrets/syncthing/kestrel/cert.pem.age;
         devices = {
-          "bulwark" = { id = "YKPOWTQ-XMXG3SD-XKLPVEC-H4SO345-2ZZQK65-EBISRED-ISKCFMQ-T74P6Q5"; };
           "torus" = { id = "ZVABUCA-3SA5QKR-OZSCIS5-RDAHR2V-D4R4NFK-ZBYOKDP-6HQUG2M-BNL3DAO"; };
         };
       };
