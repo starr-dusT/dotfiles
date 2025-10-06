@@ -31,6 +31,12 @@
       options = [ "subvol=nix" "noatime" "compress=zstd" ];
     };
 
+  fileSystems."/aux1" =
+    { device = "/dev/disk/by-uuid/0e4b3e38-9336-4d3f-8a43-df1d2bce2ca4";
+      fsType = "btrfs";
+      options = [ "subvol=aux1" "compress=zstd" ];
+    };
+
   fileSystems."/swap" =
     { device = "/dev/disk/by-uuid/80d92c3e-59da-4092-b822-694abbf3fe86";
       fsType = "btrfs";
