@@ -11,4 +11,10 @@
     owner = "${user}";
     group = "users";
   };
+
+  programs.ssh.extraConfig = ''
+    Host github.com
+      AddKeysToAgent yes
+      IdentityFile /run/agenix/git/github_personal 
+  '';
 }
