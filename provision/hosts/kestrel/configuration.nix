@@ -25,6 +25,12 @@
   # Secrets
   age.secrets."wireguard/kestrel".file = ../../secrets/wireguard/kestrel.age;
 
+  # Wireguard clients
+  environment.etc."NetworkManager/system-connections/kestrel.nmconnection" = {
+    mode = "0600";
+    source = config.age.secrets."wireguard/kestrel".path;
+  };
+
   # Modules 
   modules = {
     base-plus.enable = true;

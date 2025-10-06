@@ -1,4 +1,4 @@
 # TODO
 
-- Automatically setup wireguard configs
 - Commit prusa settings to git?
+- Mount additional 1TB drive for steam games
