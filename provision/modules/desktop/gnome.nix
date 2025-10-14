@@ -276,8 +276,6 @@ in {
             action = "prev-workspace";
         };
       } // generate_custom_keybindings {
-        "Living Audio" = { binding = "<Super><Control>l"; command = "ss Dragon"; name = "Kestrel Audio in Living Room"; };
-        "Desk Audio" = { binding = "<Super><Control>d"; command = "ss Starship"; name = "Kestrel Audio at Desk"; };
         "Desk Display" = { binding = "<Super><Control>k"; command = "smk"; name = "Kestrel in Living Room"; };
         "Living Display" = { binding = "<Super><Control>s"; command = "sms"; name = "Stormwalker in Living Room"; };
       };

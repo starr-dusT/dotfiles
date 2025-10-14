@@ -33,8 +33,6 @@ in {
             o = "C-M-9";
           };
           util = {
-            l = "C-M-l"; # Set audio source to living room speakers
-            d = "C-M-d"; # Set audio source to desk speakers/headphones
             k = "C-M-k"; # Set monitors for kestrel in living room
             s = "C-M-s"; # Set monitors for stormwalker in living room 
           };
