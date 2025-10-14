@@ -18,5 +18,5 @@ done
 bin="$HOME/.local/bin"
 
 # Use rofi to select script in ${bin} and run redirecting stdout to notify-send
-prog=$(ls -1 "${bin}" | grep -v "rofi" | my-rofi.sh "exe")
+prog=$(ls -1 "${bin}" | grep -v "rofi" | my-rofi.sh -p "exe")
 "${bin}/${prog}" | xargs -I {} notify-send "{}"
