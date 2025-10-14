@@ -8,6 +8,7 @@ in {
     ./keyd.nix
     ./gnome.nix 
     ./peripherals.nix
+    ./rofi.nix
   ];
 
   options.modules.desktop.enable = lib.mkEnableOption "desktop";
