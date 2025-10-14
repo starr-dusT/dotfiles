@@ -9,10 +9,17 @@ in {
         ids = [ "*" ];
         settings = {
           main = {
+            # Replace capslock with esc
             capslock = "overload(meta, esc)";
-            leftalt = "layer(alt)";
-            f1 = "oneshot(open)";
-            f2 = "oneshot(util)";
+
+            # "Home" row modifiers for left modifier keys
+            i = "overloadt(control, i, 300)";
+            o = "overloadt(meta, o, 300)";
+            p = "overloadt(alt, p, 300)";
+          };
+          meta = {
+            o = "oneshot(open)";
+            u = "oneshot(util)";
           };
           open = { # open applications on gnome bar
             q = "C-M-1";
