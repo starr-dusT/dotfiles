@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+bin="$HOME/.local/bin/"
+prog=$(ls -1 "$bin" | grep -v "rofi" | my-rofi "exe")
+"$bin/$prog" | xargs -I {} notify-send "{}"
