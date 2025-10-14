@@ -2,7 +2,7 @@
 # mount-engi
 
 function display_help() {
-    echo "usage: $(basename "${0}") [<no-args>]" 
+    echo "usage: $(basename "${0}")" 
     echo "Mount engi samba share to /mnt/engi"
 }
 
