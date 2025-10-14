@@ -7,14 +7,6 @@ in {
       libimobiledevice # Library to support iPhone, iPod Touch and iPad devices on Linux
       ifuse # Fuse filesystem implementation to access the contents of iOS devices
       pySVS # Control SVS subwoofers from the command-line
-      (pkgs.writeScriptBin "sv" ''
-        #!/bin/sh
-        if [ "$(hostname)" == "stormwalker" ]; then
-          pySVS 54:B7:E5:57:1A:7B -b hci1 --volume="$1" ; echo "$1" > /tmp/svs
-        else
-          pySVS 54:B7:E5:57:1A:7B --volume="$1" ; echo "$1" > /tmp/svs
-        fi
-      '')
       (pkgs.writeScriptBin "ss" ''
         #!/bin/sh
         sink=$(wpctl status | awk '/Audio/{flag=1} /Video/{flag=0} flag' | awk '/Sinks:/{flag=1; next} /Sources:/{flag=0} flag' | grep -E "$1" | awk '{for(i=1;i<=NF;i++) if ($i ~ /^[0-9]+\.$/) { print int($i); exit }}')
