@@ -9,7 +9,6 @@ in {
         programs = {
           borg.enable = true;
           beancount.enable = true;
-          yt-dlp.enable = true;
       };
     };
   };
