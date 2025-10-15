@@ -26,14 +26,6 @@ in {
       gnomeExtensions.alphabetical-app-grid # Alphabetically order the app grid and folders
       gnome-set-panel-monitor # Set monitor for panel to appear on
       ftw # Build custom ftl wallpapers in a complicated way for no reason
-      (pkgs.writeScriptBin "smk" ''
-        #!/bin/sh
-        ${pkgs.mutter}/bin/gdctl set --logical-monitor --primary --monitor DP-2 --mode 2560x1440@143.912 --scale 1 --logical-monitor --monitor DP-1 --mode 2560x1440@143.973 --scale 1 --left-of DP-2;
-      '')
-      (pkgs.writeScriptBin "sms" ''
-        #!/bin/sh
-        ${pkgs.mutter}/bin/gdctl set --logical-monitor --primary --monitor HDMI-1 --mode 2560x1440@59.951 --scale 1.5
-      '')
     ];
 
     environment.gnome.excludePackages = with pkgs; [
@@ -276,8 +268,8 @@ in {
             action = "prev-workspace";
         };
       } // generate_custom_keybindings {
-        "Desk Display" = { binding = "<Super><Control>k"; command = "smk"; name = "Kestrel in Living Room"; };
-        "Living Display" = { binding = "<Super><Control>s"; command = "sms"; name = "Stormwalker in Living Room"; };
+        "Kestrel Desk" = { binding = "<Super><Control>d"; command = "display-switch.sh Desktop"; name = "Kestrel display at Desk"; };
+        "Kestrel Living Room" = { binding = "<Super><Control>l"; command = "display-switch.sh \"Living Room\""; name = "Kestrel display in Living Room"; };
       };
     };
   };

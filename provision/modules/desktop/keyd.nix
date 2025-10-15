@@ -33,8 +33,8 @@ in {
             o = "C-M-9";
           };
           util = {
-            k = "C-M-k"; # Set monitors for kestrel in living room
-            s = "C-M-s"; # Set monitors for stormwalker in living room 
+            d = "C-M-d"; # Kestrel display at desk
+            l = "C-M-l"; # Kestrel display in living room
           };
           alt = {
             h = "left";
