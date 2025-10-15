@@ -20,6 +20,7 @@ in {
           meta = {
             o = "oneshot(open)";
             u = "oneshot(util)";
+            r = "C-M-r"; # Run rofi-wrapper-exe.sh
           };
           open = { # open applications on gnome bar
             q = "C-M-1";

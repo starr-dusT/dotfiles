@@ -229,7 +229,6 @@ in {
           toggle-maximized = ["<Super>t"];               
           switch-windows = ["<Super>Tab" "<Alt>Tab" "<Super>e"];
           switch-windows-backward = ["<Super><Shift>Tab" "<Alt><Shift>Tab" "<Super>q"]; 
-          panel-run-dialog = ["<Super>r"];
           switch-applications = [];                 
           switch-applications-backward = []; 
           minimize = [];
@@ -268,8 +267,9 @@ in {
             action = "prev-workspace";
         };
       } // generate_custom_keybindings {
-        "Kestrel Desk" = { binding = "<Super><Control>d"; command = "display-switch.sh Desktop"; name = "Kestrel display at Desk"; };
-        "Kestrel Living Room" = { binding = "<Super><Control>l"; command = "display-switch.sh \"Living Room\""; name = "Kestrel display in Living Room"; };
+        "1" = { binding = "<Super><Control>d"; command = "display-switch.sh Desktop"; name = "Kestrel display at Desk"; };
+        "2" = { binding = "<Super><Control>l"; command = "display-switch.sh \"Living Room\""; name = "Kestrel display in Living Room"; };
+        "3" = { binding = "<Super><Control>r"; command = "rofi-wrapper-exe.sh"; name = "Run rofi-wrapper-exe.sh"; };
       };
     };
   };
