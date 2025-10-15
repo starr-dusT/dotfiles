@@ -16,7 +16,8 @@ while getopts ":hv" opt; do
 done
 
 bin="$HOME/.local/bin"
+exclude="rofi|init-bash-script.sh"
 
 # Use rofi to select script in ${bin} and run redirecting stdout to notify-send
-prog=$(ls -1 "${bin}" | grep -v "rofi" | my-rofi.sh -p "exe")
+prog=$(ls -1 "${bin}" | grep -Ev "${exclude}" | my-rofi.sh -p "exe")
 "${bin}/${prog}" | xargs -I {} notify-send "{}"
