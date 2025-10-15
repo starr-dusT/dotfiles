@@ -38,11 +38,11 @@
         living_room_tv_hdmi1 = "${pkgs.python312Packages.pyvizio}/bin/pyvizio --ip=192.168.1.168 --auth=Zt93u2t4sq input hdmi1";
         living_room_tv_hdmi2 = "${pkgs.python312Packages.pyvizio}/bin/pyvizio --ip=192.168.1.168 --auth=Zt93u2t4sq input hdmi2";
 
-        # Switch video and audio for Kestrel and Stormwalker
-        kestrel_monitor_bedroom = "${pkgs.docker}/bin/docker run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@192.168.1.86 'display-switch.sh Desktop'";
-        kestrel_audio_bedroom = "${pkgs.docker}/bin/docker run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@192.168.1.86 sink-switch.sh Starship'";
-        kestrel_monitor_living = "${pkgs.docker}/bin/docker run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@192.168.1.86 'display-switch.sh \"Living Room\"'";
-        kestrel_audio_living = "${pkgs.docker}/bin/docker run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@192.168.1.86 sink-switch.sh Dragon'";
+        # Switch video and audio for Kestrel
+        kestrel_monitor_desk = "${pkgs.docker}/bin/docker run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@192.168.1.86 'export PATH=\"$HOME/.local/bin:$PATH\" ; display-switch.sh Desktop'";
+        kestrel_audio_desk = "${pkgs.docker}/bin/docker run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@192.168.1.86 'export PATH=\"$HOME/.local/bin:$PATH\" ; sink-switch.sh Starship'";
+        kestrel_monitor_living = "${pkgs.docker}/bin/docker run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@192.168.1.86 'export PATH=\"$HOME/.local/bin:$PATH\" ; display-switch.sh \"Living Room\"'";
+        kestrel_audio_living = "${pkgs.docker}/bin/docker run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@192.168.1.86 'export PATH=\"$HOME/.local/bin:$PATH\" ; sink-switch.sh Dragon'";
       };
     };
   };
