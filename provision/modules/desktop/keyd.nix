@@ -22,7 +22,7 @@ in {
             u = "oneshot(util)";
             r = "C-M-r"; # Run rofi-wrapper-exe.sh
           };
-          open = { # open applications on gnome bar
+          open = { # Open applications on gnome bar
             q = "C-M-1";
             w = "C-M-2";
             e = "C-M-3";
@@ -37,7 +37,7 @@ in {
             d = "C-M-d"; # Kestrel display at desk
             l = "C-M-l"; # Kestrel display in living room
           };
-          alt = {
+          alt = { # Use hjkl for arrow keys with alt
             h = "left";
             j = "down";
             k = "up";
