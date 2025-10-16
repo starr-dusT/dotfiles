@@ -20,7 +20,7 @@ if gio mount --list | grep engi > /dev/null 2>&1; then
     echo "engi already mounted"
     exit 0
 else
-    gio mount smb://torus/engi < /run/agenix/smb/torus
+    gio mount smb://torus/engi < /run/agenix/smb/torus &> /dev/null
 fi
 
 # Check drive mounted correctly
