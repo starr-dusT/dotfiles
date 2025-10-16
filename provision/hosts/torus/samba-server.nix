@@ -16,19 +16,13 @@
     };
 
     settings = {
-      private = {
+      engi = {
         "path" = "/engi";
         browseable = "yes";
         "read only" = "no";
         "guest ok" = "no";
         "force user" = "tstarr";
         "force group" = "users";
-      };
-      public = {
-        "path" = "/engi";
-        browseable = "yes";
-        "read only" = "yes";
-        "guest ok" = "yes";
       };
     };
   };

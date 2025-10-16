@@ -22,4 +22,5 @@ in
   "syncthing/kestrel/cert.pem.age".publicKeys = systems;
   "syncthing/torus/key.pem.age".publicKeys = systems;
   "syncthing/torus/cert.pem.age".publicKeys = systems;
+  "smb/torus.age".publicKeys = systems;
 }
