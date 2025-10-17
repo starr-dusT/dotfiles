@@ -29,10 +29,10 @@ fi
 mutter=$(echo "$(nix eval nixpkgs#mutter.outPath)" | sed -r 's/\"//g')
 case ${sel} in
     "Living Room" )
-        ${mutter}/bin/gdctl set --logical-monitor --primary --monitor HDMI-1 --mode 2560x1440@59.951 --scale 1.5
+        ${mutter}/bin/gdctl set --persistent --logical-monitor --primary --monitor HDMI-1 --mode 2560x1440@59.951 --scale 1.5
         ;;
     "Desktop" )
-        ${mutter}/bin/gdctl set --logical-monitor --primary --monitor DP-2 --mode 2560x1440@143.912 --scale 1 --logical-monitor --monitor DP-1 --mode 2560x1440@143.973 --scale 1 --left-of DP-2;
+        ${mutter}/bin/gdctl set --persistent --logical-monitor --primary --monitor DP-2 --mode 2560x1440@143.912 --scale 1 --logical-monitor --monitor DP-1 --mode 2560x1440@143.973 --scale 1 --left-of DP-2;
         ;;
     * )
         echo "Only valid selections are \"Living Room\" and \"Desktop\""
