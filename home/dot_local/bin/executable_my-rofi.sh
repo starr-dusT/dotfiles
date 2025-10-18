@@ -15,4 +15,4 @@ while getopts ":hv" opt; do
     esac
 done
 
-rofi -dmenu -theme gruvbox-dark -font "AdwaitaSans 20" "${@}"
+rofi -x11 -dmenu -theme gruvbox-dark -font "AdwaitaSans 20" "${@}"
