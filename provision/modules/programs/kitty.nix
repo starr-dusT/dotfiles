@@ -19,6 +19,9 @@ in {
           disable_ligatures = "never";
           cursor_shape = "block";
           linux_display_server = "x11";
+          remember_window_size="no";
+          initial_window_width="1100";
+          initial_window_height="700";
         };
       };
     };
