@@ -16,18 +16,10 @@ while getopts ":hv" opt; do
     esac
 done
 
-# Set display to first arguement or use rofi to select
-if [ "${1}" ]; then
-    sel="${1}"
-else
-    pre="Living Room|Desktop"
-    sel=$(echo "${pre}" | my-rofi.sh -sep "|" -p "sink")
-fi
-
 # Get location of mutter in nix store to work around gdctl not being in PATH
 # https://github.com/NixOS/nixpkgs/issues/416824
 mutter=$(echo "$(nix eval nixpkgs#mutter.outPath)" | sed -r 's/\"//g')
-case ${sel} in
+case ${1} in
     "Living Room" )
         ${mutter}/bin/gdctl set --persistent --logical-monitor --primary --monitor HDMI-1 --mode 2560x1440@59.951 --scale 1.5
         ;;

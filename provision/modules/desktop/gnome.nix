@@ -266,7 +266,7 @@
           } // generate_custom_keybindings {
             "1" = { binding = "<Super><Control>d"; command = "display-switch.sh Desktop"; name = "Kestrel display at Desk"; };
             "2" = { binding = "<Super><Control>l"; command = "display-switch.sh \"Living Room\""; name = "Kestrel display in Living Room"; };
-            "3" = { binding = "<Super><Control>r"; command = "rofi-wrapper-exe.sh"; name = "Run rofi-wrapper-exe.sh"; };
+            "3" = { binding = "<Super><Control>r"; command = "kitty -e fzf-wrapper-exe.sh kitty"; name = "Run fzf-wrapper-exe.sh in kitty"; };
        };
      };
   };

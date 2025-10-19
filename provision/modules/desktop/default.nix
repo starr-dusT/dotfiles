@@ -8,7 +8,6 @@ in {
     ./keyd.nix
     ./gnome.nix 
     ./peripherals.nix
-    ./rofi.nix
   ];
 
   options.modules.desktop.enable = lib.mkEnableOption "desktop";
@@ -23,6 +22,7 @@ in {
       mpv # Media player for playing audio and video files
       p7zip # Command-line file archiver with high compression ratio
       gimp # GNU Image Manipulation Program for editing and composing raster images
+      libnotify # Library that sends desktop notifications to a notification daemon
     ];
 
     services.flatpak.enable = true;

@@ -3,8 +3,7 @@
 
 function display_help() {
     echo "usage: $(basename "${0}") <sink-partial-match>" 
-    echo "Switch audio sink with parital string match. If arguement is not set"
-    echo "rofi will be used to set it."
+    echo "Switch audio sink with parital string match."
 }
 
 while getopts ":hv" opt; do
@@ -16,30 +15,11 @@ while getopts ":hv" opt; do
     esac
 done
 
-# Set sink to first arguement or use rofi to select
-if [ "${1}" ]; then
-    name="${1}"
-else
-    pre="Living Room|Desktop"
-    sel=$(echo "${pre}" | my-rofi.sh -sep "|" -p "sink")
-    # Convert selection to string for sink
-    case ${sel} in
-        "Living Room" )
-            name="Dragon"
-            ;;
-        "Desktop" )
-            name="Starship"
-            ;;
-        * )
-            name="${sel}"
-    esac
-fi
-
 # Find sink ID from sub string
 sink=$(wpctl status | 
     awk '/Audio/{flag=1} /Video/{flag=0} flag' | 
     awk '/Sinks:/{flag=1; next} /Sources:/{flag=0} flag' | 
-    grep -E "${name}" | 
+    grep -E "${1}" | 
     awk '{for(i=1;i<=NF;i++) if ($i ~ /^[0-9]+\.$/) { print int($i); exit }}'
 )
 

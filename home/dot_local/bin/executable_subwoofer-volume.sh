@@ -3,8 +3,7 @@
 
 function display_help() {
     echo "usage: $(basename "${0}") <volume>" 
-    echo "Set volume of subwoofer with pySVS. If volume is not set rofi will"
-    echo "allow selection."
+    echo "Set volume of subwoofer with pySVS."
 }
 
 while getopts ":hv" opt; do
@@ -16,17 +15,9 @@ while getopts ":hv" opt; do
     esac
 done
 
-# Set volume to first arguement or use rofi to select
-if [ "${1}" ]; then
-    vol="${1}"
-else
-    pre="-20|-12|-9|-3"
-    vol=$(echo "${pre}" | my-rofi.sh -sep "|" -p "dB")
-fi
-
 args=(
     "54:B7:E5:57:1A:7B" # bluetooth mac for subwoofer
-    --volume="${vol}"
+    --volume="${1}"
 )
 
 if [ "$(hostname)" == "stormwalker" ]; then
