@@ -29,7 +29,12 @@ local plugins = {
         }
       end,
       config = function()
-        -- Your LSP settings here
+        vim.lsp.enable('nixd')
+        vim.diagnostic.config({
+          virtual_lines = {
+            current_line = true,
+          },
+        })
       end,
     }
 }
