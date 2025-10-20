@@ -5,10 +5,6 @@ let cfg = config.modules.scripts;
     nblkd = ! (builtins.elem "init-bash-script.nix" blk);
 in {
   config = lib.mkIf cfg.enable {
-    environment.shellAliases = lib.mkIf nblkd {
-      ibs = "init-bash-script.sh";
-    };
-
     environment.systemPackages = lib.mkIf nblkd [
       (pkgs.writeShellScriptBin "init-bash-script.sh" ''
         function display_help() {

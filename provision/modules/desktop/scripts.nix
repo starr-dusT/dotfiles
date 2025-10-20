@@ -3,12 +3,6 @@
 let cfg = config.modules.desktop;
 in {
   config = lib.mkIf cfg.enable {
-    environment.shellAliases = {
-      ss = "sink-switch.sh";
-      ds = "display-switch.sh";
-      sv = "subwoofer-volume.sh";
-    };
-
     environment.systemPackages = [
       (pkgs.writeShellScriptBin "sink-switch.sh" ''
         function display_help() {

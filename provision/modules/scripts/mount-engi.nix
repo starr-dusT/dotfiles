@@ -5,10 +5,6 @@ let cfg = config.modules.scripts;
     nblkd = ! (builtins.elem "mount-engi.nix" blk);
 in {
   config = lib.mkIf cfg.enable {
-    environment.shellAliases = lib.mkIf nblkd {
-      me = "mount-engi.sh";
-    };
-
     environment.systemPackages = lib.mkIf nblkd [
       (pkgs.writeShellScriptBin "mount-engi.sh" ''
         function display_help() {
