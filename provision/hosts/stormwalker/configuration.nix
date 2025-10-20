@@ -19,6 +19,7 @@
       enable = true;
       gnome.enable = true;
     };
+    scripts.enable = true;
     services = {
       gnome-remote-desktop.enable = true;
       samba-client.enable = true;

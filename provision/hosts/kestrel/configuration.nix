@@ -13,7 +13,7 @@
   networking.firewall.enable = false;
 
   # Nvidia options
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.latest;
     modesetting.enable = true;
@@ -56,6 +56,7 @@
       };
       virt-manager.enable = true;
     };
+    scripts.enable = true;
     services = {
       gnome-remote-desktop.enable = true;
       samba-client.enable = true;

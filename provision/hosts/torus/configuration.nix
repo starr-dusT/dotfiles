@@ -24,7 +24,7 @@
     "net.ipv4.conf.all.forwarding" = true; # Needed for wireguard-server
   };
 
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.open = false;
 
   # Modules
@@ -36,6 +36,10 @@
         enable = true;
         storageDriver = "btrfs";
       };
+    };
+    scripts = {
+      enable = true;
+      blacklist = [ "mount-engi.nix" ];
     };
     services = {
       ssh.enable = true;

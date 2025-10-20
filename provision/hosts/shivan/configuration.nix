@@ -23,6 +23,7 @@
     programs = {
       virt-manager.enable = false;
     };
+    scripts.enable = true;
     services = {
       samba-client.enable = true;
       ssh.enable = true;

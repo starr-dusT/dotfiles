@@ -15,6 +15,7 @@
       enable = true;
       gnome.enable = true;
     };
+    scripts.enable = true;
     services = {
       samba-client.enable = true;
       ssh.enable = true;
