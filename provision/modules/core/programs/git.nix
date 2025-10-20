@@ -1,4 +1,4 @@
-{ config, lib, pkgs, user, ... }:
+{ pkgs, user, ... }:
 {
   environment.systemPackages = with pkgs; [
     git # Version control system for tracking changes in source code during software development

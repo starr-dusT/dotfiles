@@ -1,4 +1,4 @@
-{ config, lib, pkgs, user, home-manager, ... }:
+{ pkgs, user, home-manager, ... }:
 {
   environment.systemPackages = with pkgs; [ 
     chezmoi # Manage your dotfiles across multiple machines, securely
