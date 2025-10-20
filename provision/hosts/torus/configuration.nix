@@ -29,8 +29,10 @@
 
   # Modules
   modules = {
-    base-plus.enable = true;
-    physical.enable = true;
+    core = {
+      physical.enable = true;
+      plus.enable = true;
+    };
     programs = {
       docker ={ 
         enable = true;
@@ -42,7 +44,6 @@
       blacklist = [ "mount-engi.nix" ];
     };
     services = {
-      ssh.enable = true;
       syncthing = {
         enable = true;
         keyPath = ../../secrets/syncthing/torus/key.pem.age;

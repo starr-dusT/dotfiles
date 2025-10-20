@@ -1,8 +1,8 @@
-{ config, pkgs, user, lib, inputs, hostname, ... }:
+{ config, pkgs, lib, ... }:
 
-let cfg = config.modules.physical;
+let cfg = config.modules.core.pyhsical;
 in {
-  options.modules.physical.enable = lib.mkEnableOption "physical";
+  options.modules.core.pyhsical.enable = lib.mkEnableOption "physical";
 
   config = lib.mkIf cfg.enable {
     boot = {

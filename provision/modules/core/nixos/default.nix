@@ -1,4 +1,4 @@
-{ config, lib, inputs, pkgs, user, home-manager, hostname, ... }:
+{ inputs, pkgs, user, hostname, ... }:
 {
   imports = [
     ./terminal.nix
@@ -37,14 +37,14 @@
   i18n.defaultLocale = "en_US.UTF-8";
   
   # system packages
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
     inputs.agenix.packages.x86_64-linux.default 
   ];
 
   # define user account.
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [ "audio" "dialout" "wheel" ];
+    extraGroups = [ "audio" "dialout" "wheel" "input" ];
     shell = pkgs.bash;
   };
 

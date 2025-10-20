@@ -13,8 +13,10 @@
 
   # Modules 
   modules = {
-    base-plus.enable = true;
-    physical.enable = true;
+    core = {
+      physical.enable = true;
+      plus.enable = true;
+    };
     desktop = {
       enable = true;
       gnome.enable = true;
@@ -23,7 +25,6 @@
     services = {
       gnome-remote-desktop.enable = true;
       samba-client.enable = true;
-      ssh.enable = true;
     };
   };
 }
