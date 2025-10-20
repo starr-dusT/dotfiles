@@ -2,7 +2,7 @@
 {
   imports = [ 
     ./desktop
-    ./devel
+    ./development
     ./gaming
     ./programs
     ./scripts

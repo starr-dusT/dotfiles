@@ -1,8 +1,8 @@
-{ config, lib, pkgs, user, ... }:
+{ config, lib, pkgs, ... }:
 
-let cfg = config.modules.devel.notes;
+let cfg = config.modules.optional.development.notes;
 in {
-  options.modules.devel.notes.enable = lib.mkEnableOption "notes";
+  options.modules.optional.development.notes.enable = lib.mkEnableOption "notes";
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [

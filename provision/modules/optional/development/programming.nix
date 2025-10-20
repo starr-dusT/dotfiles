@@ -1,8 +1,8 @@
-{ config, lib, pkgs, user, ... }:
+{ config, lib, pkgs, ... }:
 
-let cfg = config.modules.devel.programming;
+let cfg = config.modules.optional.development.programming;
 in {
-  options.modules.devel.programming.enable = lib.mkEnableOption "programming";
+  options.modules.optional.development.programming.enable = lib.mkEnableOption "programming";
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [

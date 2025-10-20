@@ -44,11 +44,11 @@
         gnome.enable = true;
         gnome-remote-desktop.enable = true;
       };
-    };
-    devel = {
-      engineering.enable = true;
-      notes.enable = true;
-      programming.enable = true;
+      development = {
+        engineering.enable = true;
+        notes.enable = true;
+        programming.enable = true;
+      };
     };
     gaming = {
       emulation.enable = true;

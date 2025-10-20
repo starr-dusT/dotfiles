@@ -19,11 +19,10 @@
         enable = true;
         gnome.enable = true;
       };
-    };
-    devel = {
-      engineering.enable = true;
-      notes.enable = true;
-      programming.enable = true;
+      development = {
+        notes.enable = true;
+        programming.enable = true;
+      };
     };
     programs = {
       virt-manager.enable = false;
