@@ -4,9 +4,10 @@ let cfg = config.modules.desktop;
 in {
   imports = [ 
     ./flatpak.nix
+    ./gnome-remote-desktop.nix
+    ./gnome.nix 
     ./kde-connect.nix
     ./keyd.nix
-    ./gnome.nix 
     ./peripherals.nix
     ./scripts.nix
   ];

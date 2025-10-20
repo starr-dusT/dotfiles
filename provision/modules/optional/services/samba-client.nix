@@ -13,7 +13,7 @@ in {
 
     # Expose creds for smb shares
     age.secrets."smb/torus" = {
-      file = ../../secrets/smb/torus.age;
+      file = ../../../../secrets/smb/torus.age;
       owner = "${user}";
       group = "users";
     };

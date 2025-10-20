@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [ 
-    ./core
-    ./optional
+    ./nixos
+    ./programs
   ];
 }

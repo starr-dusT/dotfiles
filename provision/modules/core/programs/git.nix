@@ -7,7 +7,7 @@
   ];
 
   age.secrets."git/github_personal" = {
-    file = ../../secrets/git/github_personal.age;
+    file = ../../../../secrets/git/github_personal.age;
     owner = "${user}";
     group = "users";
   };

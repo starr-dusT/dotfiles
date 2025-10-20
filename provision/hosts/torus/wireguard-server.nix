@@ -12,7 +12,7 @@
     allowedUDPPorts = [ 53 51820 ];
   };
     
-  age.secrets."wireguard/torus".file = ../../secrets/wireguard/torus.age;
+  age.secrets."wireguard/torus".file = ../../././secrets/wireguard/torus.age;
 
   networking.wg-quick.interfaces = {
     wg0 = {

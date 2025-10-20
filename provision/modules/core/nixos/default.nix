@@ -4,6 +4,7 @@
     ./terminal.nix
     ./physical.nix
     ./plus.nix
+    ./ssh.nix
   ];
 
   # base nix options
@@ -29,7 +30,7 @@
 
   # Add non-free packages
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = import ../../lib/overlays.nix;
+  nixpkgs.overlays = import ../../../lib/overlays.nix;
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
