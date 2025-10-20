@@ -224,6 +224,7 @@
               close = ["<Super>d"];                            
               toggle-fullscreen = ["<Super>f"];              
               toggle-maximized = ["<Super>t"];               
+              panel-run-dialog = ["<Super>r"];
               switch-windows = ["<Super>Tab" "<Alt>Tab" "<Super>e"];
               switch-windows-backward = ["<Super><Shift>Tab" "<Alt><Shift>Tab" "<Super>q"]; 
               switch-applications = [];                 
@@ -264,9 +265,8 @@
                 action = "prev-workspace";
             };
           } // generate_custom_keybindings {
-            "1" = { binding = "<Super><Control>d"; command = "display-switch.sh Desktop"; name = "Kestrel display at Desk"; };
-            "2" = { binding = "<Super><Control>l"; command = "display-switch.sh \"Living Room\""; name = "Kestrel display in Living Room"; };
-            "3" = { binding = "<Super><Control>r"; command = "kitty -e fzf-wrapper-exe.sh kitty"; name = "Run fzf-wrapper-exe.sh in kitty"; };
+            "1" = { binding = "<Super><Control>d"; command = "display-switch.sh kestrel-desktop"; name = "Kestrel display at Desk"; };
+            "2" = { binding = "<Super><Control>l"; command = "display-switch.sh kestrel-living"; name = "Kestrel display in Living Room"; };
        };
      };
   };

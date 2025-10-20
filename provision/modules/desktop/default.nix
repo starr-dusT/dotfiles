@@ -8,6 +8,7 @@ in {
     ./keyd.nix
     ./gnome.nix 
     ./peripherals.nix
+    ./scripts.nix
   ];
 
   options.modules.desktop.enable = lib.mkEnableOption "desktop";

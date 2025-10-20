@@ -6,6 +6,7 @@
     ./devel 
     ./gaming 
     ./programs 
+    ./scripts
     ./services
   ];
 }

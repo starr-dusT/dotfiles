@@ -20,7 +20,6 @@ in {
           meta = {
             o = "oneshot(open)";
             u = "oneshot(util)";
-            r = "C-M-r"; # Run fzf-wrapper-exe.sh in kitty
           };
           open = { # Open applications on gnome bar
             q = "C-M-1";
