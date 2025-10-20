@@ -1,7 +1,14 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
-let cfg = config.modules.core.physical;
-in {
+let
+  cfg = config.modules.core.physical;
+in
+{
   options.modules.core.physical.enable = lib.mkEnableOption "physical";
 
   config = lib.mkIf cfg.enable {
@@ -13,12 +20,12 @@ in {
       initrd.verbose = false;
       initrd.systemd.enable = true;
       kernelParams = [
-          "quiet"
-          "splash"
-          "intremap=on"
-          "boot.shell_on_fail"
-          "udev.log_priority=3"
-          "rd.systemd.show_status=auto"
+        "quiet"
+        "splash"
+        "intremap=on"
+        "boot.shell_on_fail"
+        "udev.log_priority=3"
+        "rd.systemd.show_status=auto"
       ];
 
       plymouth = {

@@ -1,6 +1,11 @@
-{ pkgs, user, home-manager, ... }:
 {
-  environment.systemPackages = with pkgs; [ 
+  pkgs,
+  user,
+  home-manager,
+  ...
+}:
+{
+  environment.systemPackages = with pkgs; [
     chezmoi # Manage your dotfiles across multiple machines, securely
   ];
 

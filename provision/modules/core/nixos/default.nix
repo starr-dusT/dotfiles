@@ -1,4 +1,10 @@
-{ inputs, pkgs, user, hostname, ... }:
+{
+  inputs,
+  pkgs,
+  user,
+  hostname,
+  ...
+}:
 {
   imports = [
     ./terminal.nix
@@ -20,10 +26,10 @@
   };
 
   # Set networking options
-  networking.hostName = "${hostname}"; 
+  networking.hostName = "${hostname}";
 
   # Add user age key to identity path
-  age.identityPaths = [ 
+  age.identityPaths = [
     "/etc/ssh/ssh_host_ed25519_key"
     "/etc/ssh/ssh_host_rsa_key"
   ];
@@ -35,16 +41,21 @@
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
   i18n.defaultLocale = "en_US.UTF-8";
-  
+
   # system packages
   environment.systemPackages = [
-    inputs.agenix.packages.x86_64-linux.default 
+    inputs.agenix.packages.x86_64-linux.default
   ];
 
   # define user account.
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [ "audio" "dialout" "wheel" "input" ];
+    extraGroups = [
+      "audio"
+      "dialout"
+      "wheel"
+      "input"
+    ];
     shell = pkgs.bash;
   };
 
