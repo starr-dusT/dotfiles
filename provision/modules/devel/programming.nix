@@ -12,6 +12,7 @@ in {
       distrobox # Use any linux distribution inside your terminal
       just # Hand way to save and run project-specific commands
       nixd # Feature-rich Nix language server interoperating with C++ nix
+      nixfmt # Official formatter for Nix code
     ];
   };
 }
