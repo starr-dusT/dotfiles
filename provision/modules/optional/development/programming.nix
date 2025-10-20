@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.modules.optional.development.programming;
-in {
+let
+  cfg = config.modules.optional.development.programming;
+in
+{
   options.modules.optional.development.programming.enable = lib.mkEnableOption "programming";
 
   config = lib.mkIf cfg.enable {

@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.modules.optional.development.notes;
-in {
+let
+  cfg = config.modules.optional.development.notes;
+in
+{
   options.modules.optional.development.notes.enable = lib.mkEnableOption "notes";
 
   config = lib.mkIf cfg.enable {
