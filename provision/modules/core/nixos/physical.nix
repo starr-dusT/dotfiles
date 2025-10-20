@@ -1,8 +1,8 @@
 { config, pkgs, lib, ... }:
 
-let cfg = config.modules.core.pyhsical;
+let cfg = config.modules.core.physical;
 in {
-  options.modules.core.pyhsical.enable = lib.mkEnableOption "physical";
+  options.modules.core.physical.enable = lib.mkEnableOption "physical";
 
   config = lib.mkIf cfg.enable {
     boot = {
