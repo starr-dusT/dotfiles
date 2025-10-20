@@ -1,10 +1,22 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.modules.optional.desktop.gnome;
-in {
+let
+  cfg = config.modules.optional.desktop.gnome;
+in
+{
   config = lib.mkIf cfg.enable {
     networking.firewall = rec {
-      allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
+      allowedTCPPortRanges = [
+        {
+          from = 1714;
+          to = 1764;
+        }
+      ];
       allowedUDPPortRanges = allowedTCPPortRanges;
     };
 

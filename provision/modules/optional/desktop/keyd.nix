@@ -1,7 +1,9 @@
 { config, lib, ... }:
 
-let cfg = config.modules.optional.desktop.gnome;
-in {
+let
+  cfg = config.modules.optional.desktop.gnome;
+in
+{
   config = lib.mkIf cfg.enable {
     services.keyd = {
       enable = true;
@@ -21,7 +23,8 @@ in {
             o = "oneshot(open)";
             u = "oneshot(util)";
           };
-          open = { # Open applications on gnome bar
+          open = {
+            # Open applications on gnome bar
             q = "C-M-1";
             w = "C-M-2";
             e = "C-M-3";
@@ -36,7 +39,8 @@ in {
             d = "C-M-d"; # Kestrel display at desk
             l = "C-M-l"; # Kestrel display in living room
           };
-          alt = { # Use hjkl for arrow keys with alt
+          alt = {
+            # Use hjkl for arrow keys with alt
             h = "left";
             j = "down";
             k = "up";

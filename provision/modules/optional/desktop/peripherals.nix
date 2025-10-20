@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.modules.optional.desktop;
-in {
+let
+  cfg = config.modules.optional.desktop;
+in
+{
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       libimobiledevice # Library to support iPhone, iPod Touch and iPad devices on Linux

@@ -1,11 +1,18 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.modules.optional.desktop;
-in {
-  imports = [ 
+let
+  cfg = config.modules.optional.desktop;
+in
+{
+  imports = [
     ./flatpak.nix
     ./gnome-remote-desktop.nix
-    ./gnome.nix 
+    ./gnome.nix
     ./kde-connect.nix
     ./keyd.nix
     ./peripherals.nix
@@ -46,7 +53,8 @@ in {
         "application/xhtml+xml" = [ "google-chrome.desktop" ];
         "application/x-extension-xhtml" = [ "google-chrome.desktop" ];
         "application/x-extension-xht" = [ "google-chrome.desktop" ];
-        "application/pdf" = [ "google-chrome.desktop" ]; };
+        "application/pdf" = [ "google-chrome.desktop" ];
+      };
     };
 
     modules = {
