@@ -1,6 +1,5 @@
 " designed for vim 7+ (and inspired by rwxrob) 
 " tested with vim 7.4.629
-" https://github.com/starr-dusT/dotfiles
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " general 
@@ -38,7 +37,6 @@ set updatetime=50
 set scrolloff=8
 set smartindent
 set incsearch " hilight search matches while typing
-
 
 " maximize focused split vertically creating almost 'tabs' 
 let g:max_lock=0
@@ -79,15 +77,6 @@ map <leader>e :Ex <cr> " open explorer
 " marks
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" automatically update marks with helper function
-au CursorHold,CursorHoldI,CursorMoved,CursorMovedI,TextChanged * silent! call UpdateMarkSigns()
-
-" allow only global marks
-noremap <silent> <expr> ' "'".toupper(nr2char(getchar()))
-noremap <silent> <expr> m "m".toupper(nr2char(getchar()))
-sunmap '
-sunmap m
-
 " list marks
 map <leader>mm :marks<cr>
 
@@ -122,15 +111,6 @@ map <leader>cn :cnext<CR>
 map <leader>cp :cnext<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" notes 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-command! Ill call InsertLocationLink()
-
-" copy quick/location selection to clipboard
-nnoremap <Leader>nl :Ill<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " misc keys
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -154,9 +134,6 @@ map <leader>ff :find *
 map <leader>cc :cd<space>
 map <leader>cd :cd ~/.local/share/chezmoi  <cr>
 
-" open common files
-map <leader>ov :e ~/.local/share/chezmoi/home/dot_vimrc <cr>
-
 " functions keys
 map <F1> :set number!<CR> :set relativenumber!<CR>
 map <F2> :set list!<CR>
@@ -172,8 +149,6 @@ nnoremap <down> <C-x>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " maximize current vertical split (and handle quick/location list)
-" OG baby!
-"
 function! MaxSplit(b)
     let g:max_lock=1 " prevent multiple autocmds at the same time
     let curr_win = winnr()
@@ -208,78 +183,4 @@ function! IsValidFilename(filename)
   else
     return 0
   endif
-endfunction
-
-" Place sign with particular symbol at line
-" ChatGippity 
-"
-function! PlaceSign(id, symbol, line_number)
-  let buff = bufnr('')
-  " For compatibility with vim7 can't use nice sign functions  
-  exe "sign define " . a:symbol . " text=" . a:symbol
-  exe "sign place " . a:id . " line=" . a:line_number . " name=" . a:symbol . " buffer=" . buff
-endfunction
-
-" Use signs to visualize marks and update for current buffer
-" OG baby!
-"
-function! UpdateMarkSigns()
-    " Reserved unique IDs for marks in case we want to remove in future
-    " without wiping out all signs
-    let resvIDs = range(1000, 1027)
-    
-   " wipe out all signs (might improve in future)
-    execute "sign unplace *"
-
-    " get all marks
-    let lines = ""
-    redir => lines 
-    :silent marks
-    redir END
-
-    let linesList = split(lines, "\n")[1:]
-    for i in range(len(linesList))
-        let line = linesList[i]
-        let id = resvIDs[i]
-
-        let splitLine = split(line)
-        let name = splitLine[0] 
-        let row = splitLine[1]
-        let col = splitLine[2]
-        try " empty lines at marks will break things
-            let file = splitLine[3]
-        catch
-            let file = ""
-        endtry
-
-        " If marks is in another file we don't need to display it
-        if !IsValidFilename(file)
-            call PlaceSign(id, name, row)
-        endif
-    endfor
-endfunction
-
-" Create markdown link for current location list selection
-" OG baby!
-"
-function! InsertLocationLink()
-    let loc_idx = line('.') - 1
-    let loc_list = getloclist(0)
-    let link = bufname(l:loc_list[l:loc_idx].bufnr)
-    call setreg('l', link)
-    :lcl
-    let title = input("Link name: ")
-    let curr_path = substitute(expand('%:p:h'), finddir('.git/..', expand('%:p:h').';'), '', "g")
-    let nest_count = count(curr_path, "/")
-    let file_path = getreg('l')
-    if nest_count < 1
-        let file_path = join(['./', file_path], '')
-    else
-        while nest_count > 0
-            let file_path = join(['../', file_path], '')
-            let nest_count -= 1
-        endwhile
-    endif
-    let link = join(['[', title, '](', file_path, ')'], "")
-    exe "normal! a" . link . "\<Esc>"
 endfunction
