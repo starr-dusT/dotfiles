@@ -37,9 +37,13 @@
       physical.enable = true;
       plus.enable = true;
     };
-    desktop = {
-      enable = true;
-      gnome.enable = true;
+
+    optional = {
+      desktop = {
+        enable = true;
+        gnome.enable = true;
+        gnome-remote-desktop.enable = true;
+      };
     };
     devel = {
       engineering.enable = true;
@@ -60,7 +64,6 @@
     };
     scripts.enable = true;
     services = {
-      gnome-remote-desktop.enable = true;
       samba-client.enable = true;
       syncthing = {
         enable = true;

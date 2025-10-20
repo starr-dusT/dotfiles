@@ -1,6 +1,6 @@
-{ config, lib, pkgs, user, inputs, ... }:
+{ config, lib, pkgs, ... }:
 
-let cfg = config.modules.desktop;
+let cfg = config.modules.optional.desktop;
 in {
   imports = [ 
     ./flatpak.nix
@@ -12,7 +12,7 @@ in {
     ./scripts.nix
   ];
 
-  options.modules.desktop.enable = lib.mkEnableOption "desktop";
+  options.modules.optional.desktop.enable = lib.mkEnableOption "desktop";
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [

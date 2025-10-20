@@ -1,7 +1,7 @@
-    { config, lib, pkgs, user, home-manager, ... }:
+    { config, lib, pkgs, user, ... }:
 
     let 
-      cfg = config.modules.desktop.gnome;
+      cfg = config.modules.optional.desktop.gnome;
       inherit (builtins) attrNames map;
       inherit (lib.attrsets) mapAttrs' nameValuePair;
       generate_custom_keybindings = binds:
@@ -16,7 +16,7 @@
           "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/${name}")
         binds;
     in {
-      options.modules.desktop.gnome.enable = lib.mkEnableOption "gnome";
+      options.modules.optional.desktop.gnome.enable = lib.mkEnableOption "gnome";
 
       config = lib.mkIf cfg.enable {
         environment.systemPackages = with pkgs; [
@@ -98,15 +98,15 @@
           xdg.desktopEntries.impress = { name = ""; exec = null; settings.Hidden = "true"; };
 
           dconf.settings = let 
-            inherit (lib.hm.gvariant) mkTuple mkUint32 mkVariant mkDictionaryEntry;
+            inherit (lib.hm.gvariant) mkTuple mkUint32 mkVariant;
             bakersfield = (mkVariant (mkTuple [
               (mkUint32 2)
               (mkVariant (mkTuple [
                 "Bakersfield"          
                 "KBFL"                
                 true                 
-                [ (mkTuple [ (0.61843317782088048) (-2.0779308356004798) ]) ]
-                [ (mkTuple [ (0.61738041266937005) (-2.0772684133361778) ]) ]
+                [ (mkTuple [ 0.61843317782088048 (-2.0779308356004798) ]) ]
+                [ (mkTuple [ 0.61738041266937005 (-2.0772684133361778) ]) ]
               ]))
             ]));
             tehran = (mkVariant (mkTuple [
@@ -115,8 +115,8 @@
                 "Tehran"
                 "OIII"
                 true
-                [ (mkTuple [ (0.62279164893554573) (0.8962265708990883) ]) ]
-                [ (mkTuple [ (0.62316980942457534) (0.89747622664351612) ]) ]
+                [ (mkTuple [ 0.62279164893554573 0.8962265708990883 ]) ]
+                [ (mkTuple [ 0.62316980942457534 0.89747622664351612 ]) ]
               ]))
             ]));
             moscow = (mkVariant (mkTuple [
@@ -125,8 +125,8 @@
                 "Moscow"
                 "UUWW"
                 true
-                [ (mkTuple [ (0.97127572873484425) (0.65042604039431762) ]) ]
-                [ (mkTuple [ (0.97305983920281813) (0.65651530216830811) ]) ]
+                [ (mkTuple [ 0.97127572873484425 0.65042604039431762 ]) ]
+                [ (mkTuple [ 0.97305983920281813 0.65651530216830811 ]) ]
               ]))
             ]));
             beijing = (mkVariant (mkTuple [
@@ -135,8 +135,8 @@
                 "Beijing"
                 "ZBAA"
                 true
-                [ (mkTuple [ (0.69696814214530467) (2.0295270260429752) ]) ]
-                [ (mkTuple [ (0.69689057971334611) (2.0313596217575696) ]) ]
+                [ (mkTuple [ 0.69696814214530467 2.0295270260429752 ]) ]
+                [ (mkTuple [ 0.69689057971334611 2.0313596217575696 ]) ]
               ]))
             ]));
           in {
@@ -245,9 +245,9 @@
             };
             "org/gnome/clocks" = {
               world-clocks = [
-                ([(lib.hm.gvariant.mkDictionaryEntry ["location" tehran])])
-                ([(lib.hm.gvariant.mkDictionaryEntry ["location" moscow])])
-                ([(lib.hm.gvariant.mkDictionaryEntry ["location" beijing])])
+                [(lib.hm.gvariant.mkDictionaryEntry ["location" tehran])]
+                [(lib.hm.gvariant.mkDictionaryEntry ["location" moscow])]
+                [(lib.hm.gvariant.mkDictionaryEntry ["location" beijing])]
               ];
             };
 

@@ -13,9 +13,12 @@
       physical.enable = true;
       plus.enable = true;
     };
-    desktop = {
-      enable = true;
-      gnome.enable = true;
+
+    optional = {
+      desktop = {
+        enable = true;
+        gnome.enable = true;
+      };
     };
     scripts.enable = true;
     services = {

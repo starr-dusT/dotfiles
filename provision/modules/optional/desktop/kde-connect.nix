@@ -1,6 +1,6 @@
-{ config, lib, pkgs, user, inputs, ... }:
+{ config, lib, pkgs, ... }:
 
-let cfg = config.modules.desktop.gnome;
+let cfg = config.modules.optional.desktop.gnome;
 in {
   config = lib.mkIf cfg.enable {
     networking.firewall = rec {

@@ -1,8 +1,8 @@
-{ config, lib, pkgs, user, ... }:
+{ config, lib, ... }:
 
-let cfg = config.modules.services.gnome-remote-desktop;
+let cfg = config.modules.optional.desktop.gnome-remote-desktop;
 in {
-  options.modules.services.gnome-remote-desktop.enable = lib.mkEnableOption "gnome-remote-desktop";
+  options.modules.optional.desktop.gnome-remote-desktop.enable = lib.mkEnableOption "gnome-remote-desktop";
 
   config = lib.mkIf cfg.enable {
     services.gnome.gnome-remote-desktop.enable = true;
