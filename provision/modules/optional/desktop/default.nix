@@ -16,6 +16,7 @@ in
     ./kde-connect.nix
     ./keyd.nix
     ./peripherals.nix
+    ./samba-client.nix
     ./scripts.nix
   ];
 

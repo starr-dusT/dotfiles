@@ -64,7 +64,6 @@
     };
     scripts.enable = true;
     services = {
-      samba-client.enable = true;
       syncthing = {
         enable = true;
         keyPath = ../../secrets/syncthing/kestrel/key.pem.age;

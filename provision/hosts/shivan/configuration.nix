@@ -28,8 +28,5 @@
       };
     };
     scripts.enable = true;
-    services = {
-      samba-client.enable = true;
-    };
   };
 }
