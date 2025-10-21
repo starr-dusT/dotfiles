@@ -1,6 +1,6 @@
 { ... }:
 {
-  imports = [ 
+  imports = [
     ./_plus.nix
     ./beancount.nix
     ./borg.nix

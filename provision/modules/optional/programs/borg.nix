@@ -1,12 +1,19 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
-let cfg = config.modules.optional.programs.borg;
-in {
+let
+  cfg = config.modules.optional.programs.borg;
+in
+{
   options.modules.optional.programs.borg.enable = lib.mkEnableOption "borg";
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      borgbackup # Deduplicating backup program 
+      borgbackup # Deduplicating backup program
       tree # Command to produce a depth indented directory listing
       (pkgs.writeScriptBin "stop-docker-containers" ''
         #!/bin/sh

@@ -1,7 +1,15 @@
-{ config, lib, pkgs, user, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
 
-let cfg = config.modules.optional.programs.firefox;
-in {
+let
+  cfg = config.modules.optional.programs.firefox;
+in
+{
   options.modules.optional.programs.firefox.enable = lib.mkEnableOption "firefox";
 
   config = lib.mkIf cfg.enable {
@@ -28,7 +36,7 @@ in {
         policies = {
           SecurityDevices = {
             Add = {
-              # 
+              #
               "NIPR" = "${pkgs.opensc}/lib/opensc-pkcs11.so";
             };
           };
@@ -41,7 +49,7 @@ in {
             "browser.toolbars.bookmarks.visibility" = "always";
             "browser.newtabpage.activity-stream.feeds.topsites" = false;
             "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
-            "browser.newtabpage.pinned" = [];
+            "browser.newtabpage.pinned" = [ ];
             "browser.tabs.drawInTitlebar" = true;
             "browser.tabs.inTitlebar" = 1;
           };

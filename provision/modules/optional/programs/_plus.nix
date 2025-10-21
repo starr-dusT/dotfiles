@@ -1,5 +1,3 @@
-# TODO: Think about this file maybe no including borg, beancount and rather adding
-#       a subset of programs from terminal.nix then adding a plus-plus.nix.
 { lib, config, ... }:
 
 let
