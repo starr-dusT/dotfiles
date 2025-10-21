@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  imports = [ 
+  imports = [
     ./init-bash-script.nix
     ./mount-engi.nix
   ];
@@ -9,7 +9,7 @@
     enable = mkEnableOption "scripts";
     blacklist = mkOption {
       type = types.listOf types.str;
-      default = []; 
+      default = [ ];
       description = ''
         list of scripts to blacklist for host.
       '';
