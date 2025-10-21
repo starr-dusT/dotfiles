@@ -1,8 +1,8 @@
-{ config, pkgs, user, lib, ... }:
+{ config, pkgs, lib, ... }:
 
-let cfg = config.modules.programs.borg;
+let cfg = config.modules.optional.programs.borg;
 in {
-  options.modules.programs.borg.enable = lib.mkEnableOption "borg";
+  options.modules.optional.programs.borg.enable = lib.mkEnableOption "borg";
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [

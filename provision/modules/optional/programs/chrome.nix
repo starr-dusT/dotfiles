@@ -1,8 +1,8 @@
-{ config, lib, pkgs, user, ... }:
+{ config, lib, pkgs, ... }:
 
-let cfg = config.modules.programs.chrome;
+let cfg = config.modules.optional.programs.chrome;
 in {
-  options.modules.programs.chrome.enable = lib.mkEnableOption "chrome";
+  options.modules.optional.programs.chrome.enable = lib.mkEnableOption "chrome";
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [

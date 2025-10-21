@@ -1,8 +1,8 @@
 { config, lib, pkgs, user, ... }:
 
-let cfg = config.modules.programs.virt-manager;
+let cfg = config.modules.optional.programs.virt-manager;
 in {
-  options.modules.programs.virt-manager.enable = lib.mkEnableOption "virt-manager";
+  options.modules.optional.programs.virt-manager.enable = lib.mkEnableOption "virt-manager";
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ 

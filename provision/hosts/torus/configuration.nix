@@ -32,12 +32,15 @@
     core = {
       physical.enable = true;
     };
-    programs = {
-      docker ={ 
-        enable = true;
-        storageDriver = "btrfs";
+
+    optional = {
+      _plus.enable = true;
+      programs = {
+        docker = { 
+          enable = true;
+          storageDriver = "btrfs";
+        };
       };
-      plus.enable = true;
     };
     scripts = {
       enable = true;

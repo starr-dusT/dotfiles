@@ -53,14 +53,14 @@
         minecraft.enable = true;
         pc.enable = true;
       };
-    };
-    programs = {
-      docker ={ 
-        enable = true;
-        storageDriver = "btrfs";
+      programs = {
+        _plus.enable = true;
+        docker = { 
+          enable = true;
+          storageDriver = "btrfs";
+        };
+        virt-manager.enable = true;
       };
-      plus.enable = true;
-      virt-manager.enable = true;
     };
     scripts.enable = true;
     services = {

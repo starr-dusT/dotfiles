@@ -58,10 +58,12 @@ in
     };
 
     modules = {
-      programs = {
-        chrome.enable = true;
-        firefox.enable = true;
-        kitty.enable = true;
+      optional = {
+        programs = {
+          chrome.enable = true;
+          firefox.enable = true;
+          kitty.enable = true;
+        };
       };
     };
   };

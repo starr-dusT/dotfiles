@@ -3,16 +3,18 @@
 { lib, config, ... }:
 
 let
-  cfg = config.modules.programs.plus;
+  cfg = config.modules.optional.programs._plus;
 in
 {
-  options.modules.programs.plus.enable = lib.mkEnableOption "plus";
+  options.modules.optional.programs._plus.enable = lib.mkEnableOption "_plus";
 
   config = lib.mkIf cfg.enable {
     modules = {
-      programs = {
-        borg.enable = true;
-        beancount.enable = true;
+      optional = {
+        programs = {
+          borg.enable = true;
+          beancount.enable = true;
+        };
       };
     };
   };

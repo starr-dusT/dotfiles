@@ -1,8 +1,8 @@
-{ config, lib, pkgs, user, ... }:
+{ config, lib, pkgs, ... }:
 
-let cfg = config.modules.programs.beancount;
+let cfg = config.modules.optional.programs.beancount;
 in {
-  options.modules.programs.beancount.enable = lib.mkEnableOption "beancount";
+  options.modules.optional.programs.beancount.enable = lib.mkEnableOption "beancount";
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ 

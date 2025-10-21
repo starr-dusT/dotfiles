@@ -47,7 +47,7 @@ machine. Current git-annex stores I have are:
 
 ## Chrome
 
-The vast majority of Chrome is setup with [chrome.nix](./modules/programs/chrome.nix)
+The vast majority of Chrome is setup with [chrome.nix](./optional/modules/programs/chrome.nix)
 including installing plugins and various settings. However, setup for [vimium](https://chromewebstore.google.com/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb)
 and [New Tab Redirect](https://chromewebstore.google.com/detail/new-tab-redirect/icpgjfneehieebagbmdbhnlpiopdcmna)
 could not be fully automated.

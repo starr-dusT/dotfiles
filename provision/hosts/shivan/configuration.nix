@@ -23,10 +23,9 @@
         notes.enable = true;
         programming.enable = true;
       };
-    };
-    programs = {
-      plus.enable = true;
-      virt-manager.enable = false;
+      programs = {
+        _plus.enable = true;
+      };
     };
     scripts.enable = true;
     services = {

@@ -1,8 +1,8 @@
-{ config, lib, pkgs, user, ... }:
+{ config, lib, user, ... }:
 
-let cfg = config.modules.programs.docker;
+let cfg = config.modules.optional.programs.docker;
 in {
-  options.modules.programs.docker = with lib; {
+  options.modules.optional.programs.docker = with lib; {
     enable = lib.mkOption {
       type = types.bool;
       default = false;
