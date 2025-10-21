@@ -34,8 +34,8 @@
     };
 
     optional = {
-      _plus.enable = true;
       programs = {
+        _plus.enable = true;
         docker = { 
           enable = true;
           storageDriver = "btrfs";
