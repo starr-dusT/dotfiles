@@ -1,8 +1,8 @@
 { config, lib, pkgs, user, ... }:
 
-let cfg = config.modules.gaming.minecraft;
+let cfg = config.modules.optional.gaming.minecraft;
 in {
-  options.modules.gaming.minecraft.enable = lib.mkEnableOption "minecraft";
+  options.modules.optional.gaming.minecraft.enable = lib.mkEnableOption "minecraft";
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ 

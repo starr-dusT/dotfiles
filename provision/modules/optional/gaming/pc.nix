@@ -1,8 +1,8 @@
 { config, lib, pkgs, user, ... }:
 
-let cfg = config.modules.gaming.pc;
+let cfg = config.modules.optional.gaming.pc;
 in {
-  options.modules.gaming.pc.enable = lib.mkEnableOption "pc";
+  options.modules.optional.gaming.pc.enable = lib.mkEnableOption "pc";
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ 

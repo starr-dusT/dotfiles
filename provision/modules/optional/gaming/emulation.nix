@@ -1,8 +1,8 @@
-{ config, lib, pkgs, user, ... }:
+{ config, lib, ... }:
 
-let cfg = config.modules.gaming.emulation;
+let cfg = config.modules.optional.gaming.emulation;
 in {
-  options.modules.gaming.emulation.enable = lib.mkEnableOption "emulation";
+  options.modules.optional.gaming.emulation.enable = lib.mkEnableOption "emulation";
 
   config = lib.mkIf cfg.enable {
     services.flatpak.packages = [

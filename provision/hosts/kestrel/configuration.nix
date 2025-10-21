@@ -49,11 +49,11 @@
         notes.enable = true;
         programming.enable = true;
       };
-    };
-    gaming = {
-      emulation.enable = true;
-      minecraft.enable = true;
-      pc.enable = true;
+      gaming = {
+        emulation.enable = true;
+        minecraft.enable = true;
+        pc.enable = true;
+      };
     };
     programs = {
       docker ={ 
