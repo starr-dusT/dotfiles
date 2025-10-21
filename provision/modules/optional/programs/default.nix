@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [ 
+    ./plus.nix
     ./beancount.nix
     ./borg.nix
     ./chrome.nix

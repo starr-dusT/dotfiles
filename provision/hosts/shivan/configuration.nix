@@ -25,6 +25,7 @@
       };
     };
     programs = {
+      plus.enable = true;
       virt-manager.enable = false;
     };
     scripts.enable = true;

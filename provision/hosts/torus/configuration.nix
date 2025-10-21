@@ -31,13 +31,13 @@
   modules = {
     core = {
       physical.enable = true;
-      plus.enable = true;
     };
     programs = {
       docker ={ 
         enable = true;
         storageDriver = "btrfs";
       };
+      plus.enable = true;
     };
     scripts = {
       enable = true;

@@ -35,7 +35,6 @@
   modules = {
     core = {
       physical.enable = true;
-      plus.enable = true;
     };
 
     optional = {
@@ -60,6 +59,7 @@
         enable = true;
         storageDriver = "btrfs";
       };
+      plus.enable = true;
       virt-manager.enable = true;
     };
     scripts.enable = true;

@@ -3,10 +3,10 @@
 { lib, config, ... }:
 
 let
-  cfg = config.modules.core.plus;
+  cfg = config.modules.programs.plus;
 in
 {
-  options.modules.core.plus.enable = lib.mkEnableOption "plus";
+  options.modules.programs.plus.enable = lib.mkEnableOption "plus";
 
   config = lib.mkIf cfg.enable {
     modules = {

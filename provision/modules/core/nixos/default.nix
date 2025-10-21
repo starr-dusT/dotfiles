@@ -9,7 +9,6 @@
   imports = [
     ./terminal.nix
     ./physical.nix
-    ./plus.nix
     ./ssh.nix
   ];
 
