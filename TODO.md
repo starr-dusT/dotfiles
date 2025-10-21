@@ -5,3 +5,4 @@
 - [ ] Use nixfmt for a pre-commit hook
 - [ ] pre-commit hook with nixd warnings/errors?
 - [ ] Check readmes for accuracy again
+- [ ] Resolve nixd errors in hosts
