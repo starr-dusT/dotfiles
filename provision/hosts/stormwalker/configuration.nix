@@ -15,7 +15,6 @@
   modules = {
     core = {
       physical.enable = true;
-      plus.enable = true;
     };
 
     optional = {
@@ -23,6 +22,9 @@
         enable = true;
         gnome.enable = true;
         gnome-remote-desktop.enable = true;
+      };
+      programs = {
+        _plus.enable = true;
       };
       scripts.enable = true;
     };
