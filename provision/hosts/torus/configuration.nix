@@ -45,14 +45,14 @@
         enable = true;
         blacklist = [ "mount-engi.sh" ];
       };
-    };
-    services = {
-      syncthing = {
-        enable = true;
-        keyPath = ../../secrets/syncthing/torus/key.pem.age;
-        certPath = ../../secrets/syncthing/torus/cert.pem.age;
-        devices = {
-          "kestrel" = { id = "5WWL4FE-ARZ4FHP-J33HQCH-CZKEXLN-2RAY4KW-PDI754F-3HVPZYI-VC3ESAF"; };
+      services = {
+        syncthing = {
+          enable = true;
+          keyPath = ../../secrets/syncthing/torus/key.pem.age;
+          certPath = ../../secrets/syncthing/torus/cert.pem.age;
+          devices = {
+            "kestrel" = { id = "5WWL4FE-ARZ4FHP-J33HQCH-CZKEXLN-2RAY4KW-PDI754F-3HVPZYI-VC3ESAF"; };
+          };
         };
       };
     };
