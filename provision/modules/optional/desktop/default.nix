@@ -35,7 +35,11 @@ in
       libnotify # Library that sends desktop notifications to a notification daemon
     ];
 
-    services.flatpak.enable = true;
+    services.flatpak = {
+        enable = true;
+        update.onActivation = true;
+    };
+
     services.dbus.enable = true;
     xdg.mime = {
       enable = true;
