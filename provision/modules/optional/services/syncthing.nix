@@ -1,7 +1,15 @@
-{ config, lib, pkgs, user, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
 
-let cfg = config.modules.optional.services.syncthing;
-in {
+let
+  cfg = config.modules.optional.services.syncthing;
+in
+{
   options.modules.optional.services.syncthing = with lib; {
     enable = lib.mkOption {
       type = types.bool;
@@ -17,7 +25,7 @@ in {
     };
     devices = mkOption {
       type = types.attrs;
-      default = {}; 
+      default = { };
       description = ''
         A set of devices and associated IDs.
       '';
@@ -29,8 +37,14 @@ in {
       syncthing # File sync program for multiple devices in real-time
     ];
 
-    networking.firewall.allowedTCPPorts = [ 8384 22000 ];
-    networking.firewall.allowedUDPPorts = [ 22000 21027 ];
+    networking.firewall.allowedTCPPorts = [
+      8384
+      22000
+    ];
+    networking.firewall.allowedUDPPorts = [
+      22000
+      21027
+    ];
 
     age.secrets."syncthing/key.pem" = {
       file = cfg.keyPath;
