@@ -19,7 +19,7 @@
         enable = true;
         gnome.enable = true;
       };
+      scripts.enable = true;
     };
-    scripts.enable = true;
   };
 }

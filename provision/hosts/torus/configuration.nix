@@ -41,10 +41,10 @@
           storageDriver = "btrfs";
         };
       };
-    };
-    scripts = {
-      enable = true;
-      blacklist = [ "mount-engi.nix" ];
+      scripts = {
+        enable = true;
+        blacklist = [ "mount-engi.sh" ];
+      };
     };
     services = {
       syncthing = {

@@ -5,7 +5,7 @@
     ./mount-engi.nix
   ];
 
-  options.modules.scripts = with lib; {
+  options.modules.optional.scripts = with lib; {
     enable = mkEnableOption "scripts";
     blacklist = mkOption {
       type = types.listOf types.str;

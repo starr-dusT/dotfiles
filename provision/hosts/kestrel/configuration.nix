@@ -61,8 +61,8 @@
         };
         virt-manager.enable = true;
       };
+      scripts.enable = true;
     };
-    scripts.enable = true;
     services = {
       syncthing = {
         enable = true;

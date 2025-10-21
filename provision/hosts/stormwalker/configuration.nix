@@ -24,7 +24,7 @@
         gnome.enable = true;
         gnome-remote-desktop.enable = true;
       };
+      scripts.enable = true;
     };
-    scripts.enable = true;
   };
 }

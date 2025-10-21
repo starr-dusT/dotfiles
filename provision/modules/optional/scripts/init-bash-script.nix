@@ -1,28 +1,12 @@
-{ config, lib, pkgs, user, ... }:
+{ config, lib, pkgs, ... }:
 
-let cfg = config.modules.scripts;
-    blk = config.modules.scripts.blacklist;
-    nblkd = ! (builtins.elem "init-bash-script.nix" blk);
+let cfg = config.modules.optional.scripts;
+    blk = config.modules.optional.scripts.blacklist;
+    nblkd = ! (builtins.elem "init-bash-script.sh" blk);
 in {
   config = lib.mkIf cfg.enable {
     environment.systemPackages = lib.mkIf nblkd [
-      (pkgs.writeShellScriptBin "init-bash-script.sh" ''
-        function display_help() {
-            echo "usage: $(basename "$0") <script-name>" 
-            echo "Copy script template to current directory."
-        }
-        
-        while getopts ":hv" opt; do
-            case $opt in
-                h )
-                    display_help
-                    exit 0
-                    ;;
-            esac
-        done
-        
-        cp ~/.local/share/chezmoi/resources/templates/bash.sh "./$1"
-      '')
+      (pkgs.writeShellScriptBin "init-bash-script.sh" (builtins.readFile ./scripts/init-bash-script.sh))
     ];
   };
 }

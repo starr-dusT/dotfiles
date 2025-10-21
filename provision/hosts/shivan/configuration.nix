@@ -26,7 +26,7 @@
       programs = {
         _plus.enable = true;
       };
+      scripts.enable = true;
     };
-    scripts.enable = true;
   };
 }
