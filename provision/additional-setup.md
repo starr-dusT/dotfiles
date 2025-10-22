@@ -9,7 +9,7 @@ The following documents some NixOS setup that wasn't automated.
 
 ## Wireguard Client
 
-Wireguard is nice for a home vpn. NixOS setus up all of the configurations for 
+Wireguard is nice for a home vpn. NixOS sets up all of the configurations for 
 peers automatically on `torus`. Public keys, private keys, and config files are
 generated and stored in `~/.wireguard`. Some machines like `kestrel` setup the 
 vpn automatically within `configuration.nix`. However, others require a small
@@ -29,12 +29,11 @@ nmcli connection import type wireguard file <conf file>
 
 ## Mount network drives
 
-I find fstab messing about more trobule than it is worth. Credentials need to be 
-manually created in `~/.smb`. To mount network drives when needed with the 
-following command:
+I find fstab messing about more trouble than it is worth. Credentials are managed
+with agenix. Mount network drives when needed with the following command:
 
 ```bash
-linux-mount-<network drive name>
+mount-<network drive name>.sh
 ```
 
 ## Git-annex
@@ -43,7 +42,7 @@ I use [git-annex](https://git-annex.branchable.com/walkthrough/) to sync some
 of the large files (mostly roms) that I don't want to have fill copies on each 
 machine. Current git-annex stores I have are:
 
-- `roms` - `~/mnt/engi/media/roms` from `torus`.
+- `roms` from `torus`.
 
 ## Chrome
 
