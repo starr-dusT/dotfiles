@@ -3,6 +3,11 @@ update:
     cd ~/.local/share/chezmoi/provision
     sudo nixos-rebuild switch --impure --flake .#$(hostname)
 
+[working-directory: 'provision']
+format-nix:
+    cd ~/.local/share/chezmoi/provision
+    treefmt .
+
 [working-directory: 'provision/secrets']
 rekey-secrets:
     cd ~/.local/share/chezmoi/provision/secrets

@@ -47,4 +47,3 @@
       IdentityFile /run/agenix/borg/rsync/id_rsa
   '';
 }
-          

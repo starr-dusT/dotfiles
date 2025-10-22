@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchFromGitHub, glib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation {
   pname = "gnome-set-panel-monitor";

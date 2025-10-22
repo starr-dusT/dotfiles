@@ -6,7 +6,7 @@
   # Set networking options
   networking.firewall.checkReversePath = "loose";
   networking.firewall.enable = false;
-  
+
   # Modules
   modules = {
     core = {

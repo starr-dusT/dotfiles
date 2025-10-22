@@ -36,8 +36,8 @@ in
     ];
 
     services.flatpak = {
-        enable = true;
-        update.onActivation = true;
+      enable = true;
+      update.onActivation = true;
     };
 
     services.dbus.enable = true;

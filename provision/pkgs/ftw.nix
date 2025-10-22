@@ -1,6 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, python312Packages }:
+{
+  lib,
+  fetchFromGitHub,
+  python312Packages,
+}:
 
-python312Packages.buildPythonApplication rec {
+python312Packages.buildPythonApplication {
   pname = "ftw";
   version = "0.0.1";
 

@@ -20,6 +20,7 @@ in
       just # Hand way to save and run project-specific commands
       nixd # Feature-rich Nix language server interoperating with C++ nix
       nixfmt # Official formatter for Nix code
+      nixfmt-tree # Official Nix formatter zero-setup starter using treefmt
       lua-language-server # Language server that offers Lua language support
     ];
   };

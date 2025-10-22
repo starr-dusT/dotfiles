@@ -2,7 +2,7 @@
 let
   domain = "rssbridge.tstarr.us";
   dumpFolder = "/engi/backup/dumps/miniflux";
-in 
+in
 {
   systemd.tmpfiles.rules = [
     "d ${dumpFolder} 0775 miniflux miniflux -"
@@ -30,15 +30,15 @@ in
     config = {
       PORT = "8087";
       # Break youtube embeds so they dont show
-      YOUTUBE_EMBED_URL_OVERRIDE="https://";
+      YOUTUBE_EMBED_URL_OVERRIDE = "https://";
     };
     # Set initial admin user/password
     adminCredentialsFile = pkgs.writeText "cred" ''
-                             ADMIN_USERNAME=miniflux
-                             ADMIN_PASSWORD=miniflux
-                           '';
+      ADMIN_USERNAME=miniflux
+      ADMIN_PASSWORD=miniflux
+    '';
   };
-  
+
   services.rss-bridge = {
     enable = true;
     config.system.enabled_bridges = [ "*" ];

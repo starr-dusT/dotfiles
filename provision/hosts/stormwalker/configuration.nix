@@ -1,6 +1,6 @@
 { ... }:
 {
-  imports = [ 
+  imports = [
     ../kestrel/gnome.nix
   ];
 
@@ -11,7 +11,7 @@
   networking.firewall.checkReversePath = "loose";
   networking.firewall.enable = false;
 
-  # Modules 
+  # Modules
   modules = {
     core = {
       physical.enable = true;

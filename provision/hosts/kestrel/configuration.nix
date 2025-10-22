@@ -1,6 +1,6 @@
 { config, ... }:
 {
-  imports = [ 
+  imports = [
     ./backup.nix
     ./gnome.nix
   ];
@@ -21,7 +21,7 @@
     powerManagement.enable = true;
     nvidiaSettings = true;
   };
-  
+
   # Secrets
   age.secrets."wireguard/kestrel".file = ../../secrets/wireguard/kestrel.age;
 
@@ -31,7 +31,7 @@
     source = config.age.secrets."wireguard/kestrel".path;
   };
 
-  # Modules 
+  # Modules
   modules = {
     core = {
       physical.enable = true;
@@ -55,7 +55,7 @@
       };
       programs = {
         _plus.enable = true;
-        docker = { 
+        docker = {
           enable = true;
           storageDriver = "btrfs";
         };
@@ -68,7 +68,9 @@
           keyPath = ../../secrets/syncthing/kestrel/key.pem.age;
           certPath = ../../secrets/syncthing/kestrel/cert.pem.age;
           devices = {
-            "torus" = { id = "ZVABUCA-3SA5QKR-OZSCIS5-RDAHR2V-D4R4NFK-ZBYOKDP-6HQUG2M-BNL3DAO"; };
+            "torus" = {
+              id = "ZVABUCA-3SA5QKR-OZSCIS5-RDAHR2V-D4R4NFK-ZBYOKDP-6HQUG2M-BNL3DAO";
+            };
           };
         };
       };

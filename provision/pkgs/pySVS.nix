@@ -1,6 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "pySVS";
   version = "0.0.1";
 

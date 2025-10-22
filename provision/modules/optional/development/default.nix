@@ -1,8 +1,8 @@
 { ... }:
 {
-  imports = [ 
-    ./engineering.nix 
-    ./notes.nix 
-    ./programming.nix 
+  imports = [
+    ./engineering.nix
+    ./notes.nix
+    ./programming.nix
   ];
 }

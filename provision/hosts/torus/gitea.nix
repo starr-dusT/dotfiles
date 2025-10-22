@@ -1,9 +1,10 @@
-{  pkgs, ... }:
+{ pkgs, ... }:
 let
   stateDir = "/var/lib/gitea";
   dumpFolder = "/engi/backup/dumps/gitea";
   domain = "git.tstarr.us";
-in {
+in
+{
 
   # Main gitea service
   systemd.tmpfiles.rules = [
@@ -23,14 +24,14 @@ in {
     enable = true;
     lfs.enable = true;
     stateDir = "${stateDir}";
-    customDir = "${stateDir}/custom"; 
+    customDir = "${stateDir}/custom";
     settings.server = {
       DOMAIN = "${domain}";
       HTTP_PORT = 3001;
       ROOT_URL = "https://${domain}";
     };
     settings.service = {
-        DISABLE_REGISTRATION = true;
+      DISABLE_REGISTRATION = true;
     };
   };
 
@@ -40,7 +41,7 @@ in {
     isSystemUser = true;
     group = "gitea-runner";
   };
-  users.groups.gitea-runner = {};
+  users.groups.gitea-runner = { };
 
   age.secrets."git/gitea-runner-1" = {
     file = ../../secrets/git/gitea-runner-1.age;

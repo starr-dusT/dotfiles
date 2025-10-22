@@ -1,6 +1,6 @@
-{  pkgs, ... }:
+{ pkgs, ... }:
 {
-  imports = [ 
+  imports = [
     ./cloudflared.nix
     ./wireguard-server.nix
     ./samba-server.nix
@@ -36,7 +36,7 @@
     optional = {
       programs = {
         _plus.enable = true;
-        docker = { 
+        docker = {
           enable = true;
           storageDriver = "btrfs";
         };
@@ -51,7 +51,9 @@
           keyPath = ../../secrets/syncthing/torus/key.pem.age;
           certPath = ../../secrets/syncthing/torus/cert.pem.age;
           devices = {
-            "kestrel" = { id = "5WWL4FE-ARZ4FHP-J33HQCH-CZKEXLN-2RAY4KW-PDI754F-3HVPZYI-VC3ESAF"; };
+            "kestrel" = {
+              id = "5WWL4FE-ARZ4FHP-J33HQCH-CZKEXLN-2RAY4KW-PDI754F-3HVPZYI-VC3ESAF";
+            };
           };
         };
       };
