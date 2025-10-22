@@ -1,4 +1,4 @@
-{ config, lib, pkgs, user, ... }:
+{ user, ... }:
 {
   services.jellyfin.enable = true;
   services.jellyfin.openFirewall = true;

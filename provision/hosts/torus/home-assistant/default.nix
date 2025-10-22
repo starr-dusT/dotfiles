@@ -1,4 +1,4 @@
-{ config, lib, pkgs, user, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./mqtt.nix

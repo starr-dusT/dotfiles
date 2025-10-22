@@ -1,4 +1,4 @@
-{ config, lib, pkgs, user, home-manager, ... }:
+{ pkgs, user, ... }:
 {
   environment.systemPackages = with pkgs; [
     gnomeExtensions.executor # Execute shell commands display output top bar

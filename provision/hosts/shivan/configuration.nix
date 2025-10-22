@@ -1,4 +1,4 @@
-{ config, pkgs, user, lib, hostname, ... }:
+{ ... }:
 {
   # Use performance governor for sweet gaming performance!
   powerManagement.cpuFreqGovernor = "performance";

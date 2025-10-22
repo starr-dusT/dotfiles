@@ -1,4 +1,4 @@
-{ config, pkgs, user, lib, ... }:
+{ config, user, ... }:
 {
   age.secrets."ssh/torus/id_ed25519.pub" = {
     file = ../../secrets/ssh/torus/id_ed25519.pub.age;

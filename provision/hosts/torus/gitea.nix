@@ -1,4 +1,4 @@
-{ config, lib, pkgs, user, ... }:
+{  pkgs, ... }:
 let
   stateDir = "/var/lib/gitea";
   dumpFolder = "/engi/backup/dumps/gitea";

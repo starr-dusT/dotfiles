@@ -1,4 +1,4 @@
-{ config, lib, pkgs, user, ... }:
+{ config, ... }:
 {
   age.secrets."cloudflared/tstarr.json" = {
     file = ../../secrets/cloudflared/tstarr.json.age;

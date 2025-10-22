@@ -1,4 +1,4 @@
-{ config, lib, pkgs, user, ... }:
+{ pkgs, ... }:
 let
   domain = "rssbridge.tstarr.us";
   dumpFolder = "/engi/backup/dumps/miniflux";

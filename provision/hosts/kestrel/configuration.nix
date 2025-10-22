@@ -1,4 +1,4 @@
-{ config, pkgs, user, lib, hostname, ... }:
+{ config, ... }:
 {
   imports = [ 
     ./backup.nix
