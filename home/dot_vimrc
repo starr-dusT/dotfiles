@@ -172,15 +172,3 @@ endfunction
 function! Grep(...)
 	return system(join([&grepprg] + [expand(join(a:000, ' '))], ' '))
 endfunction
-
-" Check if file is valid and exists
-" ChatGippity 
-"
-function! IsValidFilename(filename)
-  let expanded_filename = expand(a:filename)
-  if !empty(expanded_filename) && filereadable(expanded_filename)
-    return 1
-  else
-    return 0
-  endif
-endfunction
