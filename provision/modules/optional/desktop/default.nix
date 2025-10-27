@@ -17,7 +17,7 @@ in
     ./keyd.nix
     ./peripherals.nix
     ./samba-client.nix
-    ./scripts.nix
+    ./scripts
   ];
 
   options.modules.optional.desktop.enable = lib.mkEnableOption "desktop";
