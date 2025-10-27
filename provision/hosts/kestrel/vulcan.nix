@@ -5,9 +5,9 @@
       #!/bin/sh
       REPO_PATH="$HOME/Documents/vault/vulcan"
       MESSAGE="Automated commit: $(date '+%Y-%m-%d %H:%M:%S')"
-      
+
       cd "$REPO_PATH" || exit 1
-      
+
       if ! git diff --quiet --exit-code; then
           git add -A . # Stage all changes
           git commit -m "$MESSAGE"
