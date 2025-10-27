@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.modules.optional.scripts;
   blk = config.modules.optional.scripts.blacklist;
@@ -18,10 +23,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = lib.mkIf init-bash-script [
-      (pkgs.writeShellScriptBin "init-bash-script.sh" (builtins.readFile ./scripts/init-bash-script.sh))
-    ] ++ lib.mkIf mount-engi [ 
-      (pkgs.writeShellScriptBin "mount-engi.sh" (builtins.readFile ./scripts/mount-engi.sh))
-    ];
+    environment.systemPackages =
+      lib.mkIf init-bash-script [
+        (pkgs.writeShellScriptBin "init-bash-script.sh" (builtins.readFile ./init-bash-script.sh))
+      ]
+      // lib.mkIf mount-engi [
+        (pkgs.writeShellScriptBin "mount-engi.sh" (builtins.readFile ./mount-engi.sh))
+      ];
   };
 }
