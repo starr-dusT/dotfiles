@@ -3,6 +3,7 @@
   imports = [
     ./backup.nix
     ./gnome.nix
+    ./vulcan.nix
   ];
 
   # Use performance governor for sweet gaming performance!
