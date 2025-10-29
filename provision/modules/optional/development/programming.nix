@@ -22,6 +22,10 @@ in
       nixfmt # Official formatter for Nix code
       nixfmt-tree # Official Nix formatter zero-setup starter using treefmt
       lua-language-server # Language server that offers Lua language support
+      devenv # Fast, Declarative, Reproducible, and Composable Developer Environments
     ];
+
+    # Needed for devenv
+    nix.settings.trusted-users = [ "root" "tstarr" ];
   };
 }
