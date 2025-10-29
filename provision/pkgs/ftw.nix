@@ -11,8 +11,8 @@ python312Packages.buildPythonApplication {
   src = fetchFromGitHub {
     owner = "starr-dusT";
     repo = "ftw";
-    rev = "d691e77050d9d83e437846640825cdf283ab3de3";
-    sha256 = "sha256-GFMQItNXPAiCOXNt+h9nWwbM9BXVB2V4OcIGZq7sDKA=";
+    rev = "125419007f66d9528c6278873cc28840c754b6ee";
+    sha256 = "sha256-Z2dsSgIKOr1l8vWN5gI9ZsEdTnnQVH6cG8X32TYekSU=";
   };
 
   format = "pyproject";

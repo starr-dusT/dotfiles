@@ -3,6 +3,7 @@
   lib,
   pkgs,
   user,
+  hostname,
   ...
 }:
 
@@ -241,7 +242,8 @@ in
               enable-animations = false;
             };
             "org/gnome/desktop/background" = {
-              picture-options = "zoom";
+              picture-uri = "file:///home/${user}/.local/share/chezmoi/resources/img/wallpapers/${hostname}.png";
+              picture-uri-dark = "file:///home/${user}/.local/share/chezmoi/resources/img/wallpapers/${hostname}.png";
             };
             "org/gnome/shell" = {
               favorite-apps = [

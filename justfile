@@ -12,3 +12,8 @@ format-nix:
 rekey-secrets:
     cd ~/.local/share/chezmoi/provision/secrets
     sudo agenix -r -i /etc/ssh/ssh_host_ed25519_key
+
+[working-directory: 'resources']
+ftw-wallpapers:
+    cd ~/.local/share/chezmoi/resources
+    ftw ./img/wallpapers "#282828"
