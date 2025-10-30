@@ -30,8 +30,8 @@
       services = {                                                                                                                       
         syncthing = {                                                                                                                    
           enable = true;                                                                                                                 
-          keyPath = ../../secrets/syncthing/kestrel/key.pem.age;                                                                         
-          certPath = ../../secrets/syncthing/kestrel/cert.pem.age;                                                                       
+          keyPath = ../../secrets/syncthing/stormwalker/key.pem.age;                                                                         
+          certPath = ../../secrets/syncthing/stormwalker/cert.pem.age;                                                                       
           devices = {                                                                                                                    
             "kestrel" = {
               id = "5WWL4FE-ARZ4FHP-J33HQCH-CZKEXLN-2RAY4KW-PDI754F-3HVPZYI-VC3ESAF";
