@@ -23,6 +23,9 @@
         gnome.enable = true;
         gnome-remote-desktop.enable = true;
       };
+      development = {
+        notes.enable = true;
+      };
       programs = {
         _plus.enable = true;
       };
