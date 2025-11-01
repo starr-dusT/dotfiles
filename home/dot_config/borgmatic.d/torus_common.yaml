@@ -1,7 +1,7 @@
 repositories:
   - path: /media/clone/store/torus.borg
     label: drive 
-  - path: ssh://fm2120@fm2120.rsync.net//data2/home/fm2120/store/torus.borg
+  - path: ssh://fm2120@fm2120.rsync.net//data1/home/fm2120/store/torus.borg
     label: rsync
 
 <<: !include common.yaml
