@@ -1,16 +1,13 @@
 source_directories:
-    - "/home/tstarr"
+    - "/home/tstarr/Documents/fun"
+    - "/home/tstarr/Documents/life"
+    - "/home/tstarr/Documents/vault"
+    - "/home/tstarr/Documents/work"
+    - "/home/tstarr/Media/pictures"
+    - "/home/tstarr/Screenshots"
+    - "/home/tstarr/Sync"
 
-exclude_patterns:
-    - "/home/tstarr/.?*"
-    - "/home/tstarr/mnt"
-    - "/home/tstarr/tmp"
-    - "/home/tstarr/sync"
-    - "/home/tstarr/media/roms"
-    - "/home/tstarr/box"
-    - "/home/tstarr/Downloads"
-    - "/home/tstarr/devel/gitea"
-    - "/home/tstarr/devel/archive"
+#exclude_patterns:
 
 archive_name_format: 'kestrel_bulk.borg-{now}'
 
