@@ -21,6 +21,7 @@ in
   "ssh/torus/id_ed25519.age".publicKeys = systems;
   "ssh/torus/id_ed25519.pub.age".publicKeys = systems;
   "borg/torus/password.age".publicKeys = systems;
+  "borg/torus/discord_webhook.age".publicKeys = systems;
   "borg/rsync/id_rsa.age".publicKeys = systems;
   "borg/rsync/id_rsa.pub.age".publicKeys = systems;
   "syncthing/kestrel/key.pem.age".publicKeys = systems;

@@ -20,6 +20,11 @@
     owner = "${user}";
     group = "users";
   };
+  age.secrets."borg/torus/discord_webhook" = {
+    file = ../../secrets/borg/torus/discord_webhook.age;
+    owner = "${user}";
+    group = "users";
+  };
   age.secrets."borg/rsync/id_rsa" = {
     file = ../../secrets/borg/rsync/id_rsa.age;
     owner = "${user}";

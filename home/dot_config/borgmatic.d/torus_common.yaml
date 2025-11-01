@@ -4,4 +4,18 @@ repositories:
   - path: ssh://fm2120@fm2120.rsync.net//data1/home/fm2120/store/torus.borg
     label: rsync
 
+commands:
+    - before: everything
+      when: [create]
+      run:
+          - torus-borg-notify "A back-up has started..." 
+    - after: everything
+      when: [create]
+      states: [finish]
+      run:
+          - torus-borg-notify "A back-up has finished..." 
+    - after: error
+      run:
+          - torus-borg-notify "Back-up has failed!" 
+
 <<: !include common.yaml

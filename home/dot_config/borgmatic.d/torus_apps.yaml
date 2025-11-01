@@ -6,11 +6,11 @@ exclude_patterns:
     - '/engi/apps/openvscode-server/workspace'
 
 commands:
-    - before: action
+    - before: everything
       when: [create]
       run:
           - stop-docker-containers
-    - after: action
+    - after: everything
       when: [create]
       run: 
           - restore-docker-containers
