@@ -3,7 +3,7 @@ source_directories:
     - /home/tstarr/Sync # Syncthing backups
 
 commands:
-    - before:
+    - before: action
       when: [create]
       run:
           - "tree /engi > /engi/backup/tree.txt"
