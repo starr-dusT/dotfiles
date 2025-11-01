@@ -2,11 +2,8 @@ source_directories:
     - /engi/apps
     
 exclude_patterns:
-    - '**/code-server/config/**'
-    - '**/code-server/workspace/**'
-    - '**/immich/library/**'
-    - '**/immich/postgres/**'
-    - '**/dufs/**'
+    - '/engi/apps/archive'
+    - '/engi/apps/openvscode-server/workspace'
 
 before_backup:
   - stop-docker-containers

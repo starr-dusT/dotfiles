@@ -1,6 +1,6 @@
 source_directories:
     - /engi/backup # Static files and service dumps
-    - /home/tstarr/sync # Syncthing backups
+    - /home/tstarr/Sync # Syncthing backups
     
 before_backup:
   - "tree /engi > /engi/backup/tree.txt"
