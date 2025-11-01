@@ -5,11 +5,16 @@ exclude_patterns:
     - '/engi/apps/archive'
     - '/engi/apps/openvscode-server/workspace'
 
-before_backup:
-  - stop-docker-containers
+commands:
+    - before:
+      when: [create]
+      run:
+          - stop-docker-containers
 
-after_backup:
-  - restore-docker-containers
+    - after:
+      when: [create]
+      run: 
+          - restore-docker-containers
 
 archive_name_format: 'torus_apps.borg-{now}'
 
