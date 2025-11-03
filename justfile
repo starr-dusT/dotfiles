@@ -1,4 +1,9 @@
 [working-directory: 'provision']
+install hostname:
+    cd ~/.local/share/chezmoi/provision
+    sudo nixos-rebuild switch --impure --flake .#{{hostname}}
+
+[working-directory: 'provision']
 update:
     cd ~/.local/share/chezmoi/provision
     sudo nixos-rebuild switch --impure --flake .#$(hostname)
