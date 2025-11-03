@@ -39,8 +39,7 @@
             hostname = "${hostname}";
           };
           modules = [
-            ./hosts/${hostname}/configuration.nix
-            ./hosts/${hostname}/hardware.nix
+            ./hosts/${hostConfig.role}/configuration.nix
             ./modules
             agenix.nixosModules.default
             nix-flatpak.nixosModules.nix-flatpak
@@ -52,6 +51,14 @@
                 user = hostConfig.user;
               };
             }
+          ]
+          ++ [
+            (
+              if builtins.pathExists ./hosts/${hostConfig.role}/hardware.nix then
+                ./hosts/${hostConfig.role}/hardware.nix
+              else
+                /etc/nixos/hardware-configuration.nix
+            )
           ];
         }
       ) hosts;
