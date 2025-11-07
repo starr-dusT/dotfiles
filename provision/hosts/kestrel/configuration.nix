@@ -60,6 +60,10 @@
           enable = true;
           storageDriver = "btrfs";
         };
+        k3s = {
+          enable = true;
+          role = "server";
+        };
         virt-manager.enable = true;
       };
       scripts.enable = true;
