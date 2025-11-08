@@ -1,5 +1,9 @@
 { pkgs, ... }:
 {
+  imports = [
+    ./networking.nix
+  ];
+
   # Use normal kernel
   boot.kernelPackages = pkgs.linuxPackages;
 
@@ -11,6 +15,11 @@
   modules = {
     core = {
       physical.enable = true;
+    };
+    optional = {
+      development = {
+        programming.enable = true;
+      };
     };
   };
 }

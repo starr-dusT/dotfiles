@@ -37,9 +37,9 @@ in
     services.k3s = {
       enable = true;
       role = "${cfg.role}";
-      tokenFile = "/run/agenix/kube/token"; 
+      tokenFile = "/run/agenix/kube/token";
       clusterInit = if "${cfg.role}" == "server" then true else false;
-      serverAddr = if "${cfg.role}" == "agent" then "https://tetragon:6443" else ""; 
+      serverAddr = if "${cfg.role}" == "agent" then "https://tetragon:6443" else "";
     };
   };
 }

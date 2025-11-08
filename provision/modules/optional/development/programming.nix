@@ -26,6 +26,9 @@ in
     ];
 
     # Needed for devenv
-    nix.settings.trusted-users = [ "root" "tstarr" ];
+    nix.settings.trusted-users = [
+      "root"
+      "tstarr"
+    ];
   };
 }
