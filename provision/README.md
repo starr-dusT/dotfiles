@@ -7,9 +7,9 @@ Set of configs files to provision NixOS.
 
 1. Download current minimal ISO from [NixOS website](https://nixos.org/download/) and boot from usb or boot into the NixOS installer from [tetragon's](./hosts/tetragon) PXE boot server.
 
-2. Partition drives and perform initial installation with minimal changes to `/etc/nixos/configuration.nix`. See the [Nixos Installation Guide](https://nixos.wiki/wiki/NixOS_Installation_Guide) for guidance, as well as [BTRFS Wiki](https://nixos.wiki/wiki/Btrfs) for suggestions on a BTRFS partition layout and install commands. Minimal changes to the initial `configuration.nix` include:
+2. Partition drives and perform initial installation with minimal changes to `/mnt/etc/nixos/configuration.nix`. See the [Nixos Installation Guide](https://nixos.wiki/wiki/NixOS_Installation_Guide) for guidance, as well as [BTRFS Wiki](https://nixos.wiki/wiki/Btrfs) for suggestions on a BTRFS partition layout and install commands. Minimal changes to the initial `configuration.nix` include:
    
-   - Adding desired user and setting `passwd`.
+   - Adding desired user and setting `passwd` after intial reboot.
    - Enabling SSH to produce keys needed for step 5.
 
 4. Boot into installed system.
