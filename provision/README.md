@@ -8,8 +8,9 @@ Set of configs files to provision NixOS.
 1. Download current minimal ISO from [NixOS website](https://nixos.org/download/) and boot from usb or boot into the NixOS installer from [tetragon's](./hosts/tetragon) PXE boot server.
 
 2. Partition drives and perform initial installation with minimal changes to `/etc/nixos/configuration.nix`. See the [Nixos Installation Guide](https://nixos.wiki/wiki/NixOS_Installation_Guide) for guidance, as well as [BTRFS Wiki](https://nixos.wiki/wiki/Btrfs) for suggestions on a BTRFS partition layout and install commands. Minimal changes to the initial `configuration.nix` include:
-   a. Adding desired user and setting `passwd`.
-   b. Enabling SSH to produce keys needed for step 5.
+   
+   - Adding desired user and setting `passwd`.
+   - Enabling SSH to produce keys needed for step 5.
 
 4. Boot into installed system.
 
@@ -34,8 +35,7 @@ chezmoi init && chezmoi apply
 
 7. Change remote for dotfiles to ssh with: `git remote set-url origin git@github.com:starr-dusT/dotfiles.git`.
 8. Reboot and Profit!
-
-Perform additional setup found in [ADDITIONAL SETUP](ADDITIONAL-SETUP.md).
+9. Perform additional setup found in [ADDITIONAL SETUP](ADDITIONAL-SETUP.md) as needed.
 
 ## Update
 
