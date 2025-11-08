@@ -13,7 +13,7 @@ Set of configs files to provision NixOS.
 
 4. Boot into installed system.
 
-5. Add new machine's `/etc/ssh/ssh_host_ed25519.pub` to `secrets.nix` and rekey the secrets on an existing machine.
+5. Add new machine's `/etc/ssh/ssh_host_ed25519.pub` to `secrets.nix` and rekey the secrets on an existing machine with `just rekey-secrets`.
 
 6. Clone dotfiles:
 
@@ -22,7 +22,7 @@ nix-shell -p vim git neovim just
 git clone https://github.com/starr-dusT/dotfiles ~/.local/share/chezmoi 
 ```
 
-7. Move the installer created `configuration-hardware.nix` to dotfiles (e.g. `provision/hosts/<host>/hardware.nix`).
+7. Move the installer created `configuration-hardware.nix` to dotfiles (e.g. `provision/hosts/<host>/hardware.nix`) if desired. `flake.nix` will load `/etc/nixos/hardware-configuration.nix` if that file does not exist.
 
 6. Rebuild the system and initialize chezmoi dotfiles to save America:
 
@@ -32,7 +32,8 @@ chezmoi init && chezmoi apply
 ```
 *Note:* if the `chezmoi.apply` option is enabled in `configuration.nix` the dotfiles should deploy automatically. The chezmoi commands then are not necessary.
 
-7. Profit!
+7. Change remote for dotfiles to ssh with: `git remote set-url origin git@github.com:starr-dusT/dotfiles.git`.
+8. Reboot and Profit!
 
 Perform additional setup found in [ADDITIONAL SETUP](ADDITIONAL-SETUP.md).
 
