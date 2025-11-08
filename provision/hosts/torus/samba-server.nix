@@ -9,8 +9,8 @@
         "netbios name" = "smbnix";
         "security" = "user";
         "hosts allow" = [
-          "192.168.3."
-          "192.168.1."
+          "69.69.1."
+          "69.69.2."
           "127.0.0.1"
           "localhost"
         ];
