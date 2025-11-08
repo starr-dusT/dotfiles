@@ -46,14 +46,22 @@
 
       dhcp-range = [ "enp1s0f0,69.69.1.50,69.69.1.254,24h" ];
       interface = "enp1s0f0";
-      dhcp-host = [ "69.69.1.10" "E8:38:A0:27:67:D5,69.69.1.87" ];
+      dhcp-host = [
+        "69.69.1.10"
+        "E8:38:A0:27:67:D5,69.69.1.87"
+        "4C:CC:6A:49:7D:DB,69.69.1.155"
+      ];
 
       local = "/lan/";
       domain = "lan";
       expand-hosts = true;
 
       no-hosts = true;
-      address = [ "/tetragon.lan/69.69.1.10" "/tv.lan/69.69.1.87" ];
+      address = [
+        "/tetragon.lan/69.69.1.10"
+        "/tv.lan/69.69.1.87"
+        "/torus.lan/69.69.1.155"
+      ];
       dhcp-option = [ "option:router,69.69.1.1" ];
     };
   };
