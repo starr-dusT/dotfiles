@@ -2,7 +2,6 @@
 {
   imports = [
     ./cloudflared.nix
-    ./wireguard-server.nix
     ./samba-server.nix
     ./rss.nix
     ./home-assistant

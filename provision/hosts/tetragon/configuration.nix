@@ -2,6 +2,7 @@
 {
   imports = [
     ./networking.nix
+    ./wireguard-server.nix
   ];
 
   # Use normal kernel
