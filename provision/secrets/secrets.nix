@@ -6,6 +6,7 @@ let
   torus = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN71z5g6QyCn5Go0Wm+NOSF4f22xOOCvtIA3IM4KzSpG";
   vortex-1 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHfi08D2wP+j+VCoivH5ji+ZUXcBnsevsLFMZnPoi8mf";
   vortex-2 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP37A1dzBXciv+MoB4vCrSerSHg5FX8Kp0yhJ0tE0azT";
+  vortex-3 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHMzPDBm5oJs0Sc+hUMzbOvTnHPhjo2e0fsb7NAsG9L+";
   systems = [
     kestrel
     shivan
@@ -14,6 +15,7 @@ let
     torus
     vortex-1
     vortex-2
+    vortex-3
   ];
 in
 {
