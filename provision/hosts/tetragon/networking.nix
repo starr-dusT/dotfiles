@@ -61,6 +61,7 @@
         "/tetragon.lan/69.69.1.10"
         "/tv.lan/69.69.1.87"
         "/torus.lan/69.69.1.155"
+        "/router.lan/69.69.1.1"
       ];
       dhcp-option = [ "option:router,69.69.1.1" ];
     };
