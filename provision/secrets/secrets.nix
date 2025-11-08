@@ -4,12 +4,14 @@ let
   stormwalker = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHvAGrh01zvH8dbj8NdrNxkRcQ/pRt27WjK6uHNNoG4n";
   tetragon = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKAUEk/LRycmNstE6RhC7I7Ca8AgbK973ReVvGvcZwQP";
   torus = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN71z5g6QyCn5Go0Wm+NOSF4f22xOOCvtIA3IM4KzSpG";
+  vortex-1 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHfi08D2wP+j+VCoivH5ji+ZUXcBnsevsLFMZnPoi8mf";
   systems = [
     kestrel
     shivan
     stormwalker
     tetragon
     torus
+    vortex-1
   ];
 in
 {
