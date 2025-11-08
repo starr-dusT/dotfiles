@@ -1,17 +1,38 @@
 {
   "kestrel": {
-    "user": "tstarr"
-  },
-  "shivan": {
-    "user": "tstarr"
-  },
-  "torus": {
-    "user": "tstarr"
-  },
-  "stormwalker": {
+    "role": "kestrel",
     "user": "tstarr"
   },
   "nesario": {
+    "role": "nesario",
     "user": "starr"
+  },
+  "shivan": {
+    "role": "shivan",
+    "user": "tstarr"
+  },
+  "stormwalker": {
+    "role": "stormwalker",
+    "user": "tstarr"
+  },
+  "tetragon": {
+    "role": "tetragon",
+    "user": "tstarr"
+  },
+  "torus": {
+    "role": "torus",
+    "user": "tstarr"
+  },
+  "vortex-1": {
+    "role": "vortex",
+    "user": "tstarr"
+  },
+  "vortex-2": {
+    "role": "vortex",
+    "user": "tstarr"
+  },
+  "vortex-3": {
+    "role": "vortex",
+    "user": "tstarr"
   }
 }

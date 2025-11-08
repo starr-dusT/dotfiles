@@ -10,18 +10,8 @@
     owner = "${user}";
     group = "users";
   };
-  age.secrets."ssh/kestrel/id_ed25519.pub" = {
-    file = ../../secrets/ssh/kestrel/id_ed25519.pub.age;
-    owner = "${user}";
-    group = "users";
-  };
   age.secrets."borg/rsync/id_rsa" = {
     file = ../../secrets/borg/rsync/id_rsa.age;
-    owner = "${user}";
-    group = "users";
-  };
-  age.secrets."borg/rsync/id_rsa.pub" = {
-    file = ../../secrets/borg/rsync/id_rsa.pub.age;
     owner = "${user}";
     group = "users";
   };

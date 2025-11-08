@@ -1,4 +1,5 @@
 # NixOS
+> Document deez nuts.
 
 Set of configs files to provision NixOS.
 
@@ -24,15 +25,15 @@ git clone https://github.com/starr-dusT/dotfiles ~/.local/share/chezmoi
 6. Rebuild the system and initialize chezmoi dotfiles to save America:
 
 ```bash
-sudo nixos-rebuild switch --impure --flake .#<host>
+just install <hostname>
 chezmoi init && chezmoi apply
 ```
 *Note:* if the `chezmoi.apply` option is enabled in `configuration.nix` the dotfiles should deploy automatically. The chezmoi commands then are not necessary.
 
 7. Profit!
 
-Perform additional setup found in [additional-setup](additional-setup.md)
+Perform additional setup found in [ADDITIONAL SETUP](ADDITIONAL-SETUP.md).
 
 ## Update
 
-`nixos-rebuild` command is built into the `justfile` with this folder, assuming the machine's flake output is named the same at the `hostname` of the machin.
+`nixos-rebuild` command is built into the `justfile` with this folder, assuming the machine's flake output is named the same at the `hostname` of the machine.
