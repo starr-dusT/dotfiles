@@ -55,7 +55,6 @@
       local = "/lan/";
       domain = "lan";
       expand-hosts = true;
-
       no-hosts = true;
       address = [
         "/tetragon.lan/69.69.1.10"
@@ -64,6 +63,11 @@
         "/router.lan/69.69.1.1"
       ];
       dhcp-option = [ "option:router,69.69.1.1" ];
+
+
+      dhcp-match="set:efi64,60,PXEClient:Arch:00007";
+      dhcp-boot="tag:efi64,netboot.xyz.efi,,69.69.1.10";
     };
   };
 }
+

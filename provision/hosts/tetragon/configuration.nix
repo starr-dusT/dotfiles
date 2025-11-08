@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
+    ./netboot.nix
     ./networking.nix
     ./wireguard-server.nix
   ];
