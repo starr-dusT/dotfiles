@@ -5,9 +5,11 @@ Set of configs files to provision NixOS.
 
 ## Install
 
-1. Download current Gnome ISO from [NixOS website](https://nixos.org/download/).
+1. Download current minimal ISO from [NixOS website](https://nixos.org/download/) and boot from usb or boot into the NixOS installer from [tetragon's](./hosts/tetragon) PXE boot server.
 
-2. Partition drives and perform initial installation with minimal changes to `/etc/nixos/configuration.nix`. See [this](https://nixos.wiki/wiki/Btrfs) for a suggestions on a BTRFS partition layout and install commands. 
+2. Partition drives and perform initial installation with minimal changes to `/etc/nixos/configuration.nix`. See the [Nixos Installation Guide](https://nixos.wiki/wiki/NixOS_Installation_Guide) for guidance, as well as [BTRFS Wiki](https://nixos.wiki/wiki/Btrfs) for suggestions on a BTRFS partition layout and install commands. Minimal changes to the initial `configuration.nix` include:
+   a. Adding desired user and setting `passwd`.
+   b. Enabling SSH to produce keys needed for step 5.
 
 4. Boot into installed system.
 
@@ -16,10 +18,10 @@ Set of configs files to provision NixOS.
 6. Clone dotfiles:
 
 ```bash
-nix-shell -p vim git neovim
+nix-shell -p vim git neovim just
 git clone https://github.com/starr-dusT/dotfiles ~/.local/share/chezmoi 
 ```
-   
+
 7. Move the installer created `configuration-hardware.nix` to dotfiles (e.g. `provision/hosts/<host>/hardware.nix`).
 
 6. Rebuild the system and initialize chezmoi dotfiles to save America:
