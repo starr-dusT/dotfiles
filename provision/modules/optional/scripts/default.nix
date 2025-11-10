@@ -9,6 +9,7 @@ let
   blk = config.modules.optional.scripts.blacklist;
   init-bash-script = !(builtins.elem "init-bash-script.sh" blk);
   mount-engi = !(builtins.elem "mount-engi.sh" blk);
+  update-remotes = !(builtins.elem "update-remotes.sh" blk);
 in
 {
   options.modules.optional.scripts = with lib; {
@@ -29,6 +30,9 @@ in
       ]
       // lib.mkIf mount-engi [
         (pkgs.writeShellScriptBin "mount-engi.sh" (builtins.readFile ./mount-engi.sh))
+      ]
+      // lib.mkIf update-remotes [
+        (pkgs.writeShellScriptBin "update-remotes.sh" (builtins.readFile ./update-remotes.sh))
       ];
   };
 }
