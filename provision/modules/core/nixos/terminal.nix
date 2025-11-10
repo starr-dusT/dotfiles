@@ -6,7 +6,6 @@
     tmux # Terminal multiplexer, allowing multiple terminal sessions within a single window
     killall # Command-line utility to terminate processes by name
     pciutils # Utilities for inspecting and manipulating devices connected to the PCI bus
-    pinentry-curses # Simple curses-based passphrase entry dialog for GnuPG
     unzip # Command-line utility for extracting files from ZIP archives
     vim # Text editor that is highly configurable and widely used, especially in the Unix environment
     sesh # Smart session manager for the terminal
