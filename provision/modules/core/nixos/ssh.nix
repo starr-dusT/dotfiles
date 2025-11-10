@@ -6,6 +6,6 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
-    pinentryPackage = lib.mkForce pkgs.pinentry-tty;
+    pinentryPackage = lib.mkForce pkgs.pinentry-gnome3;
   };
 }
