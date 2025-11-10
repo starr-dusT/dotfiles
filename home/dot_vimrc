@@ -71,7 +71,8 @@ augroup netrw_setup | au!
     au FileType netrw nmap <buffer> h -
 augroup END
 
-map <leader>e :Ex <cr> " open explorer
+map <leader>e :NnnPicker<cr> 
+map <leader>E :NnnExplorer<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " marks

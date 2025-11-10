@@ -16,6 +16,10 @@ local plugins = {
     "ellisonleao/gruvbox.nvim",
     "norcalli/nvim-colorizer.lua",
     require("tstarr.lsp-config"),
+    {
+        "luukvbaal/nnn.nvim",
+        config = function() require("nnn").setup() end
+    },
 }
 
 local opts = {}
