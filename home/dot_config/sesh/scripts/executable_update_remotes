@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+remotes=(#"kestrel"
+         "nesario"
+         "shivan"
+         "stormwalker"
+         "tetragon"
+         "torus"
+         "vortex-1"
+         "vortex-2"
+         "vortex-3")
+
+host="kestrel"
+tmux rename-window "${host}"
+tmux send-keys -t update-remotes:kestrel "ssh tstarr@${host} -t \"bash -c 'cd ~/.local/share/chezmoi && git pull origin master && just'\""
+
+for host in "${remotes[@]}"; do
+    tmux new-window -n "${host}"
+    tmux send-keys -t update-remotes:${host} "ssh tstarr@${host} -t \"bash -c 'cd ~/.local/share/chezmoi && git pull origin master && just'\""
+done
+
+tmux select-window -t 1

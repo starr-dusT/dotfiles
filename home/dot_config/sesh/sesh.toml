@@ -1,6 +1,11 @@
 import = []
 
 [[session]]
-name = "edit dots"
+name = "edit-dots"
 path = "~/.local/share/chezmoi"
 startup_command = "~/.config/sesh/scripts/two_window_editor"
+
+[[session]]
+name = "update-remotes"
+path = "~/"
+startup_command = "~/.config/sesh/scripts/update_remotes"
