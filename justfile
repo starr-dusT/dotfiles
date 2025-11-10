@@ -4,6 +4,12 @@ update:
     sudo nixos-rebuild switch --impure --flake .#$(hostname)
 
 [working-directory: 'provision']
+pull-update:
+    git pull origin master
+    cd ~/.local/share/chezmoi/provision
+    sudo nixos-rebuild switch --impure --flake .#$(hostname)
+
+[working-directory: 'provision']
 install hostname:
     cd ~/.local/share/chezmoi/provision
     sudo nixos-rebuild switch --impure --flake .#{{hostname}}
