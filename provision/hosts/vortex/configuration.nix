@@ -14,8 +14,10 @@
     };
     optional = {
       development = {
-        k3s.enable = true;
         programming.enable = true;
+      };
+      programs = {
+        k3s.enable = true;
       };
     };
   };
