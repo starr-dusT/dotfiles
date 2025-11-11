@@ -19,7 +19,7 @@ in
 
   config = lib.mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [
-      6433
+      6443
       2379
       2380
     ];
