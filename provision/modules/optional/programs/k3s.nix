@@ -2,6 +2,7 @@
   config,
   lib,
   user,
+  hostname,
   ...
 }:
 
@@ -13,10 +14,6 @@ in
     enable = lib.mkOption {
       type = types.bool;
       default = false;
-    };
-    role = mkOption {
-      type = types.nullOr types.str;
-      default = null;
     };
   };
 
@@ -36,10 +33,10 @@ in
 
     services.k3s = {
       enable = true;
-      role = "${cfg.role}";
+      role = if "${hostname}" == "vortex-1" then "server" else "agent";
       tokenFile = "/run/agenix/kube/token";
-      clusterInit = if "${cfg.role}" == "server" then true else false;
-      serverAddr = if "${cfg.role}" == "agent" then "https://tetragon:6443" else "";
+      clusterInit = if "${hostname}" == "vortex-1" then true else false;
+      serverAddr = if "${hostname}" != "vortex-1" then "https://vortex-1:6443" else "";
     };
   };
 }

@@ -12,5 +12,13 @@
     core = {
       physical.enable = true;
     };
+    optional = {
+      development = {
+        k3s.enable = true;
+      };
+      programs = {
+        programming.enable = true;
+      };
+    };
   };
 }
