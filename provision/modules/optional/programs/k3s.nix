@@ -25,6 +25,15 @@ in
     ];
     networking.firewall.allowedUDPPorts = [ 8472 ];
 
+    services.openiscsi = {
+      enable = true;
+      name = "${hostname}-initiatorhost";
+    };
+    systemd.services.iscsid.serviceConfig = {
+      PrivateMounts = "yes";
+      BindPaths = "/run/current-system/sw/bin:/bin";
+    };
+
     age.secrets."kube/token" = {
       file = ../../../secrets/kube/token.age;
       owner = "${user}";
@@ -33,10 +42,10 @@ in
 
     services.k3s = {
       enable = true;
-      role = if "${hostname}" == "vortex-1" then "server" else "agent";
+      role = if (lib.strings.hasInfix "vortex" "${hostname}")  then "server" else "agent";
       tokenFile = "/run/agenix/kube/token";
       clusterInit = if "${hostname}" == "vortex-1" then true else false;
-      serverAddr = if "${hostname}" != "vortex-1" then "https://vortex-1:6443" else "";
+      serverAddr = "https://vortex-1:6443";
     };
   };
 }
