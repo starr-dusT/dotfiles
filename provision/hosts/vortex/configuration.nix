@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   user,
   ...
@@ -12,14 +11,8 @@
   networking.firewall.enable = true;
   networking.firewall.checkReversePath = "loose";
 
-  age.secrets."ssh/kestrel/id_ed25519.pub" = {
-    file = ../../secrets/ssh/kestrel/id_ed25519.pub.age;
-    owner = "${user}";
-    group = "users";
-  };
-
   users.users."${user}".openssh.authorizedKeys.keyFiles = [
-    config.age.secrets."ssh/kestrel/id_ed25519.pub".path
+    ../../secrets/ssh/pubs/kestrel.pub
   ];
 
   # Modules

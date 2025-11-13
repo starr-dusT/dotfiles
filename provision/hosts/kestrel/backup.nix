@@ -1,10 +1,5 @@
-{ config, user, ... }:
+{ user, ... }:
 {
-  age.secrets."ssh/torus/id_ed25519.pub" = {
-    file = ../../secrets/ssh/torus/id_ed25519.pub.age;
-    owner = "${user}";
-    group = "users";
-  };
   age.secrets."ssh/kestrel/id_ed25519" = {
     file = ../../secrets/ssh/kestrel/id_ed25519.age;
     owner = "${user}";
@@ -23,7 +18,7 @@
 
   # Password-less logins for backup
   users.users."${user}".openssh.authorizedKeys.keyFiles = [
-    config.age.secrets."ssh/torus/id_ed25519.pub".path
+    ../../secrets/ssh/pubs/torus.pub
   ];
 
   # Password-less login for root
