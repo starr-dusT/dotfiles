@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  config,
+  pkgs,
+  user,
+  ...
+}:
 {
   # Use normal kernel
   boot.kernelPackages = pkgs.linuxPackages;
@@ -6,6 +11,10 @@
   # Set networking options
   networking.firewall.enable = true;
   networking.firewall.checkReversePath = "loose";
+
+  users.users."${user}".openssh.authorizedKeys.keyFiles = [
+    config.age.secrets."ssh/kestrel/id_ed25519.pub".path
+  ];
 
   # Modules
   modules = {
