@@ -1,12 +1,7 @@
-{ config, user, ... }:
+{ user, ... }:
 {
-  age.secrets."ssh/torus/id_ed25519.pub" = {
-    file = ../../secrets/ssh/torus/id_ed25519.pub.age;
-    owner = "${user}";
-    group = "users";
-  };
-  age.secrets."ssh/kestrel/id_ed25519" = {
-    file = ../../secrets/ssh/kestrel/id_ed25519.age;
+  age.secrets."ssh/kestrel" = {
+    file = ../../secrets/ssh/kestrel.age;
     owner = "${user}";
     group = "users";
   };
@@ -23,14 +18,14 @@
 
   # Password-less logins for backup
   users.users."${user}".openssh.authorizedKeys.keyFiles = [
-    config.age.secrets."ssh/torus/id_ed25519.pub".path
+    ../../secrets/ssh/pubs/torus.pub
   ];
 
   # Password-less login for root
   programs.ssh.extraConfig = ''
     Host torus 
       AddKeysToAgent yes
-      IdentityFile /run/agenix/ssh/kestrel/id_ed25519 
+      IdentityFile /run/agenix/ssh/kestrel 
 
     Host fm2120.rsync.net
       AddKeysToAgent yes

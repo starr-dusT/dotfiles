@@ -1,4 +1,8 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  user,
+  ...
+}:
 {
   # Use normal kernel
   boot.kernelPackages = pkgs.linuxPackages;
@@ -7,10 +11,22 @@
   networking.firewall.enable = true;
   networking.firewall.checkReversePath = "loose";
 
+  users.users."${user}".openssh.authorizedKeys.keyFiles = [
+    ../../secrets/ssh/pubs/kestrel.pub
+  ];
+
   # Modules
   modules = {
     core = {
       physical.enable = true;
+    };
+    optional = {
+      development = {
+        programming.enable = true;
+      };
+      programs = {
+        k3s.enable = true;
+      };
     };
   };
 }

@@ -2,6 +2,8 @@
   config,
   lib,
   user,
+  hostname,
+  pkgs,
   ...
 }:
 
@@ -14,19 +16,29 @@ in
       type = types.bool;
       default = false;
     };
-    role = mkOption {
-      type = types.nullOr types.str;
-      default = null;
-    };
   };
 
   config = lib.mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [
-      6433
+      6443
       2379
       2380
+      31111
     ];
     networking.firewall.allowedUDPPorts = [ 8472 ];
+
+    environment.systemPackages = with pkgs; [
+      kubernetes-helm
+    ];
+
+    services.openiscsi = {
+      enable = true;
+      name = "${hostname}-initiatorhost";
+    };
+    systemd.services.iscsid.serviceConfig = {
+      PrivateMounts = "yes";
+      BindPaths = "/run/current-system/sw/bin:/bin";
+    };
 
     age.secrets."kube/token" = {
       file = ../../../secrets/kube/token.age;
@@ -36,10 +48,10 @@ in
 
     services.k3s = {
       enable = true;
-      role = "${cfg.role}";
+      role = if (lib.strings.hasInfix "vortex" "${hostname}") then "server" else "agent";
       tokenFile = "/run/agenix/kube/token";
-      clusterInit = if "${cfg.role}" == "server" then true else false;
-      serverAddr = if "${cfg.role}" == "agent" then "https://tetragon:6443" else "";
+      clusterInit = if "${hostname}" == "vortex-1" then true else false;
+      serverAddr = "https://vortex-1:6443";
     };
   };
 }
