@@ -1,7 +1,7 @@
 { user, ... }:
 {
-  age.secrets."ssh/kestrel/id_ed25519" = {
-    file = ../../secrets/ssh/kestrel/id_ed25519.age;
+  age.secrets."ssh/kestrel" = {
+    file = ../../secrets/ssh/kestrel.age;
     owner = "${user}";
     group = "users";
   };
@@ -25,7 +25,7 @@
   programs.ssh.extraConfig = ''
     Host torus 
       AddKeysToAgent yes
-      IdentityFile /run/agenix/ssh/kestrel/id_ed25519 
+      IdentityFile /run/agenix/ssh/kestrel 
 
     Host fm2120.rsync.net
       AddKeysToAgent yes
