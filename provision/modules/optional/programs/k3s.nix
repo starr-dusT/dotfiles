@@ -3,6 +3,7 @@
   lib,
   user,
   hostname,
+  pkgs,
   ...
 }:
 
@@ -22,8 +23,13 @@ in
       6443
       2379
       2380
+      31111
     ];
     networking.firewall.allowedUDPPorts = [ 8472 ];
+
+    environment.systemPackages = with pkgs; [
+      kubernetes-helm
+    ];
 
     services.openiscsi = {
       enable = true;
