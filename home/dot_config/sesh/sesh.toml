@@ -4,3 +4,8 @@ import = []
 name = "edit-dots"
 path = "~/.local/share/chezmoi"
 startup_command = "~/.config/sesh/scripts/two_window_editor"
+
+[[session]]
+name = "edit-vortex"
+path = "~/.local/share/chezmoi"
+startup_command = "~/.config/sesh/scripts/vortex_editor"
