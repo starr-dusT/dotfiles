@@ -53,7 +53,7 @@ in
       role = if (lib.strings.hasInfix "vortex" "${hostname}") then "server" else "agent";
       tokenFile = "/run/agenix/kube/token";
       clusterInit = if "${hostname}" == "vortex-1" then true else false;
-      serverAddr = "https://vortex-1:6443";
+      serverAddr = if "${hostname}" == "vortex-1" then "" else "https://vortex-1:6443";
     };
   };
 }
