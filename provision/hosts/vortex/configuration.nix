@@ -8,7 +8,7 @@
   boot.kernelPackages = pkgs.linuxPackages;
 
   # Set networking options
-  networking.firewall.enable = true;
+  networking.firewall.enable = false;
   networking.firewall.checkReversePath = "loose";
 
   users.users."${user}".openssh.authorizedKeys.keyFiles = [
