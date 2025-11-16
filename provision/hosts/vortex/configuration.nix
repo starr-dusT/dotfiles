@@ -8,7 +8,7 @@
   boot.kernelPackages = pkgs.linuxPackages;
 
   # Set networking options
-  networking.firewall.enable = false;
+  networking.firewall.enable = true;
   networking.firewall.checkReversePath = false;
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 
