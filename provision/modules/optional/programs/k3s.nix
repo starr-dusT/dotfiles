@@ -28,6 +28,7 @@ in
     networking.firewall.allowedUDPPorts = [ 8472 ];
 
     environment.systemPackages = with pkgs; [
+      k9s
       kubernetes-helm
       fluxcd
       jq

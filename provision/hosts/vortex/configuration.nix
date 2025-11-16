@@ -8,8 +8,8 @@
   boot.kernelPackages = pkgs.linuxPackages;
 
   # Set networking options
-  networking.firewall.enable = false;
-  networking.firewall.checkReversePath = "loose";
+  networking.firewall.enable = true;
+  networking.firewall.checkReversePath = false;
 
   users.users."${user}".openssh.authorizedKeys.keyFiles = [
     ../../secrets/ssh/pubs/kestrel.pub
