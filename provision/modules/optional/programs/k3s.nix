@@ -32,6 +32,7 @@ in
       kubernetes-helm
       fluxcd
       jq
+      python3
     ];
 
     services.openiscsi = {
