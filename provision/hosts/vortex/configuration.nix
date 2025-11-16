@@ -10,7 +10,6 @@
   # Set networking options
   networking.firewall.enable = true;
   networking.firewall.checkReversePath = false;
-  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 
   users.users."${user}".openssh.authorizedKeys.keyFiles = [
     ../../secrets/ssh/pubs/kestrel.pub
