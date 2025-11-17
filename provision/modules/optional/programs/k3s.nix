@@ -24,6 +24,7 @@ in
       2380
       6443 # Kubernetes API
       10250 # Kubelet API
+      8080 # Test port
     ];
     networking.firewall.allowedUDPPorts = [
       8472 # Flannel VXLAN
@@ -37,7 +38,7 @@ in
       openiscsi
     ];
 
-    boot.kernelModules = ["iscsi_tcp" "iscsi_ibft"];
+    boot.kernelModules = ["iscsi_tcp" "iscsi_ibft" "dm_crypt"];
     services.openiscsi = {
       enable = true;
       name = "iqn.nixos-${hostname}";
