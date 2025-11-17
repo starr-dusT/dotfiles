@@ -57,7 +57,7 @@ in
     };
 
     services.k3s = {
-      enable = true;
+      enable = false;
       role = if (lib.strings.hasInfix "vortex" "${hostname}") then "server" else "agent";
       tokenFile = "/run/agenix/kube/token";
       clusterInit = if "${hostname}" == "vortex-1" then true else false;
