@@ -62,9 +62,9 @@
         "/torus.lan/69.69.1.155"
         "/router.lan/69.69.1.1"
         "/vortex.lan/69.69.1.11"
-        "/vortex1.lan/69.69.1.11"
-        "/vortex2.lan/69.69.1.12"
-        "/vortex3.lan/69.69.1.13"
+        "/vortex-1.lan/69.69.1.11"
+        "/vortex-2.lan/69.69.1.12"
+        "/vortex-3.lan/69.69.1.13"
       ];
       dhcp-option = [ "option:router,69.69.1.1" ];
 
