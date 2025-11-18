@@ -38,7 +38,16 @@ in
       openiscsi
     ];
 
-    boot.kernelModules = ["iscsi_tcp" "iscsi_ibft" "dm_crypt"];
+    boot.kernelModules = [
+      "iscsi_tcp"
+      "iscsi_ibft"
+      "dm_crypt"
+    ];
+    boot.kernelParams = [
+      "hugepagesz=1G"
+      "hugepages=24"
+    ];
+
     services.openiscsi = {
       enable = true;
       name = "iqn.nixos-${hostname}";
@@ -57,7 +66,7 @@ in
     };
 
     services.k3s = {
-      enable = true;
+      enable = false;
       role = if (lib.strings.hasInfix "vortex" "${hostname}") then "server" else "agent";
       tokenFile = "/run/agenix/kube/token";
       clusterInit = if "${hostname}" == "vortex-1" then true else false;
