@@ -44,8 +44,9 @@ in
       "dm_crypt"
     ];
     boot.kernelParams = [
+      "default_hugepagesz=1G"
       "hugepagesz=1G"
-      "hugepages=24"
+      "hugepages=4"
     ];
 
     services.openiscsi = {
