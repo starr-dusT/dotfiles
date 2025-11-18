@@ -16,11 +16,11 @@
   # Nvidia options
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
     modesetting.enable = true;
-    open = true;
-    powerManagement.enable = true;
+    powerManagement.enable = false;
     nvidiaSettings = true;
+    open = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   # Secrets
