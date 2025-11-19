@@ -6,7 +6,7 @@
 }:
 {
   # Use normal kernel
-  boot.kernelPackages = pkgs.linuxPackages;
+  boot.kernelPackages = pkgs.linuxPackages_6_6;
 
   # Set networking options
   networking.firewall.enable = false;
