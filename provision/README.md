@@ -23,7 +23,7 @@ nix-shell -p vim git neovim just
 git clone https://github.com/starr-dusT/dotfiles ~/.local/share/chezmoi 
 ```
 
-7. Move the installer created `configuration-hardware.nix` to dotfiles (e.g. `provision/hosts/<host>/hardware.nix`) if desired. `flake.nix` will load `/etc/nixos/hardware-configuration.nix` if that file does not exist.
+7. Move the installer created `configuration-hardware.nix` to dotfiles (e.g. `provision/hosts/<host>/hardware.nix`).
 
 6. Rebuild the system and initialize chezmoi dotfiles to save America:
 
