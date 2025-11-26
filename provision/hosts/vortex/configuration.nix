@@ -24,6 +24,9 @@
       development = {
         programming.enable = true;
       };
+      programs = {
+        k3s.enable = true;
+      };
     };
   };
 }
