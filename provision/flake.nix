@@ -54,10 +54,10 @@
           ]
           ++ [
             (
-              if builtins.pathExists ./hosts/${hostConfig.role}/hardware.nix then
-                ./hosts/${hostConfig.role}/hardware.nix
+              if builtins.hasAttr "hardware" hostConfig then
+                ./hosts/${hostConfig.role}/${hostConfig.hardware}
               else
-                /etc/nixos/hardware-configuration.nix
+                ./hosts/${hostConfig.role}/hardware.nix
             )
           ];
         }
