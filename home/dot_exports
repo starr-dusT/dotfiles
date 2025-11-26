@@ -4,7 +4,6 @@
 # Make vim the default editor.
 export EDITOR=nvim
 
-# Make kitty behave nice
 export TERM="xterm-256color"
 
 # Customize prompt
