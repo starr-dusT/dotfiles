@@ -41,6 +41,10 @@ in
       group = "users";
     };
 
+    systemd.tmpfiles.rules = [
+      "f /etc/rancher/k3s/k3s.yaml 0600 ${user} users -"
+    ];
+
     services.k3s = {
       enable = true;
       role = if (lib.strings.hasInfix "vortex" "${hostname}") then "server" else "agent";
@@ -50,3 +54,5 @@ in
     };
   };
 }
+
+
