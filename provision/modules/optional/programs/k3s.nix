@@ -41,6 +41,10 @@ in
       group = "users";
     };
 
+    # Needed for flux
+    environment.variables.KUBECONFIG = "/etc/rancher/k3s/k3s.yaml";
+
+    # Allow user to read k3s.yaml
     systemd.tmpfiles.rules = [
       "f /etc/rancher/k3s/k3s.yaml 0600 ${user} users -"
     ];
