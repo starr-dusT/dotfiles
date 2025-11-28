@@ -12,3 +12,4 @@ tmux new-window -n edit
 tmux new-window -n term
 tmux send-keys -t edit "nvim" Enter
 tmux select-window -t vortex
+tmux select-pane -t 0
