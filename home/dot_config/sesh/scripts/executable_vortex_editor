@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
-tmux rename-window vortex-1
-tmux send-keys -t edit-vortex:vortex-1 "ssh tstarr@v1" Enter
-tmux send-keys -t edit-vortex:vortex-1 "clear" Enter
-tmux new-window -n vortex-2
-tmux send-keys -t edit-vortex:vortex-2 "ssh tstarr@v2" Enter
-tmux send-keys -t edit-vortex:vortex-2 "clear" Enter
-tmux new-window -n vortex-3
-tmux send-keys -t edit-vortex:vortex-3 "ssh tstarr@v3" Enter
-tmux send-keys -t edit-vortex:vortex-3 "clear" Enter
-tmux select-window -t 1
+# Setup vortex window
+tmux rename-window vortex
+tmux send-keys -t vortex "ssh tstarr@vortex-1" Enter
+tmux send-keys -t vortex "clear" Enter
+tmux split-window -t vortex -v -p 20 
+tmux send-keys -t vortex "ssh tstarr@vortex-1 'flux get kustomizations --watch'" Enter
+
+# Setup local edit windows
+tmux new-window -n edit
+tmux new-window -n term
+tmux send-keys -t edit "nvim" Enter
+tmux select-window -t vortex
