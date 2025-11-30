@@ -6,25 +6,25 @@
 
 stdenv.mkDerivation {
   pname = "gnome-set-panel-monitor";
-  version = "git-2025-04-01";
+  version = "git-2026-11-17";
 
   src = fetchFromGitHub {
     owner = "starr-dusT";
     repo = "gnome-set-panel-monitor";
-    rev = "da8ab68ab93c056fbef7f8efa0016973918ba26c";
-    hash = "sha256-4ZZqaqvBwS7jVrYdwApd5yStqQYyLWn6F4wdO5v8eMA=";
+    rev = "c3403d65bdbe22a4a8db564ef43a89f95d4bf2fa";
+    hash = "sha256-ZBgl3iEsmA/TU8K2R9jFm/H/Ss7S5GyKZF5S6SzttCs=";
   };
 
   installPhase = ''
     runHook preInstall
-    mkdir -p "$out/share/gnome-shell/extensions/gnome-set-panel-monitor@tstarr.us"
-    cp -r * "$out/share/gnome-shell/extensions/gnome-set-panel-monitor@tstarr.us"
+    mkdir -p "$out/share/gnome-shell/extensions/gnome-shell-extension-set-panel-monitor@tstarr.us"
+    cp -r * "$out/share/gnome-shell/extensions/gnome-shell-extension-set-panel-monitor@tstarr.us"
     runHook postInstall
   '';
 
   passthru = {
-    extensionUuid = "gnome-set-panel-monitor@tstarr.us";
-    extensionPortalSlug = "gnome-set-panel-monitor";
+    extensionUuid = "gnome-shell-extension-set-panel-monitor@tstarr.us";
+    extensionPortalSlug = "gnome-shell-extension-set-panel-monitor@tstarr.us";
   };
 
   meta = with lib; {

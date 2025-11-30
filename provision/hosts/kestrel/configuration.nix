@@ -16,11 +16,11 @@
   # Nvidia options
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
     modesetting.enable = true;
-    open = true;
-    powerManagement.enable = true;
+    powerManagement.enable = false;
     nvidiaSettings = true;
+    open = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   # Secrets
@@ -60,7 +60,6 @@
           enable = true;
           storageDriver = "btrfs";
         };
-        k3s.enable = true;
         virt-manager.enable = true;
       };
       scripts.enable = true;

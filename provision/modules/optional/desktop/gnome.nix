@@ -248,7 +248,7 @@ in
             "org/gnome/shell" = {
               favorite-apps = [
                 "chromium-browser.desktop"
-                "kitty.desktop"
+                "org.gnome.Console.desktop"
                 "org.gnome.Nautilus.desktop"
                 "obsidian.desktop"
                 "steam.desktop"
@@ -396,12 +396,12 @@ in
           // generate_custom_keybindings {
             "1" = {
               binding = "<Super><Control>d";
-              command = "display-switch.sh kestrel-desktop";
+              command = "display-switch.sh -p kestrel-desktop";
               name = "Kestrel display at Desk";
             };
             "2" = {
               binding = "<Super><Control>l";
-              command = "display-switch.sh kestrel-living";
+              command = "display-switch.sh -p kestrel-living";
               name = "Kestrel display in Living Room";
             };
           };

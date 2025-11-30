@@ -67,7 +67,6 @@ in
         programs = {
           chrome.enable = true;
           firefox.enable = true;
-          kitty.enable = true;
         };
       };
     };

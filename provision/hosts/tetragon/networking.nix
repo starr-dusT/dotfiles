@@ -44,7 +44,7 @@
       no-resolv = true;
       cache-size = 1000;
 
-      dhcp-range = [ "enp1s0f0,69.69.1.50,69.69.1.254,24h" ];
+      dhcp-range = [ "enp1s0f0,69.69.1.50,69.69.1.240,24h" ];
       interface = "enp1s0f0";
       dhcp-host = [
         "69.69.1.10"
@@ -61,6 +61,10 @@
         "/tv.lan/69.69.1.87"
         "/torus.lan/69.69.1.155"
         "/router.lan/69.69.1.1"
+        "/vortex.lan/69.69.1.11"
+        "/vortex-1.lan/69.69.1.11"
+        "/vortex-2.lan/69.69.1.12"
+        "/vortex-3.lan/69.69.1.13"
       ];
       dhcp-option = [ "option:router,69.69.1.1" ];
 

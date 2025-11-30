@@ -25,14 +25,17 @@
   },
   "vortex-1": {
     "role": "vortex",
-    "user": "tstarr"
+    "user": "tstarr",
+    "hardware": "hardware-1.nix"
   },
   "vortex-2": {
     "role": "vortex",
-    "user": "tstarr"
+    "user": "tstarr",
+    "hardware": "hardware-2.nix"
   },
   "vortex-3": {
     "role": "vortex",
-    "user": "tstarr"
+    "user": "tstarr",
+    "hardware": "hardware-3.nix"
   }
 }

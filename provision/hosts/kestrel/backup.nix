@@ -23,13 +23,13 @@
 
   # Password-less login for root
   programs.ssh.extraConfig = ''
-    Host torus 
-      AddKeysToAgent yes
-      IdentityFile /run/agenix/ssh/kestrel 
-
     Host fm2120.rsync.net
       AddKeysToAgent yes
       IdentityFile /run/agenix/borg/rsync/id_rsa
+
+    Host *
+      AddKeysToAgent yes
+      IdentityFile /run/agenix/ssh/kestrel 
   '';
 
   systemd.tmpfiles.rules = [

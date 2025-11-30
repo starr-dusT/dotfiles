@@ -20,25 +20,20 @@ in
 
   config = lib.mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [
-      6443
+      6443 # Kubernetes API
+      10250 # Kubelet API
       2379
       2380
-      31111
     ];
-    networking.firewall.allowedUDPPorts = [ 8472 ];
+    networking.firewall.allowedUDPPorts = [
+      8472 # Flannel VXLAN
+    ];
 
     environment.systemPackages = with pkgs; [
       kubernetes-helm
+      fluxcd
+      jq
     ];
-
-    services.openiscsi = {
-      enable = true;
-      name = "${hostname}-initiatorhost";
-    };
-    systemd.services.iscsid.serviceConfig = {
-      PrivateMounts = "yes";
-      BindPaths = "/run/current-system/sw/bin:/bin";
-    };
 
     age.secrets."kube/token" = {
       file = ../../../secrets/kube/token.age;
@@ -46,12 +41,18 @@ in
       group = "users";
     };
 
+    systemd.tmpfiles.rules = [
+      "f /etc/rancher/k3s/k3s.yaml 0600 ${user} users -"
+    ];
+
     services.k3s = {
       enable = true;
       role = if (lib.strings.hasInfix "vortex" "${hostname}") then "server" else "agent";
-      tokenFile = "/run/agenix/kube/token";
       clusterInit = if "${hostname}" == "vortex-1" then true else false;
-      serverAddr = "https://vortex-1:6443";
+      serverAddr = if "${hostname}" == "vortex-1" then "" else "https://192.168.2.88:6443";
+      tokenFile = config.age.secrets."kube/token".path;
     };
   };
 }
+
+
