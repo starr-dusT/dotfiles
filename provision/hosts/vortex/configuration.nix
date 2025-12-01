@@ -4,6 +4,9 @@
   hostname,
   ...
 }:
+let
+  interface = if "${hostname}" == "vortex-1" then "enp2s0" else "enp1s0f0";
+in
 {
   # Use normal kernel
   boot.kernelPackages = pkgs.linuxPackages_6_6;
@@ -14,11 +17,11 @@
     useDHCP = false;
     defaultGateway = {
       address = "69.69.1.1";
-      interface = if "${hostname}" == "vortex-1" then "enp2s0" else "enp1s0f0";
+      interface = "${interface}";
     };
     defaultGateway6 = {
       address = "fe80::1";
-      interface = if "${hostname}" == "vortex-1" then "enp2s0" else "enp1s0f0";
+      interface = "${interface}";
     };
     nameservers = [
       "9.9.9.9"
@@ -27,8 +30,8 @@
     ];
 
     interfaces = {
-      enp1s0f0.useDHCP = false;
-      enp1s0f0 = {
+      "${interface}" = {
+        useDHCP = false;
         ipv4.addresses = [
           {
             address =
