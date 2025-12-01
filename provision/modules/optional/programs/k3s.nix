@@ -50,7 +50,7 @@ in
     ];
 
     services.k3s = {
-      enable = false;
+      enable = true;
       role = if (lib.strings.hasInfix "vortex" "${hostname}") then "server" else "agent";
       clusterInit = if "${hostname}" == "vortex-1" then true else false;
       serverAddr = if "${hostname}" == "vortex-1" then "" else "https://69.69.1.11:6443";
