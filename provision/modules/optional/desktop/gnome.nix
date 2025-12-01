@@ -256,7 +256,7 @@ in
               ];
               disable-user-extensions = false;
               enabled-extensions = [
-                "gnome-set-panel-monitor@tstarr.us"
+                "gnome-shell-extension-set-panel-monitor@tstarr.us"
                 "custom-hot-corners-extended@G-dH.github.com"
                 "AlphabeticalAppGrid@stuarthayhurst"
               ];
