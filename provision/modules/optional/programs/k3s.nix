@@ -46,10 +46,10 @@ in
     ];
 
     services.k3s = {
-      enable = true;
+      enable = false;
       role = if (lib.strings.hasInfix "vortex" "${hostname}") then "server" else "agent";
       clusterInit = if "${hostname}" == "vortex-1" then true else false;
-      serverAddr = if "${hostname}" == "vortex-1" then "" else "https://192.168.2.88:6443";
+      serverAddr = if "${hostname}" == "vortex-1" then "" else "https://69.69.1.11:6443";
       tokenFile = config.age.secrets."kube/token".path;
     };
   };
