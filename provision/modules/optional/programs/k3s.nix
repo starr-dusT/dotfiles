@@ -30,6 +30,8 @@ in
     ];
 
     environment.systemPackages = with pkgs; [
+      age
+      sops
       kubernetes-helm
       fluxcd
       jq
