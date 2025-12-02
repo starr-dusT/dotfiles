@@ -30,6 +30,8 @@ in
     ];
 
     environment.systemPackages = with pkgs; [
+      age
+      sops
       kubernetes-helm
       fluxcd
       jq
@@ -41,6 +43,10 @@ in
       group = "users";
     };
 
+    # Needed for flux
+    environment.variables.KUBECONFIG = "/etc/rancher/k3s/k3s.yaml";
+
+    # Allow user to read k3s.yaml
     systemd.tmpfiles.rules = [
       "f /etc/rancher/k3s/k3s.yaml 0600 ${user} users -"
     ];
@@ -49,7 +55,7 @@ in
       enable = true;
       role = if (lib.strings.hasInfix "vortex" "${hostname}") then "server" else "agent";
       clusterInit = if "${hostname}" == "vortex-1" then true else false;
-      serverAddr = if "${hostname}" == "vortex-1" then "" else "https://192.168.2.88:6443";
+      serverAddr = if "${hostname}" == "vortex-1" then "" else "https://69.69.1.11:6443";
       tokenFile = config.age.secrets."kube/token".path;
     };
   };
