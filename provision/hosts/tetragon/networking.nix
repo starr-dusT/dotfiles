@@ -1,10 +1,7 @@
 { ... }:
 {
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
-
-  networking.firewall.allowedTCPPorts = [ 53 ];
   networking.firewall.allowedUDPPorts = [
-    53
     67
     68
   ];
@@ -58,6 +55,26 @@
           ];
         }
       ];
+      dhcp-range = [ "enp1s0f0,69.69.1.50,69.69.1.240,24h" ];
+      interface = "enp1s0f0";
+      dhcp-host = [ "69.69.1.10" ];
+      port = 5353;
+
+      local = "/lan/";
+      domain = "lan";
+      expand-hosts = true;
+      no-hosts = true;
+      address = [
+        "/tetragon.lan/69.69.1.10"
+        "/tv.lan/69.69.1.87"
+        "/router.lan/69.69.1.1"
+        "/v1.lan/69.69.1.11"
+        "/v2.lan/69.69.1.12"
+        "/v3.lan/69.69.1.13"
+      ];
+      dhcp-option = [ "option:router,69.69.1.1" ];
+      dhcp-match = "set:efi64,60,PXEClient:Arch:00007";
+      dhcp-boot = "tag:efi64,netboot.xyz.efi,,69.69.1.10";
     };
   };
 }
