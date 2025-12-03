@@ -24,9 +24,7 @@ in
       interface = "${interface}";
     };
     nameservers = [
-      "9.9.9.9"
-      "8.8.8.8"
-      "1.1.1.1"
+      "69.69.1.10"
     ];
 
     interfaces = {
