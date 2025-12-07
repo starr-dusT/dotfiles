@@ -1,4 +1,7 @@
 { pkgs, ... }:
+let
+  interface = "enp3s0";
+in
 {
   imports = [
     ./cloudflared.nix
@@ -17,10 +20,29 @@
   boot.kernelModules = [ "sg" ];
 
   # Set networking options
-  networking.firewall.enable = true;
-  networking.firewall.checkReversePath = "loose";
-  boot.kernel.sysctl = {
-    "net.ipv4.conf.all.forwarding" = true; # Needed for wireguard-server
+  boot.kernel.sysctl."net.ipv4.conf.all.forwarding" = true; # Needed for wireguard-server
+  networking = {
+    firewall.enable = true;
+    firewall.checkReversePath = "loose";
+    useDHCP = false;
+    defaultGateway = {
+      address = "69.69.1.1";
+      interface = "${interface}";
+    };
+    nameservers = [
+      "69.69.1.10"
+    ];
+    interfaces = {
+      "${interface}" = {
+        useDHCP = false;
+        ipv4.addresses = [
+          {
+            address = "69.69.1.14";
+            prefixLength = 24;
+          }
+        ];
+      };
+    };
   };
 
   services.xserver.videoDrivers = [ "nvidia" ];
