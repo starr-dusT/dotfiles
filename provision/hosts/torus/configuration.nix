@@ -4,7 +4,6 @@ let
 in
 {
   imports = [
-    ./cloudflared.nix
     ./samba-server.nix
     ./rss.nix
     ./home-assistant

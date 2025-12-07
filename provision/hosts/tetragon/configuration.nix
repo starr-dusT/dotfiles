@@ -2,6 +2,7 @@
 {
   imports = [
     ./adguard.nix
+    ./cloudflared.nix
     ./netboot.nix
     ./networking.nix
     ./wireguard-server.nix
