@@ -51,7 +51,7 @@
       # Reserve IP by MAC/hostname
       dhcp-host = [
         "kestrel,69.69.1.143"
-        "kestrel,69.69.1.184"
+        "stormwalker,69.69.1.184"
       ];
 
       # Dynamic dns by hostname
