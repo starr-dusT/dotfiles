@@ -295,9 +295,9 @@ in
             };
             "org/gnome/settings-daemon/plugins/power" = {
               sleep-inactive-ac-type = "blank";
-              sleep-inactive-battery-type = "suspend";
-              sleep-inactive-ac-timeout = 2700;
-              sleep-inactive-battery-timeout = 2700;
+              sleep-inactive-battery-type = "blank";
+              sleep-inactive-ac-timeout = 600;
+              sleep-inactive-battery-timeout = 600;
             };
             "org/gnome/desktop/wm/keybindings" = {
               switch-to-workspace-1 = [ "<Super>1" ];
