@@ -9,7 +9,6 @@ in
     ./home-assistant
     ./gitea.nix
     ./backup.nix
-    ./jellyfin.nix
   ];
 
   # Use normal kernel
