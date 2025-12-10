@@ -7,8 +7,6 @@ commands:
       when: [create]
       run:
           - "tree /engi > /engi/backup/tree.txt"
-          - sudo -u gitea dump-gitea
-          - sudo -u miniflux dump-miniflux
 
 archive_name_format: 'torus_bulk.borg-{now}'
 

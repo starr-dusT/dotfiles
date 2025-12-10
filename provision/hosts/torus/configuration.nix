@@ -5,9 +5,7 @@ in
 {
   imports = [
     ./samba-server.nix
-    ./rss.nix
     ./home-assistant
-    ./gitea.nix
     ./backup.nix
   ];
 
@@ -20,7 +18,7 @@ in
   # Set networking options
   boot.kernel.sysctl."net.ipv4.conf.all.forwarding" = true; # Needed for wireguard-server
   networking = {
-    firewall.enable = true;
+    firewall.enable = false;
     firewall.checkReversePath = "loose";
     useDHCP = false;
     defaultGateway = {
