@@ -3,6 +3,7 @@
   imports = [
     ./adguard.nix
     ./cloudflared.nix
+    ./home-assistant
     ./netboot.nix
     ./networking.nix
     ./wireguard-server.nix

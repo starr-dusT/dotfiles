@@ -5,6 +5,8 @@
     ./automations.nix
   ];
 
+  networking.firewall.allowedTCPPorts = [ 8123 ];
+
   environment.systemPackages = [ pkgs.python3Packages.pyvizio ];
 
   users.users.hass = {

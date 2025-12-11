@@ -5,7 +5,6 @@ in
 {
   imports = [
     ./samba-server.nix
-    ./home-assistant
     ./backup.nix
   ];
 
