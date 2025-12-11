@@ -9,8 +9,20 @@
 
   environment.systemPackages = [ pkgs.python3Packages.pyvizio ];
 
+  # Needed for hass user to run podman containers
   users.users.hass = {
-    extraGroups = [ "docker" ];
+    subUidRanges = [
+      {
+        startUid = 100000;
+        count = 65536;
+      }
+    ];
+    subGidRanges = [
+      {
+        startGid = 100000;
+        count = 65536;
+      }
+    ];
   };
 
   services.home-assistant = {
@@ -42,10 +54,10 @@
         living_room_tv_hdmi2 = "${pkgs.python312Packages.pyvizio}/bin/pyvizio --ip=69.69.1.87 --auth=Zt93u2t4sq input hdmi2";
 
         # Switch video and audio for Kestrel
-        kestrel_monitor_desk = "${pkgs.docker}/bin/docker run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@kestrel.lan 'display-switch.sh kestrel-desktop'";
-        kestrel_audio_desk = "${pkgs.docker}/bin/docker run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@kestrel.lan 'sink-switch.sh Starship'";
-        kestrel_monitor_living = "${pkgs.docker}/bin/docker run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@kestrel.lan 'display-switch.sh kestrel-living'";
-        kestrel_audio_living = "${pkgs.docker}/bin/docker run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@kestrel.lan 'sink-switch.sh Dragon'";
+        kestrel_monitor_desk = "${pkgs.podman}/bin/podman run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@kestrel.lan 'display-switch.sh kestrel-desktop'";
+        kestrel_audio_desk = "${pkgs.podman}/bin/podman run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@kestrel.lan 'sink-switch.sh Starship'";
+        kestrel_monitor_living = "${pkgs.podman}/bin/podman run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@kestrel.lan 'display-switch.sh kestrel-living'";
+        kestrel_audio_living = "${pkgs.podman}/bin/podman run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@kestrel.lan 'sink-switch.sh Dragon'";
       };
     };
   };
