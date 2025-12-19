@@ -24,6 +24,7 @@
   # Password-less login for user
   users.users."${user}".openssh.authorizedKeys.keyFiles = [
     ../../secrets/ssh/pubs/kestrel.pub
+    ../../secrets/ssh/pubs/vortex-1.pub
   ];
 
   # Password-less login for root
