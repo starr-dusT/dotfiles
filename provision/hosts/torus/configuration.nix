@@ -62,6 +62,7 @@ in
         blacklist = [ "mount-engi.sh" ];
       };
       services = {
+        node-exporter.enable = true;
         syncthing = {
           enable = true;
           keyPath = ../../secrets/syncthing/torus/key.pem.age;

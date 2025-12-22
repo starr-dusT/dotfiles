@@ -46,6 +46,14 @@
           }
         ];
       }
+      {
+        job_name = "torus";
+        static_configs = [
+          {
+            targets = [ "69.69.1.14:9002" ];
+          }
+        ];
+      }
     ];
   };
 }
