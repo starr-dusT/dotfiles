@@ -238,7 +238,7 @@ in
             # Settings for gnome and default applications
             "org/gnome/desktop/interface" = {
               color-scheme = "prefer-dark";
-              accent-color = "orange";
+              accent-color = "purple";
               enable-animations = false;
             };
             "org/gnome/desktop/background" = {
@@ -248,7 +248,7 @@ in
             "org/gnome/shell" = {
               favorite-apps = [
                 "chromium-browser.desktop"
-                "org.gnome.Console.desktop"
+                "com.mitchellh.ghostty.desktop"
                 "org.gnome.Nautilus.desktop"
                 "obsidian.desktop"
                 "steam.desktop"

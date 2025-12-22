@@ -33,6 +33,7 @@ in
       p7zip # Command-line file archiver with high compression ratio
       gimp # GNU Image Manipulation Program for editing and composing raster images
       libnotify # Library that sends desktop notifications to a notification daemon
+      ghostty # Fast, native, feature-rich terminal emulator pushing modern features
     ];
 
     services.flatpak = {
