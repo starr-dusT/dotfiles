@@ -3,6 +3,7 @@
   imports = [
     ./adguard.nix
     ./cloudflared.nix
+    ./grafana.nix
     ./home-assistant
     ./netboot.nix
     ./networking.nix
@@ -24,6 +25,9 @@
     optional = {
       development = {
         programming.enable = true;
+      };
+      services = {
+        node-exporter.enable = true;
       };
     };
   };

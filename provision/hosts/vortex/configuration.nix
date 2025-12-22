@@ -118,6 +118,9 @@ in
       development = {
         programming.enable = true;
       };
+      services = {
+        node-exporter.enable = true;
+      };
     };
   };
 }
