@@ -3,6 +3,7 @@
   networking.firewall.allowedTCPPorts = [
     2342
     9001
+    3030
   ];
 
   services.grafana = {
@@ -10,6 +11,7 @@
     port = 2342;
     addr = "0.0.0.0";
   };
+
   services.prometheus = {
     enable = true;
     port = 9001;
@@ -55,5 +57,10 @@
         ];
       }
     ];
+  };
+
+  services.loki = {
+    enable = true;
+    configFile = ./loki.yaml;
   };
 }
