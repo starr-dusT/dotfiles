@@ -2,10 +2,10 @@
 
 # Setup vortex window
 tmux rename-window vortex
-tmux send-keys -t vortex "ssh tstarr@v1" Enter
+tmux send-keys -t vortex "ssh tstarr@vortex-1" Enter
 tmux send-keys -t vortex "clear" Enter
 tmux split-window -t vortex -v -p 20 
-tmux send-keys -t vortex "ssh tstarr@v1 'flux get kustomizations --watch'" Enter
+tmux send-keys -t vortex "ssh tstarr@vortex-1 'flux get kustomizations --watch'" Enter
 
 # Setup local edit windows
 tmux new-window -n edit
