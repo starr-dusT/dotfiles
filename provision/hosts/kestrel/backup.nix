@@ -10,8 +10,8 @@
     owner = "${user}";
     group = "users";
   };
-  age.secrets."borg/torus/password" = {
-    file = ../../secrets/borg/torus/password.age;
+  age.secrets."borg/password" = {
+    file = ../../secrets/borg/password.age;
     owner = "${user}";
     group = "users";
   };

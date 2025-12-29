@@ -3,7 +3,7 @@ keep_weekly: 4
 keep_monthly: 6
 relocated_repo_access_is_ok: true
 
-encryption_passcommand: cat /run/agenix/borg/torus/password 
+encryption_passcommand: cat /run/agenix/borg/password 
 checks:
   - name: repository
   - name: spot

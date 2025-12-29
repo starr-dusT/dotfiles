@@ -25,8 +25,8 @@ in
   "wireguard/torus.age".publicKeys = systems;
   "ssh/kestrel.age".publicKeys = systems;
   "ssh/torus.age".publicKeys = systems;
-  "borg/torus/password.age".publicKeys = systems;
-  "borg/torus/discord_webhook.age".publicKeys = systems;
+  "borg/password.age".publicKeys = systems;
+  "borg/webhook.age".publicKeys = systems;
   "borg/rsync/id_rsa.age".publicKeys = systems;
   "borg/rsync/id_rsa.pub.age".publicKeys = systems;
   "kube/token.age".publicKeys = systems;

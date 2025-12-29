@@ -5,8 +5,8 @@
     owner = "${user}";
     group = "users";
   };
-  age.secrets."borg/torus/discord_webhook" = {
-    file = ../../secrets/borg/torus/discord_webhook.age;
+  age.secrets."borg/webhook" = {
+    file = ../../secrets/borg/webhook.age;
     owner = "${user}";
     group = "users";
   };
@@ -15,8 +15,8 @@
     owner = "${user}";
     group = "users";
   };
-  age.secrets."borg/torus/password" = {
-    file = ../../secrets/borg/torus/password.age;
+  age.secrets."borg/password" = {
+    file = ../../secrets/borg/password.age;
     owner = "${user}";
     group = "users";
   };
