@@ -21,7 +21,6 @@ in
 {
   "cloudflared/tstarr.json.age".publicKeys = systems;
   "git/github_personal.age".publicKeys = systems;
-  "git/gitea-runner-1.age".publicKeys = systems;
   "wireguard/kestrel.age".publicKeys = systems;
   "wireguard/torus.age".publicKeys = systems;
   "ssh/kestrel.age".publicKeys = systems;
