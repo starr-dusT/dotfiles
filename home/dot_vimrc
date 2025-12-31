@@ -64,6 +64,7 @@ set wildmode=list:full
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:netrw_banner = 0 " disable dumb banner
+let g:netrw_keepdir = 0 " open in folder of current buffer
 
 " use l and h for up/down dir
 augroup netrw_setup | au!
