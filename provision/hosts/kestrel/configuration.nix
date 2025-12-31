@@ -64,22 +64,6 @@
       };
       scripts.enable = true;
       services = {
-        borgmatic = {
-          enable = true;
-          repositories = [
-            {
-              path = "ssh://tstarr@torus//engi/store/kestrel.borg";
-              label = "torus";
-            }
-            #{
-            #  path = "ssh://fm2120@fm2120.rsync.net//data2/home/fm2120/store/kestrel.borg";
-            #  label = "rsync";
-            #}
-          ];
-          exclude_patterns = [
-            "/home/*/Documents/devel" # All code worth saving is version controlled
-          ];
-        };
         syncthing = {
           enable = true;
           keyPath = ../../secrets/syncthing/kestrel/key.pem.age;
