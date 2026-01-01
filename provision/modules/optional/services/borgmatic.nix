@@ -89,6 +89,14 @@ in
         keep_weekly = 4;
         keep_monthly = 6;
 
+        loki = {
+          url = "http://69.69.1.10:3030/loki/api/v1/push";
+          labels = {
+            job = "borgmatic";
+            host = "${hostname}";
+          };
+        };
+
         checks = [
           { name = "repository"; }
           {
