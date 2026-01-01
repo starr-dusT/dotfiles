@@ -92,6 +92,7 @@ in
             url = "http://69.69.1.10:3030/loki/api/v1/push";
             labels = {
               job = "borgmatic";
+              label = opts.label;
               host = "${hostname}";
             };
           };
