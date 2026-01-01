@@ -30,7 +30,7 @@ in
       '')
       (pkgs.writeScriptBin "torus-borg-notify" ''
         #!/bin/sh
-        curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data "{\"content\": \"$1\"}" "$(cat /run/agenix/borg/torus/discord_webhook)"
+        curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data "{\"content\": \"$1\"}" "$(cat /run/agenix/borg/webhook)"
       '')
     ];
 

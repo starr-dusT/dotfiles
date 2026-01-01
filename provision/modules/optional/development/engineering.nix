@@ -16,6 +16,7 @@ in
       blender # Open-source 3D creation suite for modeling, animation, rendering, and more
       freecad # Open-source parametric 3D CAD modeler
       openscad # Open-source script-only based modeller
+      kicad # Open Source Electronics Design Automation suite
     ];
     services.flatpak.packages = [
       "com.prusa3d.PrusaSlicer"
