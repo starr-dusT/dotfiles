@@ -70,45 +70,48 @@ in
 
     services.borgmatic = {
       enable = true;
-      configurations = lib.mapAttrs (repo: opts: {
-        repositories = [
-          {
-            path = opts.path;
-            label = opts.label;
-          }
-        ];
-        remote_path = opts.remote_path;
-        ssh_command = "ssh -i /run/agenix/borg/rsync/id_rsa -o StrictHostKeyChecking=no";
-        encryption_passcommand = "cat /run/agenix/borg/password";
+      configurations = lib.mapAttrs (
+        repo: opts:
+        {
+          repositories = [
+            {
+              path = opts.path;
+              label = opts.label;
+            }
+          ];
+          ssh_command = "ssh -i /run/agenix/borg/rsync/id_rsa -o StrictHostKeyChecking=no";
+          encryption_passcommand = "cat /run/agenix/borg/password";
 
-        source_directories = common_sources ++ opts.additional_sources;
-        exclude_patterns = common_excludes ++ opts.additional_excludes;
+          source_directories = common_sources ++ (opts.additionalSources or [ ]);
+          exclude_patterns = common_excludes ++ (opts.additionalExcludes or [ ]);
 
-        archive_name_format = "${hostname}.borg-{now}";
-        keep_daily = 7;
-        keep_weekly = 4;
-        keep_monthly = 6;
+          archive_name_format = opts.archiveName;
+          keep_daily = 7;
+          keep_weekly = 4;
+          keep_monthly = 6;
 
-        loki = {
-          url = "http://69.69.1.10:3030/loki/api/v1/push";
-          labels = {
-            job = "borgmatic";
-            host = "${hostname}";
+          loki = {
+            url = "http://69.69.1.10:3030/loki/api/v1/push";
+            labels = {
+              job = "borgmatic";
+              host = "${hostname}";
+            };
           };
-        };
 
-        checks = [
-          { name = "repository"; }
-          {
-            name = "spot";
-            count_tolerance_percentage = 10;
-            data_sample_percentage = 1;
-            data_tolerance_percentage = 0.5;
-            xxh64sum_command = "/run/current-system/sw/bin/xxhsum -H64";
-          }
-        ];
-        relocated_repo_access_is_ok = true;
-      }) cfg.config;
+          checks = [
+            { name = "repository"; }
+            {
+              name = "spot";
+              count_tolerance_percentage = 10;
+              data_sample_percentage = 1;
+              data_tolerance_percentage = 0.5;
+              xxh64sum_command = "/run/current-system/sw/bin/xxhsum -H64";
+            }
+          ];
+          relocated_repo_access_is_ok = true;
+        }
+        // (opts.moreOpts or { })
+      ) cfg.config;
     };
 
     systemd.timers.borgmatic = {
