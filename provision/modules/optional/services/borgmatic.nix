@@ -53,11 +53,6 @@ in
       owner = "${user}";
       group = "users";
     };
-    age.secrets."borg/webhook" = {
-      file = ../../../secrets/borg/webhook.age;
-      owner = "${user}";
-      group = "users";
-    };
     age.secrets."borg/rsync/id_rsa" = {
       file = ../../../secrets/borg/rsync/id_rsa.age;
       owner = "${user}";
