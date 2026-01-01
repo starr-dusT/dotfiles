@@ -1,9 +1,4 @@
 { user, pkgs, ... }:
-let
-  includes = [
-    "/engi/backup"
-  ];
-in
 {
   # Password-less login for user
   users.users."${user}".openssh.authorizedKeys.keyFiles = [
@@ -16,7 +11,7 @@ in
   ];
 
   environment.systemPackages = with pkgs; [
-    tree
+    tree # Command to produce a depth indented directory listing
   ];
 
   modules.optional.services.borgmatic = {
@@ -25,8 +20,7 @@ in
       "torus-rsync" = {
         path = "ssh://fm2120@fm2120.rsync.net//data1/home/fm2120/store/torus.borg";
         label = "rsync";
-        archiveName = "torus_bulk.borg-{now}";
-        additionalSources = includes;
+        additionalSources = [ "/engi/backup" ];
         moreOpts = {
           commands = [
             {
@@ -36,6 +30,24 @@ in
             }
           ];
           remote_path = "borg1";
+        };
+      };
+      "torus-drive" = {
+        path = "/media/clone/store/torus.borg";
+        label = "drive";
+        additionalSources = [ "/engi/media" ];
+        moreOpts = {
+          commands = [
+            {
+              before = "everything";
+              when = [ "create" ];
+              run = [ "${pkgs.tree}/bin/tree /engi > /engi/backup/tree.txt" ];
+            }
+            {
+              before = "repository";
+              run = [ "findmnt /media/clone/store/torus.borg > /dev/null || exit 75" ];
+            }
+          ];
         };
       };
     };

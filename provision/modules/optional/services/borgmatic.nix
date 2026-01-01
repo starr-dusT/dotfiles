@@ -86,7 +86,7 @@ in
           source_directories = common_sources ++ (opts.additionalSources or [ ]);
           exclude_patterns = common_excludes ++ (opts.additionalExcludes or [ ]);
 
-          archive_name_format = opts.archiveName;
+          archive_name_format = "${hostname}.borg-{now}";
           compression = "zstd,22";
           verbosity = 1;
           keep_daily = 7;
