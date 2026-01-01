@@ -34,6 +34,7 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       xxHash # Extremely fast hash algorithm
+      borgbackup # Deduplicating backup program
     ];
 
     # Password-less login for root

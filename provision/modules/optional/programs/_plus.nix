@@ -10,7 +10,6 @@ in
     modules = {
       optional = {
         programs = {
-          borg.enable = true;
           beancount.enable = true;
         };
       };
