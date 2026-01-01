@@ -46,6 +46,11 @@
           publicKey = "hPso657fppLYvBU31Rtqqg792JEoPv7r82JgLoF8S2Y=";
           allowedIPs = [ "69.69.2.3/32" ];
         }
+        {
+          # Macbook 
+          publicKey = "hPso657fppLYvBU31Rtqqg792JEoPv7r82JgLoF8S2Y=";
+          allowedIPs = [ "69.69.2.4/32" ];
+        }
       ];
     };
   };
