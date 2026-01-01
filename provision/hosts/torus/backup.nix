@@ -1,4 +1,4 @@
-{ user, ... }:
+{ user, pkgs, ... }:
 let
   includes = [
     "/engi/backup"
@@ -15,6 +15,10 @@ in
     "d /engi/store 0775 ${user} users -" # Directory for backups of other hosts
   ];
 
+  environment.systemPackages = with pkgs; [
+    tree
+  ];
+
   modules.optional.services.borgmatic = {
     enable = true;
     config = {
@@ -28,7 +32,7 @@ in
             {
               before = "everything";
               when = [ "create" ];
-              run = [ "tree /engi > /engi/backup/tree.txt" ];
+              run = [ "${pkgs.tree}/bin/tree /engi > /engi/backup/tree.txt" ];
             }
           ];
           remote_path = "borg1";

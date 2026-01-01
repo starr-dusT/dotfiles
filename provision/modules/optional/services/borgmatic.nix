@@ -87,6 +87,7 @@ in
 
           archive_name_format = opts.archiveName;
           compression = "zstd,22";
+          verbosity = 1;
           keep_daily = 7;
           keep_weekly = 4;
           keep_monthly = 6;
