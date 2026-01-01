@@ -86,6 +86,7 @@ in
           exclude_patterns = common_excludes ++ (opts.additionalExcludes or [ ]);
 
           archive_name_format = opts.archiveName;
+          compression = "zstd,22";
           keep_daily = 7;
           keep_weekly = 4;
           keep_monthly = 6;
