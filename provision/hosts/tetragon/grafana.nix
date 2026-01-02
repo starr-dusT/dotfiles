@@ -1,4 +1,14 @@
 { ... }:
+let
+  mkJob = name: target: {
+    job_name = name;
+    static_configs = [
+      {
+        targets = [ target ];
+      }
+    ];
+  };
+in
 {
   networking.firewall.allowedTCPPorts = [
     2342
@@ -12,55 +22,30 @@
     addr = "0.0.0.0";
   };
 
+  services.loki = {
+    enable = true;
+    configFile = ./loki.yaml;
+  };
+
   services.prometheus = {
     enable = true;
     port = 9001;
     scrapeConfigs = [
-      {
-        job_name = "tetragon";
-        static_configs = [
-          {
-            targets = [ "127.0.0.1:9002" ];
-          }
-        ];
-      }
-      {
-        job_name = "vortex-1";
-        static_configs = [
-          {
-            targets = [ "69.69.1.11:9002" ];
-          }
-        ];
-      }
-      {
-        job_name = "vortex-2";
-        static_configs = [
-          {
-            targets = [ "69.69.1.12:9002" ];
-          }
-        ];
-      }
-      {
-        job_name = "vortex-3";
-        static_configs = [
-          {
-            targets = [ "69.69.1.13:9002" ];
-          }
-        ];
-      }
-      {
-        job_name = "torus";
-        static_configs = [
-          {
-            targets = [ "69.69.1.14:9002" ];
-          }
-        ];
-      }
+      mkJob
+      "tetragon"
+      "127.0.0.1:9002"
+      mkJob
+      "vortex-1"
+      "69.69.1.11:9002"
+      mkJob
+      "vortex-2"
+      "69.69.1.12:9002"
+      mkJob
+      "vortex-3"
+      "69.69.1.13:9002"
+      mkJob
+      "torus"
+      "69.69.1.14:9002"
     ];
-  };
-
-  services.loki = {
-    enable = true;
-    configFile = ./loki.yaml;
   };
 }
