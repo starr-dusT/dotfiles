@@ -53,16 +53,8 @@ in
       owner = "${user}";
       group = "users";
     };
-    age.secrets."borg/rsync/id_rsa" = {
-      file = ../../../secrets/borg/rsync/id_rsa.age;
-      owner = "${user}";
-      group = "users";
-    };
-    age.secrets."borg/password" = {
-      file = ../../../secrets/borg/password.age;
-      owner = "${user}";
-      group = "users";
-    };
+    age.secrets."borg/rsync/id_rsa".file = ../../../secrets/borg/rsync/id_rsa.age;
+    age.secrets."borg/password".file = ../../../secrets/borg/password.age;
 
     services.borgmatic = {
       enable = true;
