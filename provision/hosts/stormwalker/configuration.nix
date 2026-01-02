@@ -26,9 +26,6 @@
       development = {
         notes.enable = true;
       };
-      programs = {
-        _plus.enable = true;
-      };
       scripts.enable = true;
       services = {
         syncthing = {

@@ -11,7 +11,6 @@
   modules = {
     core = {
       physical.enable = true;
-      plus.enable = true;
     };
 
     optional = {

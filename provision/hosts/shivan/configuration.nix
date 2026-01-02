@@ -23,9 +23,6 @@
         notes.enable = true;
         programming.enable = true;
       };
-      programs = {
-        _plus.enable = true;
-      };
       scripts.enable = true;
     };
   };
