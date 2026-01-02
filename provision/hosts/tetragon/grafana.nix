@@ -18,8 +18,10 @@ in
 
   services.grafana = {
     enable = true;
-    port = 2342;
-    addr = "0.0.0.0";
+    settings.server = {
+      http_port = 2342;
+      http_addr = "0.0.0.0";
+    };
   };
 
   services.loki = {
