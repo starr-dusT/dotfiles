@@ -3,7 +3,7 @@
   imports = [
     ./adguard.nix
     ./cloudflared.nix
-    ./grafana.nix
+    ./grafana
     ./home-assistant
     ./netboot.nix
     ./networking.nix
