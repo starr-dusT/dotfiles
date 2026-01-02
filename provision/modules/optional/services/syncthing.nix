@@ -46,16 +46,8 @@ in
       21027
     ];
 
-    age.secrets."syncthing/key.pem" = {
-      file = cfg.keyPath;
-      owner = "${user}";
-      group = "users";
-    };
-    age.secrets."syncthing/cert.pem" = {
-      file = cfg.certPath;
-      owner = "${user}";
-      group = "users";
-    };
+    age.secrets."syncthing/key.pem".file = cfg.keyPath;
+    age.secrets."syncthing/cert.pem".file = cfg.certPath;
 
     services.syncthing = {
       enable = true;

@@ -86,11 +86,7 @@ in
     jq
   ];
 
-  age.secrets."kube/token" = {
-    file = ../../secrets/kube/token.age;
-    owner = "${user}";
-    group = "users";
-  };
+  age.secrets."kube/token".file = ../../secrets/kube/token.age;
 
   # Needed for flux
   environment.variables.KUBECONFIG = "/etc/rancher/k3s/k3s.yaml";

@@ -1,8 +1,6 @@
 { config, ... }:
 {
-  age.secrets."cloudflared/tstarr.json" = {
-    file = ../../secrets/cloudflared/tstarr.json.age;
-  };
+  age.secrets."cloudflared/tstarr.json".file = ../../secrets/cloudflared/tstarr.json.age;
 
   services.cloudflared = {
     enable = true;

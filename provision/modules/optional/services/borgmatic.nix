@@ -48,13 +48,13 @@ in
         IdentityFile /run/agenix/ssh/${hostname}
     '';
 
+    age.secrets."borg/rsync/id_rsa".file = ../../../secrets/borg/rsync/id_rsa.age;
+    age.secrets."borg/password".file = ../../../secrets/borg/password.age;
     age.secrets."ssh/${hostname}" = {
       file = ../../../secrets/ssh/${hostname}.age;
       owner = "${user}";
       group = "users";
     };
-    age.secrets."borg/rsync/id_rsa".file = ../../../secrets/borg/rsync/id_rsa.age;
-    age.secrets."borg/password".file = ../../../secrets/borg/password.age;
 
     services.borgmatic = {
       enable = true;
