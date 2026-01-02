@@ -48,7 +48,7 @@
         }
         {
           # Macbook 
-          publicKey = "hPso657fppLYvBU31Rtqqg792JEoPv7r82JgLoF8S2Y=";
+          publicKey = "wE9rlXtGXbmb9orNCAHGnYWafPRjwphrfc+yxAAzeiY=";
           allowedIPs = [ "69.69.2.4/32" ];
         }
       ];
