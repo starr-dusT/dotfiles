@@ -31,21 +31,11 @@ in
     enable = true;
     port = 9001;
     scrapeConfigs = [
-      mkJob
-      "tetragon"
-      "127.0.0.1:9002"
-      mkJob
-      "vortex-1"
-      "69.69.1.11:9002"
-      mkJob
-      "vortex-2"
-      "69.69.1.12:9002"
-      mkJob
-      "vortex-3"
-      "69.69.1.13:9002"
-      mkJob
-      "torus"
-      "69.69.1.14:9002"
+      (mkJob "tetragon" "127.0.0.1:9002")
+      (mkJob "vortex-1" "69.69.1.11:9002")
+      (mkJob "vortex-2" "69.69.1.12:9002")
+      (mkJob "vortex-3" "69.69.1.13:9002")
+      (mkJob "torus" "69.69.1.14:9002")
     ];
   };
 }
