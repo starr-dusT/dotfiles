@@ -45,7 +45,7 @@
             }
             {
               before = "repository";
-              run = [ "findmnt /media/clone/store/torus.borg > /dev/null || exit 75" ];
+              run = [ "${pkgs.util-linux}/bin/findmnt /media/clone > /dev/null || exit 75" ];
             }
           ];
         };

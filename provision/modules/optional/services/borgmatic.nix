@@ -90,7 +90,10 @@ in
           };
 
           checks = [
-            { name = "repository"; }
+            { 
+              name = "repository";
+              frequency = "2 weeks";
+            }
             {
               name = "spot";
               count_tolerance_percentage = 10;
