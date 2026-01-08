@@ -32,7 +32,6 @@ in
       dconf-editor # Graphical tool for editing settings stored in the dconf database of GNOME
       evolution # Personal information management application that provides email, calendar, and contact management features
       planify # Task manager with Todoist support designed for GNU/Linux
-      gnomeExtensions.custom-hot-corners-extended # GNOME Shell extension for changing window focus behavior
       gnomeExtensions.alphabetical-app-grid # Alphabetically order the app grid and folders
       gnome-set-panel-monitor # Set monitor for panel to appear on
       ftw # Build custom ftl wallpapers in a complicated way for no reason
