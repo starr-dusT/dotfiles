@@ -31,6 +31,7 @@ in
     environment.systemPackages = with pkgs; [
       dconf-editor # Graphical tool for editing settings stored in the dconf database of GNOME
       evolution # Personal information management application that provides email, calendar, and contact management features
+      endeavour # Personal task manager for GNOME
       gnomeExtensions.custom-hot-corners-extended # GNOME Shell extension for changing window focus behavior
       gnomeExtensions.alphabetical-app-grid # Alphabetically order the app grid and folders
       gnome-set-panel-monitor # Set monitor for panel to appear on
@@ -291,7 +292,7 @@ in
                 switch-to-application-7 = [ ];
                 switch-to-application-8 = [ ];
                 switch-to-application-9 = [ ];
-                toggle-quick-settings = [ ];
+                toggle-quick-settings = [ "<Super>z" ];
               };
               "org/gnome/settings-daemon/plugins/media-keys" = {
                 play = [ "<Super>p" ];
@@ -327,6 +328,7 @@ in
                 toggle-fullscreen = [ "<Super>f" ];
                 toggle-maximized = [ "<Super>t" ];
                 panel-run-dialog = [ "<Super>r" ];
+                toggle-on-all-workspaces = [ "<Super>s" ];
                 switch-windows = [
                   "<Super>Tab"
                   "<Alt>Tab"
