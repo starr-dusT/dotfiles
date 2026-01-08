@@ -258,7 +258,6 @@ in
                 disable-user-extensions = false;
                 enabled-extensions = [
                   "gnome-shell-extension-set-panel-monitor@tstarr.us"
-                  "custom-hot-corners-extended@G-dH.github.com"
                   "AlphabeticalAppGrid@stuarthayhurst"
                 ];
               };
@@ -381,20 +380,6 @@ in
                     ])
                   ]
                 ];
-              };
-
-              # Custom-hot-corners-extended configs
-              "org/gnome/shell/extensions/custom-hot-corners-extended/misc" = {
-                panel-menu-enable = false;
-              };
-              "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-1" = {
-                action = "toggle-overview";
-              };
-              "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-4" = {
-                action = "next-workspace";
-              };
-              "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-5" = {
-                action = "prev-workspace";
               };
             }
             (generate_custom_keybindings {
