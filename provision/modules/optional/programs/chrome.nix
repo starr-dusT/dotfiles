@@ -41,7 +41,7 @@ in
 
         # Install extensions
         "ExtensionInstallForcelist" = [
-          "gfapcejdoghpoidkfodoiiffaaibpaem" # Dracula theme
+          "ihennfdbghdiflogeancnalflhgmanop" # Gruvbox theme
           "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
           "hkgfoiooedgoejojocmhlaklaeopbecg" # Picture-in-Picture (by Google)
           "beakmhbijpdhipnjhnclmhgjlddhidpe" # Linkding

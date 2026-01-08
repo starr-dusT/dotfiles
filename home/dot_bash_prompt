@@ -49,17 +49,17 @@ prompt_git() {
 
 reset="\e[0m"
 bold="\e[1m"
-white="\e[1;37m"     # Dracula foreground (#f8f8f2)
-black="\e[1;30m"     # Dark base
-red="\e[1;31m"       # #ff5555
-green="\e[1;32m"     # #50fa7b
-yellow="\e[1;33m"    # #f1fa8c
-blue="\e[1;34m"      # #6272a4 (comment/blue)
-purple="\e[1;35m"    # #ff79c6
-cyan="\e[1;36m"      # #8be9fd
-orange="\e[1;33m"    # #ffb86c (closest ANSI match)
-violet="\e[1;35m"
-pink="\e[1;35m"
+white="\e[1;37m"     # fg (#ebdbb2)
+black="\e[1;30m"     # bg0 (#282828)
+red="\e[1;31m"       # red (#cc241d)
+green="\e[1;32m"     # green (#98971a)
+yellow="\e[1;33m"    # yellow (#d79921)
+blue="\e[1;34m"      # blue (#458588)
+purple="\e[1;35m"    # purple (#b16286)
+cyan="\e[1;36m"      # aqua (#689d6a)
+orange="\e[1;33m"    # orange (#d65d0e)
+violet="\e[1;35m"    # same as purple
+pink="\e[1;35m"      # same as purple
 
 # Highlight the user name when logged in as root.
 if [[ "${USER}" == "root" ]]; then

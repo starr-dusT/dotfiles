@@ -239,7 +239,7 @@ in
               # Settings for gnome and default applications
               "org/gnome/desktop/interface" = {
                 color-scheme = "prefer-dark";
-                accent-color = "purple";
+                accent-color = "orange";
                 enable-animations = false;
               };
               "org/gnome/desktop/background" = {
