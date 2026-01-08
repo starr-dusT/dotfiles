@@ -234,177 +234,181 @@ in
               ])
             );
           in
-          {
-            # Settings for gnome and default applications
-            "org/gnome/desktop/interface" = {
-              color-scheme = "prefer-dark";
-              accent-color = "purple";
-              enable-animations = false;
-            };
-            "org/gnome/desktop/background" = {
-              picture-uri = "file:///home/${user}/.local/share/chezmoi/resources/img/wallpapers/${hostname}.png";
-              picture-uri-dark = "file:///home/${user}/.local/share/chezmoi/resources/img/wallpapers/${hostname}.png";
-            };
-            "org/gnome/shell" = {
-              favorite-apps = [
-                "chromium-browser.desktop"
-                "com.mitchellh.ghostty.desktop"
-                "org.gnome.Nautilus.desktop"
-                "obsidian.desktop"
-                "steam.desktop"
-                "discord.desktop"
-              ];
-              disable-user-extensions = false;
-              enabled-extensions = [
-                "gnome-shell-extension-set-panel-monitor@tstarr.us"
-                "custom-hot-corners-extended@G-dH.github.com"
-                "AlphabeticalAppGrid@stuarthayhurst"
-              ];
-            };
-            "org/gnome/shell/app-switcher" = {
-              current-workspace-only = true;
-            };
-            "org/gnome/mutter" = {
-              overlay-key = "Super";
-              center-new-windows = true;
-              workspaces-only-on-primary = true;
-              dynamic-workspaces = false;
-              experimental-features = [
-                "scale-monitor-framebuffer"
-                "xwayland-native-scaling"
-              ];
-            };
-            "org/gnome/desktop/wm/preferences" = {
-              focus-mode = "sloppy";
-              num-workspaces = 10;
-            };
-            "org/gnome/shell/keybindings" = {
-              switch-to-application-1 = [ ];
-              switch-to-application-2 = [ ];
-              switch-to-application-3 = [ ];
-              switch-to-application-4 = [ ];
-              switch-to-application-5 = [ ];
-              switch-to-application-6 = [ ];
-              switch-to-application-7 = [ ];
-              switch-to-application-8 = [ ];
-              switch-to-application-9 = [ ];
-              toggle-quick-settings = [ ];
-            };
-            "org/gnome/settings-daemon/plugins/media-keys" = {
-              screensaver = [ ];
-            };
-            "org/gnome/settings-daemon/plugins/power" = {
-              sleep-inactive-ac-type = "blank";
-              sleep-inactive-battery-type = "blank";
-              sleep-inactive-ac-timeout = 600;
-              sleep-inactive-battery-timeout = 600;
-            };
-            "org/gnome/desktop/wm/keybindings" = {
-              switch-to-workspace-1 = [ "<Super>1" ];
-              switch-to-workspace-2 = [ "<Super>2" ];
-              switch-to-workspace-3 = [ "<Super>3" ];
-              switch-to-workspace-4 = [ "<Super>4" ];
-              switch-to-workspace-5 = [ "<Super>5" ];
-              switch-to-workspace-6 = [ "<Super>6" ];
-              switch-to-workspace-7 = [ "<Super>7" ];
-              switch-to-workspace-8 = [ "<Super>8" ];
-              switch-to-workspace-9 = [ "<Super>9" ];
-              switch-to-workspace-0 = [ "<Super>0" ];
-              move-to-workspace-1 = [ "<Shift><Super>1" ];
-              move-to-workspace-2 = [ "<Shift><Super>2" ];
-              move-to-workspace-3 = [ "<Shift><Super>3" ];
-              move-to-workspace-4 = [ "<Shift><Super>4" ];
-              move-to-workspace-5 = [ "<Shift><Super>5" ];
-              move-to-workspace-6 = [ "<Shift><Super>6" ];
-              move-to-workspace-7 = [ "<Shift><Super>7" ];
-              move-to-workspace-8 = [ "<Shift><Super>8" ];
-              move-to-workspace-9 = [ "<Shift><Super>9" ];
-              move-to-workspace-0 = [ "<Shift><Super>0" ];
-              move-to-monitor-left = [ "<Shift><Super>h" ];
-              move-to-monitor-right = [ "<Shift><Super>l" ];
-              close = [ "<Super>d" ];
-              toggle-fullscreen = [ "<Super>f" ];
-              toggle-maximized = [ "<Super>t" ];
-              panel-run-dialog = [ "<Super>r" ];
-              switch-windows = [
-                "<Super>Tab"
-                "<Alt>Tab"
-                "<Super>e"
-              ];
-              switch-windows-backward = [
-                "<Super><Shift>Tab"
-                "<Alt><Shift>Tab"
-                "<Super>q"
-              ];
-              switch-applications = [ ];
-              switch-applications-backward = [ ];
-              minimize = [ ];
-            };
-            "org/gnome/nautilus/preferences" = {
-              "default-folder-viewer" = "list-view";
-            };
-            "org/gnome/Weather" = {
-              locations = [ bakersfield ];
-            };
-            "org/gnome/shell/weather" = {
-              locations = [ bakersfield ];
-            };
-            "org/gnome/shell/world-clocks" = {
-              locations = [
-                tehran
-                moscow
-                beijing
-              ];
-            };
-            "org/gnome/clocks" = {
-              world-clocks = [
-                [
-                  (lib.hm.gvariant.mkDictionaryEntry [
-                    "location"
-                    tehran
-                  ])
-                ]
-                [
-                  (lib.hm.gvariant.mkDictionaryEntry [
-                    "location"
-                    moscow
-                  ])
-                ]
-                [
-                  (lib.hm.gvariant.mkDictionaryEntry [
-                    "location"
-                    beijing
-                  ])
-                ]
-              ];
-            };
+          lib.recursiveUpdate
+            {
+              # Settings for gnome and default applications
+              "org/gnome/desktop/interface" = {
+                color-scheme = "prefer-dark";
+                accent-color = "purple";
+                enable-animations = false;
+              };
+              "org/gnome/desktop/background" = {
+                picture-uri = "file:///home/${user}/.local/share/chezmoi/resources/img/wallpapers/${hostname}.png";
+                picture-uri-dark = "file:///home/${user}/.local/share/chezmoi/resources/img/wallpapers/${hostname}.png";
+              };
+              "org/gnome/shell" = {
+                favorite-apps = [
+                  "chromium-browser.desktop"
+                  "com.mitchellh.ghostty.desktop"
+                  "org.gnome.Nautilus.desktop"
+                  "obsidian.desktop"
+                  "steam.desktop"
+                  "discord.desktop"
+                ];
+                disable-user-extensions = false;
+                enabled-extensions = [
+                  "gnome-shell-extension-set-panel-monitor@tstarr.us"
+                  "custom-hot-corners-extended@G-dH.github.com"
+                  "AlphabeticalAppGrid@stuarthayhurst"
+                ];
+              };
+              "org/gnome/shell/app-switcher" = {
+                current-workspace-only = true;
+              };
+              "org/gnome/mutter" = {
+                overlay-key = "Super";
+                center-new-windows = true;
+                workspaces-only-on-primary = true;
+                dynamic-workspaces = false;
+                experimental-features = [
+                  "scale-monitor-framebuffer"
+                  "xwayland-native-scaling"
+                ];
+              };
+              "org/gnome/mutter/keybindings" = {
+                switch-monitor = [ ];
+              };
+              "org/gnome/desktop/wm/preferences" = {
+                focus-mode = "sloppy";
+                num-workspaces = 10;
+              };
+              "org/gnome/shell/keybindings" = {
+                switch-to-application-1 = [ ];
+                switch-to-application-2 = [ ];
+                switch-to-application-3 = [ ];
+                switch-to-application-4 = [ ];
+                switch-to-application-5 = [ ];
+                switch-to-application-6 = [ ];
+                switch-to-application-7 = [ ];
+                switch-to-application-8 = [ ];
+                switch-to-application-9 = [ ];
+                toggle-quick-settings = [ ];
+              };
+              "org/gnome/settings-daemon/plugins/media-keys" = {
+                play = [ "<Super>p" ];
+              };
+              "org/gnome/settings-daemon/plugins/power" = {
+                sleep-inactive-ac-type = "blank";
+                sleep-inactive-battery-type = "blank";
+                sleep-inactive-ac-timeout = 600;
+                sleep-inactive-battery-timeout = 600;
+              };
+              "org/gnome/desktop/wm/keybindings" = {
+                switch-to-workspace-1 = [ "<Super>1" ];
+                switch-to-workspace-2 = [ "<Super>2" ];
+                switch-to-workspace-3 = [ "<Super>3" ];
+                switch-to-workspace-4 = [ "<Super>4" ];
+                switch-to-workspace-5 = [ "<Super>5" ];
+                switch-to-workspace-6 = [ "<Super>6" ];
+                switch-to-workspace-7 = [ "<Super>7" ];
+                switch-to-workspace-8 = [ "<Super>8" ];
+                switch-to-workspace-9 = [ "<Super>9" ];
+                switch-to-workspace-0 = [ "<Super>0" ];
+                move-to-workspace-1 = [ "<Shift><Super>1" ];
+                move-to-workspace-2 = [ "<Shift><Super>2" ];
+                move-to-workspace-3 = [ "<Shift><Super>3" ];
+                move-to-workspace-4 = [ "<Shift><Super>4" ];
+                move-to-workspace-5 = [ "<Shift><Super>5" ];
+                move-to-workspace-6 = [ "<Shift><Super>6" ];
+                move-to-workspace-7 = [ "<Shift><Super>7" ];
+                move-to-workspace-8 = [ "<Shift><Super>8" ];
+                move-to-workspace-9 = [ "<Shift><Super>9" ];
+                move-to-workspace-0 = [ "<Shift><Super>0" ];
+                move-to-monitor-left = [ "<Shift><Super>h" ];
+                move-to-monitor-right = [ "<Shift><Super>l" ];
+                close = [ "<Super>d" ];
+                toggle-fullscreen = [ "<Super>f" ];
+                toggle-maximized = [ "<Super>t" ];
+                panel-run-dialog = [ "<Super>r" ];
+                switch-windows = [
+                  "<Super>Tab"
+                  "<Alt>Tab"
+                  "<Super>e"
+                ];
+                switch-windows-backward = [
+                  "<Super><Shift>Tab"
+                  "<Alt><Shift>Tab"
+                  "<Super>q"
+                ];
+                switch-applications = [ ];
+                switch-applications-backward = [ ];
+                minimize = [ ];
+              };
+              "org/gnome/nautilus/preferences" = {
+                "default-folder-viewer" = "list-view";
+              };
+              "org/gnome/Weather" = {
+                locations = [ bakersfield ];
+              };
+              "org/gnome/shell/weather" = {
+                locations = [ bakersfield ];
+              };
+              "org/gnome/shell/world-clocks" = {
+                locations = [
+                  tehran
+                  moscow
+                  beijing
+                ];
+              };
+              "org/gnome/clocks" = {
+                world-clocks = [
+                  [
+                    (lib.hm.gvariant.mkDictionaryEntry [
+                      "location"
+                      tehran
+                    ])
+                  ]
+                  [
+                    (lib.hm.gvariant.mkDictionaryEntry [
+                      "location"
+                      moscow
+                    ])
+                  ]
+                  [
+                    (lib.hm.gvariant.mkDictionaryEntry [
+                      "location"
+                      beijing
+                    ])
+                  ]
+                ];
+              };
 
-            # Custom-hot-corners-extended configs
-            "org/gnome/shell/extensions/custom-hot-corners-extended/misc" = {
-              panel-menu-enable = false;
-            };
-            "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-1" = {
-              action = "toggle-overview";
-            };
-            "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-4" = {
-              action = "next-workspace";
-            };
-            "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-5" = {
-              action = "prev-workspace";
-            };
-          }
-          // generate_custom_keybindings {
-            "1" = {
-              binding = "<Super><Control>d";
-              command = "display-switch.sh -p kestrel-desktop";
-              name = "Kestrel display at Desk";
-            };
-            "2" = {
-              binding = "<Super><Control>l";
-              command = "display-switch.sh -p kestrel-living";
-              name = "Kestrel display in Living Room";
-            };
-          };
+              # Custom-hot-corners-extended configs
+              "org/gnome/shell/extensions/custom-hot-corners-extended/misc" = {
+                panel-menu-enable = false;
+              };
+              "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-1" = {
+                action = "toggle-overview";
+              };
+              "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-4" = {
+                action = "next-workspace";
+              };
+              "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-5" = {
+                action = "prev-workspace";
+              };
+            }
+            (generate_custom_keybindings {
+              "1" = {
+                binding = "<Super><Control>d";
+                command = "display-switch.sh -p kestrel-desktop";
+                name = "Kestrel display at Desk";
+              };
+              "2" = {
+                binding = "<Super><Control>l";
+                command = "display-switch.sh -p kestrel-living";
+                name = "Kestrel display in Living Room";
+              };
+            });
       };
   };
 }
