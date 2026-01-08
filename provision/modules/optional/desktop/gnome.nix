@@ -31,7 +31,7 @@ in
     environment.systemPackages = with pkgs; [
       dconf-editor # Graphical tool for editing settings stored in the dconf database of GNOME
       evolution # Personal information management application that provides email, calendar, and contact management features
-      endeavour # Personal task manager for GNOME
+      planify # Task manager with Todoist support designed for GNU/Linux
       gnomeExtensions.custom-hot-corners-extended # GNOME Shell extension for changing window focus behavior
       gnomeExtensions.alphabetical-app-grid # Alphabetically order the app grid and folders
       gnome-set-panel-monitor # Set monitor for panel to appear on
@@ -253,6 +253,8 @@ in
                   "com.mitchellh.ghostty.desktop"
                   "org.gnome.Nautilus.desktop"
                   "obsidian.desktop"
+                  "org.gnome.Calendar.desktop"
+                  "io.github.alainm23.planify.desktop"
                   "steam.desktop"
                   "discord.desktop"
                 ];
