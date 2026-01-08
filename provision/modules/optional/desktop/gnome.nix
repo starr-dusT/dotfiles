@@ -323,8 +323,6 @@ in
                 move-to-workspace-8 = [ "<Shift><Super>8" ];
                 move-to-workspace-9 = [ "<Shift><Super>9" ];
                 move-to-workspace-0 = [ "<Shift><Super>0" ];
-                move-to-monitor-left = [ "<Shift><Super>h" ];
-                move-to-monitor-right = [ "<Shift><Super>l" ];
                 close = [ "<Super>d" ];
                 toggle-fullscreen = [ "<Super>f" ];
                 toggle-maximized = [ "<Super>t" ];

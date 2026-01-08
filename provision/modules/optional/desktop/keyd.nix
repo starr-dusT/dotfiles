@@ -13,11 +13,6 @@ in
           main = {
             # Replace capslock with esc
             capslock = "overload(meta, esc)";
-
-            # "Home" row modifiers for left modifier keys
-            i = "overloadt(control, i, 300)";
-            o = "overloadt(meta, o, 300)";
-            p = "overloadt(alt, p, 300)";
           };
           meta = {
             o = "oneshot(open)";
