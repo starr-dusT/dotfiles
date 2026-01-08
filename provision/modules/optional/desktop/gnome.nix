@@ -252,7 +252,6 @@ in
                   "com.mitchellh.ghostty.desktop"
                   "org.gnome.Nautilus.desktop"
                   "obsidian.desktop"
-                  "org.gnome.Calendar.desktop"
                   "io.github.alainm23.planify.desktop"
                   "steam.desktop"
                   "discord.desktop"
