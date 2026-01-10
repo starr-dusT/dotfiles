@@ -9,9 +9,9 @@ let
   cfg = config.modules.optional.services.syncthing;
 in
 {
-  #config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      syncthingtray-minimal
+      syncthingtray # Tray icon and further platform integrations for Syncthing
     ];
 
     systemd.user.services.syncthing-tray = {
@@ -20,11 +20,11 @@ in
       wants = [ "graphical-session.target" ];
       wantedBy = [ "default.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.syncthingtray-minimal}/bin/syncthingtray";
+        ExecStart = "${pkgs.syncthingtray}/bin/syncthingtray";
         Restart = "on-failure";
         RestartSec = 1;
         Type = "simple";
       };
     };
-  #};
+  };
 }
