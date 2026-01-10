@@ -33,6 +33,7 @@ in
       evolution # Personal information management application that provides email, calendar, and contact management features
       planify # Task manager with Todoist support designed for GNU/Linux
       gnomeExtensions.alphabetical-app-grid # Alphabetically order the app grid and folders
+      gnomeExtensions.appindicator # Adds AppIndicator, KStatusNotifierItem and legacy Tray icons support to the Shell
       gnome-set-panel-monitor # Set monitor for panel to appear on
       ftw # Build custom ftl wallpapers in a complicated way for no reason
     ];
@@ -258,6 +259,7 @@ in
                 ];
                 disable-user-extensions = false;
                 enabled-extensions = [
+                  "appindicatorsupport@rgcjonas.gmail.com"
                   "gnome-shell-extension-set-panel-monitor@tstarr.us"
                   "AlphabeticalAppGrid@stuarthayhurst"
                 ];

@@ -18,6 +18,7 @@ in
     ./peripherals.nix
     ./samba-client.nix
     ./scripts
+    ./syncthing-tray.nix
   ];
 
   options.modules.optional.desktop.enable = lib.mkEnableOption "desktop";
