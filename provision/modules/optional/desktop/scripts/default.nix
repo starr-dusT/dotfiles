@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  user,
   ...
 }:
 
@@ -10,8 +11,15 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
+    age.secrets."kube/homedb_pass" = {
+      file = ../../../../secrets/kube/homedb_pass.age;
+      owner = "${user}";
+      group = "users";
+    };
+
     environment.systemPackages = [
       pkgs.jq
+      pkgs.postgresql
     ]
     ++ [
       (pkgs.writeShellScriptBin "sink-switch.sh" (builtins.readFile ./sink-switch.sh))

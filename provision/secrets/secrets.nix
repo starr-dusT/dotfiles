@@ -29,6 +29,7 @@ in
   "borg/rsync/id_rsa.age".publicKeys = systems;
   "borg/rsync/id_rsa.pub.age".publicKeys = systems;
   "kube/token.age".publicKeys = systems;
+  "kube/homedb_pass.age".publicKeys = systems;
   "syncthing/kestrel/key.pem.age".publicKeys = systems;
   "syncthing/kestrel/cert.pem.age".publicKeys = systems;
   "syncthing/torus/key.pem.age".publicKeys = systems;
