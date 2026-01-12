@@ -262,6 +262,7 @@ in
                   "appindicatorsupport@rgcjonas.gmail.com"
                   "gnome-shell-extension-set-panel-monitor@tstarr.us"
                   "AlphabeticalAppGrid@stuarthayhurst"
+                  "executor@raujonas.github.io"
                 ];
               };
               "org/gnome/shell/app-switcher" = {
@@ -382,6 +383,10 @@ in
                     ])
                   ]
                 ];
+              };
+              # Appindicator settings
+              "org/gnome/shell/extensions/appindicator" = {
+                tray-pos = "left";
               };
             }
             (generate_custom_keybindings {
