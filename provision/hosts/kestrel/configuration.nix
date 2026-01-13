@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 {
   imports = [
     ./backup.nix
@@ -6,8 +6,8 @@
     ./vulcan.nix
   ];
 
-  # Use cachyos kernel for that sweet gaming performance!
-  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
+  # Use performance governor for sweet gaming performance!
+  powerManagement.cpuFreqGovernor = "performance";
 
   # Set networking options
   networking.firewall.checkReversePath = "loose";
