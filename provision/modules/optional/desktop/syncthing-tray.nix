@@ -18,7 +18,7 @@ in
       description = "Syncthing Tray";
       after = [ "graphical-session.target" ];
       wants = [ "graphical-session.target" ];
-      wantedBy = [ "default.target" ];
+      wantedBy = [ "graphical-session.target" ];
       serviceConfig = {
         ExecStart = "${pkgs.syncthingtray}/bin/syncthingtray";
         Restart = "on-failure";
