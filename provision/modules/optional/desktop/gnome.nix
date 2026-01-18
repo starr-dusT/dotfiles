@@ -295,6 +295,7 @@ in
                 switch-to-application-7 = [ ];
                 switch-to-application-8 = [ ];
                 switch-to-application-9 = [ ];
+                toggle-application-view = [ ];
                 toggle-quick-settings = [ "<Super>z" ];
               };
               "org/gnome/settings-daemon/plugins/media-keys" = {
@@ -332,6 +333,7 @@ in
                 toggle-maximized = [ "<Super>t" ];
                 panel-run-dialog = [ "<Super>r" ];
                 toggle-on-all-workspaces = [ "<Super>s" ];
+                toggle-above = [ "<Super>a" ];
                 switch-windows = [
                   "<Super>Tab"
                   "<Alt>Tab"
