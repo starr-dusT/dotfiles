@@ -4,8 +4,9 @@ let
 in
 {
   imports = [
-    ./samba-server.nix
     ./backup.nix
+    ./databasus.nix
+    ./samba-server.nix
   ];
 
   # Use normal kernel
