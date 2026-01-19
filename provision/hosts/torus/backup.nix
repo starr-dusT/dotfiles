@@ -20,7 +20,10 @@
       "torus-rsync" = {
         path = "ssh://fm2120@fm2120.rsync.net//data1/home/fm2120/store/torus.borg";
         label = "rsync";
-        additionalSources = [ "/engi/backup" ];
+        additionalSources = [
+          "/engi/backup"
+          "/home/${user}/.podman/databasus"
+        ];
         moreOpts = {
           commands = [
             {
