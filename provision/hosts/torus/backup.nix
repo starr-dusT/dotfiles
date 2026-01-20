@@ -38,7 +38,11 @@
       "torus-drive" = {
         path = "/media/clone/store/torus.borg";
         label = "drive";
-        additionalSources = [ "/engi/media" ];
+        additionalSources = [
+          "/engi/backup"
+          "/home/${user}/.podman/databasus"
+          "/engi/media"
+        ];
         moreOpts = {
           commands = [
             {
