@@ -22,7 +22,7 @@
         label = "rsync";
         additionalSources = [
           "/engi/backup"
-          "/home/${user}/.podman/databasus"
+          "/podman/databasus"
         ];
         moreOpts = {
           commands = [
@@ -40,8 +40,8 @@
         label = "drive";
         additionalSources = [
           "/engi/backup"
-          "/home/${user}/.podman/databasus"
           "/engi/media"
+          "/podman/databasus"
         ];
         moreOpts = {
           commands = [

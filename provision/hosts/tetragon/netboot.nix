@@ -1,6 +1,6 @@
 { user, ... }:
 let
-  cfldr = "/home/${user}/.podman/netbootxyz";
+  cfldr = "/podman/netbootxyz";
 in
 {
   networking.firewall.allowedTCPPorts = [ 3000 ];
