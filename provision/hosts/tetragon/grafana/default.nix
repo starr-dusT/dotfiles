@@ -18,9 +18,19 @@ in
 
   services.grafana = {
     enable = true;
-    settings.server = {
-      http_port = 2342;
-      http_addr = "0.0.0.0";
+    settings = {
+      server = {
+        http_port = 2342;
+        http_addr = "0.0.0.0";
+      };
+      analytics = {
+        reporting_enabled = false;
+        check_for_updates = false;
+        feedback_links_enabled = false;
+      };
+      plugins = {
+        check_for_plugin_updates = false;
+      };
     };
   };
 
