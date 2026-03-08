@@ -30,7 +30,7 @@ case $val in
         "$mutter/bin/gdctl" set "${args[@]}" --logical-monitor --primary --monitor HDMI-1 --mode 2560x1440@59.951 --scale 1.33
         ;;
     "kestrel-kvm" )
-        "$mutter/bin/gdctl" set "${args[@]}" --logical-monitor --primary --monitor HDMI-1 --mode 1920x1080@60.000 --scale 1
+        "$mutter/bin/gdctl" set "${args[@]}" --logical-monitor --primary --monitor DP-1 --mode 1920x1080@60.000 --monitor DP-2 --mode 1920x1080@60.000 --monitor HDMI-1 --mode 1920x1080@60.000 --scale 1
         ;;
     "kestrel-desktop" )
         "$mutter/bin/gdctl" set "${args[@]}" --logical-monitor --primary --monitor DP-2 --mode 2560x1440@143.912 --scale 1 --logical-monitor --monitor DP-1 --mode 2560x1440@143.973 --scale 1 --left-of DP-2
