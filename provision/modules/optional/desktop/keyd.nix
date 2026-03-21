@@ -15,24 +15,12 @@ in
             capslock = "overload(meta, esc)";
           };
           meta = {
-            o = "oneshot(open)";
             u = "oneshot(util)";
-          };
-          open = {
-            # Open applications on gnome bar
-            q = "C-M-1";
-            w = "C-M-2";
-            e = "C-M-3";
-            r = "C-M-4";
-            t = "C-M-5";
-            y = "C-M-6";
-            u = "C-M-7";
-            i = "C-M-8";
-            o = "C-M-9";
           };
           util = {
             d = "C-M-d"; # Kestrel display at desk
             l = "C-M-l"; # Kestrel display in living room
+            k = "C-M-k"; # Kestrel display in Comet remote control 
           };
           alt = {
             # Use hjkl for arrow keys with alt

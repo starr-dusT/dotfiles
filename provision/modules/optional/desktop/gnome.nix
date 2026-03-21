@@ -34,6 +34,7 @@ in
       planify # Task manager with Todoist support designed for GNU/Linux
       gnomeExtensions.alphabetical-app-grid # Alphabetically order the app grid and folders
       gnomeExtensions.appindicator # Adds AppIndicator, KStatusNotifierItem and legacy Tray icons support to the Shell
+      gnomeExtensions.happy-appy-hotkey # Assign hotkeys to applications to give them focus or launch them
       gnome-set-panel-monitor # Set monitor for panel to appear on
       ftw # Build custom ftl wallpapers in a complicated way for no reason
     ];
@@ -252,9 +253,6 @@ in
                   "chromium-browser.desktop"
                   "com.mitchellh.ghostty.desktop"
                   "org.gnome.Nautilus.desktop"
-                  "obsidian.desktop"
-                  "io.github.alainm23.planify.desktop"
-                  "steam.desktop"
                   "discord.desktop"
                 ];
                 disable-user-extensions = false;
@@ -263,6 +261,7 @@ in
                   "gnome-shell-extension-set-panel-monitor@tstarr.us"
                   "AlphabeticalAppGrid@stuarthayhurst"
                   "executor@raujonas.github.io"
+                  "happy-appy-hotkey@jqno.nl"
                 ];
               };
               "org/gnome/shell/app-switcher" = {
@@ -280,6 +279,8 @@ in
               };
               "org/gnome/mutter/keybindings" = {
                 switch-monitor = [ ];
+                toggle-tiled-left = [ "<Super>h" ];
+                toggle-tiled-right = [ "<Super>l" ];
               };
               "org/gnome/desktop/wm/preferences" = {
                 focus-mode = "sloppy";
@@ -295,11 +296,21 @@ in
                 switch-to-application-7 = [ ];
                 switch-to-application-8 = [ ];
                 switch-to-application-9 = [ ];
+                open-new-window-application-1 = [ "<Shift><Super>q" ];
+                open-new-window-application-2 = [ "<Shift><Super>w" ];
+                open-new-window-application-3 = [ "<Shift><Super>e" ];
+                open-new-window-application-4 = [ "<Shift><Super>r" ];
+                open-new-window-application-5 = [ ];
+                open-new-window-application-6 = [ ];
+                open-new-window-application-7 = [ ];
+                open-new-window-application-8 = [ ];
+                open-new-window-application-9 = [ ];
                 toggle-application-view = [ ];
                 toggle-quick-settings = [ "<Super>z" ];
               };
               "org/gnome/settings-daemon/plugins/media-keys" = {
                 play = [ "<Super>p" ];
+                screensaver = [ "<Super>Space" ];
               };
               "org/gnome/settings-daemon/plugins/power" = {
                 sleep-inactive-ac-type = "nothing";
@@ -330,22 +341,27 @@ in
                 move-to-workspace-0 = [ "<Shift><Super>0" ];
                 close = [ "<Super>d" ];
                 toggle-fullscreen = [ "<Super>f" ];
-                toggle-maximized = [ "<Super>t" ];
-                panel-run-dialog = [ "<Super>r" ];
+                toggle-maximized = [
+                  "<Super>t"
+                  "<Super>j"
+                ];
+                move-to-monitor-right = [ "<Shift><Super>l" ];
+                move-to-monitor-left = [ "<Shift><Super>h" ];
+                panel-run-dialog = [ "<Super>x" ];
                 toggle-on-all-workspaces = [ "<Super>s" ];
                 toggle-above = [ "<Super>a" ];
                 switch-windows = [
                   "<Super>Tab"
                   "<Alt>Tab"
-                  "<Super>e"
                 ];
                 switch-windows-backward = [
                   "<Super><Shift>Tab"
                   "<Alt><Shift>Tab"
-                  "<Super>q"
                 ];
                 switch-applications = [ ];
                 switch-applications-backward = [ ];
+                switch-group = [ ];
+                switch-group-backward = [ ];
                 minimize = [ ];
               };
               "org/gnome/nautilus/preferences" = {
@@ -390,6 +406,20 @@ in
               "org/gnome/shell/extensions/appindicator" = {
                 tray-pos = "left";
               };
+              # Happy Appy settings
+              "org/gnome/shell/extensions/happy-appy-hotkey" = {
+                app-0 = "Chromium";
+                hotkey-0 = [ "<Super>q" ];
+                app-1 = "Ghostty";
+                hotkey-1 = [ "<Super>w" ];
+                app-2 = "Files";
+                hotkey-2 = [ "<Super>e" ];
+                app-3 = "Discord";
+                hotkey-3 = [ "<Super>r" ];
+                hotkey-unbound-cycle = [ "<Super>grave" ];
+                number = 4;
+                restrict-to-current-workspace = true;
+              };
             }
             (generate_custom_keybindings {
               "1" = {
@@ -401,6 +431,11 @@ in
                 binding = "<Super><Control>l";
                 command = "display-switch.sh -p kestrel-living";
                 name = "Kestrel display in Living Room";
+              };
+              "3" = {
+                binding = "<Super><Control>k";
+                command = "display-switch.sh -p kestrel-kvm";
+                name = "Kestrel display in Comet remote control";
               };
             });
       };
