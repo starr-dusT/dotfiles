@@ -3,8 +3,8 @@
   flake.modules.nixos.syncthing =
     { ... }:
     {
-      age.secrets."syncthing/key.pem".file = ../../../../secrets/syncthing/kestrel/key.pem.age;
-      age.secrets."syncthing/cert.pem".file = ../../../../secrets/syncthing/kestrel/cert.pem.age;
+      age.secrets."syncthing/key.pem".file = ../../../../../secrets/syncthing/kestrel/key.pem.age;
+      age.secrets."syncthing/cert.pem".file = ../../../../../secrets/syncthing/kestrel/cert.pem.age;
 
       services.syncthing = {
         settings.devices = {

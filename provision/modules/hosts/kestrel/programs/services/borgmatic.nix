@@ -11,7 +11,7 @@
     {
       # Password-less logins for other hosts
       users.users."${user}".openssh.authorizedKeys.keyFiles = [
-        ../../../../secrets/ssh/pubs/torus.pub
+        ../../../../../secrets/ssh/pubs/torus.pub
       ];
 
       systemd.tmpfiles.rules = [
