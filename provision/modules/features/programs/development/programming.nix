@@ -1,0 +1,25 @@
+{ ... }:
+{
+  flake.modules.nixos.programming =
+    { pkgs, config, ... }:
+    {
+      environment.systemPackages = with pkgs; [
+        nodejs # JavaScript runtime built on Chrome's V8 JavaScript engine
+        cargo # Package manager and build system for Rust
+        docker-compose # Docker CLI plugin to define and run multi-container applications with Docker
+        distrobox # Use any linux distribution inside your terminal
+        just # Hand way to save and run project-specific commands
+        nixd # Feature-rich Nix language server interoperating with C++ nix
+        nixfmt # Official formatter for Nix code
+        nixfmt-tree # Official Nix formatter zero-setup starter using treefmt
+        lua-language-server # Language server that offers Lua language support
+        devenv # Fast, Declarative, Reproducible, and Composable Developer Environments
+      ];
+
+      # Needed for devenv
+      nix.settings.trusted-users = [
+        "root"
+        "${config.preferences.user}"
+      ];
+    };
+}
