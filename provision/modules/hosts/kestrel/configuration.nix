@@ -17,6 +17,9 @@
         self.modules.nixos.engineering
         self.modules.nixos.notes
         self.modules.nixos.programming
+
+        self.modules.nixos.emulation
+        self.modules.nixos.pc
       ];
 
       preferences.hostname = "kestrel";
