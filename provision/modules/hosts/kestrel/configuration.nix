@@ -20,6 +20,9 @@
 
         self.modules.nixos.emulation
         self.modules.nixos.pc
+
+        self.modules.nixos.docker
+        self.modules.nixos.virt-manager
       ];
 
       preferences.hostname = "kestrel";
