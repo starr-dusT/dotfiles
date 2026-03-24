@@ -27,6 +27,8 @@
 
         self.modules.nixos.syncthing
         self.modules.nixos.borgmatic
+
+        self.modules.nixos.commit-vulcan
       ];
 
       preferences.hostname = "kestrel";
