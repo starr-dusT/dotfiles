@@ -24,6 +24,9 @@
 
         self.modules.nixos.docker
         self.modules.nixos.virt-manager
+
+        self.modules.nixos.syncthing
+        self.modules.nixos.borgmatic
       ];
 
       preferences.hostname = "kestrel";
