@@ -12,7 +12,7 @@
 
       age.secrets."git/github_personal" = {
         file = ../../../secrets/git/github_personal.age;
-        owner = "${config.preferences.user.name}";
+        owner = "${config.preferences.user}";
         group = "users";
       };
 

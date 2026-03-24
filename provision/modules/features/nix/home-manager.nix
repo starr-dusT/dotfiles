@@ -3,7 +3,7 @@
   flake.modules.nixos.home-manager =
     { config, ... }:
     let
-      user = "${config.preferences.user.name}";
+      user = "${config.preferences.user}";
     in
     {
       imports = [

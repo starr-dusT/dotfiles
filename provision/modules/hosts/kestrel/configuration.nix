@@ -11,7 +11,10 @@
     {
       imports = [
         self.modules.nixos.core
+        self.modules.nixos.gnome
       ];
+
+      preferences.hostname = "kestrel";
 
       # Use performance governor for sweet gaming performance!
       powerManagement.cpuFreqGovernor = "performance";

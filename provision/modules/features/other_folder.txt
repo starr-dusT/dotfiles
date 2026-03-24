@@ -1,7 +1,0 @@
-programs
-    desktop
-    development
-    gaming
-    services
-    ...
-scripts
