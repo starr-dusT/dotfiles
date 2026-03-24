@@ -11,6 +11,7 @@
     {
       imports = [
         self.modules.nixos.core
+        self.modules.nixos.scripts
 
         self.modules.nixos.gnome
         
