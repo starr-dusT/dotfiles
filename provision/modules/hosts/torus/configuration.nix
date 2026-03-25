@@ -34,6 +34,7 @@
       # Set networking options
       boot.kernel.sysctl."net.ipv4.conf.all.forwarding" = true; # Needed for wireguard-server
       networking = {
+        hostName = "torus";
         firewall.enable = false;
         firewall.checkReversePath = "loose";
         useDHCP = false;
