@@ -22,6 +22,7 @@
       preferences.hostname = "vortex-2";
 
       networking = {
+        hostName = "vortex-2";
         defaultGateway = {
           interface = "${interface}";
         };
