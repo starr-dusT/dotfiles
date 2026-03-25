@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.commit-vulcan =
+  flake.modules.nixos.kestrel =
     { pkgs, config, ... }:
     {
       environment.systemPackages = [

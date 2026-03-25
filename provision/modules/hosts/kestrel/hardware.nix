@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hostKestrel =
+  flake.modules.nixos.kestrel =
     {
       config,
       lib,

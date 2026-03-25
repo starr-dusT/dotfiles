@@ -2,11 +2,11 @@
 {
   flake.nixosConfigurations.kestrel = inputs.nixpkgs.lib.nixosSystem {
     modules = [
-      self.modules.nixos.hostKestrel
+      self.modules.nixos.kestrel
     ];
   };
 
-  flake.modules.nixos.hostKestrel =
+  flake.modules.nixos.kestrel =
     { config, ... }:
     {
       imports = [
@@ -27,8 +27,6 @@
 
         self.modules.nixos.syncthing
         self.modules.nixos.borgmatic
-
-        self.modules.nixos.commit-vulcan
       ];
 
       preferences.hostname = "kestrel";

@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.syncthing =
+  flake.modules.nixos.kestrel =
     { ... }:
     {
       age.secrets."syncthing/key.pem".file = ../../../../../secrets/syncthing/kestrel/key.pem.age;

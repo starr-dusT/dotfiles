@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.borgmatic =
+  flake.modules.nixos.kestrel =
     { config, ... }:
     let
       user = "${config.preferences.user}";
