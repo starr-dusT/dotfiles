@@ -12,7 +12,9 @@
       imports = [
         self.modules.nixos.core
         self.modules.nixos.scripts
+
         self.modules.nixos.gnome
+        self.modules.nixos.kestrelGnome
 
         self.modules.nixos.notes
         self.modules.nixos.programming

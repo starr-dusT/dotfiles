@@ -14,6 +14,7 @@
         self.modules.nixos.scripts
 
         self.modules.nixos.gnome
+        self.modules.nixos.kestrelGnome
         
         self.modules.nixos.engineering
         self.modules.nixos.notes

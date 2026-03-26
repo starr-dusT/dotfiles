@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.kestrel =
+  flake.modules.nixos.kestrelGnome =
     { pkgs, config, ... }:
     {
       environment.systemPackages = with pkgs; [
