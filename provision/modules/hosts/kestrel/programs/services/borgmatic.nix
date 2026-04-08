@@ -28,9 +28,7 @@
           path = "ssh://fm2120@fm2120.rsync.net//data1/home/fm2120/store/kestrel.borg";
           label = "rsync";
           additionalExcludes = excludes;
-          moreOpts = {
-            remote_path = "borg1";
-          };
+          remote_path = "borg1";
         };
       };
     };

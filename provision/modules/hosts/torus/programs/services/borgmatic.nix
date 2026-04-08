@@ -28,16 +28,14 @@
             "/engi/backup"
             "/podman/databasus"
           ];
-          moreOpts = {
-            commands = [
-              {
-                before = "everything";
-                when = [ "create" ];
-                run = [ "${pkgs.tree}/bin/tree /engi > /engi/backup/tree.txt" ];
-              }
-            ];
-            remote_path = "borg1";
-          };
+          commands = [
+            {
+              before = "everything";
+              when = [ "create" ];
+              run = [ "${pkgs.tree}/bin/tree /engi > /engi/backup/tree.txt" ];
+            }
+          ];
+          remote_path = "borg1";
         };
         "torus-drive" = {
           path = "/media/clone/store/torus.borg";
@@ -47,19 +45,17 @@
             "/engi/media"
             "/podman/databasus"
           ];
-          moreOpts = {
-            commands = [
-              {
-                before = "everything";
-                when = [ "create" ];
-                run = [ "${pkgs.tree}/bin/tree /engi > /engi/backup/tree.txt" ];
-              }
-              {
-                before = "repository";
-                run = [ "${pkgs.util-linux}/bin/findmnt /media/clone > /dev/null || exit 75" ];
-              }
-            ];
-          };
+          commands = [
+            {
+              before = "everything";
+              when = [ "create" ];
+              run = [ "${pkgs.tree}/bin/tree /engi > /engi/backup/tree.txt" ];
+            }
+            {
+              before = "repository";
+              run = [ "${pkgs.util-linux}/bin/findmnt /media/clone > /dev/null || exit 75" ];
+            }
+          ];
         };
       };
     };
