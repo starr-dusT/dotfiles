@@ -1,7 +1,7 @@
 { inputs, ... }:
 {
   flake.modules.nixos.desktop =
-    { pkgs, ... }:
+    { pkgs, config, ... }:
     {
       imports = with inputs.self.modules.nixos; [
         chrome
@@ -24,10 +24,29 @@
         libimobiledevice # Library to support iPhone, iPod Touch and iPad devices on Linux
         ifuse # Fuse filesystem implementation to access the contents of iOS devices
         pySVS # Control SVS subwoofers from the command-line
+        simple-scan
       ];
 
       services.usbmuxd.enable = true; # for iOS mounting as storage
       services.flatpak.packages = [ "com.github.tchx84.Flatseal" ];
+
+      hardware.sane.enable = true;
+      users.users.${config.preferences.user}.extraGroups = [
+        "scanner"
+        "lp"
+      ];
+      services.printing = {
+        enable = true;
+        drivers = [
+          pkgs.epson-escpr
+          pkgs.epson-escpr2
+        ];
+      };
+      services.avahi = {
+        enable = true;
+        nssmdns4 = true;
+        openFirewall = true;
+      };
 
       services.dbus.enable = true;
       xdg.mime = {
