@@ -4,12 +4,12 @@ update:
     sudo nixos-rebuild switch --flake .#$(hostname)
 
 [working-directory: 'provision']
-ship ships:
+ship ships user="tstarr":
     cd ~/.local/share/chezmoi/provision
     IFS=','; \
     ships={{ships}}; \
     for ship in $ships; do \
-        nixos-rebuild switch --flake ".#${ship}" --target-host "tstarr@${ship}.lan" --ask-sudo-password; \
+        nixos-rebuild switch --flake ".#${ship}" --target-host "{{user}}@${ship}.lan" --ask-sudo-password; \
     done
 
 [working-directory: 'provision']
