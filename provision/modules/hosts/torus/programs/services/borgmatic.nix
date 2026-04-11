@@ -24,6 +24,7 @@
         "torus-rsync" = {
           path = "ssh://fm2120@fm2120.rsync.net//data1/home/fm2120/store/torus.borg";
           label = "rsync";
+          remote_path = "borg1";
           additionalSources = [
             "/engi/backup"
             "/podman/databasus"
@@ -35,11 +36,11 @@
               run = [ "${pkgs.tree}/bin/tree /engi > /engi/backup/tree.txt" ];
             }
           ];
-          remote_path = "borg1";
         };
         "torus-drive" = {
           path = "/media/clone/store/torus.borg";
           label = "drive";
+          remote_path = "borg";
           additionalSources = [
             "/engi/backup"
             "/engi/media"

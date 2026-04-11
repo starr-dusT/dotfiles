@@ -60,6 +60,7 @@
           ];
           ssh_command = "ssh -i /run/agenix/borg/rsync/id_rsa -o StrictHostKeyChecking=no";
           encryption_passcommand = "cat /run/agenix/borg/password";
+          remote_path = opts.remote_path;
 
           source_directories = common_sources ++ (opts.additionalSources or [ ]);
           exclude_patterns = common_excludes ++ (opts.additionalExcludes or [ ]);

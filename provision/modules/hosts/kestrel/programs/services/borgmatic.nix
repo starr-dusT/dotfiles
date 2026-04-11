@@ -22,14 +22,15 @@
       preferences.backup-config = {
         "kestrel-torus" = {
           path = "ssh://tstarr@torus//engi/store/kestrel.borg";
+          remote_path = "borg";
           label = "torus";
           additionalExcludes = excludes;
         };
         "kestrel-rsync" = {
           path = "ssh://fm2120@fm2120.rsync.net//data1/home/fm2120/store/kestrel.borg";
+          remote_path = "borg1";
           label = "rsync";
           additionalExcludes = excludes;
-          remote_path = "borg1";
         };
       };
     };
