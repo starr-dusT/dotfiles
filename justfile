@@ -4,10 +4,13 @@ update:
     sudo nixos-rebuild switch --flake .#$(hostname)
 
 [working-directory: 'provision']
-pull-update:
-    git pull origin master
+ship ships:
     cd ~/.local/share/chezmoi/provision
-    sudo nixos-rebuild switch --flake .#$(hostname)
+    IFS=','; \
+    ships={{ships}}; \
+    for ship in $ships; do \
+        nixos-rebuild switch --flake ".#${ship}" --target-host "tstarr@${ship}.lan" --ask-sudo-password; \
+    done
 
 [working-directory: 'provision']
 install hostname:
