@@ -12,7 +12,7 @@ return {
         }
     end,
     config = function()
-        vim.lsp.enable({ "nixd", "lua_ls" })
+        vim.lsp.enable({ "nixd", "lua_ls", "pylsp" })
         vim.diagnostic.config({
             virtual_lines = {
                 current_line = true,
