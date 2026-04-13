@@ -25,5 +25,8 @@ alias cc="cd ~/.local/share/chezmoi"
 alias ca="chezmoi apply"
 alias ce='chezmoi edit'
 
+# trash-cli
+alias rm="trash-put"
+
 # rsync
 alias rsync.net="ssh fm2120@fm2120.rsync.net"
