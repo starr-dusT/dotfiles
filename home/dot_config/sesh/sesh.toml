@@ -7,5 +7,5 @@ startup_command = "~/.config/sesh/scripts/two_window_editor"
 
 [[session]]
 name = "edit-vortex"
-path = "~/Documents/devel/kube/fluxcd"
+path = "~/Documents/20-29_hobbies/21_programming/21.15_fluxcd"
 startup_command = "~/.config/sesh/scripts/vortex_editor"
