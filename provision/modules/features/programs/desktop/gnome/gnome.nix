@@ -246,7 +246,7 @@
                 "org/gnome/desktop/interface" = {
                   color-scheme = "prefer-dark";
                   accent-color = "orange";
-                  enable-animations = false;
+                  enable-animations = true;
                 };
                 "org/gnome/desktop/background" = {
                   picture-uri = "file:///home/${config.preferences.user}/.local/share/chezmoi/resources/img/wallpapers/${config.preferences.hostname}.png";
@@ -347,6 +347,7 @@
                   toggle-fullscreen = [ "<Super>f" ];
                   toggle-maximized = [
                     "<Super>t"
+                    "<Super>k"
                     "<Super>j"
                   ];
                   move-to-monitor-right = [ "<Shift><Super>l" ];
