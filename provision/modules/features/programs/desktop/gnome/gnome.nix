@@ -279,6 +279,7 @@
                   experimental-features = [
                     "scale-monitor-framebuffer"
                     "xwayland-native-scaling"
+                    "variable-refresh-rate"
                   ];
                 };
                 "org/gnome/mutter/keybindings" = {

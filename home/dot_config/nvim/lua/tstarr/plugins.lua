@@ -13,7 +13,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-    "ellisonleao/gruvbox.nvim",
+    "Mofiqul/adwaita.nvim",
     "norcalli/nvim-colorizer.lua",
     require("tstarr.lsp-config"),
 }

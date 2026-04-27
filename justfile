@@ -30,4 +30,4 @@ rekey-secrets:
 [working-directory: 'resources']
 ftw-wallpapers:
     cd ~/.local/share/chezmoi/resources
-    ftw ./img/wallpapers "#282828"
+    ftw ./img/wallpapers "#1D1D20"
