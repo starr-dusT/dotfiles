@@ -32,7 +32,6 @@
 
           # Install extensions
           "ExtensionInstallForcelist" = [
-            "ihennfdbghdiflogeancnalflhgmanop" # Gruvbox theme
             "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
             "hkgfoiooedgoejojocmhlaklaeopbecg" # Picture-in-Picture (by Google)
             "beakmhbijpdhipnjhnclmhgjlddhidpe" # Linkding
