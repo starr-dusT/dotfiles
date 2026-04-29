@@ -56,7 +56,7 @@ bind-key = select-layout main-vertical
 set-window-option -g other-pane-height 25
 set-window-option -g other-pane-width 80
 set-window-option -g display-panes-time 1500
-set -g window-status-current-style fg=#ffffff,bg=#3584e4
+set -g window-status-current-style fg={{ .colors.accent }},bg={{ .colors.bg }}
 
 bind-key a last-pane
 bind-key w display-panes
@@ -85,20 +85,22 @@ bind g display-popup -E -xC -yC -w 80% -h 80% -d "#{pane_current_path}" lazygit
 
 # Status Bar
 set-option -g status-interval 1
-set-option -g status-style bg=#1e1e1e,fg=#e6e6e6
+set-option -g status-style bg={{ .colors.bg }}
 
 # Left: hostname (subtle)
-set -g status-left '#[fg=#9a9996]#H #[default]'
+set -g status-left '#[fg={{ .colors.fg }}]#H #[default]'
 
 # Right: session + time + date
-set -g status-right '#[fg=#3584e4]#S #[fg=#9a9996]%a %I:%M:%S %p #[fg=#3584e4]%Y-%m-%d'
+set -g status-right '#[fg={{ .colors.accent }}]#S #[fg={{ .colors.fg }}]%a %I:%M:%S %p #[fg={{ .colors.fg }}]%Y-%m-%d'
 
 # Pane borders
-set -g pane-active-border-style fg=#3584e4,bold
-set -g pane-border-style fg=#2a2a2a
+set -g pane-active-border-style fg={{ .colors.bg }}
+set -g pane-border-style fg={{ .colors.bg }}
+
 # Set window notifications
 setw -g monitor-activity on
-set -g visual-activity on
+set -g visual-activity off
+setw -g window-status-activity-style fg={{ .colors.yellow }},bg={{ .colors.bg }},bold
 
 # Allow the arrow key to be used immediately after changing windows
 set-option -g repeat-time 0
