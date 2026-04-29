@@ -1,7 +1,7 @@
 { ... }:
 {
   flake.modules.nixos.physical =
-    { pkgs, ... }:
+    { config, pkgs, ... }:
     {
       boot = {
         loader.systemd-boot.enable = true;
@@ -18,6 +18,13 @@
           "udev.log_priority=3"
           "rd.systemd.show_status=auto"
         ];
+
+        services.ddccontrol = {
+          enable = true;
+          package = pkgs.ddcutil-service;
+        };
+        hardware.i2c.enable = true;
+        users.users.${config.preferences.user}.extraGroups = [ "i2c" ];
 
         plymouth = {
           enable = true;
