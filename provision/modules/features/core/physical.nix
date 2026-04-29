@@ -19,18 +19,18 @@
           "rd.systemd.show_status=auto"
         ];
 
-        services.ddccontrol = {
-          enable = true;
-          package = pkgs.ddcutil-service;
-        };
-        hardware.i2c.enable = true;
-        users.users.${config.preferences.user}.extraGroups = [ "i2c" ];
-
         plymouth = {
           enable = true;
           theme = "nixos-bgrt";
           themePackages = with pkgs; [ nixos-bgrt-plymouth ];
         };
       };
+
+      services.ddccontrol = {
+        enable = true;
+        package = pkgs.ddcutil-service;
+      };
+      hardware.i2c.enable = true;
+      users.users.${config.preferences.user}.extraGroups = [ "i2c" ];
     };
 }

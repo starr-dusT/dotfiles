@@ -7,7 +7,7 @@
   };
 
   flake.modules.nixos.kestrel =
-    { config, ... }:
+    { pkgs, config, ... }:
     {
       imports = [
         self.modules.nixos.core
@@ -16,7 +16,7 @@
 
         self.modules.nixos.gnome
         self.modules.nixos.kestrelGnome
-        
+
         self.modules.nixos.engineering
         self.modules.nixos.notes
         self.modules.nixos.programming
