@@ -47,48 +47,41 @@ prompt_git() {
 	echo -e "${1}${branchName}${2}${s}";
 }
 
-# Libadwaita Dark palette (ANSI-friendly approximations)
 reset="\e[0m"
 bold="\e[1m"
+dim="\e[2m"
 
-# Neutral foregrounds
-fg="\e[38;5;252m"        # ~ #e6e6e6
-muted="\e[38;5;245m"     # ~ #9a9996
+# Libadwaita Dark palette (truecolor)
+accent="\e[38;2;53;132;228m"     # blue (#3584e4)
 
-# Accents (mapped to 256-color)
-blue="\e[38;5;33m"       # #3584e4
-green="\e[38;5;77m"      # #33d17a
-red="\e[38;5;196m"       # #e01b24
-yellow="\e[38;5;220m"    # #f6d32d
-cyan="\e[38;5;44m"       # soft cyan (rarely used)
-white="\e[1;37m" # fg (#ebdbb2)
+red="\e[38;2;230;45;66m"         # error red (#e62d42)
+white="\e[38;2;255;255;255m"     # primary text
+muted="\e[38;2;192;191;188m"     # secondary text (#c0bfbc)
+subtle="\e[38;2;154;153;150m"    # even dimmer
 
-# Highlight the user name when logged in as root.
-if [[ "${USER}" == "root" ]]; then
-	userStyle="${red}";
-else
-	userStyle="${cyan}";
-fi;
-
-# Highlight the hostname when connected via SSH.
+# Highlight host (SSH = warning-ish)
 if [[ "${SSH_TTY}" ]]; then
-	hostStyle="${bold}${red}";
+    hostStyle="${bold}${red}"
 else
-	hostStyle="${blue}";
-fi;
+    hostStyle="${white}"
+fi
 
-# Set the terminal title and prompt.
-PS1="\[\033]0;\W\007\]"; # working directory base name
-PS1+="\[${bold}\]\n"; # newline
-PS1+="\[${userStyle}\]\u"; # username
-PS1+="\[${white}\] at ";
-PS1+="\[${hostStyle}\]\h"; # host
-PS1+="\[${white}\] in ";
-PS1+="\[${green}\]\w"; # working directory full path
-PS1+="\$(prompt_git \"\[${white}\] on \[${yellow}\]\" \"\[${blue}\]\")"; # Git repository details
-PS1+="\n";
-PS1+="\[${white}\]\$ \[${reset}\]"; # `$` (and reset color)
-export PS1;
+PS1="\[\033]0;\W\007\]"        # title
+PS1+="\n"
 
-PS2="\[${yellow}\]→ \[${reset}\]";
-export PS2;
+PS1+="\[${white}\]\u"      # user
+PS1+="\[${white}\]@"           
+PS1+="\[${hostStyle}\]\h"
+
+PS1+="\[${muted}\] in "
+PS1+="\[${accent}\]\w"         # path (main accent usage)
+
+PS1+="\$(prompt_git \"\[${muted}\] on \[${white}\]\" \"\[${accent}\]\")"
+
+PS1+="\n"
+PS1+="\[${accent}\]›\[${reset}\] "  # prompt symbol (subtle but visible)
+
+export PS1
+
+PS2="\[${subtle}\]→ \[${reset}\]"
+export PS2
