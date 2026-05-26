@@ -23,6 +23,7 @@
       home-manager.users.${config.preferences.user} = {
         programs.firefox = {
           enable = true;
+          configPath = ".mozilla/firefox";
           policies = {
             SecurityDevices = {
               Add = {

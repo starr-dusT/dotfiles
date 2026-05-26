@@ -39,7 +39,6 @@
         gnomeExtensions.alphabetical-app-grid # Alphabetically order the app grid and folders
         gnomeExtensions.appindicator # Adds AppIndicator, KStatusNotifierItem and legacy Tray icons support to the Shell
         gnomeExtensions.happy-appy-hotkey # Assign hotkeys to applications to give them focus or launch them
-        gnomeExtensions.displays-adjustments # Offers sliders to control external displays’ brightness and contrast through DDC
         gnome-set-panel-monitor # Set monitor for panel to appear on
         ftw # Build custom ftl wallpapers in a complicated way for no reason
       ];
@@ -67,10 +66,7 @@
 
       services = {
         gvfs.enable = true;
-        displayManager.gdm = {
-          enable = true;
-          wayland = true;
-        };
+        displayManager.gdm.enable = true;
         desktopManager.gnome.enable = true;
       };
 
@@ -282,7 +278,6 @@
                     "AlphabeticalAppGrid@stuarthayhurst"
                     "executor@raujonas.github.io"
                     "happy-appy-hotkey@jqno.nl"
-                    "display-adjustment@w8jcik.gitlab.com"
                   ];
                 };
                 "org/gnome/shell/app-switcher" = {

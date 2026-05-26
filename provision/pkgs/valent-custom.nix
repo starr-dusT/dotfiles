@@ -17,6 +17,7 @@
   gst_all_1,
   json-glib,
   libadwaita,
+  libdex,
   libpeas2,
   libphonenumber,
   libportal-gtk4,
@@ -27,13 +28,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "valent-custom";
-  version = "1.0.0.alpha.46-unstable-2024-10-26";
+  version = "1.0.0.alpha.50-master";
 
   src = fetchFromGitHub {
     owner = "andyholmes";
     repo = "valent";
-    rev = "165a2791d4bf3e7dee69e3dd7885dbe4948265b9";
-    hash = "sha256-7klvOvwyAg+Xno6zWo8UByjaS9OkOuCceuZcAIEgdyU=";
+    rev = "df82168bc37ad1ec700c66b0f0f5dfd7a07be485";
+    hash = "sha256-bg5p7Juw+O2vrfi2uDA69NPy68Zu8ig4ycVjhGkQ4ps=";
     fetchSubmodules = true;
   };
 
@@ -57,6 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     gobject-introspection
     json-glib
     libadwaita
+    libdex
     libpeas2
     libphonenumber
     libportal-gtk4

@@ -22,7 +22,7 @@
     in
     {
       environment.systemPackages = with pkgs; [
-        xxHash # Extremely fast hash algorithm
+        xxhash # Extremely fast hash algorithm
         borgbackup # Deduplicating backup program
       ];
 
