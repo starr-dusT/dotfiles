@@ -1,7 +1,12 @@
 { ... }:
 {
   flake.modules.nixos.borgmatic =
-    { lib, pkgs, config, ... }:
+    {
+      lib,
+      pkgs,
+      config,
+      ...
+    }:
     let
       user = "${config.preferences.user}";
       hostname = "${config.preferences.hostname}";
