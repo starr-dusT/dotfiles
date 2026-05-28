@@ -26,10 +26,6 @@
         };
       };
 
-      services.ddccontrol = {
-        enable = true;
-        package = pkgs.ddcutil-service;
-      };
       hardware.i2c.enable = true;
       users.users.${config.preferences.user}.extraGroups = [ "i2c" ];
     };
