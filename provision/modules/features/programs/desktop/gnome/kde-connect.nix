@@ -15,7 +15,7 @@
 
       programs.kdeconnect = {
         enable = true;
-        package = pkgs.valent-custom; # Implementation of the KDE Connect protocol, built on GNOME platform libraries
+        package = pkgs.valent; # Implementation of the KDE Connect protocol, built on GNOME platform libraries
       };
     };
 }
