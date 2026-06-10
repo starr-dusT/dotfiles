@@ -24,14 +24,25 @@
         libimobiledevice # Library to support iPhone, iPod Touch and iPad devices on Linux
         ifuse # Fuse filesystem implementation to access the contents of iOS devices
         pySVS # Control SVS subwoofers from the command-line
-        simple-scan
+        simple-scan # Simple scanning utility
+        droidcam # Linux client for DroidCam app
+        android-tools # Android SDK platform tools
       ];
+
+      programs.obs-studio = {
+        enable = true;
+        enableVirtualCamera = true;
+        plugins = with pkgs.obs-studio-plugins; [
+          droidcam-obs
+        ];
+      };
 
       services.usbmuxd.enable = true; # for iOS mounting as storage
       services.flatpak.packages = [ "com.github.tchx84.Flatseal" ];
 
       hardware.sane.enable = true;
       users.users.${config.preferences.user}.extraGroups = [
+        "adbusers"
         "scanner"
         "lp"
       ];
