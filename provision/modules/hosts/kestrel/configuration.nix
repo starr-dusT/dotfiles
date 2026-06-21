@@ -13,14 +13,15 @@
         self.modules.nixos.core
         self.modules.nixos.scripts
 
-        self.modules.nixos.gnome
-        self.modules.nixos.kestrelGnome
+        #self.modules.nixos.gnome
+        #self.modules.nixos.kestrelGnome
+        self.modules.nixos.kde
 
         self.modules.nixos.engineering
         self.modules.nixos.notes
         self.modules.nixos.programming
 
-        self.modules.nixos.emulation
+        #self.modules.nixos.emulation
         self.modules.nixos.pc
 
         self.modules.nixos.docker

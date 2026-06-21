@@ -7,6 +7,7 @@
     import-tree.url = "github:vic/import-tree";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.6.0";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    plasma-manager.url = "github:nix-community/plasma-manager";
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
