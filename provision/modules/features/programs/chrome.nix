@@ -29,6 +29,7 @@
           "CloudPrintSubmitEnabled" = false;
           "EnableMediaRouter" = false;
           "ShowCastIconInToolbar" = false;
+          "RestoreOnStartup" = 1;
 
           # Install extensions
           "ExtensionInstallForcelist" = [

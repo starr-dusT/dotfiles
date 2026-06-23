@@ -30,3 +30,6 @@ alias rm="trash-put"
 
 # rsync
 alias rsync.net="ssh fm2120@fm2120.rsync.net"
+
+# plasma-manager
+alias rc2nix="nix run github:nix-community/plasma-manager"
