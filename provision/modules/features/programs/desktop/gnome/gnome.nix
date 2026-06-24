@@ -26,7 +26,7 @@
     {
       imports = with inputs.self.modules.nixos; [
         desktop
-        kde-connect
+        valent 
         keyd
         samba-client
         syncthing-tray

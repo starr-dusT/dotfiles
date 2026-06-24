@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.kde-connect =
+  flake.modules.nixos.valent =
     { pkgs, ... }:
     {
       networking.firewall = rec {
