@@ -10,6 +10,7 @@
       imports = with inputs.self.modules.nixos; [
         desktop
         kde-shortcuts
+        kde-connect
       ];
 
       home-manager.sharedModules = [ inputs.plasma-manager.homeModules.plasma-manager ];
