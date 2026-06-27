@@ -301,7 +301,7 @@
                 };
                 "org/gnome/desktop/wm/preferences" = {
                   focus-mode = "sloppy";
-                  num-workspaces = 10;
+                  num-workspaces = 4;
                 };
                 "org/gnome/shell/keybindings" = {
                   switch-to-application-1 = [ ];
@@ -313,10 +313,10 @@
                   switch-to-application-7 = [ ];
                   switch-to-application-8 = [ ];
                   switch-to-application-9 = [ ];
-                  open-new-window-application-1 = [ "<Shift><Super>q" ];
-                  open-new-window-application-2 = [ "<Shift><Super>w" ];
-                  open-new-window-application-3 = [ "<Shift><Super>e" ];
-                  open-new-window-application-4 = [ "<Shift><Super>r" ];
+                  open-new-window-application-1 = [ "<Shift><Super>1" ];
+                  open-new-window-application-2 = [ "<Shift><Super>2" ];
+                  open-new-window-application-3 = [ "<Shift><Super>3" ];
+                  open-new-window-application-4 = [ "<Shift><Super>4" ];
                   open-new-window-application-5 = [ ];
                   open-new-window-application-6 = [ ];
                   open-new-window-application-7 = [ ];
@@ -336,26 +336,14 @@
                   sleep-inactive-battery-timeout = 15;
                 };
                 "org/gnome/desktop/wm/keybindings" = {
-                  switch-to-workspace-1 = [ "<Super>1" ];
-                  switch-to-workspace-2 = [ "<Super>2" ];
-                  switch-to-workspace-3 = [ "<Super>3" ];
-                  switch-to-workspace-4 = [ "<Super>4" ];
-                  switch-to-workspace-5 = [ "<Super>5" ];
-                  switch-to-workspace-6 = [ "<Super>6" ];
-                  switch-to-workspace-7 = [ "<Super>7" ];
-                  switch-to-workspace-8 = [ "<Super>8" ];
-                  switch-to-workspace-9 = [ "<Super>9" ];
-                  switch-to-workspace-0 = [ "<Super>0" ];
-                  move-to-workspace-1 = [ "<Shift><Super>1" ];
-                  move-to-workspace-2 = [ "<Shift><Super>2" ];
-                  move-to-workspace-3 = [ "<Shift><Super>3" ];
-                  move-to-workspace-4 = [ "<Shift><Super>4" ];
-                  move-to-workspace-5 = [ "<Shift><Super>5" ];
-                  move-to-workspace-6 = [ "<Shift><Super>6" ];
-                  move-to-workspace-7 = [ "<Shift><Super>7" ];
-                  move-to-workspace-8 = [ "<Shift><Super>8" ];
-                  move-to-workspace-9 = [ "<Shift><Super>9" ];
-                  move-to-workspace-0 = [ "<Shift><Super>0" ];
+                  switch-to-workspace-1 = [ "<Super>q" ];
+                  switch-to-workspace-2 = [ "<Super>w" ];
+                  switch-to-workspace-3 = [ "<Super>e" ];
+                  switch-to-workspace-4 = [ "<Super>r" ];
+                  move-to-workspace-1 = [ "<Shift><Super>q" ];
+                  move-to-workspace-2 = [ "<Shift><Super>w" ];
+                  move-to-workspace-3 = [ "<Shift><Super>e" ];
+                  move-to-workspace-4 = [ "<Shift><Super>r" ];
                   close = [ "<Super>d" ];
                   toggle-fullscreen = [ "<Super>f" ];
                   toggle-maximized = [
@@ -427,13 +415,13 @@
                 # Happy Appy settings
                 "org/gnome/shell/extensions/happy-appy-hotkey" = {
                   app-0 = "Chromium";
-                  hotkey-0 = [ "<Super>q" ];
+                  hotkey-0 = [ "<Super>1" ];
                   app-1 = "Ghostty";
-                  hotkey-1 = [ "<Super>w" ];
+                  hotkey-1 = [ "<Super>2" ];
                   app-2 = "Files";
-                  hotkey-2 = [ "<Super>e" ];
+                  hotkey-2 = [ "<Super>3" ];
                   app-3 = "Discord";
-                  hotkey-3 = [ "<Super>r" ];
+                  hotkey-3 = [ "<Super>4" ];
                   hotkey-unbound-cycle = [ "<Super>grave" ];
                   number = 4;
                   restrict-to-current-workspace = true;
