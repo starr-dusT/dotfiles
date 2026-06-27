@@ -438,11 +438,6 @@
                   command = "display-switch.sh -p kestrel-living";
                   name = "Kestrel display in Living Room";
                 };
-                "3" = {
-                  binding = "<Super><Control>k";
-                  command = "display-switch.sh -p kestrel-kvm";
-                  name = "Kestrel display in Comet remote control";
-                };
               });
         };
     };

@@ -18,7 +18,6 @@
             util = {
               d = "C-M-d"; # Kestrel display at desk
               l = "C-M-l"; # Kestrel display in living room
-              k = "C-M-k"; # Kestrel display in Comet remote control
             };
             alt = {
               # Use hjkl for arrow keys with alt
