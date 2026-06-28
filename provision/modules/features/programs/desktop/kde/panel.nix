@@ -1,11 +1,16 @@
 { ... }:
 {
   flake.modules.nixos.kde-panel =
-    { config, ... }:
+    { config, pkgs, ... }:
     let
       user = "${config.preferences.user}";
     in
     {
+      environment.systemPackages = with pkgs; [
+        kdotool # xdotool clone for KDE Wayland
+        plasma-applet-commandoutput # Run a command periodically and render its output
+      ];
+
       home-manager.users.${user} = {
         programs.plasma = {
           panels = [
@@ -41,6 +46,14 @@
                   };
                 }
                 "org.kde.plasma.showdesktop"
+                {
+                  name = "com.github.zren.commandoutput";
+                  config = {
+                    command = "kdotool get_desktop";
+                    interval = 100;
+                    waitForCompletion = true;
+                  };
+                }
               ];
             }
           ];

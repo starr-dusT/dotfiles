@@ -1,5 +1,4 @@
 { ... }:
-
 {
   flake.modules.nixos.kde-theme =
     { config, ... }:

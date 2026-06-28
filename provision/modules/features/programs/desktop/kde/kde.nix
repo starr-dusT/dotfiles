@@ -74,6 +74,7 @@
           configFile = {
             kwinrc.Windows = {
               FocusPolicy = "FocusFollowsMouse";
+              FocusStealingPreventionLevel = 4;
               Placement = "UnderMouse";
               PerOutputVirtualDesktops = true;
             };
