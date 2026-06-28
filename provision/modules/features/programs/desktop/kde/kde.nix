@@ -12,6 +12,7 @@
         kde-panel
         kde-shortcuts
         kde-theme
+        kde-windows
       ];
 
       home-manager.sharedModules = [ inputs.plasma-manager.homeModules.plasma-manager ];
@@ -74,6 +75,7 @@
             kwinrc.Windows = {
               FocusPolicy = "FocusFollowsMouse";
               Placement = "UnderMouse";
+              PerOutputVirtualDesktops = true;
             };
           };
         };

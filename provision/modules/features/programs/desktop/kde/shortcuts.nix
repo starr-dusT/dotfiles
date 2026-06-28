@@ -33,6 +33,10 @@
               "Edit Tiles" = "none"; # Unset default Meta+T
               "Overview" = "none"; # Unset default Meta+W
             };
+            mediacontrol.playpausemedia = [
+              "Media Play"
+              "Meta+P"
+            ];
             ksmserver = {
               "Lock Session" = "Meta+Space";
             };
@@ -40,6 +44,7 @@
             "services/com.mitchellh.ghostty.desktop"._launch = "Meta+@";
             "services/org.kde.dolphin.desktop"._launch = "Meta+#";
             "services/discord.desktop"._launch = "Meta+$";
+            "services/org.kde.kscreen.desktop".ShowOSD = "Display"; # Unset default Meta+P
           };
         };
       };

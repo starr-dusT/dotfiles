@@ -1,4 +1,5 @@
 { ... }:
+
 {
   flake.modules.nixos.kde-theme =
     { config, ... }:
@@ -16,11 +17,14 @@
       # Set default (no user) locksreen wallpaper based on hostname
       system.activationScripts.systemWallpaper.text = ''
         install -Dm644 ${../../../../../../resources/img/wallpapers/${hostname}.png} \
-          /var/lib/AccountsService/wallpaper
+          /etc/wallpaper.png
       '';
       environment.etc."plasmalogin.conf".text = ''
         [Greeter][Wallpaper][org.kde.image][General]
-        Image=file:///var/lib/AccountsService/wallpaper
+        Image=file:///etc/wallpaper.png
+
+        [Users]
+        ReuseSession=true
       '';
 
       home-manager.users.${user} = {
@@ -35,6 +39,9 @@
             iconTheme = "breeze-dark";
             theme = "breeze-dark";
             wallpaper = "/home/${user}/.local/share/chezmoi/resources/img/wallpapers/${hostname}.png";
+          };
+          configFile = {
+            kdeglobals.KDE.AnimationDurationFactor = 0;
           };
         };
       };

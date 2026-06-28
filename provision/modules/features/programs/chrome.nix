@@ -37,6 +37,7 @@
             "hkgfoiooedgoejojocmhlaklaeopbecg" # Picture-in-Picture (by Google)
             "beakmhbijpdhipnjhnclmhgjlddhidpe" # Linkding
             "icpgjfneehieebagbmdbhnlpiopdcmna" # New Tab Redirect
+            "cimiefiiaegbelhefglklhhakcgmhkai" # Plasma Integration
           ];
 
           # Setup bookmarks
