@@ -55,10 +55,6 @@ Set to `https://glance.tstarr.us`.
 
 - Pin and re-arrange plugins as desired.
 
-## Obsidian Vault on New Machine
+## Syncthing
 
-Clone `vulcan` vault from personal github.
-
-```bash
-git clone https://<user>:<token>@git.tstarr.us/tstarr/vulcan.git
-```
+Remote devices are configured automatically, but shares are not. Head to `http://localhost:8384` and configure those in the web GUI.
