@@ -16,7 +16,6 @@
         "xhci_pci"
         "ahci"
         "usbhid"
-        "usb_storage"
         "sd_mod"
       ];
       boot.initrd.kernelModules = [ ];
@@ -24,7 +23,7 @@
       boot.extraModulePackages = [ ];
 
       fileSystems."/" = {
-        device = "/dev/disk/by-uuid/80d92c3e-59da-4092-b822-694abbf3fe86";
+        device = "/dev/disk/by-uuid/6f305416-caaa-4fa8-a926-79eaa0809325";
         fsType = "btrfs";
         options = [
           "subvol=root"
@@ -33,7 +32,7 @@
       };
 
       fileSystems."/home" = {
-        device = "/dev/disk/by-uuid/80d92c3e-59da-4092-b822-694abbf3fe86";
+        device = "/dev/disk/by-uuid/6f305416-caaa-4fa8-a926-79eaa0809325";
         fsType = "btrfs";
         options = [
           "subvol=home"
@@ -42,12 +41,12 @@
       };
 
       fileSystems."/nix" = {
-        device = "/dev/disk/by-uuid/80d92c3e-59da-4092-b822-694abbf3fe86";
+        device = "/dev/disk/by-uuid/6f305416-caaa-4fa8-a926-79eaa0809325";
         fsType = "btrfs";
         options = [
           "subvol=nix"
-          "noatime"
           "compress=zstd"
+          "noatime"
         ];
       };
 
@@ -57,24 +56,6 @@
         options = [
           "subvol=aux1"
           "compress=zstd"
-        ];
-      };
-
-      fileSystems."/swap" = {
-        device = "/dev/disk/by-uuid/80d92c3e-59da-4092-b822-694abbf3fe86";
-        fsType = "btrfs";
-        options = [
-          "subvol=swap"
-          "noatime"
-        ];
-      };
-
-      fileSystems."/boot" = {
-        device = "/dev/disk/by-uuid/12CE-A600";
-        fsType = "vfat";
-        options = [
-          "fmask=0022"
-          "dmask=0022"
         ];
       };
 
