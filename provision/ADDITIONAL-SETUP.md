@@ -58,3 +58,12 @@ Set to `https://glance.tstarr.us`.
 ## Syncthing
 
 Remote devices are configured automatically, but shares are not. Head to `http://localhost:8384` and configure those in the web GUI.
+
+### Syncthing Tray
+
+If using syncthing tray you need to manually configure the location connection:
+
+- Right click the icon and select "Settings" 
+- Select "Insert values from local Syncthing configuration"
+- Paste the API Key from the Syncthing web gui 
+- Click "Apply"
