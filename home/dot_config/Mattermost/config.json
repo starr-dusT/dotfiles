@@ -1,0 +1,42 @@
+{
+  "version": 4,
+  "servers": [
+    {
+      "name": "Typr",
+      "url": "https://lc.tstarr.us/",
+      "order": 0
+    },
+    {
+      "name": "Platform1",
+      "url": "https://chat.il4.dso.mil/",
+      "order": 1
+    }
+  ],
+  "showTrayIcon": true,
+  "trayIconTheme": "use_system",
+  "minimizeToTray": true,
+  "notifications": {
+    "flashWindow": 0,
+    "bounceIcon": true,
+    "bounceIconType": "informational"
+  },
+  "showUnreadBadge": true,
+  "useSpellChecker": true,
+  "enableHardwareAcceleration": true,
+  "autostart": false,
+  "hideOnStart": true,
+  "spellCheckerLocales": [],
+  "darkMode": false,
+  "lastActiveServer": 0,
+  "downloadLocation": "~/Downloads",
+  "startInFullscreen": false,
+  "logLevel": "info",
+  "enableMetrics": true,
+  "enableSentry": true,
+  "viewLimit": 15,
+  "themeSyncing": true,
+  "alwaysClose": true,
+  "autoCheckForUpdates": true,
+  "skippedVersions": [],
+  "alwaysMinimize": true
+}

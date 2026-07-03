@@ -27,6 +27,7 @@
         simple-scan # Simple scanning utility
         droidcam # Linux client for DroidCam app
         android-tools # Android SDK platform tools
+        mattermost-desktop # Mattermost Desktop client
       ];
 
       programs.obs-studio = {
