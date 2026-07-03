@@ -1,5 +1,6 @@
 let
   kestrel = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH/DEVsIsXfy06ZTGBpJvKtFitoBugBy3Ue7oVB0BxkY";
+  nesario = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN/RZUPnA2h/DVCrxYHXa/QGv9w99T1jPGJ49bBgBBT1";
   shivan = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMo2VKfITJn+noaGhah1O7JvH0oRl11YbZprwdISKtMe";
   stormwalker = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHvAGrh01zvH8dbj8NdrNxkRcQ/pRt27WjK6uHNNoG4n";
   tetragon = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKAUEk/LRycmNstE6RhC7I7Ca8AgbK973ReVvGvcZwQP";
@@ -9,6 +10,7 @@ let
   vortex-3 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIC4fM5OTEHibyAO0P9b6MdYR8pD0cwQ7t4L6X5YDKd4";
   systems = [
     kestrel
+    nesario
     shivan
     stormwalker
     tetragon
