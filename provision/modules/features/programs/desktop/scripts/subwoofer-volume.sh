@@ -9,8 +9,8 @@ function read_volume() {
     vol=$(PGPASSWORD="$(cat /run/agenix/kube/homedb_pass)" psql -h homedb.vortex-1.lan \
                                                            -U tstarr -d homedb \
                                                            -p 30432 -t \
-                                                           -c "SELECT volume from subwoofer_volume;")
-    echo "${vol// /}"
+                                                           -c "SELECT volume from subwoofer_volume;") || return -1
+    echo "${vol// /}dB"
 }
 
 while getopts ":hr" opt; do

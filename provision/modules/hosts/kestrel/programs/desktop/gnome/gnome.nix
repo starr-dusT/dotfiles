@@ -53,7 +53,7 @@
                   },
                   {
                     "isActive":true,
-                    "command":"echo \" $(subwoofer-volume.sh -r)dB\"",
+                    "command":"echo \" $(subwoofer-volume.sh -r)\"",
                     "interval":5,
                     "uuid":"732cd6de-ff5f-46a7-b8bb-51d1c621cc62"
                   }
