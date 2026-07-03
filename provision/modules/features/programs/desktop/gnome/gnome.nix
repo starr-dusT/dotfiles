@@ -29,6 +29,7 @@
         kde-connect
         keyd
         samba-client
+        syncthing-tray
       ];
 
       environment.systemPackages = with pkgs; [
