@@ -71,7 +71,14 @@ augroup netrw_setup | au!
     au FileType netrw nmap <buffer> h -
 augroup END
 
-map <leader>e :e .<cr> 
+map <silent> <leader>e :call OpenNetrwHere()<cr> 
+
+function! OpenNetrwHere()
+    let l:file = expand('%:t')
+    execute 'Explore' fnameescape(expand('%:p:h'))
+    call search('^' . escape(l:file, '^$.*~[]\') . '$', 'cw')
+    normal! zz
+endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " marks
