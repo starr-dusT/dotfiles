@@ -47,10 +47,10 @@
           };
           shell_command = {
             # Vizio TV controls
-            living_room_tv_power_on = "${pkgs.python312Packages.pyvizio}/bin/pyvizio --ip=69.69.1.87 --auth=Zt93u2t4sq power on";
-            living_room_tv_power_off = "${pkgs.python312Packages.pyvizio}/bin/pyvizio --ip=69.69.1.87 --auth=Zt93u2t4sq power off";
-            living_room_tv_hdmi1 = "${pkgs.python312Packages.pyvizio}/bin/pyvizio --ip=69.69.1.87 --auth=Zt93u2t4sq input hdmi1";
-            living_room_tv_hdmi2 = "${pkgs.python312Packages.pyvizio}/bin/pyvizio --ip=69.69.1.87 --auth=Zt93u2t4sq input hdmi2";
+            living_room_tv_power_on = "${pkgs.python312Packages.pyvizio}/bin/pyvizio --ip=69.69.1.150 --auth=Zt93u2t4sq power on"; # IP for vizio TV SHOULD be static per dnsmasq on tetragon
+            living_room_tv_power_off = "${pkgs.python312Packages.pyvizio}/bin/pyvizio --ip=69.69.1.150 --auth=Zt93u2t4sq power off";
+            living_room_tv_hdmi1 = "${pkgs.python312Packages.pyvizio}/bin/pyvizio --ip=69.69.1.150 --auth=Zt93u2t4sq input hdmi1";
+            living_room_tv_hdmi2 = "${pkgs.python312Packages.pyvizio}/bin/pyvizio --ip=69.69.1.150 --auth=Zt93u2t4sq input hdmi2";
 
             # Switch video and audio for Kestrel
             kestrel_monitor_desk = "${pkgs.podman}/bin/podman run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@kestrel.lan 'display-switch.sh kestrel-desktop'";

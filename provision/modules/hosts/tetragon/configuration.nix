@@ -78,6 +78,7 @@
           dhcp-host = [
             "kestrel,69.69.1.143"
             "stormwalker,69.69.1.184"
+            "E8:38:A0:27:67:D5,69.69.1.150"
           ];
 
           # Dynamic dns by hostname
