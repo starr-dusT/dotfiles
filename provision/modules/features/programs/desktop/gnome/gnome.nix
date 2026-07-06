@@ -38,6 +38,7 @@
         planify # Task manager with Todoist support designed for GNU/Linux
         gnomeExtensions.alphabetical-app-grid # Alphabetically order the app grid and folders
         gnomeExtensions.appindicator # Adds AppIndicator, KStatusNotifierItem and legacy Tray icons support to the Shell
+        gnomeExtensions.executor # Execute shell commands display output top bar
         gnomeExtensions.happy-appy-hotkey # Assign hotkeys to applications to give them focus or launch them
         gnome-set-panel-monitor # Set monitor for panel to appear on
         ftw # Build custom ftl wallpapers in a complicated way for no reason
@@ -274,9 +275,9 @@
                   disable-user-extensions = false;
                   enabled-extensions = [
                     "appindicatorsupport@rgcjonas.gmail.com"
+                    "executor@raujonas.github.io"
                     "gnome-shell-extension-set-panel-monitor@tstarr.us"
                     "AlphabeticalAppGrid@stuarthayhurst"
-                    "executor@raujonas.github.io"
                     "happy-appy-hotkey@jqno.nl"
                   ];
                 };
@@ -425,6 +426,29 @@
                   hotkey-unbound-cycle = [ "<Super>grave" ];
                   number = 4;
                   restrict-to-current-workspace = true;
+                };
+                # Executor settings
+                "org/gnome/shell/extensions/executor" = {
+                  "click-on-output-active" = false;
+                  "center-active" = false;
+                  "left-active" = false;
+                  "right-active" = true;
+                  "right-commands-json" = ''
+                    {"commands":[
+                        {
+                          "isActive": true,
+                          "command": "echo \" $(hostname) \"",
+                          "interval": 300,
+                          "uuid": "732cd6de-ff5f-46a7-b8bb-51d1c621cc60"
+                        },
+                        {
+                          "isActive":true,
+                          "command":"echo \" $(subwoofer-volume.sh -r)\"",
+                          "interval":5,
+                          "uuid":"732cd6de-ff5f-46a7-b8bb-51d1c621cc62"
+                        }
+                      ]
+                    }'';
                 };
               }
               (generate_custom_keybindings {
