@@ -1,26 +1,17 @@
 { ... }:
 {
   flake.modules.nixos.tetragon =
-    { pkgs, ... }:
+    { config, pkgs, ... }:
     {
       networking.firewall.allowedTCPPorts = [ 8123 ];
 
       environment.systemPackages = [ pkgs.python3Packages.pyvizio ];
 
-      # Needed for hass user to run podman containers
-      users.users.hass = {
-        subUidRanges = [
-          {
-            startUid = 100000;
-            count = 65536;
-          }
-        ];
-        subGidRanges = [
-          {
-            startGid = 100000;
-            count = 65536;
-          }
-        ];
+      # Hass ssh key for kestrel
+      age.secrets."ssh/hass" = {
+        file = ../../../../secrets/ssh/hass.age;
+        owner = "hass";
+        group = "hass";
       };
 
       services.home-assistant = {
@@ -53,10 +44,18 @@
             living_room_tv_hdmi2 = "${pkgs.python312Packages.pyvizio}/bin/pyvizio --ip=69.69.1.150 --auth=Zt93u2t4sq input hdmi2";
 
             # Switch video and audio for Kestrel
-            kestrel_monitor_desk = "${pkgs.podman}/bin/podman run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@kestrel.lan 'display-switch.sh kestrel-desktop'";
-            kestrel_audio_desk = "${pkgs.podman}/bin/podman run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@kestrel.lan 'sink-switch.sh Starship'";
-            kestrel_monitor_living = "${pkgs.podman}/bin/podman run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@kestrel.lan 'display-switch.sh kestrel-living'";
-            kestrel_audio_living = "${pkgs.podman}/bin/podman run --rm kestrel_ssh -o 'StrictHostKeyChecking=no' tstarr@kestrel.lan 'sink-switch.sh Dragon'";
+            kestrel_monitor_desk = "${pkgs.openssh}/bin/ssh -i ${
+              config.age.secrets."ssh/hass".path
+            } -o StrictHostKeyChecking=accept-new tstarr@kestrel.lan 'display-switch.sh kestrel-desktop'";
+            kestrel_audio_desk = "${pkgs.openssh}/bin/ssh -i ${
+              config.age.secrets."ssh/hass".path
+            } -o StrictHostKeyChecking=accept-new tstarr@kestrel.lan 'sink-switch.sh Starship'";
+            kestrel_monitor_living = "${pkgs.openssh}/bin/ssh -i ${
+              config.age.secrets."ssh/hass".path
+            } -o StrictHostKeyChecking=accept-new tstarr@kestrel.lan 'display-switch.sh kestrel-living'";
+            kestrel_audio_living = "${pkgs.openssh}/bin/ssh -i ${
+              config.age.secrets."ssh/hass".path
+            } -o StrictHostKeyChecking=accept-new tstarr@kestrel.lan 'sink-switch.sh Dragon'";
           };
         };
       };

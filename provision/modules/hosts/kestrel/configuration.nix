@@ -7,7 +7,10 @@
   };
 
   flake.modules.nixos.kestrel =
-    { pkgs, config, ... }:
+    { config, ... }:
+    let
+      user = "${config.preferences.user}";
+    in
     {
       imports = [
         self.modules.nixos.core
@@ -39,6 +42,11 @@
       networking.hostName = "kestrel";
       networking.firewall.checkReversePath = "loose";
       networking.firewall.enable = false;
+
+      # Needed for home-assistant commands to control kestrel
+      users.users."${user}".openssh.authorizedKeys.keyFiles = [
+        ../../../secrets/ssh/pubs/hass.pub
+      ];
 
       # Nvidia options
       services.xserver.videoDrivers = [ "nvidia" ];
