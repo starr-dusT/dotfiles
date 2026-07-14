@@ -270,7 +270,7 @@
                     "chromium-browser.desktop"
                     "com.mitchellh.ghostty.desktop"
                     "org.gnome.Nautilus.desktop"
-                    "discord.desktop"
+                    "obsidian.desktop"
                   ];
                   disable-user-extensions = false;
                   enabled-extensions = [
@@ -325,6 +325,7 @@
                   open-new-window-application-9 = [ ];
                   toggle-application-view = [ ];
                   toggle-quick-settings = [ "<Super>z" ];
+                  toggle-message-tray = [ "<Super>v" ];
                 };
                 "org/gnome/settings-daemon/plugins/media-keys" = {
                   play = [ "<Super>p" ];
@@ -421,10 +422,14 @@
                   hotkey-1 = [ "<Super>2" ];
                   app-2 = "Files";
                   hotkey-2 = [ "<Super>3" ];
-                  app-3 = "Discord";
+                  app-3 = "Obsidian";
                   hotkey-3 = [ "<Super>4" ];
+                  app-4 = "Discord";
+                  hotkey-4 = [ "<Super>c" ];
+                  app-5 = "Mattermost";
+                  hotkey-5 = [ "<Super>m" ];
                   hotkey-unbound-cycle = [ "<Super>grave" ];
-                  number = 4;
+                  number = 6;
                   restrict-to-current-workspace = true;
                 };
                 # Executor settings
