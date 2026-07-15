@@ -7,7 +7,10 @@
   };
 
   flake.modules.nixos.stormwalker =
-    { ... }:
+    { config, ... }:
+    let
+      user = "${config.preferences.user}";
+    in
     {
       imports = [
         self.modules.nixos.core
@@ -30,5 +33,10 @@
       networking.hostName = "stormwalker";
       networking.firewall.checkReversePath = "loose";
       networking.firewall.enable = false;
+
+      # Needed for home-assistant commands to control stormwalker
+      users.users."${user}".openssh.authorizedKeys.keyFiles = [
+        ../../../secrets/ssh/pubs/hass.pub
+      ];
     };
 }

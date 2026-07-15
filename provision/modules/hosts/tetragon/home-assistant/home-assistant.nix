@@ -56,6 +56,20 @@
             kestrel_audio_living = "${pkgs.openssh}/bin/ssh -i ${
               config.age.secrets."ssh/hass".path
             } -o StrictHostKeyChecking=accept-new tstarr@kestrel.lan 'sink-switch.sh Dragon'";
+
+            # Adjust subwoofer volume
+            stormwalker_sub_low = "${pkgs.openssh}/bin/ssh -i ${
+              config.age.secrets."ssh/hass".path
+            } -o stricthostkeychecking=accept-new tstarr@stormwalker.lan 'subwoofer-volume.sh -21'";
+            stormwalker_sub_mid = "${pkgs.openssh}/bin/ssh -i ${
+              config.age.secrets."ssh/hass".path
+            } -o stricthostkeychecking=accept-new tstarr@stormwalker.lan 'subwoofer-volume.sh -15'";
+            stormwalker_sub_mid_high = "${pkgs.openssh}/bin/ssh -i ${
+              config.age.secrets."ssh/hass".path
+            } -o stricthostkeychecking=accept-new tstarr@stormwalker.lan 'subwoofer-volume.sh -9'";
+            stormwalker_sub_high = "${pkgs.openssh}/bin/ssh -i ${
+              config.age.secrets."ssh/hass".path
+            } -o stricthostkeychecking=accept-new tstarr@stormwalker.lan 'subwoofer-volume.sh -3'";
           };
         };
       };
