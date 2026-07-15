@@ -70,6 +70,14 @@
             stormwalker_sub_high = "${pkgs.openssh}/bin/ssh -i ${
               config.age.secrets."ssh/hass".path
             } -o stricthostkeychecking=accept-new tstarr@stormwalker.lan 'subwoofer-volume.sh -3'";
+
+            # Play/pause media on stormwalker
+            stormwalker_play = "${pkgs.openssh}/bin/ssh -i ${
+              config.age.secrets."ssh/hass".path
+            } -o stricthostkeychecking=accept-new tstarr@stormwalker.lan 'playerctl play'";
+            stormwalker_pause = "${pkgs.openssh}/bin/ssh -i ${
+              config.age.secrets."ssh/hass".path
+            } -o stricthostkeychecking=accept-new tstarr@stormwalker.lan 'playerctl pause'";
           };
         };
       };

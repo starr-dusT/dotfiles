@@ -42,6 +42,7 @@
         gnomeExtensions.happy-appy-hotkey # Assign hotkeys to applications to give them focus or launch them
         gnome-set-panel-monitor # Set monitor for panel to appear on
         ftw # Build custom ftl wallpapers in a complicated way for no reason
+        playerctl # Command-line utility and library for controlling media players that implement MPRIS
       ];
 
       environment.gnome.excludePackages = with pkgs; [
