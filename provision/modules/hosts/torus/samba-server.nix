@@ -46,6 +46,22 @@
             "force user" = "tstarr";
             "force group" = "users";
           };
+          romm_library = {
+            "path" = "/engi/media/romms/library";
+            browseable = "yes";
+            "read only" = "no";
+            "guest ok" = "no";
+            "force user" = "tstarr";
+            "force group" = "users";
+          };
+          romm_assets = {
+            "path" = "/engi/media/romms/assets";
+            browseable = "yes";
+            "read only" = "no";
+            "guest ok" = "no";
+            "force user" = "tstarr";
+            "force group" = "users";
+          };
         };
       };
     };
