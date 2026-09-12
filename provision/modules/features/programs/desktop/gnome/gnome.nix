@@ -38,9 +38,11 @@
         planify # Task manager with Todoist support designed for GNU/Linux
         gnomeExtensions.alphabetical-app-grid # Alphabetically order the app grid and folders
         gnomeExtensions.appindicator # Adds AppIndicator, KStatusNotifierItem and legacy Tray icons support to the Shell
+        gnomeExtensions.executor # Execute shell commands display output top bar
         gnomeExtensions.happy-appy-hotkey # Assign hotkeys to applications to give them focus or launch them
         gnome-set-panel-monitor # Set monitor for panel to appear on
         ftw # Build custom ftl wallpapers in a complicated way for no reason
+        playerctl # Command-line utility and library for controlling media players that implement MPRIS
       ];
 
       environment.gnome.excludePackages = with pkgs; [
@@ -269,14 +271,14 @@
                     "chromium-browser.desktop"
                     "com.mitchellh.ghostty.desktop"
                     "org.gnome.Nautilus.desktop"
-                    "discord.desktop"
+                    "obsidian.desktop"
                   ];
                   disable-user-extensions = false;
                   enabled-extensions = [
                     "appindicatorsupport@rgcjonas.gmail.com"
+                    "executor@raujonas.github.io"
                     "gnome-shell-extension-set-panel-monitor@tstarr.us"
                     "AlphabeticalAppGrid@stuarthayhurst"
-                    "executor@raujonas.github.io"
                     "happy-appy-hotkey@jqno.nl"
                   ];
                 };
@@ -324,6 +326,7 @@
                   open-new-window-application-9 = [ ];
                   toggle-application-view = [ ];
                   toggle-quick-settings = [ "<Super>z" ];
+                  toggle-message-tray = [ "<Super>v" ];
                 };
                 "org/gnome/settings-daemon/plugins/media-keys" = {
                   play = [ "<Super>p" ];
@@ -420,11 +423,38 @@
                   hotkey-1 = [ "<Super>2" ];
                   app-2 = "Files";
                   hotkey-2 = [ "<Super>3" ];
-                  app-3 = "Discord";
+                  app-3 = "Obsidian";
                   hotkey-3 = [ "<Super>4" ];
+                  app-4 = "Discord";
+                  hotkey-4 = [ "<Super>c" ];
+                  app-5 = "Mattermost";
+                  hotkey-5 = [ "<Super>m" ];
                   hotkey-unbound-cycle = [ "<Super>grave" ];
-                  number = 4;
+                  number = 6;
                   restrict-to-current-workspace = true;
+                };
+                # Executor settings
+                "org/gnome/shell/extensions/executor" = {
+                  "click-on-output-active" = false;
+                  "center-active" = false;
+                  "left-active" = false;
+                  "right-active" = true;
+                  "right-commands-json" = ''
+                    {"commands":[
+                        {
+                          "isActive": true,
+                          "command": "echo \" $(hostname) \"",
+                          "interval": 300,
+                          "uuid": "732cd6de-ff5f-46a7-b8bb-51d1c621cc60"
+                        },
+                        {
+                          "isActive":true,
+                          "command":"echo \" $(subwoofer-volume.sh -r)\"",
+                          "interval":5,
+                          "uuid":"732cd6de-ff5f-46a7-b8bb-51d1c621cc62"
+                        }
+                      ]
+                    }'';
                 };
               }
               (generate_custom_keybindings {

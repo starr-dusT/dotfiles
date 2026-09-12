@@ -4,6 +4,9 @@
     { config, ... }:
     let
       user = "${config.preferences.user}";
+      additions = [
+        "/home/*/.config/sops"
+      ];
       excludes = [
         "/home/*/Documents/devel" # All code worth saving is version controlled
       ];
@@ -23,12 +26,14 @@
         "kestrel-torus" = {
           path = "ssh://tstarr@torus//engi/store/kestrel.borg";
           remote_path = "borg";
+          additionalsources = additions;
           label = "torus";
           additionalExcludes = excludes;
         };
         "kestrel-rsync" = {
           path = "ssh://fm2120@fm2120.rsync.net//data1/home/fm2120/store/kestrel.borg";
           remote_path = "borg1";
+          additionalsources = additions;
           label = "rsync";
           additionalExcludes = excludes;
         };
