@@ -72,10 +72,18 @@
         desktopManager.gnome.enable = true;
       };
 
-      services.gnome.gnome-remote-desktop.enable = true;
-      networking.firewall.allowedTCPPorts = [ 3389 ];
-      systemd.services.gnome-remote-desktop = {
-        wantedBy = [ "graphical.target" ];
+      age.secrets."ssh/rdp" = {
+        file = ../../../../../secrets/ssh/rdp.age;
+        owner = "gnome-remote-desktop";
+        group = "gnome-remote-desktop";
+      };
+      services.gnome.gnome-remote-desktop = {
+        enable = true;
+        headless = {
+          enable = true;
+          username = "remote";
+          passwordFile = "/var/run/agenix/ssh/rdp";
+        };
       };
 
       # Disable autologin to avoid session conflicts

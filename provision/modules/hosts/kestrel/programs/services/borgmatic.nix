@@ -9,6 +9,8 @@
       ];
       excludes = [
         "/home/*/Documents/devel" # All code worth saving is version controlled
+        "/home/*/Documents/40-49_media/41_video-games/41.01_roms"
+        "/home/*/Documents/40-49_media/41_video-games/41.03_retrodeck-files"
       ];
     in
     {
