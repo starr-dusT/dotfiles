@@ -34,6 +34,9 @@
             "hosts deny" = "0.0.0.0/0";
             "guest account" = "nobody";
             "map to guest" = "bad user";
+            "follow symlinks" = "yes";
+            "wide links" = "yes";
+            "unix extensions" = "no";
           };
         };
 
@@ -47,15 +50,17 @@
             "force group" = "users";
           };
           romm_library = {
-            "path" = "/engi/media/romms/library";
+            "path" = "/engi/media/roms/vault/romms";
             browseable = "yes";
             "read only" = "no";
             "guest ok" = "no";
             "force user" = "tstarr";
             "force group" = "users";
+            "follow symlinks" = "yes";
+            "wide links" = "yes";
           };
           romm_assets = {
-            "path" = "/engi/media/romms/assets";
+            "path" = "/engi/media/roms/assets";
             browseable = "yes";
             "read only" = "no";
             "guest ok" = "no";
