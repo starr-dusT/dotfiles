@@ -25,6 +25,7 @@
         dysk # A linux utility listing your filesystems
         wl-clipboard # Command-line copy/paste utilities for Wayland
         python3 # High-level dynamically-typed programming language
+        wget # Tool for retrieving files using HTTP, HTTPS, and FTP
       ];
     };
 }
