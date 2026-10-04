@@ -7,7 +7,7 @@
   };
 
   flake.modules.nixos.kestrel =
-    { config, ... }:
+    { config, pkgs, ... }:
     let
       user = "${config.preferences.user}";
     in
@@ -37,6 +37,19 @@
 
       # Use performance governor for sweet gaming performance!
       powerManagement.cpuFreqGovernor = "performance";
+
+      # For https://github.com/dcog989/Ryzen-5800x3d-linux-undervolting
+      hardware.cpu.amd.ryzen-smu.enable = true; 
+      environment.systemPackages = with pkgs; [ ruv ];
+      systemd.services.ruv = {
+        description = "Ryzen undervolting service";
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig = {
+          ExecStart = "${pkgs.ruv}/bin/ruv -c 8 -o -30";
+          Restart = "on-failure";
+          RestartSec = 5;
+        };
+      };
 
       # Set networking options
       networking.hostName = "kestrel";
