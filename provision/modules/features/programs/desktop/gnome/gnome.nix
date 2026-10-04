@@ -279,6 +279,7 @@
                     "chromium-browser.desktop"
                     "com.mitchellh.ghostty.desktop"
                     "org.gnome.Nautilus.desktop"
+                    "io.github.alainm23.planify.desktop"
                     "obsidian.desktop"
                   ];
                   disable-user-extensions = false;
@@ -431,12 +432,14 @@
                   hotkey-1 = [ "<Super>2" ];
                   app-2 = "Files";
                   hotkey-2 = [ "<Super>3" ];
-                  app-3 = "Obsidian";
+                  app-3 = "Planify";
                   hotkey-3 = [ "<Super>4" ];
-                  app-4 = "Discord";
-                  hotkey-4 = [ "<Super>c" ];
-                  app-5 = "Mattermost";
-                  hotkey-5 = [ "<Super>m" ];
+                  app-4 = "Obsidian";
+                  hotkey-4 = [ "<Super>5" ];
+                  app-5 = "Discord";
+                  hotkey-5 = [ "<Super>c" ];
+                  app-6 = "Mattermost";
+                  hotkey-6 = [ "<Super>m" ];
                   hotkey-unbound-cycle = [ "<Super>grave" ];
                   number = 6;
                   restrict-to-current-workspace = true;
