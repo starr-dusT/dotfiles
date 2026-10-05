@@ -43,6 +43,7 @@
         gnome-set-panel-monitor # Set monitor for panel to appear on
         ftw # Build custom ftl wallpapers in a complicated way for no reason
         playerctl # Command-line utility and library for controlling media players that implement MPRIS
+        mutter # Window manager for GNOME
       ];
 
       environment.gnome.excludePackages = with pkgs; [
@@ -460,7 +461,7 @@
                         },
                         {
                           "isActive":true,
-                          "command":"echo \" $(subwoofer-volume.sh -r)\"",
+                          "command":"echo \" $(subwoofer-volume -r)\"",
                           "interval":5,
                           "uuid":"732cd6de-ff5f-46a7-b8bb-51d1c621cc62"
                         }
@@ -471,12 +472,12 @@
               (generate_custom_keybindings {
                 "1" = {
                   binding = "<Super><Control>d";
-                  command = "display-switch.sh -p kestrel-desktop";
+                  command = "display-switch -p kestrel-desktop";
                   name = "Kestrel display at Desk";
                 };
                 "2" = {
                   binding = "<Super><Control>l";
-                  command = "display-switch.sh -p kestrel-living";
+                  command = "display-switch -p kestrel-living";
                   name = "Kestrel display in Living Room";
                 };
               });

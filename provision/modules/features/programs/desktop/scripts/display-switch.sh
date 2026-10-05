@@ -22,15 +22,14 @@ while getopts "p:h" opt; do
     esac
 done
 
-# Get location of mutter in nix store to work around gdctl not being in PATH
-# https://github.com/NixOS/nixpkgs/issues/416824
-mutter=$(echo "$(nix eval nixpkgs#mutter.outPath)" | sed -r 's/\"//g')
+sleep 2
+
 case $val in
     "kestrel-living" )
-        "$mutter/bin/gdctl" set "${args[@]}" --logical-monitor --primary --monitor HDMI-1 --mode 2560x1440@59.951 --scale 1.33
+        /run/current-system/sw/bin/gdctl set "${args[@]}" --logical-monitor --primary --monitor HDMI-1 --mode 2560x1440@59.951 --scale 1.33
         ;;
     "kestrel-desktop" )
-        "$mutter/bin/gdctl" set "${args[@]}" --logical-monitor --primary --monitor DP-1 --mode 2560x1440@143.912 --scale 1 --logical-monitor --monitor DP-2 --mode 2560x1440@143.973 --scale 1 --left-of DP-1
+        /run/current-system/sw/bin/gdctl set "${args[@]}" --logical-monitor --primary --monitor DP-1 --mode 2560x1440@143.912 --scale 1 --logical-monitor --monitor DP-2 --mode 2560x1440@143.973 --scale 1 --left-of DP-1
         ;;
     * )
         echo "Only valid selections are kestrel-living, kestrel-desktop"

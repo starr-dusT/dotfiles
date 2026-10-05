@@ -46,30 +46,30 @@
             # Switch video and audio for Kestrel
             kestrel_monitor_desk = "${pkgs.openssh}/bin/ssh -i ${
               config.age.secrets."ssh/hass".path
-            } -o StrictHostKeyChecking=accept-new tstarr@kestrel.lan 'display-switch.sh kestrel-desktop'";
+            } -o StrictHostKeyChecking=accept-new tstarr@kestrel.lan 'display-switch kestrel-desktop'";
             kestrel_audio_desk = "${pkgs.openssh}/bin/ssh -i ${
               config.age.secrets."ssh/hass".path
-            } -o StrictHostKeyChecking=accept-new tstarr@kestrel.lan 'sink-switch.sh Starship'";
+            } -o StrictHostKeyChecking=accept-new tstarr@kestrel.lan 'sink-switch Starship'";
             kestrel_monitor_living = "${pkgs.openssh}/bin/ssh -i ${
               config.age.secrets."ssh/hass".path
-            } -o StrictHostKeyChecking=accept-new tstarr@kestrel.lan 'display-switch.sh kestrel-living'";
+            } -o StrictHostKeyChecking=accept-new tstarr@kestrel.lan 'display-switch kestrel-living'";
             kestrel_audio_living = "${pkgs.openssh}/bin/ssh -i ${
               config.age.secrets."ssh/hass".path
-            } -o StrictHostKeyChecking=accept-new tstarr@kestrel.lan 'sink-switch.sh Dragon'";
+            } -o StrictHostKeyChecking=accept-new tstarr@kestrel.lan 'sink-switch Dragon'";
 
             # Adjust subwoofer volume
             stormwalker_sub_low = "${pkgs.openssh}/bin/ssh -i ${
               config.age.secrets."ssh/hass".path
-            } -o stricthostkeychecking=accept-new tstarr@stormwalker.lan 'subwoofer-volume.sh -21'";
+            } -o stricthostkeychecking=accept-new tstarr@stormwalker.lan 'subwoofer-volume -21'";
             stormwalker_sub_mid = "${pkgs.openssh}/bin/ssh -i ${
               config.age.secrets."ssh/hass".path
-            } -o stricthostkeychecking=accept-new tstarr@stormwalker.lan 'subwoofer-volume.sh -15'";
+            } -o stricthostkeychecking=accept-new tstarr@stormwalker.lan 'subwoofer-volume -15'";
             stormwalker_sub_mid_high = "${pkgs.openssh}/bin/ssh -i ${
               config.age.secrets."ssh/hass".path
-            } -o stricthostkeychecking=accept-new tstarr@stormwalker.lan 'subwoofer-volume.sh -9'";
+            } -o stricthostkeychecking=accept-new tstarr@stormwalker.lan 'subwoofer-volume -9'";
             stormwalker_sub_high = "${pkgs.openssh}/bin/ssh -i ${
               config.age.secrets."ssh/hass".path
-            } -o stricthostkeychecking=accept-new tstarr@stormwalker.lan 'subwoofer-volume.sh -3'";
+            } -o stricthostkeychecking=accept-new tstarr@stormwalker.lan 'subwoofer-volume -3'";
 
             # Play/pause media on stormwalker
             stormwalker_play = "${pkgs.openssh}/bin/ssh -i ${

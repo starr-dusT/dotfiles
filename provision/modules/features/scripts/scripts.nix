@@ -4,8 +4,8 @@
     { pkgs, ... }:
     {
       environment.systemPackages = [
-        (pkgs.writeShellScriptBin "init-bash-script.sh" (builtins.readFile ./init-bash-script.sh))
-        (pkgs.writeShellScriptBin "mount-engi.sh" (builtins.readFile ./mount-engi.sh))
+        (pkgs.writeShellScriptBin "init-bash-script" (builtins.readFile ./init-bash-script.sh))
+        (pkgs.writeShellScriptBin "mount-engi" (builtins.readFile ./mount-engi.sh))
       ];
     };
 }

@@ -1,7 +1,15 @@
 { ... }:
 {
   flake.modules.nixos.desktop-scripts =
-    { pkgs, config, ... }:
+    { pkgs, lib, config, ... }:
+    let
+      sink-switch = pkgs.writeShellScriptBin "sink-switch" (builtins.readFile ./sink-switch.sh);
+      display-switch = pkgs.writeShellScriptBin "display-switch" (builtins.readFile ./display-switch.sh);
+      subwoofer-volume = pkgs.writeShellScriptBin "subwoofer-volume" (
+        builtins.readFile ./subwoofer-volume.sh
+      );
+      isKestrel = config.preferences.hostname == "kestrel";
+    in
     {
       age.secrets."kube/homedb_pass" = {
         file = ../../../../../secrets/kube/homedb_pass.age;
@@ -12,11 +20,21 @@
       environment.systemPackages = [
         pkgs.jq
         pkgs.postgresql
-      ]
-      ++ [
-        (pkgs.writeShellScriptBin "sink-switch.sh" (builtins.readFile ./sink-switch.sh))
-        (pkgs.writeShellScriptBin "display-switch.sh" (builtins.readFile ./display-switch.sh))
-        (pkgs.writeShellScriptBin "subwoofer-volume.sh" (builtins.readFile ./subwoofer-volume.sh))
+        sink-switch
+        display-switch
+        subwoofer-volume
       ];
+
+      # Set default display setting to kestrel-desktop for kestrel
+      systemd.user.services.display-switch = lib.mkIf isKestrel {
+        description = "Run script to set display settings on gnome launch";
+        wantedBy = [ "graphical-session.target" ];
+        after = [ "graphical-session.target" ];
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "${display-switch}/bin/display-switch kestrel-desktop";
+          RemainAfterExit = true;
+        };
+      };
     };
 }
