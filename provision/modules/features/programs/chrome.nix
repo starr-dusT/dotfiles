@@ -36,6 +36,7 @@
             "hkgfoiooedgoejojocmhlaklaeopbecg" # Picture-in-Picture (by Google)
             "beakmhbijpdhipnjhnclmhgjlddhidpe" # Linkding
             "icpgjfneehieebagbmdbhnlpiopdcmna" # New Tab Redirect
+            "kokhpbhfeokchmbimdlaldcmlinjpipm" # 2FAuth
           ];
 
           # Setup bookmarks
