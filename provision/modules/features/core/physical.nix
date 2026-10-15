@@ -3,6 +3,10 @@
   flake.modules.nixos.physical =
     { config, pkgs, ... }:
     {
+      environment.systemPackages = with pkgs; [
+        usbutils
+      ];
+
       boot = {
         loader.systemd-boot.enable = true;
         loader.efi.canTouchEfiVariables = true;

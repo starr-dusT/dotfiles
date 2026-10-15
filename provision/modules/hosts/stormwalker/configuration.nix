@@ -34,6 +34,11 @@
       networking.firewall.checkReversePath = "loose";
       networking.firewall.enable = false;
 
+      # Disable internal bluetooth module
+      services.udev.extraRules = ''
+        ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="8087", ATTRS{idProduct}=="0aaa", ATTR{authorized}="0"
+      '';
+
       # Needed for home-assistant commands to control stormwalker
       users.users."${user}".openssh.authorizedKeys.keyFiles = [
         ../../../secrets/ssh/pubs/hass.pub
