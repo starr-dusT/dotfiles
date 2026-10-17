@@ -37,6 +37,7 @@
             "beakmhbijpdhipnjhnclmhgjlddhidpe" # Linkding
             "icpgjfneehieebagbmdbhnlpiopdcmna" # New Tab Redirect
             "kokhpbhfeokchmbimdlaldcmlinjpipm" # 2FAuth
+            "ddkjiahejlhfcafbddmgiahcphecmpfh" # uBlock
           ];
 
           # Setup bookmarks
