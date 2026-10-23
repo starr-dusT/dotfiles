@@ -34,6 +34,7 @@
       # Password-less login for root
       programs.ssh.extraConfig = ''
         Host fm2120.rsync.net
+          AddressFamily inet
           AddKeysToAgent yes
           IdentityFile /run/agenix/borg/rsync/id_rsa
 
@@ -107,7 +108,7 @@
         timerConfig = {
           OnCalendar = "02:00";
           Persistent = true;
-          RandomizedDelaySec = "10m";
+          RandomizedDelaySec = "30m";
         };
       };
     };
