@@ -15,7 +15,12 @@
         };
       };
 
-      services.alloy.enable = true;
+      services.alloy = {
+        enable = true;
+        extraFlags = [
+          "--disable-reporting"
+        ];
+      };
       environment.etc."alloy/config.alloy".text = ''
         loki.relabel "journal" {
           forward_to = []

@@ -51,3 +51,6 @@ ruler:
       directory: /tmp/rules
   rule_path: /tmp/rules-temp
   enable_api: true
+
+analytics:
+  reporting_enabled: false
