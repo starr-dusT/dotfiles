@@ -15,7 +15,7 @@
         gamemode # Optimizes system performance for gaming by adjusting system settings
         discord # Voice, video, and text communication platform for communities and friends
         inkscape # Vector graphics editor for creating illustrations, icons, logos, diagrams, and more
-        libreoffice-fresh # Office suite compatible with Microsoft Office
+        libreoffice-stable # Office suite compatible with Microsoft Office
         mpv # Media player for playing audio and video files
         p7zip # Command-line file archiver with high compression ratio
         gimp # GNU Image Manipulation Program for editing and composing raster images
