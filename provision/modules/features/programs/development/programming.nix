@@ -14,7 +14,8 @@
         nixfmt-tree # Official Nix formatter zero-setup starter using treefmt
         lua-language-server # Language server that offers Lua language support
         devenv # Fast, Declarative, Reproducible, and Composable Developer Environments
-        (python3.withPackages (
+        opencode # AI coding agent built for the terminal
+        (python313.withPackages (
           ps: with ps; [
             python-lsp-server # Python implementation of the Language Server Protocol
             python-lsp-jsonrpc # Python server implementation of the JSON RPC 2.0 protocol
@@ -34,5 +35,10 @@
         "root"
         "${config.preferences.user}"
       ];
+
+      services.ollama = {
+        enable = true;
+        package = pkgs.ollama-cuda;
+      };
     };
 }
