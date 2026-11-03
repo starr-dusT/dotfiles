@@ -281,7 +281,7 @@
                     "com.mitchellh.ghostty.desktop"
                     "org.gnome.Nautilus.desktop"
                     "io.github.alainm23.planify.desktop"
-                    "obsidian.desktop"
+                    "md.obsidian.Obsidian.desktop"
                   ];
                   disable-user-extensions = false;
                   enabled-extensions = [
@@ -442,7 +442,7 @@
                   app-6 = "Mattermost";
                   hotkey-6 = [ "<Super>m" ];
                   hotkey-unbound-cycle = [ "<Super>grave" ];
-                  number = 6;
+                  number = 7;
                   restrict-to-current-workspace = true;
                 };
                 # Executor settings
