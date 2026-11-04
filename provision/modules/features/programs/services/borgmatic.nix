@@ -16,6 +16,7 @@
       common_excludes = [
         "/home/*/.?*" # Exclude dotfiles
         "home/*/Downloads"
+        "home/*/Temp"
         # Common programming venvs
         "**/node_modules"
         "**/bower_components"
