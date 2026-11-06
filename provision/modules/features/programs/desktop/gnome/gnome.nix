@@ -44,6 +44,7 @@
         ftw # Build custom ftl wallpapers in a complicated way for no reason
         playerctl # Command-line utility and library for controlling media players that implement MPRIS
         mutter # Window manager for GNOME
+        gnome-pomodoro # Time management utility for GNOME based on the pomodoro technique
       ];
 
       environment.gnome.excludePackages = with pkgs; [
