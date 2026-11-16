@@ -26,6 +26,7 @@
         wl-clipboard # Command-line copy/paste utilities for Wayland
         python3 # High-level dynamically-typed programming language
         wget # Tool for retrieving files using HTTP, HTTPS, and FTP
+        e2fsprogs # Tools for creating and checking ext2/ext3/ext4 filesystems
       ];
     };
 }

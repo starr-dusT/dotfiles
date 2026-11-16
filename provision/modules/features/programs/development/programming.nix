@@ -14,6 +14,8 @@
         nixfmt-tree # Official Nix formatter zero-setup starter using treefmt
         lua-language-server # Language server that offers Lua language support
         devenv # Fast, Declarative, Reproducible, and Composable Developer Environments
+        opencode # AI coding agent built for the terminal
+        claude-code # Agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster
         (python313.withPackages (
           ps: with ps; [
             python-lsp-server # Python implementation of the Language Server Protocol

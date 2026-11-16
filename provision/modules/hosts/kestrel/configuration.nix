@@ -39,7 +39,7 @@
       powerManagement.cpuFreqGovernor = "performance";
 
       # For https://github.com/dcog989/Ryzen-5800x3d-linux-undervolting
-      hardware.cpu.amd.ryzen-smu.enable = true; 
+      hardware.cpu.amd.ryzen-smu.enable = true;
       environment.systemPackages = with pkgs; [ ruv ];
       systemd.services.ruv = {
         description = "Ryzen undervolting service";
@@ -63,12 +63,15 @@
 
       # Nvidia options
       services.xserver.videoDrivers = [ "nvidia" ];
-      hardware.nvidia = {
-        modesetting.enable = true;
-        powerManagement.enable = false;
-        nvidiaSettings = true;
-        open = true;
-        package = config.boot.kernelPackages.nvidiaPackages.stable;
+      hardware = {
+        nvidia-container-toolkit.enable = true;
+        nvidia = {
+          modesetting.enable = true;
+          powerManagement.enable = false;
+          nvidiaSettings = true;
+          open = true;
+          package = config.boot.kernelPackages.nvidiaPackages.stable;
+        };
       };
 
       # Wireguard clients
