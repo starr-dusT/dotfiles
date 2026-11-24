@@ -1,0 +1,20 @@
+<theme>
+	<formatVersion>7</formatVersion>
+
+	<variables>
+		<!-- Menu Title font Size -->
+		<menutitleFontSize>0.06</menutitleFontSize>
+		<!-- Menu Footer font Size -->
+		<menufooterFontSize>0.015</menufooterFontSize>
+		<!-- Menu font Size -->
+		<menutextFontSize>0.025</menutextFontSize>
+		<!-- Small Menu font Size -->
+		<menutextsmallFontSize>0.015</menutextsmallFontSize>
+
+		<!-- Logo Font -->
+		<logoFont>./_inc/fonts/DWB_Title.ttf</logoFont>
+		<!-- Body Font -->
+		<bodyFont>./_inc/fonts/dogicapixel.ttf</bodyFont>
+		<gamelistFontSize>0.02</gamelistFontSize>
+	</variables>
+</theme>

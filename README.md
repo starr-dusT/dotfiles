@@ -15,11 +15,12 @@ for information on initial installation.
 
 | | Name | Role | Description |
 |---|---|---|---|
-| <img src="./resources/img/ships/bulwark.png" width="100"> | [bulwark](./provision/hosts/bulwark/) | Steam Deck | Black sheep of these configs. I use SteamOS with configurations documented in [host folder](./provision/hosts/bulwark). |
-| <img src="./resources/img/ships/kestrel.png" width="100"> | [kestrel](./provision/hosts/kestrel/) | Primary desktop | Main machine that does it all gaming, programming, 3D modelling, etc. |
-| <img src="./resources/img/ships/nesario.png" width="100"> | [nesario](./provision/hosts/nesario/) | Mom's Media PC | Media PC with basics to mostly watch baseball. |
-| <img src="./resources/img/ships/shivan.png" width="100"> | [shivan](./provision/hosts/shivan/) | Personal Laptop | Personal (and very slow) laptop for basic mobile work. |
-| <img src="./resources/img/ships/stormwalker.png" width="100"> | [stormwalker](./provision/hosts/stormwalker/) | Living Room Media PC | Media PC with basics to mostly watch baseball. |
-| <img src="./resources/img/ships/tetragon.png" width="100"> | [tetragon](./provision/hosts/tetragon/) | Local Services Server | Server to run local services like DHCP, DNS, and Wireguard. |
-| <img src="./resources/img/ships/torus.png" width="100"> | [torus](./provision/hosts/torus/) | Home server | Primary home server for storage, hosting machine backups, and running services like Jellyfin. |
-| <img src="./resources/img/ships/vortex.png" width="100"> | [vortex](./provision/hosts/vortex/) | Services Cluster | Cluster of Lenovo ThinkCentre computers for running services. |
+| <img src="./resources/img/ships/bulwark.png" width="100"> | [bulwark](./provision/modules/hosts/bulwark/) | Steam Deck | SteamOS with configurations documented in [host folder](./provision/modules/hosts/bulwark). |
+| <img src="./resources/img/ships/kestrel.png" width="100"> | [kestrel](./provision/modules/hosts/kestrel/) | Primary desktop | Main machine that does it all gaming, programming, 3D modelling, etc. |
+| <img src="./resources/img/ships/nesario.png" width="100"> | [nesario](./provision/modules/hosts/nesario/) | Mom's Media PC | Media PC with basics to mostly watch baseball. |
+| <img src="./resources/img/ships/shivan.png" width="100"> | [shivan](./provision/modules/hosts/shivan/) | Personal Laptop | Personal (and very slow) laptop for basic mobile work. |
+| <img src="./resources/img/ships/stormwalker.png" width="100"> | [stormwalker](./provision/modules/hosts/stormwalker/) | Living Room Media PC | Media PC with basics to mostly watch baseball. |
+| <img src="./resources/img/ships/tetragon.png" width="100"> | [tetragon](./provision/modules/hosts/tetragon/) | Local Services Server | Server to run local services like DHCP, DNS, and Wireguard. |
+| <img src="./resources/img/ships/torus.png" width="100"> | [torus](./provision/modules/hosts/torus/) | Home server | Primary home server for storage, hosting machine backups, and running services like Jellyfin. |
+| <img src="./resources/img/ships/vortex.png" width="100"> | [vortex](./provision/modules/hosts/vortex/) | Services Cluster | Cluster of Lenovo ThinkCentre computers for running services. |
+| <img src="./resources/img/ships/osprey.png" width="100"> | [osprey](./provision/modules/hosts/osprey/) | GKD Pixel 2 | ROCKNIX and documented configurations. |

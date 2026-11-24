@@ -1,0 +1,9 @@
+<theme>
+   <formatVersion>7</formatVersion>
+	<view name="system">
+		<image name="staticBackground" extra="true">
+
+			<size>1 0</size>
+		</image>
+	</view>
+</theme>
